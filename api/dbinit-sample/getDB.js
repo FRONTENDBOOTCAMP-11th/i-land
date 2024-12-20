@@ -22,7 +22,7 @@ async function getDB(clientId) {
     db.config = db.collection("config");
     db.post = db.collection("post");
 
-    const nextSeq = async (_id) => {
+    const nextSeq = async _id => {
       let result = await db.seq.findOneAndUpdate({ _id }, { $inc: { no: 1 } });
       if (!result) {
         result = { _id, no: 1 };
