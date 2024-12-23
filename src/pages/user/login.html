@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/src/index.css">
+</head>
+
+<body>
+  <div class="container">
+
+    <form class="w-[400px] mx-auto py-[60px]">
+
+      <header>헤더 로고 영역</header>
+
+      <fieldset class="mb-[30px]" id="userInfo">
+        <legend class="sr-only">사용자 정보 입력</legend>
+
+        <div>
+          <label for="userEmail">이메일</label>
+          <div class="py-[10px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue items-center">
+            <input class="text-[20px] focus:outline-none flex-grow" id="userEmail" type="email"
+              placeholder="예) iland@iland.com" />
+          </div>
+          <p class="text-point-red mt-[2px]">이메일을 정확히 입력해주세요</p>
+        </div>
+
+        <div class="mb-5">
+          <label for="password">비밀번호</label>
+          <div class="py-[14px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue items-center">
+            <input class="text-[20px] focus:outline-none flex-grow" id="password" type="password" placeholder="비밀번호" />
+            <button type="button" aria-label="비밀번호 표시">
+              <img class="ml-auto" src="/public/eye-closed.svg" alt="비밀번호 숨김 상태" />
+              <img class="ml-auto hidden" src="/public/eye-open.svg" alt="비밀번호 표시 중" />
+            </button>
+          </div>
+          <p class="text-point-red mt-[2px]">비밀번호를 입력해주세요</p>
+        </div>
+
+      </fieldset>
+
+      <div
+        class="text-center p-[18px] border-solid border-gray3 border-2 rounded-[8px] text-gray3 focus-within:border-point-blue focus-within:shadow-md focus-within:shadow-point-blue">
+        <button class="w-full focus:outline-none" type="submit">
+          회원가입
+        </button>
+      </div>
+
+    </form>
+  </div>
+</body>
+
+</html>
