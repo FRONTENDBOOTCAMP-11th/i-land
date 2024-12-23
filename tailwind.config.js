@@ -5,6 +5,9 @@ export default {
     screens: {
       container: "1200px",
     },
+    container: {
+      center: true, // Contanier 가운데 정렬
+    },
     colors: {
       black: "#000000",
       white: "#FFFFFF",
