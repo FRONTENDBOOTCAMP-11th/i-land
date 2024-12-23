@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/src/index.css">
+</head>
+
+<body>
+  <div class="container  ">
+
+    <form class="w-[400px] mx-auto">
+
+      <h1 class="text-center font-bold text-[32px] pt-[60px] pb-[42px]">회원가입</h1>
+
+      <fieldset class="mb-[30px]" id="userInfo">
+        <div class="mb-5">
+          <label for="userName">이름</label>
+          <div class="py-[14px] border-solid border-b-4 border-gray3 focus-within:border-point-blue">
+            <input class="w-full focus:outline-none" id="userName" type="text" placeholder="예) 김아랜" />
+          </div>
+          <p>이름을 정확히 입력해주세요</p>
+        </div>
+
+        <div class="mb-5">
+          <label for="userNickname">닉네임</label>
+          <div class="py-[14px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue">
+            <input class="focus:outline-none flex-grow" id="userNickname" type="text" placeholder="예) 아이랜드덕후" />
+            <button class="ml-auto" type="button">중복확인</button>
+          </div>
+          <p>이름을 정확히 입력해주세요</p>
+        </div>
+
+        <div class="mb-5">
+          <label for="userEmail">이메일</label>
+          <div class="py-[14px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue">
+            <input class="focus:outline-none flex-grow" id="userEmail" type="text" placeholder="예) iland@iland.com" />
+            <button class="ml-auto" type="button">중복확인</button>
+          </div>
+          <p>이름을 정확히 입력해주세요</p>
+        </div>
+      </fieldset>
+
+      <fieldset id="userPw">
+        <div class="mb-5">
+          <label for="password">비밀번호</label>
+          <div class="py-[14px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue">
+            <input class="focus:outline-none flex-grow" type="password" placeholder="비밀번호" />
+            <img class="ml-auto" src="/public/eye-closed.svg" />
+          </div>
+          <p>비밀번호를 입력해주세요</p>
+        </div>
+
+        <div class="mb-5">
+          <label for="passwordCheck">비밀번호 확인</label>
+          <div class="py-[14px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue">
+            <input class="focus:outline-none flex-grow" type="password" placeholder="비밀번호 확인" />
+            <img class="ml-auto" src="/public/eye-closed.svg" />
+          </div>
+          <p>비밀번호를 확인해주세요</p>
+        </div>
+      </fieldset>
+
+      <div class="text-center p-[18px] border-solid focus-within:border-point-blue">
+        <button class="  w-full focus:outline-none" type="button">
+          회원가입
+        </button>
+      </div>
+
+    </form>
+  </div>
+</body>
+
+</html>
