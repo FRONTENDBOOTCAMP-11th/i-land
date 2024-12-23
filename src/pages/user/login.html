@@ -10,15 +10,19 @@
 
 <body>
   <div class="container">
+    <header class="mx-auto w-fit shadow-inner shadow-black py-[30px] mb-[10px]">
+      <figure class="shadow-inner shadow-point-blue">
+        <img class="shadow-inner shadow-point-red mx-auto" src="/public/logo-vertical.svg" />
+        <figcaption class="shadow-inner shadow-point shadow-black font-bold text-[18px]">내 취향을 위한 공간</figcaption>
+      </figure>
+    </header>
 
-    <form class="w-[400px] mx-auto py-[60px]">
-
-      <header>헤더 로고 영역</header>
+    <form class="w-[400px] mx-auto shadow-inner shadow-point-blue">
 
       <fieldset class="mb-[30px]" id="userInfo">
-        <legend class="sr-only">사용자 정보 입력</legend>
+        <legend class="sr-only">로그인 입력 폼</legend>
 
-        <div>
+        <div class="mb-5">
           <label for="userEmail">이메일</label>
           <div class="py-[10px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue items-center">
             <input class="text-[20px] focus:outline-none flex-grow" id="userEmail" type="email"
@@ -27,7 +31,7 @@
           <p class="text-point-red mt-[2px]">이메일을 정확히 입력해주세요</p>
         </div>
 
-        <div class="mb-5">
+        <div class="mb-[10px]">
           <label for="password">비밀번호</label>
           <div class="py-[14px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue items-center">
             <input class="text-[20px] focus:outline-none flex-grow" id="password" type="password" placeholder="비밀번호" />
@@ -38,6 +42,11 @@
           </div>
           <p class="text-point-red mt-[2px]">비밀번호를 입력해주세요</p>
         </div>
+
+        <label class="shadow-inner shadow-point-blue">
+          <input type="checkbox" />
+          로그인 상태 유지
+        </label>
 
       </fieldset>
 
