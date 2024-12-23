@@ -6,7 +6,7 @@ export default {
       container: "1200px",
     },
     container: {
-      center: true, // Contanier 가운데 정렬
+      center: true, // Container 가운데 정렬
       padding: "100px", // Container 좌우 패딩 100px
     },
     colors: {
