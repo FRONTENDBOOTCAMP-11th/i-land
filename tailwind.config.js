@@ -7,6 +7,7 @@ export default {
     },
     container: {
       center: true, // Contanier 가운데 정렬
+      padding: "100px",
     },
     colors: {
       black: "#000000",

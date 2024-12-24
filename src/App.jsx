@@ -1,10 +1,10 @@
-import Header from "./components/layout/Header";
+import { RouterProvider } from "react-router-dom";
+
+import router from "@/routes";
 
 function App() {
   return (
-    <>
-      <Header />
-    </>
+    <RouterProvider router={router} future={{ v7_startTransition: true }} />
   );
 }
 
