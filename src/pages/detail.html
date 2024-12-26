@@ -6,16 +6,16 @@
     <title>Document</title>
     <link rel="stylesheet" href="../index.css">
 </head>
-<body class="bg-gray3 container">
+<body class="bg-gray3">
     <header class="bg-black">   <!--컴포넌트로 교체-->
         <h1>123</h1>
     </header>
 
 
-    <main class="bg-white px-24 py-5">
+    <main class="bg-white px-24 py-5 container">
         <section class="section-title" name="detailHeader">
             <div class="flex gap-x-20">
-                <img class="w-96 h-96" src="/src/pages/detail_img/image 24.png" alt="">
+                <img class="w-96 h-96" src="/src/assets/images/kuromi.png" alt="">
                 <div class="w-96 flex flex-col gap-y-7">
                     <a href=""><p class="text-gray3 text-lg not-italic font-normal">산리오 공식물이고 싶음 ></p></a> <!-- 판매자가 판매하는 상품 검색? -->
                     <p class="text-black text-3xl not-italic font-bold">쿠로미 보온 머그잔</p>
@@ -27,16 +27,14 @@
                         <option value="">선택3</option>
                     </select>
                     <div class="flex justify-between">
-                        <div>
-                            <button>-</button>
-                            <button class="w-6 h-6 border rounded border-solid">
-                                <p class="text-black font-lg font-bold">1</p>
-                            </button>
-                            <button>+</button>
+                        <div class="flex gap-x-2">
+                            <button class="w-12 h-12 border border-solid border-gray2 rounded">-</button>
+                            <input class="w-12 h-12 border border-solid border-gray2 rounded" type="text" value="1" name="countUp" />
+                            <button class="w-12 h-12 border border-solid border-gray2 rounded">+</button>
                         </div>
                         <p class="text-black text-2xl font-bold">총 120,000 원</p>
                     </div>
-                    <div class="flex gap-x-2.5 justify-between ">
+                    <div class="flex gap-x-8 justify-between ">
                         <img src="/src/assets/icons/heart-fill.svg" alt="">
                         <button class="w-32 h-12 border border-gray2 rounded-lg border-solid box-border">
                             <p class="text-lg font-bold">장바구니</p>
@@ -52,7 +50,7 @@
         <section class="section-title" name="detailMain">
             <p class="mt-5">상품 설명</p>
             <div class="flex flex-col justify-self-center">
-                <img class="w-96 h-96 mt-16 mb-32" src="/src/pages/detail_img/image 24.png" alt="">
+                <img class="w-96 h-96 mt-16 mb-32" src="/src/assets/images/kuromi.png" alt="">
             </div>
             <p>💜 쿠로미 보온 머그 - 귀여움과 실용성을 동시에! 💜</p>
             <br>
@@ -134,7 +132,7 @@
                 <div class="flex flex-col gap-y-7">
                     <p>상품의 후기를 작성하세요</p>
                     <div class="h-52 p-10 border border-gray2 rounded-lg">
-                        <input class="text-gray3 text-2xl font-normal" type="text" placeholder="내용을 입력하세요">
+                        <input class="text-gray3 text-2xl font-normal outline-none" type="text" placeholder="내용을 입력하세요">
                     </div>
                     <button class="w-36 h-12 text-lg text-white bg-point-blue rounded-lg">리뷰 등록</button>
                 </div>
