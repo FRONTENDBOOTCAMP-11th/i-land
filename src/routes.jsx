@@ -18,6 +18,7 @@ const router = createBrowserRouter(
         { path: "search", element: <Search /> },
         { path: "bookmarks", element: <Bookmarks /> },
         { path: "carts", element: <Carts /> },
+        { path: "productCreate", element: <Carts /> },
       ],
     },
   ],
