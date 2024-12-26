@@ -2,12 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Pretendard";
+  src: url("/PretendardVariable.ttf") format("truetype");
+}
+
 @layer base {
   html {
-    /* 기본 폰트 Pretendard, fallback 폰트 sans-serif */
     font-family: "Pretendard", sans-serif;
-    /* 줄높이 1(폰트 사이즈와 동일) */
     line-height: 1;
-    src: url("/PretendardVariable.ttf");
+  }
+}
+
+@layer components {
+  .page-title {
+    @apply text-[32px] leading-none font-bold text-black mb-[60px];
+  }
+
+  .section-title {
+    @apply block text-2xl leading-none font-bold text-black mb-[20px];
   }
 }
