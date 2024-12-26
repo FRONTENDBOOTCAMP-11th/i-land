@@ -15,7 +15,7 @@
 
       <h1 class="text-center font-bold text-[32px] pb-[42px]">회원가입</h1>
 
-      <fieldset class="mb-[30px]" id="userInfo">
+      <fieldset class="mb-[10px]" id="userInfo">
         <legend class="sr-only">사용자 정보 입력</legend>
         <div class="mb-5">
           <label for="userName">이름</label>
@@ -27,7 +27,7 @@
 
         <div class="mb-5">
           <label for="userNickname">닉네임</label>
-          <div class="py-[10px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue items-center">
+          <div class="py-[10px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue">
             <input class="text-[20px] focus:outline-none flex-grow" id="userNickname" type="text"
               placeholder="예) 아이랜드덕후" />
             <div
@@ -38,9 +38,9 @@
           <p class="text-point-red mt-[2px]">닉네임을 정확히 입력해주세요</p>
         </div>
 
-        <div>
+        <div class="mb-5">
           <label for="userEmail">이메일</label>
-          <div class="py-[10px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue items-center">
+          <div class="py-[10px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue">
             <input class="text-[20px] focus:outline-none flex-grow" id="userEmail" type="email"
               placeholder="예) iland@iland.com" />
             <div
@@ -53,14 +53,14 @@
       </fieldset>
 
       <fieldset id="userPw">
-        <legend class="sr-only">비밀번호 입력 및 확인 란</legend>
+        <legend class="sr-only">비밀번호 입력 및 확인란</legend>
         <div class="mb-5">
           <label for="password">비밀번호</label>
           <div class="py-[14px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue items-center">
             <input class="text-[20px] focus:outline-none flex-grow" id="password" type="password" placeholder="비밀번호" />
             <button cursor="pointer" type="button" aria-label="비밀번호 표시">
-              <img class="ml-auto" src="/public/eye-closed.svg" alt="비밀번호 숨김 상태" />
-              <img class="ml-auto hidden" src="/public/eye-open.svg" alt="비밀번호 표시 중" />
+              <img class="ml-auto" src="/src/assets/icons/eye-closed.svg" alt="비밀번호 숨김 상태" />
+              <img class="ml-auto hidden" src="/src/assets/icons/eye-open.svg" alt="비밀번호 표시 중" />
             </button>
           </div>
           <p class="text-point-red mt-[2px]">비밀번호를 입력해주세요</p>
@@ -72,8 +72,8 @@
             <input class="text-[20px] focus:outline-none flex-grow" id="passwordCheck" type="password"
               placeholder="비밀번호 확인" />
             <button cursor="pointer" type="button" aria-label="비밀번호 확인 표시">
-              <img class="ml-auto" src="/public/eye-closed.svg" alt="비밀번호 숨김 상태" />
-              <img class="ml-auto hidden" src="/public/eye-open.svg" alt="비밀번호 표시 중" />
+              <img class="ml-auto" src="/src/assets/icons/eye-closed.svg" alt="비밀번호 숨김 상태" />
+              <img class="ml-auto hidden" src="/src/assets/icons/eye-open.svg" alt="비밀번호 표시 중" />
             </button>
           </div>
           <p class="text-point-red mt-[2px]">비밀번호를 확인해주세요</p>
