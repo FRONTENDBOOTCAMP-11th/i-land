@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/src/index.css">
+</head>
+
+<body>
+  <div class="container">
+
+    <form class="w-[400px] mx-auto py-[60px]">
+
+      <h1 class="text-center font-bold text-[32px] pb-[42px]">회원가입</h1>
+
+      <fieldset class="mb-[10px]" id="userInfo">
+        <legend class="sr-only">사용자 정보 입력</legend>
+        <div class="mb-5">
+          <label for="userName">이름</label>
+          <div class="py-[14px] border-solid border-b-4 border-gray3 focus-within:border-point-blue">
+            <input class="text-[20px] w-full focus:outline-none" id="userName" type="text" placeholder="예) 김아랜" />
+          </div>
+          <p class="text-point-red mt-[2px]">이름을 정확히 입력해주세요</p>
+        </div>
+
+        <div class="mb-5">
+          <label for="userNickname">닉네임</label>
+          <div class="py-[10px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue">
+            <input class="text-[20px] focus:outline-none flex-grow" id="userNickname" type="text"
+              placeholder="예) 아이랜드덕후" />
+            <div
+              class="ml-auto px-[14px] py-[6px] border-solid border-2 border-gray2 rounded-lg text-gray3 box-content focus-within:border-point-blue">
+              <button cursor="pointer" class="focus:outline-none" type="button" aria-label="닉네임 중복 확인 버튼">중복확인</button>
+            </div>
+          </div>
+          <p class="text-point-red mt-[2px]">닉네임을 정확히 입력해주세요</p>
+        </div>
+
+        <div class="mb-5">
+          <label for="userEmail">이메일</label>
+          <div class="py-[10px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue">
+            <input class="text-[20px] focus:outline-none flex-grow" id="userEmail" type="email"
+              placeholder="예) iland@iland.com" />
+            <div
+              class="ml-auto px-[14px] py-[6px] border-solid border-2 border-gray2 rounded-lg text-gray3 box-content focus-within:border-point-blue">
+              <button cursor="pointer" class="focus:outline-none" type="button" aria-label="이메일 중복 확인 버튼">중복확인</button>
+            </div>
+          </div>
+          <p class="text-point-red mt-[2px]">이메일을 정확히 입력해주세요</p>
+        </div>
+      </fieldset>
+
+      <fieldset id="userPw">
+        <legend class="sr-only">비밀번호 입력 및 확인란</legend>
+        <div class="mb-5">
+          <label for="password">비밀번호</label>
+          <div class="py-[14px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue items-center">
+            <input class="text-[20px] focus:outline-none flex-grow" id="password" type="password" placeholder="비밀번호" />
+            <button cursor="pointer" type="button" aria-label="비밀번호 표시">
+              <img class="ml-auto" src="/src/assets/icons/eye-closed.svg" alt="비밀번호 숨김 상태" />
+              <img class="ml-auto hidden" src="/src/assets/icons/eye-open.svg" alt="비밀번호 표시 중" />
+            </button>
+          </div>
+          <p class="text-point-red mt-[2px]">비밀번호를 입력해주세요</p>
+        </div>
+
+        <div class="mb-5">
+          <label for="passwordCheck">비밀번호 확인</label>
+          <div class="py-[14px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue items-center">
+            <input class="text-[20px] focus:outline-none flex-grow" id="passwordCheck" type="password"
+              placeholder="비밀번호 확인" />
+            <button cursor="pointer" type="button" aria-label="비밀번호 확인 표시">
+              <img class="ml-auto" src="/src/assets/icons/eye-closed.svg" alt="비밀번호 숨김 상태" />
+              <img class="ml-auto hidden" src="/src/assets/icons/eye-open.svg" alt="비밀번호 표시 중" />
+            </button>
+          </div>
+          <p class="text-point-red mt-[2px]">비밀번호를 확인해주세요</p>
+        </div>
+      </fieldset>
+
+      <div
+        class="text-center p-[18px] border-solid border-gray3 border-2 rounded-[8px] text-gray3 focus-within:border-point-blue focus-within:shadow-md focus-within:ring-point-blue">
+        <button cursor="pointer" class="w-full focus:outline-none" type="submit">
+          회원가입
+        </button>
+      </div>
+
+    </form>
+  </div>
+</body>
+
+</html>
