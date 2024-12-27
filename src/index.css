@@ -11,3 +11,13 @@
     src: url("/PretendardVariable.ttf");
   }
 }
+
+@layer components {
+  .page-title {
+    @apply text-[32px] leading-none font-bold text-black mb-[60px];
+  }
+
+  .section-title {
+    @apply block text-2xl leading-none font-bold text-black mb-[20px];
+  }
+}
