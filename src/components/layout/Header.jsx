@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import logo from "/src/assets/icons/logo.svg";
+import logo from "/src/assets/images/logo.svg";
 import searchIcon from "/src/assets/icons/search.svg";
 import bookmarkIcon from "/src/assets/icons/heart-fill.svg";
 import cartIcon from "/src/assets/icons/cart.svg";
-import noProfileImage from "/src/assets/icons/no-profile-image.svg";
+import noProfileImage from "/src/assets/images/no-profile-image.svg";
 
 export default function Header() {
   // 로그인 상태와 프로필 이미지 관리
