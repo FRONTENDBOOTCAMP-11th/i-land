@@ -122,17 +122,17 @@ export default function ProductCreate() {
           ></textarea>
         </div>
 
-        {/* Buttons */}
-        <div className="flex justify-end gap-4">
+        <div className="flex items-center justify-center gap-10">
           <button
             type="button"
-            className="px-6 py-2 text-gray-700 border border-gray-300 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300"
+            className="w-[400px] h-[60px] border-2 border-gray3 rounded-lg text-gray3 font-bold text-2xl"
           >
             등록 취소
           </button>
+
           <button
             type="submit"
-            className="px-6 py-2 font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-[400px] h-[60px] bg-point-blue text-white font-bold text-2xl rounded-lg"
           >
             등록
           </button>
