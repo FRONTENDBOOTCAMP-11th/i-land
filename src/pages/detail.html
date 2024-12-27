@@ -6,7 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="../index.css">
 </head>
-<body class="bg-gray3">
+<body>
 
     <!-- 컴포넌트 헤더 -->
 
@@ -17,7 +17,7 @@
                 <div class="w-96 flex flex-col gap-y-7">
                     <a href=""><p class="text-gray3 text-lg not-italic font-normal">산리오 공식물이고 싶음 ></p></a> <!-- 판매자가 판매하는 상품 검색? -->
                     <p class="text-black text-3xl not-italic font-bold">쿠로미 보온 머그잔</p>
-                    <p>120,000 원</p>
+                    <p class="font-bold text-2xl">120,000 원</p>
                     <select class="w-100 h-10 px-3 text-sm not-italic border border-solid border-gray2 rounded-lg" name="productOption" id="">
                         <option value="">상품 옵션을 선택해 주세요</option>
                         <option value="">선택1</option>
@@ -26,14 +26,14 @@
                     </select>
                     <div class="flex justify-between">
                         <div class="font-bold text-2xl flex gap-x-2">
-                            <button class="w-12 h-12 border border-solid border-gray2 rounded">-</button>
-                            <input class="w-12 h-12 border border-solid border-gray2 rounded" type="text" value="1" name="countUp" />
-                            <button class="w-12 h-12 border border-solid border-gray2 rounded">+</button>
+                            <button><img src="/src/assets/icons/minus.svg" alt=""></button>
+                            <input class="w-7 h-7 border border-solid border-gray2 rounded" type="text" value="1" name="countUp" />
+                            <button><img src="/src/assets/icons/plus.svg" alt=""></button>
                         </div>
                         <p class="text-black text-2xl font-bold">총 120,000 원</p>
                     </div>
                     <div class="flex gap-x-8 justify-between ">
-                        <img src="/src/assets/icons/heart-fill.svg" alt="">
+                        <img src="/src/assets/icons/heart_full_blue.svg" alt="">
                         <button class="w-32 h-12 border border-gray2 rounded-lg border-solid box-border">
                             <p class="text-lg font-bold">장바구니</p>
                         </button>
