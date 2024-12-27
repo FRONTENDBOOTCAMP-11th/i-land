@@ -4,10 +4,25 @@
 
 @layer base {
   html {
-    /* 기본 폰트 Pretendard, fallback 폰트 sans-serif */
     font-family: "Pretendard", sans-serif;
-    /* 줄높이 1(폰트 사이즈와 동일) */
     line-height: 1;
     src: url("/PretendardVariable.ttf");
+  }
+}
+
+@layer components {
+  .page-title {
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1;
+    color: #000000;
+    margin-bottom: 60px;
+  }
+  .section-title {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1;
+    color: #000000;
+    margin-bottom: 20px;
   }
 }
