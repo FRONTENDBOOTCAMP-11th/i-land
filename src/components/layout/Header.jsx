@@ -22,7 +22,7 @@ export default function Header() {
         <img src={logo} alt="I-Land Logo" />
       </Link>
 
-      <div className="flex justify-center items-center gap-x-4">
+      <div className="flex items-center justify-center gap-x-4">
         <Link to="/search">
           <img className="" src={searchIcon} alt="Search Icon" />
         </Link>
@@ -36,7 +36,7 @@ export default function Header() {
         {isLoggedIn ? (
           <Link to="/profile">
             <img
-              className="rounded-full w-10 h-10"
+              className="w-10 h-10 rounded-full"
               src={profileImage || noProfileImage} // 프로필 이미지가 없으면 기본 이미지 노출
               alt="User Profil"
             />
