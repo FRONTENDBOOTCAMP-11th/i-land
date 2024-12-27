@@ -12,6 +12,17 @@
     font-family: "Pretendard", sans-serif;
     line-height: 1;
   }
+
+  /* 상품 가격 및 상품 수량 기본 화살표 버튼(스핀 버튼) 제거 - Chrome, Safari */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    @apply appearance-none;
+  }
+
+  /* 상품 가격 및 상품 수량 기본 화살표 버튼(스핀 버튼) 제거 - Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
 }
 
 @layer components {

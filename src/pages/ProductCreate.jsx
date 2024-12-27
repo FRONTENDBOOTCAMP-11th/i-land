@@ -25,8 +25,9 @@ export default function ProductCreate() {
               <input
                 type="number"
                 id="productPrice"
-                placeholder="상품 가격을 입력해주세요."
                 className="flex-1 py-[15px] text-2xl leading-none border-b-4 border-solid border-gray3 focus-within:border-point-blue focus:outline-none"
+                placeholder="상품 가격을 입력해주세요."
+                min="0"
               />
               <span className="absolute right-0 text-2xl leading-none bottom-5">
                 원
@@ -42,8 +43,9 @@ export default function ProductCreate() {
               <input
                 type="number"
                 id="productQuantity"
-                placeholder="상품 수량을 입력해주세요."
                 className="flex-1 py-[15px] text-2xl leading-none border-b-4 border-solid border-gray3 focus-within:border-point-blue focus:outline-none"
+                placeholder="상품 수량을 입력해주세요."
+                min="0"
               />
               <span className="absolute right-0 text-2xl leading-none bottom-5">
                 개
