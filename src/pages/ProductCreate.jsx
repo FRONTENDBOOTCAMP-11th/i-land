@@ -4,7 +4,7 @@ export default function ProductCreate() {
       <h1 className="page-title">상품 등록</h1>
 
       <form action="">
-        <div className="mb-[40px]">
+        <div className="mb-16">
           <label className="section-title" htmlFor="productName">
             상품명
           </label>
@@ -12,11 +12,11 @@ export default function ProductCreate() {
             type="text"
             id="productName"
             className="w-full py-[15px] text-2xl leading-none border-b-4 border-solid border-gray3 focus-within:border-point-blue focus:outline-none"
-            placeholder="상품명을 입력해주세요"
+            placeholder="상품명을 입력해주세요."
           />
         </div>
 
-        <div className="flex gap-[80px] mb-[40px]">
+        <div className="flex gap-[80px] mb-16">
           <div className="relative flex-1">
             <label className="section-title" htmlFor="productPrice">
               상품 가격
@@ -52,44 +52,73 @@ export default function ProductCreate() {
           </div>
         </div>
 
-        <div className="">
+        <div className="mb-16">
           <label className="section-title" htmlFor="category-1">
             상품 카테고리
           </label>
-          <div className="flex gap-[30px] mb-[40px]">
+          <div className="flex gap-[30px]">
             <select
               id="category-1"
-              className="w-[400px] h-[40px] border border-gray3 rounded-lg px-3 text-xs pr-5"
-              style={{
-                backgroundPosition: "calc(100% - 20px) center", // 오른쪽에서 20px 왼쪽으로 이동
-                backgroundRepeat: "no-repeat", // 화살표 반복 방지
-              }}
+              className="w-[400px] h-[40px] border border-gray2 rounded-lg px-3 text-xs focus:outline-none"
+              name="selectedCategory"
             >
-              <option>상품 카테고리 1</option>
-              <option>카테고리 A</option>
-              <option>카테고리 B</option>
+              <option>카테고리를 선택해주세요.</option>
+              <option value="cartoon">만화/애니메이션</option>
+              <option value="idol">아이돌</option>
+              <option value="film">영화/드라마</option>
+              <option value="figure">인형/피규어</option>
+              <option value="fashion">패션/의류</option>
+              <option value="stationary">문구/잡화</option>
             </select>
-            <select id="category-2" className="w-[400px] h-[40px]">
-              <option>상품 카테고리 2</option>
-              <option>카테고리 C</option>
-              <option>카테고리 D</option>
+            <select
+              id="category-2"
+              className="w-[400px] h-[40px] border border-gray2 rounded-lg px-3 text-xs focus:outline-none"
+            >
+              <option>카테고리를 선택해주세요.</option>
+              <option value="cartoon">만화/애니메이션</option>
+              <option value="idol">아이돌</option>
+              <option value="film">영화/드라마</option>
+              <option value="figure">인형/피규어</option>
+              <option value="fashion">패션/의류</option>
+              <option value="stationary">문구/잡화</option>
             </select>
           </div>
         </div>
 
-        {/* 상품 설명 */}
-        <div className="mb-6">
-          <label
-            htmlFor="product-description"
-            className="block mb-1 text-sm font-medium text-gray-700"
-          >
+        <div className="mb-16">
+          <div className="flex items-center gap-2.5">
+            <label className="section-title">상품 이미지</label>
+            <span className="mb-[20px] text-gray3">
+              상품 이미지 1~5장 필수 첨부 (jpg/jpeg/png)
+            </span>
+          </div>
+
+          <div>
+            <label
+              className="inline-flex items-center justify-center w-[150px] h-[40px] border-2 border-gray2 rounded-md cursor-pointer font-bold text-lg"
+              htmlFor="productImage"
+            >
+              이미지 첨부
+            </label>
+            <input
+              id="productImage"
+              type="file"
+              multiple
+              accept="image/png, image/jpeg, image/jpg"
+              className="hidden"
+            />
+          </div>
+        </div>
+
+        <div className="mb-16">
+          <label className="section-title" htmlFor="productDescription">
             상품 설명
           </label>
           <textarea
-            id="product-description"
-            rows="4"
-            placeholder="상품 설명을 입력해주세요"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            id="productDescription"
+            className="w-full h-[400px] p-[40px] border border-gray2 rounded-lg focus:outline-none resize-none text-2xl"
+            name="productDescription"
+            placeholder="상품 설명을 입력해주세요."
           ></textarea>
         </div>
 
