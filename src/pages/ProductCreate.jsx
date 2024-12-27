@@ -25,7 +25,7 @@ export default function ProductCreate() {
               <input
                 type="number"
                 id="productPrice"
-                placeholder="금액을 입력해주세요."
+                placeholder="상품 가격을 입력해주세요."
                 className="flex-1 py-[15px] text-2xl leading-none border-b-4 border-solid border-gray3 focus-within:border-point-blue focus:outline-none"
               />
               <span className="absolute right-0 text-2xl leading-none bottom-5">
@@ -35,18 +35,18 @@ export default function ProductCreate() {
           </div>
 
           <div className="relative flex-1">
-            <label className="section-title" htmlFor="productPrice">
-              상품 가격
+            <label className="section-title" htmlFor="productQuantity">
+              상품 수량
             </label>
             <div className="flex items-center">
               <input
                 type="number"
-                id="productPrice"
-                placeholder="금액을 입력해주세요."
+                id="productQuantity"
+                placeholder="상품 수량을 입력해주세요."
                 className="flex-1 py-[15px] text-2xl leading-none border-b-4 border-solid border-gray3 focus-within:border-point-blue focus:outline-none"
               />
               <span className="absolute right-0 text-2xl leading-none bottom-5">
-                원
+                개
               </span>
             </div>
           </div>
@@ -62,7 +62,7 @@ export default function ProductCreate() {
               className="w-[400px] h-[40px] border border-gray2 rounded-lg px-3 text-xs focus:outline-none"
               name="selectedCategory"
             >
-              <option>카테고리를 선택해주세요.</option>
+              <option>상품 카테고리를 선택해주세요.</option>
               <option value="cartoon">만화/애니메이션</option>
               <option value="idol">아이돌</option>
               <option value="film">영화/드라마</option>
@@ -74,7 +74,7 @@ export default function ProductCreate() {
               id="category-2"
               className="w-[400px] h-[40px] border border-gray2 rounded-lg px-3 text-xs focus:outline-none"
             >
-              <option>카테고리를 선택해주세요.</option>
+              <option>상품 카테고리를 선택해주세요.</option>
               <option value="cartoon">만화/애니메이션</option>
               <option value="idol">아이돌</option>
               <option value="film">영화/드라마</option>
