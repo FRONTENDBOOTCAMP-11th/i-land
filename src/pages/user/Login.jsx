@@ -43,10 +43,11 @@ export default function Login() {
       // navigate(location.state?.from || "/");
     } catch (err) {
       // 400 error 처리(요청 에러)
-      if (err.response.status > 400 && err.response.status < 500) {
+      if (err.response.status === 403) {
         console.log(err.response.status, err.response.data.message);
-        // setError(err.response.data.message);
-
+        setError("invalid", {
+          type: err.response.data.message,
+        });
         // 서버 에러 500
       }
     }
@@ -135,11 +136,16 @@ export default function Login() {
               </button>
             </div>
             {/* <p className="text-point-red mt-[2px]">비밀번호를 입력해주세요</p> */}
-            {errors.password && (
+            {(errors.password && (
               <p className="text-point-red mt-[2px]">
                 {errors.password.message}
               </p>
-            )}
+            )) ||
+              (errors.invalid && (
+                <p className="text-point-red mt-[2px]">
+                  이메일 또는 비밀번호를 확인해주세요.
+                </p>
+              ))}
           </div>
 
           <label className="mb-[30px] flex gap-[10px] items-center">
