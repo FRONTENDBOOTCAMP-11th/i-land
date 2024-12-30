@@ -89,7 +89,7 @@ export default function ProductCreate() {
         </div>
 
         <div className="mb-16">
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2.5 mb-5">
             <label className="section-title">상품 이미지</label>
             <span className="mb-[20px] text-gray3">
               상품 이미지 1~5장 필수 첨부 (jpg/jpeg/png)
@@ -98,7 +98,7 @@ export default function ProductCreate() {
 
           <div>
             <label
-              className="inline-flex items-center justify-center w-[150px] h-[40px] border-2 border-gray2 rounded-md cursor-pointer font-bold text-lg"
+              className="h-[50px] py-[14px] px-9 border-2 border-gray2 rounded-md cursor-pointer font-bold text-lg"
               htmlFor="productImage"
             >
               이미지 첨부
