@@ -6,7 +6,7 @@ SearchResults.propTypes = {
   results: PropTypes.array.isRequired,
 };
 
-export default function SearchResults({ results = [] }) {
+export default function SearchResults({ results = [1] }) {
   return (
     <div className="container">
       <header>
@@ -62,7 +62,7 @@ export default function SearchResults({ results = [] }) {
                 <h3 className="text-[18px] font-bold mb-3 leading-normal line-clamp-2">
                   상품 이름 최대 두 줄 상품 이름 최대 두 줄
                 </h3>
-                <p className="mb-[10px]">12,000 원</p>
+                <p className="mb-[10px]">12,000원</p>
                 <div className="flex gap-x-[6px] gap-y-1 flex-wrap">
                   <div className=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
                     만화/애니메이션
