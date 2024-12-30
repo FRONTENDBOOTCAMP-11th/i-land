@@ -13,13 +13,13 @@
     line-height: 1;
   }
 
-  /* 상품 가격 및 상품 수량 기본 화살표 버튼(스핀 버튼) 제거 - Chrome, Safari */
+  /* Chrome, Safari 스핀 버튼 제거 */
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button {
     @apply appearance-none;
   }
 
-  /* 상품 가격 및 상품 수량 기본 화살표 버튼(스핀 버튼) 제거 - Firefox */
+  /* Firefox 스핀 버튼 제거 */
   input[type="number"] {
     -moz-appearance: textfield;
   }
@@ -32,32 +32,5 @@
 
   .section-title {
     @apply block text-2xl leading-none font-bold text-black mb-[20px];
-  }
-}
-
-@layer components {
-  .page-title {
-    @apply text-[32px] leading-none font-bold text-black mb-[60px];
-  }
-
-  .section-title {
-    @apply block text-2xl leading-none font-bold text-black mb-[20px];
-  }
-}
-
-@layer components {
-  .page-title {
-    font-size: 32px;
-    font-weight: bold;
-    line-height: 1;
-    color: #000000;
-    margin-bottom: 60px;
-  }
-  .section-title {
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 1;
-    color: #000000;
-    margin-bottom: 20px;
   }
 }

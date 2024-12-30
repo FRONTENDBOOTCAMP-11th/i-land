@@ -7,6 +7,7 @@ import Search from "@pages/Search";
 import Bookmarks from "@pages/Bookmarks";
 import Carts from "@pages/Carts";
 import ProductCreate from "@pages/ProductCreate";
+import SearchResults from "@pages/SearchResults";
 
 const router = createBrowserRouter(
   [
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
         { index: true, element: <MainPage /> },
         { path: "user/login", element: <Login /> },
         { path: "search", element: <Search /> },
+        { path: "search/results", element: <SearchResults /> },
         { path: "bookmarks", element: <Bookmarks /> },
         { path: "carts", element: <Carts /> },
         { path: "productCreate", element: <ProductCreate /> },
