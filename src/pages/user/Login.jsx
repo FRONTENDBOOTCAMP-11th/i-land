@@ -1,4 +1,46 @@
+import axios from "axios";
+import { useForm } from "react-hook-form";
+
 export default function Login() {
+  // TODO 1: 로그인 입력 폼 검증 (react-hook-form 사용)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm();
+
+  // TODO 2: 이메일, 비밀번호를 사용하여 API 서버 요청
+  // 로그인 시 API 서버 요청 함수
+  const login = async () => {
+    try {
+      const res = await axios({
+        method: "Post",
+        url: "https://11.fesp.shop/users/login",
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+          "client-id": "final06",
+        },
+        data: {
+          email: "u1@market.com",
+          password: "111111111",
+        },
+      });
+      console.log(res.data.item);
+    } catch (err) {
+      console.log(err.response.data.message);
+    }
+  };
+
+  login();
+
+  // TODO 3: 유효하지 않은 입력값인 경우 에러 메시지 출력
+  // TODO 4: 로그인 완료 시 이전 페이지로 이동
+  // TODO 5: 카카오 로그인 기능 구현
+  // TODO 6: 회원가입 버튼 선택 시 회원가입 페이지로 이동
+
+  // 화면 렌더링
   return (
     <div className="container">
       <div className="mx-auto w-fit mb-[40px]">
@@ -22,6 +64,8 @@ export default function Login() {
                 id="userEmail"
                 type="email"
                 placeholder="예) iland@iland.com"
+                name="email"
+                {...register("email", { required: "이메일은 필수입니다." })}
               />
             </div>
             <p className="text-point-red mt-[2px]">
@@ -37,6 +81,7 @@ export default function Login() {
                 id="password"
                 type="password"
                 placeholder="비밀번호"
+                name="password"
               />
               <button
                 type="button"
