@@ -1,7 +1,11 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   // TODO 1: 로그인 입력 폼 검증 (react-hook-form 사용)
   const {
     register,
@@ -28,8 +32,19 @@ export default function Login() {
       });
       console.log("로그인 성공");
       console.log(res.data.item);
+
+      // 로그인 성공 시 얼럿 창 출력
+      alert(res.data.item.name + "님 안녕하세요.");
+
+      // 이전 작업페이지 또는 메인 홈으로 이동
+      navigate(location.state?.from || "/");
     } catch (err) {
-      console.log(err.response.data.message);
+      if (err.response.status > 400 && err.response.status < 500) {
+        console.log("잘못된 id, pw", err.response.data.message);
+        console.log("다른 에러", err.response.data.message);
+        setError("올바르지 않은 이메일 또는 비밀번호입니다.");
+        console.log(errors.root);
+      }
     }
   };
 
