@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body>
+    <!-- 컴포넌트 헤더 -->
+
+    <main class="bg-white px-24 py-5 container">
+        <section name="cartHeader">
+            <p class="section-title">장바구니</p>
+            <div class="mt-[63px] mb-[43px] flex justify-between text-[14px]">
+                <label class="flex gap-[10px] items-center">
+                    <input type="checkbox"
+                      class="appearance-none size-5 bg-[url('/src/assets/icons/checkbox.svg')] checked:bg-[url('/src/assets/icons/checkbox-checked.svg')] bg-cover align-middle" />
+                    전체 선택
+                </label>
+                <button class="w-[96px] h-[24px] border border-solid border-gray2 rounded-[8px]">선택 삭제</button>
+            </div>
+        </section>
+
+        
+        <section name="cartMain">
+             <div class="flex flex-col gap-y-[50px]">
+                <div class="relative h-[282px] p-[40px] flex justify-between border border-solid border-gray2 rounded-[8px]">
+                    <div class="flex gap-x-[60px]">
+                        <div>
+                            <label class="mb-[20px] flex gap-[10px] items-center text-[14px]">
+                                <input type="checkbox"
+                                class="appearance-none size-5 bg-[url('/src/assets/icons/checkbox.svg')] checked:bg-[url('/src/assets/icons/checkbox-checked.svg')] bg-cover align-middle" />
+                                선택
+                            </label>
+                            <img class="w-[150px] h-[150px]" src="/src/assets/images/kuromi.png" alt="">
+                        </div>
+                        <div class="flex flex-col gap-y-[14px] self-center">
+                            <a href=""><p class="text-gray3 text-[18px] not-italic font-normal">산리오 공식물이고 싶음 ></p></a>
+                            <p class="text-black text-[32px] not-italic font-bold">쿠로미 보온 머그잔</p>
+                            <p class="font-bold text-[24px]">120,000 원</p>
+                        </div>
+                    </div>
+                    <div class="font-bold items-center text-[18px] flex gap-x-2">
+                        <button><img src="/src/assets/icons/minus.svg" alt=""></button>
+                        <input class="w-7 h-7 border border-solid border-gray2 rounded text-center" type="text" value="1" name="countUp" />
+                        <button><img src="/src/assets/icons/plus.svg" alt=""></button>
+                    </div>
+                    <button class="absolute  right-[40px] top-[40px]"><img src="/src/assets/icons/x.svg" alt=""></button>
+                </div>
+                <div class="relative h-[282px] p-[40px] flex justify-between border border-solid border-gray2 rounded-[8px]">
+                    <div class="flex gap-x-[60px]">
+                        <div>
+                            <label class="mb-[20px] flex gap-[10px] items-center text-[14px]">
+                                <input type="checkbox"
+                                class="appearance-none size-5 bg-[url('/src/assets/icons/checkbox.svg')] checked:bg-[url('/src/assets/icons/checkbox-checked.svg')] bg-cover align-middle" />
+                                선택
+                            </label>
+                            <img class="w-[150px] h-[150px]" src="/src/assets/images/kuromi.png" alt="">
+                        </div>
+                        <div class="flex flex-col gap-y-[14px] self-center">
+                            <a href=""><p class="text-gray3 text-[18px] not-italic font-normal">산리오 공식물이고 싶음 ></p></a>
+                            <p class="text-black text-[32px] not-italic font-bold">쿠로미 보온 머그잔</p>
+                            <p class="font-bold text-[24px]">120,000 원</p>
+                        </div>
+                    </div>
+                    <div class="font-bold items-center text-[18px] flex gap-x-2">
+                        <button><img src="/src/assets/icons/minus.svg" alt=""></button>
+                        <input class="w-7 h-7 border border-solid border-gray2 rounded text-center" type="text" value="1" name="countUp" />
+                        <button><img src="/src/assets/icons/plus.svg" alt=""></button>
+                    </div>
+                    <button class="absolute  right-[40px] top-[40px]"><img src="/src/assets/icons/x.svg" alt=""></button>
+                </div>
+                <div class="relative h-[282px] p-[40px] flex justify-between border border-solid border-gray2 rounded-[8px]">
+                    <div class="flex gap-x-[60px]">
+                        <div>
+                            <label class="mb-[20px] flex gap-[10px] items-center text-[14px]">
+                                <input type="checkbox"
+                                class="appearance-none size-5 bg-[url('/src/assets/icons/checkbox.svg')] checked:bg-[url('/src/assets/icons/checkbox-checked.svg')] bg-cover align-middle" />
+                                선택
+                            </label>
+                            <img class="w-[150px] h-[150px]" src="/src/assets/images/kuromi.png" alt="">
+                        </div>
+                        <div class="flex flex-col gap-y-[14px] self-center">
+                            <a href=""><p class="text-gray3 text-[18px] not-italic font-normal">산리오 공식물이고 싶음 ></p></a>
+                            <p class="text-black text-[32px] not-italic font-bold">쿠로미 보온 머그잔</p>
+                            <p class="font-bold text-[24px]">120,000 원</p>
+                        </div>
+                    </div>
+                    <div class="font-bold items-center text-[18px] flex gap-x-2">
+                        <button><img src="/src/assets/icons/minus.svg" alt=""></button>
+                        <input class="w-7 h-7 border border-solid border-gray2 rounded text-center" type="text" value="1" name="countUp" />
+                        <button><img src="/src/assets/icons/plus.svg" alt=""></button>
+                    </div>
+                    <button class="absolute  right-[40px] top-[40px]"><img src="/src/assets/icons/x.svg" alt=""></button>
+                </div>
+            </div>
+        </section>
+        
+
+        <hr class="text-gray1 border border-solid my-[100px]">
+
+        <section name="cartFooter">
+            <div class="flex flex-col items-center">
+                <div class="p-[60px] min-w-[1000px] h-[338px] border border-gray2 border-solid rounded-[8px] flex flex-col gap-y-[40px]">
+                    <div class="flex justify-between text-[28px] font-bold">
+                        <p>상품 금액</p>
+                        <p>120,000 원</p>
+                    </div>
+                    <div class="flex justify-between text-[28px] font-bold">
+                        <p>배송비</p>
+                        <p>120,000 원</p>
+                    </div>
+                    <p class="text-gray1 border border-solid"></p>
+                    <div class="flex justify-between text-[32px] font-bold">
+                        <p>총 결제 금액</p>
+                        <p>240,000 원</p>
+                    </div>
+                </div>
+                
+                <button class="w-[400px] h-[60px] mt-[60px] px-[89px] py-[16px] bg-point-blue text-white rounded-[8px] text-[24px] font-bold">선택 상품 결제</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- 컴포넌트 푸터 -->
+    
+</body>
+</html>
