@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/src/index.css">
+</head>
+
+<body>
+  <div class="container">
+    <section
+      class="aspect-[50/21] border border-gray2 rounded-lg mb-[60px] relative flex place-items-center justify-center">
+      <div class="size-full px-9 flex items-center absolute top-0 left-0">
+        <button class="mr-auto">
+          <img src="/src/assets/icons/chevron-left.svg" />
+        </button>
+        <div class="mt-auto mb-5 px-3 py-1 border border-gray3 text-gray3 rounded-full">
+          <span>1</span> / <span>2</span>
+        </div>
+        <button class="ml-auto">
+          <img src="/src/assets/icons/chevron-right.svg" />
+        </button>
+      </div>
+      <h1 class="text-[32px] font-bold w-[288px] mr-[60px] text-point-blue">나의 취향을 한 곳에서 모아보세요</h1>
+      <img src="/src/assets/images/favicon-logo.svg" class="w-[112px] h-[123px]" alt="메인 로고 캐릭터" />
+    </section>
+
+    <section class="mb-[70px]">
+      <h2 class="section-title">
+        카테고리
+      </h2>
+
+      <ul class="grid grid-flow-col grid-cols-6 gap-8 ">
+        <li>
+          <a href="#" class="text-center" aria-label="만화/애니메이션 카테고리 상품 리스트">
+            <img src="/src/assets/icons/category/comics-anime.svg"
+              class="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4" />
+            <p class="text-[18px]">
+              만화/애니메이션
+            </p>
+          </a>
+        </li>
+
+        <li>
+          <a href="#" class="text-center" aria-label="아이돌 카테고리 상품 리스트">
+            <img src="/src/assets/icons/category/idol.svg"
+              class="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4" />
+            <p class="text-[18px]">
+              아이돌
+            </p>
+          </a>
+        </li>
+
+        <li>
+          <a href="#" class="text-center" aria-label="영화/드라마 카테고리 상품 리스트">
+            <img src="/src/assets/icons/category/movie-drama.svg"
+              class="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4" />
+            <p class="text-[18px]">
+              영화/드라마
+            </p>
+          </a>
+        </li>
+
+        <li>
+          <a href="#" class="text-center" aria-label="인형/피규어 카테고리 상품 리스트">
+            <img src="/src/assets/icons/category/dolls-figures.svg"
+              class="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4" />
+            <p class="text-[18px]">
+              인형/피규어
+            </p>
+          </a>
+        </li>
+
+        <li>
+          <a href="#" class="text-center" aria-label="패션/의류 카테고리 상품 리스트">
+            <img src="/src/assets/icons/category/fashion-clothing.svg"
+              class="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4" />
+            <p class="text-[18px]">
+              패션/의류
+            </p>
+          </a>
+        </li>
+
+        <li>
+          <a href="#" class="text-center" aria-label="문구/잡화 카테고리 상품 리스트">
+            <img src="/src/assets/icons/category/stationaries.svg"
+              class="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4" />
+            <p class="text-[18px]">
+              문구/잡화
+            </p>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="mb-[70px]">
+      <h2 class="section-title">
+        찜한 목록
+      </h2>
+      <div class="overflow-x-scroll scrollbar-hide">
+        <ul class="grid grid-cols-10 gap-x-[25px] mr-[-1000px]">
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="mb-[70px]">
+      <h2 class="section-title">
+        인기 상품
+      </h2>
+      <div class="overflow-x-scroll scrollbar-hide">
+        <ul class="grid grid-cols-10 gap-x-[25px] mr-[-1000px]">
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="mb-[70px]">
+      <h2 class="section-title">
+        이번주 신상
+      </h2>
+      <div class="overflow-x-scroll scrollbar-hide">
+        <ul class="grid grid-cols-10 gap-x-[25px] mr-[-1000px]">
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <div class="flex items-center gap-1 mb-[10px]">
+                <p class="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+                <img src="/src/assets/icons/chevron-right.svg" class="w-[3px] h-[6px]" />
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">상품 이름 최대 두 줄 상품 이름 최대 두 줄</h3>
+              <p class="mb-[10px]">12,000 원</p>
+              <div class="flex gap-x-[6px] gap-y-1 flex-wrap">
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+                <div class=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">만화/애니메이션</div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="mb-[70px]">
+      <h2 class="section-title">
+        인기 판매자
+      </h2>
+      <div class="overflow-x-scroll scrollbar-hide">
+        <ul class="grid grid-cols-10 gap-x-[25px] mr-[-1000px]">
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">판매자 닉네임(이름)</h3>
+              <p class="mb-[10px]">총 판매 횟수 1,999 건</p>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">판매자 닉네임(이름)</h3>
+              <p class="mb-[10px]">총 판매 횟수 1,999 건</p>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">판매자 닉네임(이름)</h3>
+              <p class="mb-[10px]">총 판매 횟수 1,999 건</p>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">판매자 닉네임(이름)</h3>
+              <p class="mb-[10px]">총 판매 횟수 1,999 건</p>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">판매자 닉네임(이름)</h3>
+              <p class="mb-[10px]">총 판매 횟수 1,999 건</p>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">판매자 닉네임(이름)</h3>
+              <p class="mb-[10px]">총 판매 횟수 1,999 건</p>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">판매자 닉네임(이름)</h3>
+              <p class="mb-[10px]">총 판매 횟수 1,999 건</p>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">판매자 닉네임(이름)</h3>
+              <p class="mb-[10px]">총 판매 횟수 1,999 건</p>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">판매자 닉네임(이름)</h3>
+              <p class="mb-[10px]">총 판매 횟수 1,999 건</p>
+            </a>
+          </li>
+
+          <li class="w-[180px]">
+            <a href="#" aria-label="상품 페이지로 이동">
+              <div class="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+                <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                <button type="button" aria-label="상품 찜하기 버튼"
+                  class="size-7 rounded-full grid place-items-center absolute right-2 bottom-2 bg-white">
+                  <img src="/src/assets/icons/heart-s.svg" class="w-4 h-[14px] hidden">
+                  <img src="/src/assets/icons/heart-fill-s.svg" class="w-4 h-[14px]">
+                </button>
+              </div>
+              <h3 class="text-[18px] font-bold mb-3 leading-normal line-clamp-2">판매자 닉네임(이름)</h3>
+              <p class="mb-[10px]">총 판매 횟수 1,999 건</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </div>
+</body>
+
+</html>

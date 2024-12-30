@@ -44,3 +44,20 @@
     @apply block text-2xl leading-none font-bold text-black mb-[20px];
   }
 }
+
+@layer components {
+  .page-title {
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1;
+    color: #000000;
+    margin-bottom: 60px;
+  }
+  .section-title {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1;
+    color: #000000;
+    margin-bottom: 20px;
+  }
+}
