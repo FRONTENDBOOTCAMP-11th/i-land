@@ -8,11 +8,13 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm();
+  } = useForm({
+    defaultValues: { email: "u1@market.com", password: "11111111" },
+  });
 
   // TODO 2: 이메일, 비밀번호를 사용하여 API 서버 요청
   // 로그인 시 API 서버 요청 함수
-  const login = async () => {
+  const login = async formData => {
     try {
       const res = await axios({
         method: "Post",
@@ -22,20 +24,16 @@ export default function Login() {
           accept: "application/json",
           "client-id": "final06",
         },
-        data: {
-          email: "u1@market.com",
-          password: "111111111",
-        },
+        data: formData,
       });
+      console.log("로그인 성공");
       console.log(res.data.item);
     } catch (err) {
       console.log(err.response.data.message);
     }
   };
 
-  login();
-
-  // TODO 3: 유효하지 않은 입력값인 경우 에러 메시지 출력
+  // TODO 3: 유효하지 않은 입력값인 경우 에러 메시지 출력(에러 메시지 컴포넌트화)
   // TODO 4: 로그인 완료 시 이전 페이지로 이동
   // TODO 5: 카카오 로그인 기능 구현
   // TODO 6: 회원가입 버튼 선택 시 회원가입 페이지로 이동
@@ -52,7 +50,10 @@ export default function Login() {
         </figure>
       </div>
 
-      <form className="w-[400px] mx-auto mb-[60px]">
+      <form
+        className="w-[400px] mx-auto mb-[60px]"
+        onSubmit={handleSubmit(login)}
+      >
         <fieldset className="mb-[30px]" id="userInfo">
           <legend className="sr-only">로그인 입력 폼</legend>
 
@@ -65,7 +66,7 @@ export default function Login() {
                 type="email"
                 placeholder="예) iland@iland.com"
                 name="email"
-                {...register("email", { required: "이메일은 필수입니다." })}
+                {...register("email", { required: "이메일을 입력해주세요." })}
               />
             </div>
             <p className="text-point-red mt-[2px]">
@@ -82,6 +83,9 @@ export default function Login() {
                 type="password"
                 placeholder="비밀번호"
                 name="password"
+                {...register("password", {
+                  required: "비밀번호를 입력해주세요.",
+                })}
               />
               <button
                 type="button"
