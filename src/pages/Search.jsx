@@ -43,7 +43,7 @@ export default function Search() {
               ].map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-2 px-3 py-1 mb-[20px] text-[16px] text-white rounded-full bg-point-blue"
+                  className="flex items-center gap-2 px-3 py-1 text-[16px] text-white rounded-full bg-point-blue"
                 >
                   <span>{item}</span>
                   <button className="text-white">
@@ -67,7 +67,7 @@ export default function Search() {
               ].map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-2 px-3 py-1 mb-[20px] text-[16px] text-white rounded-full bg-point-blue"
+                  className="flex items-center gap-2 px-3 py-1 text-[16px] text-white rounded-full bg-point-blue"
                 >
                   <span>{item}</span>
                 </div>
