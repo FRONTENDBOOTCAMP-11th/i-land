@@ -2,6 +2,9 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const passwordRegex = /^.{8,}$/;
+
 export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -13,7 +16,7 @@ export default function Login() {
     formState: { errors },
     setError,
   } = useForm({
-    defaultValues: { email: "u1@market.com", password: "11111111" },
+    // defaultValues: { email: "u1@market.com", password: "11111111" },
   });
 
   // TODO 2: 이메일, 비밀번호를 사용하여 API 서버 요청
@@ -34,16 +37,17 @@ export default function Login() {
       console.log(res.data.item);
 
       // 로그인 성공 시 얼럿 창 출력
-      alert(res.data.item.name + "님 안녕하세요.");
+      // alert(res.data.item.name + "님 안녕하세요.");
 
       // 이전 작업페이지 또는 메인 홈으로 이동
-      navigate(location.state?.from || "/");
+      // navigate(location.state?.from || "/");
     } catch (err) {
+      // 400 error 처리(요청 에러)
       if (err.response.status > 400 && err.response.status < 500) {
-        console.log("잘못된 id, pw", err.response.data.message);
-        console.log("다른 에러", err.response.data.message);
-        setError("올바르지 않은 이메일 또는 비밀번호입니다.");
-        console.log(errors.root);
+        console.log(err.response.status, err.response.data.message);
+        // setError(err.response.data.message);
+
+        // 서버 에러 500
       }
     }
   };
@@ -78,15 +82,23 @@ export default function Login() {
               <input
                 className="text-[20px] focus:outline-none flex-grow"
                 id="userEmail"
-                type="email"
+                type="text"
                 placeholder="예) iland@iland.com"
-                name="email"
-                {...register("email", { required: "이메일을 입력해주세요." })}
+                {...register("email", {
+                  required: "이메일을 입력해주세요.",
+                  pattern: {
+                    value: emailRegex,
+                    message: "올바른 형식의 이메일을 입력해주세요.",
+                  },
+                })}
               />
             </div>
-            <p className="text-point-red mt-[2px]">
+            {/* <p className="text-point-red mt-[2px]">
               이메일을 정확히 입력해주세요
-            </p>
+            </p> */}
+            {errors.email && (
+              <p className="text-point-red mt-[2px]">{errors.email.message}</p>
+            )}
           </div>
 
           <div className="mb-5">
@@ -97,9 +109,12 @@ export default function Login() {
                 id="password"
                 type="password"
                 placeholder="비밀번호"
-                name="password"
                 {...register("password", {
                   required: "비밀번호를 입력해주세요.",
+                  pattern: {
+                    value: passwordRegex,
+                    message: "올바른 형식의 비밀번호를 입력해주세요.",
+                  },
                 })}
               />
               <button
@@ -119,7 +134,12 @@ export default function Login() {
                 />
               </button>
             </div>
-            <p className="text-point-red mt-[2px]">비밀번호를 입력해주세요</p>
+            {/* <p className="text-point-red mt-[2px]">비밀번호를 입력해주세요</p> */}
+            {errors.password && (
+              <p className="text-point-red mt-[2px]">
+                {errors.password.message}
+              </p>
+            )}
           </div>
 
           <label className="mb-[30px] flex gap-[10px] items-center">
