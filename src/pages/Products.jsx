@@ -103,8 +103,8 @@ export default function Products() {
       </section>
 
       <section>
-        <ul className="grid grid-cols-5 gap-x-[25px]">
-          <li className="w-[180px] mb-[40px]">
+        <ul className="grid grid-cols-5 gap-x-[25px] gap-y-[40px]">
+          <li className="w-[180px]">
             <a href="#" aria-label="상품 상세 페이지 이동">
               <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
                 <img src="/src/assets/images/image 2.png" alt="상품 이미지" />
@@ -146,7 +146,7 @@ export default function Products() {
               </div>
             </a>
           </li>
-          <li className="w-[180px] mb-[40px]">
+          <li className="w-[180px]">
             <a href="#" aria-label="상품 상세 페이지 이동">
               <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
                 <img src="/src/assets/images/image 2.png" alt="상품 이미지" />
@@ -188,7 +188,7 @@ export default function Products() {
               </div>
             </a>
           </li>
-          <li className="w-[180px] mb-[40px]">
+          <li className="w-[180px]">
             <a href="#" aria-label="상품 상세 페이지 이동">
               <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
                 <img src="/src/assets/images/image 2.png" alt="상품 이미지" />
@@ -230,7 +230,7 @@ export default function Products() {
               </div>
             </a>
           </li>
-          <li className="w-[180px] mb-[40px]">
+          <li className="w-[180px]">
             <a href="#" aria-label="상품 상세 페이지 이동">
               <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
                 <img src="/src/assets/images/image 2.png" alt="상품 이미지" />
@@ -272,7 +272,7 @@ export default function Products() {
               </div>
             </a>
           </li>
-          <li className="w-[180px] mb-[40px]">
+          <li className="w-[180px]">
             <a href="#" aria-label="상품 상세 페이지 이동">
               <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
                 <img src="/src/assets/images/image 2.png" alt="상품 이미지" />
@@ -314,7 +314,7 @@ export default function Products() {
               </div>
             </a>
           </li>
-          <li className="w-[180px] mb-[40px]">
+          <li className="w-[180px]">
             <a href="#" aria-label="상품 상세 페이지 이동">
               <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
                 <img src="/src/assets/images/image 2.png" alt="상품 이미지" />
