@@ -18,6 +18,7 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
     setError,
+    clearErrors,
   } = useForm({
     defaultValues: { email: "u1@market.com", password: "11111111" },
   });
@@ -26,6 +27,7 @@ export default function Login() {
   // 로그인 시 API 서버 요청 함수
   const login = async formData => {
     try {
+      if (errors) clearErrors();
       const res = await axios.post("/users/login", formData);
       console.log("로그인 성공");
       console.log(res.data.item);
@@ -48,7 +50,6 @@ export default function Login() {
     }
   };
 
-  // TODO 3: 유효하지 않은 입력값인 경우 에러 메시지 출력(에러 메시지 컴포넌트화)
   // TODO 4: 로그인 완료 시 이전 페이지로 이동
   // TODO 5: 카카오 로그인 기능 구현
   // TODO 6: 회원가입 버튼 선택 시 회원가입 페이지로 이동
