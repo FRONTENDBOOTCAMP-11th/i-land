@@ -1,5 +1,6 @@
 import InputError from "@components/InputError";
 import useAxiosInstance from "@hooks/useAxiosInstance";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -9,6 +10,13 @@ const passwordRegex = /^.{8,}$/;
 export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  // 비밀번호 표시 버튼
+  const togglePassword = () => {
+    setIsVisible(!isVisible);
+  };
 
   const axios = useAxiosInstance();
 
@@ -100,7 +108,7 @@ export default function Login() {
               <input
                 className="text-[20px] focus:outline-none flex-grow"
                 id="password"
-                type="password"
+                type={isVisible ? "text" : "password"}
                 placeholder="비밀번호"
                 {...register("password", {
                   required: "비밀번호를 입력해주세요.",
@@ -114,17 +122,21 @@ export default function Login() {
                 type="button"
                 className="cursor-pointer"
                 aria-label="비밀번호 표시"
+                onClick={togglePassword}
               >
-                <img
-                  className="ml-auto"
-                  src="/src/assets/icons/eye-closed.svg"
-                  alt="비밀번호 숨김 상태"
-                />
-                <img
-                  className="ml-auto hidden"
-                  src="/src/assets/icons/eye-open.svg"
-                  alt="비밀번호 표시 중"
-                />
+                {isVisible ? (
+                  <img
+                    className="ml-auto"
+                    src="/src/assets/icons/eye-open.svg"
+                    alt="비밀번호 표시 중"
+                  />
+                ) : (
+                  <img
+                    className="ml-auto"
+                    src="/src/assets/icons/eye-closed.svg"
+                    alt="비밀번호 숨김 상태"
+                  />
+                )}
               </button>
             </div>
             {/* <p className="text-point-red mt-[2px]">비밀번호를 입력해주세요</p> */}
