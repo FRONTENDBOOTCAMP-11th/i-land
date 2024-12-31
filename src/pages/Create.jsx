@@ -3,7 +3,7 @@ export default function Create() {
     <div className="container">
       <h1 className="page-title">상품 등록</h1>
 
-      <form action="">
+      <form action="" className="pb-[60px]">
         <div className="mb-16">
           <label className="section-title" htmlFor="productName">
             상품명
