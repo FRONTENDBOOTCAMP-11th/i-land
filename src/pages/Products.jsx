@@ -1,3 +1,3 @@
 export default function Products() {
-  return <></>;
+  return <div className="container"></div>;
 }
