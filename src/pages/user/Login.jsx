@@ -1,4 +1,5 @@
-import axios from "axios";
+import InputError from "@components/InputError";
+import useAxiosInstance from "@hooks/useAxiosInstance";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -9,6 +10,8 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const axios = useAxiosInstance();
+
   // TODO 1: 로그인 입력 폼 검증 (react-hook-form 사용)
   const {
     register,
@@ -16,23 +19,14 @@ export default function Login() {
     formState: { errors },
     setError,
   } = useForm({
-    // defaultValues: { email: "u1@market.com", password: "11111111" },
+    defaultValues: { email: "u1@market.com", password: "11111111" },
   });
 
   // TODO 2: 이메일, 비밀번호를 사용하여 API 서버 요청
   // 로그인 시 API 서버 요청 함수
   const login = async formData => {
     try {
-      const res = await axios({
-        method: "Post",
-        url: "https://11.fesp.shop/users/login",
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-          "client-id": "final06",
-        },
-        data: formData,
-      });
+      const res = await axios.post("/users/login", formData);
       console.log("로그인 성공");
       console.log(res.data.item);
 
@@ -46,7 +40,8 @@ export default function Login() {
       if (err.response.status === 403) {
         console.log(err.response.status, err.response.data.message);
         setError("invalid", {
-          type: err.response.data.message,
+          type: "manual",
+          message: err.response.data.message,
         });
         // 서버 에러 500
       }
@@ -95,9 +90,10 @@ export default function Login() {
               />
             </div>
             {/* <p className="text-point-red mt-[2px]">이메일을 입력해주세요</p> */}
-            {errors.email && (
+            {/* {errors.email && (
               <p className="text-point-red mt-[2px]">{errors.email.message}</p>
-            )}
+            )} */}
+            <InputError target={errors.email} />
           </div>
 
           <div className="mb-5">
@@ -134,14 +130,17 @@ export default function Login() {
               </button>
             </div>
             {/* <p className="text-point-red mt-[2px]">비밀번호를 입력해주세요</p> */}
-            {(errors.password && (
+            <InputError target={errors.password || errors.invalid} />
+            {/* {(errors.password && (
               <p className="text-point-red mt-[2px]">
                 {errors.password.message}
               </p>
             )) ||
               (errors.invalid?.type && (
-                <p className="text-point-red mt-[2px]">{errors.invalid.type}</p>
-              ))}
+                <p className="text-point-red mt-[2px]">
+                  {errors.invalid.message}
+                </p>
+              ))} */}
           </div>
 
           <label className="mb-[30px] flex gap-[10px] items-center">
