@@ -70,7 +70,10 @@ export default function Login() {
         </figure>
       </div>
 
-      <form className="w-[400px] mx-auto pb-[60px]">
+      <form
+        className="w-[400px] mx-auto pb-[60px]"
+        onSubmit={handleSubmit(login)}
+      >
         <fieldset className="mb-[30px]" id="userInfo">
           <legend className="sr-only">로그인 입력 폼</legend>
 
@@ -82,11 +85,19 @@ export default function Login() {
                 id="userEmail"
                 type="email"
                 placeholder="예) iland@iland.com"
+                {...register("email", {
+                  required: "이메일을 입력해주세요.",
+                  pattern: {
+                    value: emailRegex,
+                    message: "올바른 형식의 이메일을 입력해주세요.",
+                  },
+                })}
               />
             </div>
-            <p className="text-point-red mt-[2px]">
-              이메일을 정확히 입력해주세요
-            </p>
+            {/* <p className="text-point-red mt-[2px]">이메일을 입력해주세요</p> */}
+            {errors.email && (
+              <p className="text-point-red mt-[2px]">{errors.email.message}</p>
+            )}
           </div>
 
           <div className="mb-5">
@@ -97,6 +108,13 @@ export default function Login() {
                 id="password"
                 type="password"
                 placeholder="비밀번호"
+                {...register("password", {
+                  required: "비밀번호를 입력해주세요.",
+                  pattern: {
+                    value: passwordRegex,
+                    message: "올바른 형식의 비밀번호를 입력해주세요.",
+                  },
+                })}
               />
               <button
                 type="button"
@@ -115,7 +133,15 @@ export default function Login() {
                 />
               </button>
             </div>
-            <p className="text-point-red mt-[2px]">비밀번호를 입력해주세요</p>
+            {/* <p className="text-point-red mt-[2px]">비밀번호를 입력해주세요</p> */}
+            {(errors.password && (
+              <p className="text-point-red mt-[2px]">
+                {errors.password.message}
+              </p>
+            )) ||
+              (errors.invalid?.type && (
+                <p className="text-point-red mt-[2px]">{errors.invalid.type}</p>
+              ))}
           </div>
 
           <label className="mb-[30px] flex gap-[10px] items-center">
