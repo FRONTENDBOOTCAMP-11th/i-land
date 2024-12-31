@@ -1,11 +1,13 @@
-import closeIcon from "/src/assets/icons/close.svg";
-
 export default function Search() {
   return (
     <div className="fixed inset-0 px-[100px] mt-[30px] mb-[10px] flex flex-col bg-white">
       <div className="flex items-center justify-end">
         <button>
-          <img className="w-5 h-5" src={closeIcon} alt="Close Search Modal" />
+          <img
+            className="w-5 h-5"
+            src="/assets/icons/close.svg"
+            alt="Close Search Modal"
+          />
         </button>
       </div>
 
@@ -20,7 +22,7 @@ export default function Search() {
             <button className="flex items-center justify-center -ml-5">
               <img
                 className="w-5 h-5"
-                src={closeIcon}
+                src="/assets/icons/close.svg"
                 alt="Close Search Modal"
               />
             </button>
@@ -47,10 +49,7 @@ export default function Search() {
                 >
                   <span>{item}</span>
                   <button className="text-white">
-                    <img
-                      src="/src/assets/icons/close-sm.svg"
-                      alt="Close Chips"
-                    />
+                    <img src="/assets/icons/close-sm.svg" alt="Close Chips" />
                   </button>
                 </div>
               ))}

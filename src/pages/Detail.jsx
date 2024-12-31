@@ -1,29 +1,29 @@
 export default function Detail() {
   return (
-    <main className="bg-white px-24 py-5 container">
+    <main className="container px-24 py-5 bg-white">
       <section name="detailHeader">
-        <div className="flex gap-x-20 items-center">
+        <div className="flex items-center gap-x-20">
           <div className="relative w-[480px] h-[480px]">
             <img
               className="w-full h-full"
-              src="/src/assets/images/kuromi.png"
+              src="/assets/images/product-image-12.png"
               alt=""
             />
             <img
               className="absolute left-[16px] top-[50%]"
-              src="/src/assets/icons/left.svg"
+              src="/assets/icons/left.svg"
               alt=""
             />
             <img
               className="absolute right-[16px] top-[50%]"
-              src="/src/assets/icons/right.svg"
+              src="/assets/icons/right.svg"
               alt=""
             />
             <p className="absolute left-[50%] -translate-x-1/2 bottom-[10px] w-[51px] h-[23px] flex items-center justify-center text-[14px] text-gray3 bg-white bg-opacity-70 border border-solid rounded-[26px]">
               1/2
             </p>
           </div>
-          <div className="w-96 flex flex-col gap-y-7">
+          <div className="flex flex-col w-96 gap-y-7">
             <a href="">
               <p className="text-gray3 text-[18px] not-italic font-normal">
                 산리오 공식물이고 싶음 >
@@ -46,23 +46,23 @@ export default function Detail() {
             <div className="flex justify-between">
               <div className="font-bold items-center text-[18px] flex gap-x-2">
                 <button>
-                  <img src="/src/assets/icons/minus.svg" alt="" />
+                  <img src="/assets/icons/minus.svg" alt="" />
                 </button>
                 <input
-                  className="w-7 h-7 border border-solid border-gray2 rounded text-right"
+                  className="text-right border border-solid rounded w-7 h-7 border-gray2"
                   type="text"
                   value="1"
                   name="countUp"
                 />
                 <button>
-                  <img src="/src/assets/icons/plus.svg" alt="" />
+                  <img src="/assets/icons/plus.svg" alt="" />
                 </button>
               </div>
               <p className="text-black text-[24px] font-bold">총 120,000 원</p>
             </div>
             <div className="flex justify-between">
               <button>
-                <img src="/src/assets/icons/heart_full_blue.svg" alt="" />
+                <img src="/assets/icons/heart_full_blue.svg" alt="" />
               </button>
               <button className="h-[50px] py-[14px] px-9 border-2 border-gray2 rounded-lg border-solid box-border">
                 <p className="text-[18px] font-bold">장바구니</p>
@@ -74,13 +74,13 @@ export default function Detail() {
           </div>
         </div>
       </section>
-      <p className="text-gray1 border border-solid my-10"></p>
+      <p className="my-10 border border-solid text-gray1"></p>
       <section name="detailMain">
         <p className="mt-5 section-title">상품 설명</p>
         <div className="flex flex-col justify-self-center">
           <img
-            className="w-96 h-96 mt-16 mb-32"
-            src="/src/assets/images/kuromi.png"
+            className="mt-16 mb-32 w-96 h-96"
+            src="/assets/images/product-image-12.png"
             alt=""
           />
         </div>
@@ -125,16 +125,16 @@ export default function Detail() {
           </li>
         </ul>
       </section>
-      <p className="text-gray1 border border-solid my-10"></p>
+      <p className="my-10 border border-solid text-gray1"></p>
       <section name="detailFooter">
         <p className="mb-10 section-title">상품 후기</p>
         <div>
           <p className="mb-7 text-[16px] font-normal">후기 3 개</p>
-          <div className="mb-20 flex flex-col gap-y-7">
-            <div className="p-10 flex flex-col border border-gray1 border-solid rounded-lg gap-y-5">
+          <div className="flex flex-col mb-20 gap-y-7">
+            <div className="flex flex-col p-10 border border-solid rounded-lg border-gray1 gap-y-5">
               <div className="flex justify-between">
                 <div className="flex items-center gap-x-4">
-                  <img src="/src/assets/icons/no-profile-image.svg" alt="" />
+                  <img src="/assets/images/profile-default.png" alt="" />
                   <p className="text-[20px] font-bold">하찮은쇼핑백</p>
                 </div>
                 <p className="text-[16px]">2024년 12월 20일</p>
@@ -151,10 +151,10 @@ export default function Detail() {
                 </div>
               </div>
             </div>
-            <div className="p-10 flex flex-col border border-gray1 border-solid rounded-lg gap-y-5">
+            <div className="flex flex-col p-10 border border-solid rounded-lg border-gray1 gap-y-5">
               <div className="flex justify-between">
                 <div className="flex items-center gap-x-4">
-                  <img src="/src/assets/icons/no-profile-image.svg" alt="" />
+                  <img src="/assets/images/profile-default.png" alt="" />
                   <p className="text-[20px] font-bold">하찮은쇼핑백</p>
                 </div>
                 <p className="text-[16px]">2024년 12월 20일</p>
@@ -171,10 +171,10 @@ export default function Detail() {
                 </div>
               </div>
             </div>
-            <div className="p-10 flex flex-col border border-gray1 border-solid rounded-lg gap-y-5">
+            <div className="flex flex-col p-10 border border-solid rounded-lg border-gray1 gap-y-5">
               <div className="flex justify-between">
                 <div className="flex items-center gap-x-4">
-                  <img src="/src/assets/icons/no-profile-image.svg" alt="" />
+                  <img src="/assets/images/profile-default.png" alt="" />
                   <p className="text-[20px] font-bold">하찮은쇼핑백</p>
                 </div>
                 <p className="text-[16px]">2024년 12월 20일</p>
@@ -194,7 +194,7 @@ export default function Detail() {
           </div>
           <div className="flex flex-col gap-y-7">
             <p className="section-title">상품의 후기를 작성하세요</p>
-            <div className="h-52 p-10 border border-gray2 rounded-lg">
+            <div className="p-10 border rounded-lg h-52 border-gray2">
               <textarea
                 className="w-full h-full text-[24px] resize-none outline-none"
                 placeholder="내용을 입력하세요"

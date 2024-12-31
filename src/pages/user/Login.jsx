@@ -3,7 +3,7 @@ export default function Login() {
     <div className="container">
       <div className="mx-auto w-fit mb-[40px]">
         <figure>
-          <img className="mx-auto" src="/src/assets/images/logo-vertical.svg" />
+          <img className="mx-auto" src="/assets/logos/logo-vertical.svg" />
           <figcaption className="font-bold text-[18px]">
             내 취향을 위한 공간
           </figcaption>
@@ -45,12 +45,12 @@ export default function Login() {
               >
                 <img
                   className="ml-auto"
-                  src="/src/assets/icons/eye-closed.svg"
+                  src="/assets/icons/eye-closed.svg"
                   alt="비밀번호 숨김 상태"
                 />
                 <img
-                  className="ml-auto hidden"
-                  src="/src/assets/icons/eye-open.svg"
+                  className="hidden ml-auto"
+                  src="/assets/icons/eye-open.svg"
                   alt="비밀번호 표시 중"
                 />
               </button>
@@ -70,7 +70,7 @@ export default function Login() {
         <div className="w-[400px] h-[60px] text-center p-[18px] rounded-[8px] text-[24px] font-bold text-white bg-point-blue focus-within:border-point-blue focus-within:shadow-md focus-within:shadow-point-blue mb-[10px]">
           <button
             type="submit"
-            className="size-full focus:outline-none cursor-pointer"
+            className="cursor-pointer size-full focus:outline-none"
           >
             로그인
           </button>
@@ -86,7 +86,7 @@ export default function Login() {
         <div className="w-[400px] h-[60px] text-center p-[18px] rounded-[8px] text-[24px] font-bold text-gray3 border-solid  border-gray3 border-2 focus-within:border-point-blue focus-within:shadow-md focus-within:shadow-point-blue">
           <button
             type="button"
-            className="size-full focus:outline-none cursor-pointer"
+            className="cursor-pointer size-full focus:outline-none"
           >
             회원가입
           </button>

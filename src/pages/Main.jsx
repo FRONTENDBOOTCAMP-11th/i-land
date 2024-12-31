@@ -4,20 +4,20 @@ export default function Main() {
       <section className="aspect-[50/21] border border-gray2 rounded-lg mb-[60px] relative flex place-items-center justify-center">
         <div className="absolute top-0 left-0 flex items-center size-full px-9">
           <button className="mr-auto">
-            <img src="/src/assets/icons/chevron-left.svg" />
+            <img src="/assets/icons/chevron-left.svg" />
           </button>
           <div className="px-3 py-1 mt-auto mb-5 border rounded-full border-gray3 text-gray3">
             <span>1</span> / <span>2</span>
           </div>
           <button className="ml-auto">
-            <img src="/src/assets/icons/chevron-right.svg" />
+            <img src="/assets/icons/chevron-right.svg" />
           </button>
         </div>
         <h1 className="text-[32px] font-bold w-[288px] mr-[60px] text-point-blue">
           나의 취향을 한 곳에서 모아보세요
         </h1>
         <img
-          src="/src/assets/images/favicon-logo.svg"
+          src="/assets/logos/logo-favicon.svg"
           className="w-[112px] h-[123px]"
           alt="메인 로고 캐릭터"
         />
@@ -34,7 +34,7 @@ export default function Main() {
               aria-label="만화/애니메이션 카테고리 상품 리스트"
             >
               <img
-                src="/src/assets/icons/category/comics-anime.svg"
+                src="/assets/icons/category/comics-anime.svg"
                 className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
               />
               <p className="text-[18px]">만화/애니메이션</p>
@@ -48,7 +48,7 @@ export default function Main() {
               aria-label="아이돌 카테고리 상품 리스트"
             >
               <img
-                src="/src/assets/icons/category/idol.svg"
+                src="/assets/icons/category/idol.svg"
                 className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
               />
               <p className="text-[18px]">아이돌</p>
@@ -62,7 +62,7 @@ export default function Main() {
               aria-label="영화/드라마 카테고리 상품 리스트"
             >
               <img
-                src="/src/assets/icons/category/movie-drama.svg"
+                src="/assets/icons/category/movie-drama.svg"
                 className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
               />
               <p className="text-[18px]">영화/드라마</p>
@@ -76,7 +76,7 @@ export default function Main() {
               aria-label="인형/피규어 카테고리 상품 리스트"
             >
               <img
-                src="/src/assets/icons/category/dolls-figures.svg"
+                src="/assets/icons/category/dolls-figures.svg"
                 className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
               />
               <p className="text-[18px]">인형/피규어</p>
@@ -90,7 +90,7 @@ export default function Main() {
               aria-label="패션/의류 카테고리 상품 리스트"
             >
               <img
-                src="/src/assets/icons/category/fashion-clothing.svg"
+                src="/assets/icons/category/fashion-clothing.svg"
                 className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
               />
               <p className="text-[18px]">패션/의류</p>
@@ -104,7 +104,7 @@ export default function Main() {
               aria-label="문구/잡화 카테고리 상품 리스트"
             >
               <img
-                src="/src/assets/icons/category/stationaries.svg"
+                src="/assets/icons/category/stationaries.svg"
                 className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
               />
               <p className="text-[18px]">문구/잡화</p>
@@ -120,18 +120,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-smm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -141,7 +144,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -169,18 +172,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -190,7 +196,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -218,18 +224,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -239,7 +248,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -267,18 +276,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -288,7 +300,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -316,18 +328,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -337,7 +352,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -365,18 +380,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -386,7 +404,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -414,18 +432,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -435,7 +456,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -463,18 +484,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -484,7 +508,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -512,18 +536,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -533,7 +560,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -561,18 +588,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -582,7 +612,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -617,18 +647,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -638,7 +671,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -666,18 +699,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -687,7 +723,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -715,18 +751,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -736,7 +775,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -764,18 +803,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -785,7 +827,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -813,18 +855,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -834,7 +879,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -862,18 +907,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -883,7 +931,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -911,18 +959,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -932,7 +983,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -960,18 +1011,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -981,7 +1035,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -1009,18 +1063,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1030,7 +1087,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -1058,18 +1115,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1079,7 +1139,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -1114,18 +1174,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1135,7 +1198,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -1163,18 +1226,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1184,7 +1250,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -1212,18 +1278,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1233,7 +1302,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -1261,18 +1330,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1282,7 +1354,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -1310,18 +1382,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1331,7 +1406,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -1359,18 +1434,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1380,7 +1458,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -1408,18 +1486,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1429,7 +1510,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -1457,18 +1538,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1478,7 +1562,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -1506,18 +1590,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1527,7 +1614,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -1555,18 +1642,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1576,7 +1666,7 @@ export default function Main() {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -1611,18 +1701,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1637,18 +1730,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1663,18 +1759,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1689,18 +1788,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1715,18 +1817,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1741,18 +1846,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1767,18 +1875,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1793,18 +1904,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1819,18 +1933,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -1845,18 +1962,21 @@ export default function Main() {
             <li className="w-[180px]">
               <a href="#" aria-label="상품 페이지로 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 제목 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 제목 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
