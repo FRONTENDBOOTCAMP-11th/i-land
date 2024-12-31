@@ -2,7 +2,7 @@ export default function Carts() {
   return (
     <div className="container">
       <section name="cartHeader">
-        <p className="section-title">장바구니</p>
+        <p className="page-title">장바구니</p>
         <div className="mt-[63px] mb-[43px] flex justify-between text-[14px]">
           <label className="flex gap-[10px] items-center">
             <input
