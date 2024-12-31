@@ -1,4 +1,4 @@
-export default function ProductCreate() {
+export default function Create() {
   return (
     <div className="container">
       <h1 className="page-title">상품 등록</h1>
