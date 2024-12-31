@@ -1,4 +1,41 @@
+import React, { useState } from 'react';
+
+
 export default function Detail() {
+
+  const dummyUser =[
+    {
+      seller_id:1,
+      nickname:"산리오 공식몰이고 싶음"
+    },
+    {
+      seller_id:2,
+      nickname:"쿠로미"
+    }
+  ]
+
+  const dummyItems = [
+    {
+      product_id: 1,
+      seller_id: 1,
+      name: "쿠로미 보온 머그잔",
+      price: 120000,
+      quantity: 1,
+      image: "/src/assets/images/kuromi.png",
+    },
+    {
+      product_id: 2,
+      seller_id: 2,
+      name: "쿠로미 보온 머그잔2",
+      price: 60000,
+      quantity: 1,
+      image: "/src/assets/images/kuromi.png",
+    }
+  ];
+
+
+
+
   return (
     <main className="bg-white px-24 py-5 container">
       <section name="detailHeader">
@@ -6,7 +43,7 @@ export default function Detail() {
           <div className="relative w-[480px] h-[480px]">
             <img
               className="w-full h-full"
-              src="/src/assets/images/kuromi.png"
+              src={dummyItems[0].image}
               alt=""
             />
             <img
@@ -20,13 +57,13 @@ export default function Detail() {
               alt=""
             />
             <p className="absolute left-[50%] -translate-x-1/2 bottom-[10px] w-[51px] h-[23px] flex items-center justify-center text-[14px] text-gray3 bg-white bg-opacity-70 border border-solid rounded-[26px]">
-              1/2
+              {1}/{2}
             </p>
           </div>
           <div className="w-96 flex flex-col gap-y-7">
             <a className="text-[18px] text-gray3 flex gap-x-[10px] items-center" href="">
               <p className="text-gray3 text-[18px] not-italic font-normal">
-                산리오 공식물이고 싶음 
+                { dummyUser[0].nickname }
               </p>
               <img
                 src="/src/assets/icons/chevron-right.svg"
@@ -34,9 +71,9 @@ export default function Detail() {
               />
             </a>
             <p className="text-black text-[32px] not-italic font-bold">
-              쿠로미 보온 머그잔
+              { dummyItems[0].name }
             </p>
-            <p className="font-bold text-[24px]">120,000 원</p>
+            <p className="font-bold text-[24px]"> { dummyItems[0].price } 원</p>
             <select
               className="w-100 h-10 px-3 text-[14px] not-italic border border-solid border-gray2 rounded-lg"
               name="productOption"
@@ -78,7 +115,7 @@ export default function Detail() {
           </div>
         </div>
       </section>
-      <p className="text-gray1 border border-solid my-10"></p>
+      <hr className="text-gray1 border border-solid my-10"></hr>
       <section name="detailMain">
         <p className="mt-5 section-title">상품 설명</p>
         <div className="flex flex-col justify-self-center">
@@ -129,11 +166,11 @@ export default function Detail() {
           </li>
         </ul>
       </section>
-      <p className="text-gray1 border border-solid my-10"></p>
+      <hr className="text-gray1 border border-solid my-10"></hr>
       <section name="detailFooter">
         <p className="mb-10 section-title">상품 후기</p>
         <div>
-          <p className="mb-7 text-[16px] font-normal">후기 3 개</p>
+          <p className="mb-7 text-[16px] font-normal">후기 {3} 개</p>
           <div className="mb-20 flex flex-col gap-y-7">
             <div className="p-10 flex flex-col border border-gray1 border-solid rounded-lg gap-y-5">
               <div className="flex justify-between">
