@@ -24,10 +24,14 @@ export default function Detail() {
             </p>
           </div>
           <div className="w-96 flex flex-col gap-y-7">
-            <a href="">
+            <a className="text-[18px] text-gray3 flex gap-x-[10px] items-center" href="">
               <p className="text-gray3 text-[18px] not-italic font-normal">
-                산리오 공식물이고 싶음 >
+                산리오 공식물이고 싶음 
               </p>
+              <img
+                src="/src/assets/icons/chevron-right.svg"
+                className="w-[6px] h-3"
+              />
             </a>
             <p className="text-black text-[32px] not-italic font-bold">
               쿠로미 보온 머그잔
