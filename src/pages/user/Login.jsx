@@ -41,7 +41,7 @@ export default function Login() {
       // 400 error 처리(요청 에러)
       if (err.response.status === 403) {
         console.log(err.response.status, err.response.data.message);
-        setError("invalid", {
+        setError("password", {
           type: "manual",
           message: err.response.data.message,
         });
@@ -91,9 +91,6 @@ export default function Login() {
               />
             </div>
             {/* <p className="text-point-red mt-[2px]">이메일을 입력해주세요</p> */}
-            {/* {errors.email && (
-              <p className="text-point-red mt-[2px]">{errors.email.message}</p>
-            )} */}
             <InputError target={errors.email} />
           </div>
 
@@ -131,17 +128,7 @@ export default function Login() {
               </button>
             </div>
             {/* <p className="text-point-red mt-[2px]">비밀번호를 입력해주세요</p> */}
-            <InputError target={errors.password || errors.invalid} />
-            {/* {(errors.password && (
-              <p className="text-point-red mt-[2px]">
-                {errors.password.message}
-              </p>
-            )) ||
-              (errors.invalid?.type && (
-                <p className="text-point-red mt-[2px]">
-                  {errors.invalid.message}
-                </p>
-              ))} */}
+            <InputError target={errors.password} />
           </div>
 
           <label className="mb-[30px] flex gap-[10px] items-center">
