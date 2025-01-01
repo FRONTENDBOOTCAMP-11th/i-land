@@ -152,7 +152,10 @@ export default function Products() {
           <li className="w-[180px]">
             <a href="#" aria-label="상품 상세 페이지 이동">
               <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                <img src="/assets/images/product-image-3" alt="상품 이미지" />
+                <img
+                  src="/assets/images/product-image-3.png"
+                  alt="상품 이미지"
+                />
                 <button
                   type="button"
                   aria-label="상품 찜하기 버튼"
@@ -194,7 +197,10 @@ export default function Products() {
           <li className="w-[180px]">
             <a href="#" aria-label="상품 상세 페이지 이동">
               <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                <img src="/assets/images/product-image-3" alt="상품 이미지" />
+                <img
+                  src="/assets/images/product-image-3.png"
+                  alt="상품 이미지"
+                />
                 <button
                   type="button"
                   aria-label="상품 찜하기 버튼"
@@ -236,7 +242,10 @@ export default function Products() {
           <li className="w-[180px]">
             <a href="#" aria-label="상품 상세 페이지 이동">
               <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                <img src="/assets/images/product-image-3" alt="상품 이미지" />
+                <img
+                  src="/assets/images/product-image-3.png"
+                  alt="상품 이미지"
+                />
                 <button
                   type="button"
                   aria-label="상품 찜하기 버튼"
@@ -278,7 +287,10 @@ export default function Products() {
           <li className="w-[180px]">
             <a href="#" aria-label="상품 상세 페이지 이동">
               <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                <img src="/assets/images/product-image-3" alt="상품 이미지" />
+                <img
+                  src="/assets/images/product-image-3.png"
+                  alt="상품 이미지"
+                />
                 <button
                   type="button"
                   aria-label="상품 찜하기 버튼"
@@ -320,7 +332,10 @@ export default function Products() {
           <li className="w-[180px]">
             <a href="#" aria-label="상품 상세 페이지 이동">
               <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                <img src="/assets/images/product-image-3" alt="상품 이미지" />
+                <img
+                  src="/assets/images/product-image-3.png"
+                  alt="상품 이미지"
+                />
                 <button
                   type="button"
                   aria-label="상품 찜하기 버튼"
