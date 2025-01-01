@@ -79,7 +79,7 @@ export default function Login() {
         <div className="w-[400px] h-[60px] text-center rounded-[8px] focus-within:border-point-blue focus-within:shadow-md focus-within:shadow-point-blue mb-[10px]">
           <button
             type="button"
-            className="size-full focus:outline-none cursor-pointer bg-[url('/src/assets/icons/kakao-login.svg')] bg-cover"
+            className="size-full focus:outline-none cursor-pointer bg-[url('/assets/icons/kakao-login.svg')] bg-cover"
           ></button>
         </div>
 
