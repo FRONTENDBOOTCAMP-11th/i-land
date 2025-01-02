@@ -2,30 +2,34 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 
 export default function Detail({_id}) {
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [count, setCount] = useState(1);
+  const baseURL = "https://11.fesp.shop"
+
+  const [product, setProduct] = useState(null); // 상품 정보
+  const [productReview, setProductReview] = useState([]); // 상품 리뷰
+  const [loading, setLoading] = useState(true); // 로딩
+  const [error, setError] = useState(null); // 에러
+  const [count, setCount] = useState(1);  // 상품 수량
   
   const plusValue = () => { setCount(count + 1) };
   const minusValue = () => { setCount(count - 1) };
-
-  if(count < 1){
-    alert("1개 이하는 구매할 수 없습니다.")
-    plusValue ();
-  }
-
   const inputNum = (event) => {
     const value = event.target.value;
     if (!isNaN(value) && value.trim() !== '') {
       setCount(Number(value));
     }
   };
+  
+  useEffect(() => {
+    if (count < 1) {
+      alert("1개 이하는 구매할 수 없습니다.");
+      setCount(1);
+    }
+  }, [count]);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`https://11.fesp.shop/products/1`,{
+        const response = await axios.get( baseURL + `/products/1`,{
           headers: {
             'Content-Type': 'application/json', // request의 데이터 타입
             accept: 'application/json', // response의 데이터 타입
@@ -38,14 +42,34 @@ export default function Detail({_id}) {
         setLoading(false);
       }
     };
+    const fetchProductReview = async () => {
+      try {
+        const response = await axios.get( baseURL + `/replies/products/2`,{
+          headers: {
+            'Content-Type': 'application/json', // request의 데이터 타입
+            accept: 'application/json', // response의 데이터 타입
+            'client-id': 'final06',
+          }});
+        setProductReview(response.data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchProductReview();
     fetchProduct();
   }, [_id]);
+  
+
+
+
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-
-
+  
+  console.log(productReview)
   return (
     <main className="container px-24 py-5 bg-white">
       <section name="detailHeader">
@@ -56,16 +80,20 @@ export default function Detail({_id}) {
               src={product.item.img}
               alt=""
             />
-            <img
-              className="absolute left-[16px] top-[50%]"
-              src="/assets/icons/left.svg"
-              alt=""
-            />
-            <img
-              className="absolute right-[16px] top-[50%]"
-              src="/assets/icons/right.svg"
-              alt=""
-            />
+            <button>
+              <img
+                className="absolute left-[16px] top-[50%]"
+                src="/assets/icons/left.svg"
+                alt=""
+              />
+            </button>
+            <button>
+              <img
+                className="absolute right-[16px] top-[50%]"
+                src="/assets/icons/right.svg"
+                alt=""
+              />
+            </button>
             <p className="absolute left-[50%] -translate-x-1/2 bottom-[10px] w-[51px] h-[23px] flex items-center justify-center text-[14px] text-gray3 bg-white bg-opacity-70 border border-solid rounded-[26px]">
               {1}/{product.item.img}
             </p>
@@ -83,7 +111,10 @@ export default function Detail({_id}) {
             <p className="text-black text-[32px] not-italic font-bold">
               {product.item.name}
             </p>
-            <p className="font-bold text-[24px]"> {product.item.price.toLocaleString()} 원</p>
+            <div className="flex justify-between items-center">
+              <p className="font-bold text-[24px]"> {product.item.price.toLocaleString()} 원</p>
+              <p className="font-bold text-[18px]">현재 수량 {product.item.quantity} 개</p>
+            </div>
             <select
               className="w-100 h-10 px-3 text-[14px] not-italic border border-solid border-gray2 rounded-lg"
               name="productOption"
@@ -138,57 +169,18 @@ export default function Detail({_id}) {
         <p className="mb-10 section-title">상품 후기</p>
         <div>
           <p className="mb-7 text-[16px] font-normal">후기 {3} 개</p>
-          <div className="mb-20 flex flex-col gap-y-7">
-            <div className="p-10 flex flex-col border border-gray1 border-solid rounded-lg gap-y-5">
-              <div className="flex justify-between">
-                <div className="flex items-center gap-x-4">
-                  <img src="/assets/images/profile-default.png" alt="" />
-                  <p className="text-[20px] font-bold">하찮은쇼핑백</p>
-                </div>
-                <p className="text-[16px]">2024년 12월 20일</p>
-              </div>
-              <div className="flex justify-between">
-                <p className="text-[16px]">좋은 상품 이네용</p>
-                <div>
-                  <button className="h-[50px] py-[14px] px-9 text-[18px] font-bold border border-solid border-gray2 rounded-lg">
-                    수정
-                  </button>
-                  <button className="h-[50px] py-[14px] px-9 text-[18px] font-bold text-white bg-point-red rounded-lg">
-                    삭제
-                  </button>
-                </div>
-              </div>
-            </div>
+          <div name="reviewBox" className="mb-20 flex flex-col gap-y-7">
             <div className="flex flex-col p-10 border border-solid rounded-lg border-gray1 gap-y-5">
               <div className="flex justify-between">
                 <div className="flex items-center gap-x-4">
-                  <img src="/assets/images/profile-default.png" alt="" />
+                  <img className="w-[50px] h-[50px]" src="/assets/images/profile-default.png" alt="" />
                   <p className="text-[20px] font-bold">하찮은쇼핑백</p>
                 </div>
                 <p className="text-[16px]">2024년 12월 20일</p>
+                <p>{productReview.item[0].createdAt}</p>
               </div>
               <div className="flex justify-between">
-                <p className="text-[16px]">좋은 상품 이네용</p>
-                <div>
-                  <button className="h-[50px] py-[14px] px-9 text-[18px] font-bold border border-solid border-gray2 rounded-lg">
-                    수정
-                  </button>
-                  <button className="h-[50px] py-[14px] px-9 text-[18px] font-bold text-white bg-point-red rounded-lg">
-                    삭제
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col p-10 border border-solid rounded-lg border-gray1 gap-y-5">
-              <div className="flex justify-between">
-                <div className="flex items-center gap-x-4">
-                  <img src="/assets/images/profile-default.png" alt="" />
-                  <p className="text-[20px] font-bold">하찮은쇼핑백</p>
-                </div>
-                <p className="text-[16px]">2024년 12월 20일</p>
-              </div>
-              <div className="flex justify-between">
-                <p className="text-[16px]">좋은 상품 이네용</p>
+                <p className="text-[16px]">{productReview.item[0].content}</p>
                 <div>
                   <button className="h-[50px] py-[14px] px-9 text-[18px] font-bold border border-solid border-gray2 rounded-lg">
                     수정
@@ -218,4 +210,5 @@ export default function Detail({_id}) {
       </section>
     </main>
   );
+  
 }
