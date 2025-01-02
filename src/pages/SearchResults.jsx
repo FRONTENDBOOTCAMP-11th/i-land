@@ -34,18 +34,21 @@ export default function SearchResults({ results = [1] }) {
             <li className="w-[180px] mb-[40px]" key={index}>
               <a href="#" aria-label="상품 상세 페이지 이동">
                 <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                  <img src="/src/assets/images/iu.png" alt="상품 이미지" />
+                  <img
+                    src="/assets/images/product-image-12.png"
+                    alt="상품 이미지"
+                  />
                   <button
                     type="button"
                     aria-label="상품 찜하기 버튼"
                     className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                   >
                     <img
-                      src="/src/assets/icons/heart-s.svg"
+                      src="/assets/icons/heart-sm.svg"
                       className="w-4 h-[14px] hidden"
                     />
                     <img
-                      src="/src/assets/icons/heart-fill-s.svg"
+                      src="/assets/icons/heart-fill-sm.svg"
                       className="w-4 h-[14px]"
                     />
                   </button>
@@ -55,7 +58,7 @@ export default function SearchResults({ results = [1] }) {
                     상품 판매자 명
                   </p>
                   <img
-                    src="/src/assets/icons/chevron-right.svg"
+                    src="/assets/icons/chevron-right.svg"
                     className="w-[3px] h-[6px]"
                   />
                 </div>
@@ -64,16 +67,16 @@ export default function SearchResults({ results = [1] }) {
                 </h3>
                 <p className="mb-[10px]">12,000원</p>
                 <div className="flex gap-x-[6px] gap-y-1 flex-wrap">
-                  <div className=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
+                  <div className="px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
                     만화/애니메이션
                   </div>
-                  <div className=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
+                  <div className="px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
                     만화/애니메이션
                   </div>
-                  <div className=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
+                  <div className="px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
                     만화/애니메이션
                   </div>
-                  <div className=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
+                  <div className="px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
                     만화/애니메이션
                   </div>
                 </div>

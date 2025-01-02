@@ -14,7 +14,7 @@ export default function Products() {
               aria-label="만화/애니메이션 카테고리 상품 리스트"
             >
               <img
-                src="/src/assets/icons/category/comics-anime.svg"
+                src="/assets/icons/category/comics-anime.svg"
                 className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
               />
               <p className="text-[18px]">만화/애니메이션</p>
@@ -27,7 +27,7 @@ export default function Products() {
               aria-label="아이돌 카테고리 상품 리스트"
             >
               <img
-                src="/src/assets/icons/category/idol.svg"
+                src="/assets/icons/category/idol.svg"
                 className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
               />
               <p className="text-[18px]">아이돌</p>
@@ -40,7 +40,7 @@ export default function Products() {
               aria-label="영화/드라마 카테고리 상품 리스트"
             >
               <img
-                src="/src/assets/icons/category/movie-drama.svg"
+                src="/assets/icons/category/movie-drama.svg"
                 className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
               />
               <p className="text-[18px]">영화/드라마</p>
@@ -53,7 +53,7 @@ export default function Products() {
               aria-label="인형/피규어 카테고리 상품 리스트"
             >
               <img
-                src="/src/assets/icons/category/dolls-figures.svg"
+                src="/assets/icons/category/dolls-figures.svg"
                 className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
               />
               <p className="text-[18px]">인형/피규어</p>
@@ -66,7 +66,7 @@ export default function Products() {
               aria-label="패션/의류 카테고리 상품 리스트"
             >
               <img
-                src="/src/assets/icons/category/fashion-clothing.svg"
+                src="/assets/icons/category/fashion-clothing.svg"
                 className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
               />
               <p className="text-[18px]">패션/의류</p>
@@ -79,7 +79,7 @@ export default function Products() {
               aria-label="문구/잡화 카테고리 상품 리스트"
             >
               <img
-                src="/src/assets/icons/category/stationaries.svg"
+                src="/assets/icons/category/stationaries.svg"
                 className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
               />
               <p className="text-[18px]">문구/잡화</p>
@@ -107,18 +107,21 @@ export default function Products() {
           <li className="w-[180px]">
             <a href="#" aria-label="상품 상세 페이지 이동">
               <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                <img src="/src/assets/images/image 2.png" alt="상품 이미지" />
+                <img
+                  src="/assets/images/product-image-3.png"
+                  alt="상품 이미지"
+                />
                 <button
                   type="button"
                   aria-label="상품 찜하기 버튼"
                   className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                 >
                   <img
-                    src="/src/assets/icons/heart-s.svg"
+                    src="/assets/icons/heart-sm.svg"
                     className="w-4 h-[14px] hidden"
                   />
                   <img
-                    src="/src/assets/icons/heart-fill-s.svg"
+                    src="/assets/icons/heart-fill-sm.svg"
                     className="w-4 h-[14px]"
                   />
                 </button>
@@ -128,7 +131,7 @@ export default function Products() {
                   지우와 아이들
                 </p>
                 <img
-                  src="/src/assets/icons/chevron-right.svg"
+                  src="/assets/icons/chevron-right.svg"
                   className="w-[3px] h-[6px]"
                 />
               </div>
@@ -149,18 +152,21 @@ export default function Products() {
           <li className="w-[180px]">
             <a href="#" aria-label="상품 상세 페이지 이동">
               <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                <img src="/src/assets/images/image 2.png" alt="상품 이미지" />
+                <img
+                  src="/assets/images/product-image-3.png"
+                  alt="상품 이미지"
+                />
                 <button
                   type="button"
                   aria-label="상품 찜하기 버튼"
                   className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                 >
                   <img
-                    src="/src/assets/icons/heart-s.svg"
+                    src="/assets/icons/heart-sm.svg"
                     className="w-4 h-[14px] hidden"
                   />
                   <img
-                    src="/src/assets/icons/heart-fill-s.svg"
+                    src="/assets/icons/heart-fill-sm.svg"
                     className="w-4 h-[14px]"
                   />
                 </button>
@@ -170,7 +176,7 @@ export default function Products() {
                   지우와 아이들
                 </p>
                 <img
-                  src="/src/assets/icons/chevron-right.svg"
+                  src="/assets/icons/chevron-right.svg"
                   className="w-[3px] h-[6px]"
                 />
               </div>
@@ -191,18 +197,21 @@ export default function Products() {
           <li className="w-[180px]">
             <a href="#" aria-label="상품 상세 페이지 이동">
               <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                <img src="/src/assets/images/image 2.png" alt="상품 이미지" />
+                <img
+                  src="/assets/images/product-image-3.png"
+                  alt="상품 이미지"
+                />
                 <button
                   type="button"
                   aria-label="상품 찜하기 버튼"
                   className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                 >
                   <img
-                    src="/src/assets/icons/heart-s.svg"
+                    src="/assets/icons/heart-sm.svg"
                     className="w-4 h-[14px] hidden"
                   />
                   <img
-                    src="/src/assets/icons/heart-fill-s.svg"
+                    src="/assets/icons/heart-fill-sm.svg"
                     className="w-4 h-[14px]"
                   />
                 </button>
@@ -212,7 +221,7 @@ export default function Products() {
                   지우와 아이들
                 </p>
                 <img
-                  src="/src/assets/icons/chevron-right.svg"
+                  src="/assets/icons/chevron-right.svg"
                   className="w-[3px] h-[6px]"
                 />
               </div>
@@ -233,18 +242,21 @@ export default function Products() {
           <li className="w-[180px]">
             <a href="#" aria-label="상품 상세 페이지 이동">
               <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                <img src="/src/assets/images/image 2.png" alt="상품 이미지" />
+                <img
+                  src="/assets/images/product-image-3.png"
+                  alt="상품 이미지"
+                />
                 <button
                   type="button"
                   aria-label="상품 찜하기 버튼"
                   className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                 >
                   <img
-                    src="/src/assets/icons/heart-s.svg"
+                    src="/assets/icons/heart-sm.svg"
                     className="w-4 h-[14px] hidden"
                   />
                   <img
-                    src="/src/assets/icons/heart-fill-s.svg"
+                    src="/assets/icons/heart-fill-sm.svg"
                     className="w-4 h-[14px]"
                   />
                 </button>
@@ -254,7 +266,7 @@ export default function Products() {
                   지우와 아이들
                 </p>
                 <img
-                  src="/src/assets/icons/chevron-right.svg"
+                  src="/assets/icons/chevron-right.svg"
                   className="w-[3px] h-[6px]"
                 />
               </div>
@@ -275,18 +287,21 @@ export default function Products() {
           <li className="w-[180px]">
             <a href="#" aria-label="상품 상세 페이지 이동">
               <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                <img src="/src/assets/images/image 2.png" alt="상품 이미지" />
+                <img
+                  src="/assets/images/product-image-3.png"
+                  alt="상품 이미지"
+                />
                 <button
                   type="button"
                   aria-label="상품 찜하기 버튼"
                   className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                 >
                   <img
-                    src="/src/assets/icons/heart-s.svg"
+                    src="/assets/icons/heart-sm.svg"
                     className="w-4 h-[14px] hidden"
                   />
                   <img
-                    src="/src/assets/icons/heart-fill-s.svg"
+                    src="/assets/icons/heart-fill-sm.svg"
                     className="w-4 h-[14px]"
                   />
                 </button>
@@ -296,7 +311,7 @@ export default function Products() {
                   지우와 아이들
                 </p>
                 <img
-                  src="/src/assets/icons/chevron-right.svg"
+                  src="/assets/icons/chevron-right.svg"
                   className="w-[3px] h-[6px]"
                 />
               </div>
@@ -317,18 +332,21 @@ export default function Products() {
           <li className="w-[180px]">
             <a href="#" aria-label="상품 상세 페이지 이동">
               <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                <img src="/src/assets/images/image 2.png" alt="상품 이미지" />
+                <img
+                  src="/assets/images/product-image-3.png"
+                  alt="상품 이미지"
+                />
                 <button
                   type="button"
                   aria-label="상품 찜하기 버튼"
                   className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
                 >
                   <img
-                    src="/src/assets/icons/heart-s.svg"
+                    src="/assets/icons/heart-sm.svg"
                     className="w-4 h-[14px] hidden"
                   />
                   <img
-                    src="/src/assets/icons/heart-fill-s.svg"
+                    src="/assets/icons/heart-fill-sm.svg"
                     className="w-4 h-[14px]"
                   />
                 </button>
@@ -338,7 +356,7 @@ export default function Products() {
                   지우와 아이들
                 </p>
                 <img
-                  src="/src/assets/icons/chevron-right.svg"
+                  src="/assets/icons/chevron-right.svg"
                   className="w-[3px] h-[6px]"
                 />
               </div>
