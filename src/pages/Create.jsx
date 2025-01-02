@@ -1,57 +1,61 @@
+import { useState } from "react";
+
+import ProductInput from "@components/product-create/ProductInput";
+
 export default function Create() {
+  const [newProduct, setNewProduct] = useState({
+    name: "", // 상품명
+    price: "", // 상품 가격
+    quantity: "", // 상품 수량
+    content: "", // 상세 설명 (HTML)
+    mainImages: [], // 이미지 배열
+    extra: {
+      isNew: false, // 신상품 여부
+      category: [], // 카테고리
+      sort: 0, // 정렬 기준
+    },
+  });
+
+  const handleChange = (id, value) => {
+    setNewProduct(prev => ({ ...prev, [id]: value }));
+  };
+
   return (
     <div className="container">
       <h1 className="page-title">상품 등록</h1>
-
       <form action="" className="pb-[60px]">
         <div className="mb-16">
-          <label className="section-title" htmlFor="productName">
-            상품명
-          </label>
-          <input
-            type="text"
+          <ProductInput
+            label="상품명"
             id="productName"
-            className="w-full py-[15px] text-2xl leading-none border-b-4 border-solid border-gray3 focus-within:border-point-blue focus:outline-none"
             placeholder="상품명을 입력해주세요."
+            value={newProduct.productName}
+            onChange={value => handleChange("productName", value)}
           />
         </div>
 
         <div className="flex gap-[80px] mb-16">
-          <div className="relative flex-1">
-            <label className="section-title" htmlFor="productPrice">
-              상품 가격
-            </label>
-            <div className="flex items-center">
-              <input
-                type="number"
-                id="productPrice"
-                className="flex-1 py-[15px] text-2xl leading-none border-b-4 border-solid border-gray3 focus-within:border-point-blue focus:outline-none"
-                placeholder="상품 가격을 입력해주세요."
-                min="0"
-              />
-              <span className="absolute right-0 text-2xl leading-none bottom-5">
-                원
-              </span>
-            </div>
-          </div>
+          <ProductInput
+            type="number"
+            label="상품 가격"
+            id="productPrice"
+            placeholder="상품 가격을 입력해주세요."
+            unit="원"
+            value={newProduct.productPrice}
+            onChange={value => handleChange("productPrice", value)}
+            isFlexible={true}
+          />
 
-          <div className="relative flex-1">
-            <label className="section-title" htmlFor="productQuantity">
-              상품 수량
-            </label>
-            <div className="flex items-center">
-              <input
-                type="number"
-                id="productQuantity"
-                className="flex-1 py-[15px] text-2xl leading-none border-b-4 border-solid border-gray3 focus-within:border-point-blue focus:outline-none"
-                placeholder="상품 수량을 입력해주세요."
-                min="0"
-              />
-              <span className="absolute right-0 text-2xl leading-none bottom-5">
-                개
-              </span>
-            </div>
-          </div>
+          <ProductInput
+            type="number"
+            label="상품 수량"
+            id="productQuantity"
+            placeholder="상품 수량을 입력해주세요."
+            unit="개"
+            value={newProduct.productQuantity}
+            onChange={value => handleChange("productQuantity", value)}
+            isFlexible={true}
+          />
         </div>
 
         <div className="mb-16">
