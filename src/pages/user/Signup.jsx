@@ -90,12 +90,12 @@ export default function Signup() {
               >
                 <img
                   className="ml-auto"
-                  src="/src/assets/icons/eye-closed.svg"
+                  src="/assets/icons/eye-closed.svg"
                   alt="비밀번호 숨김 상태"
                 />
                 <img
-                  className="ml-auto hidden"
-                  src="/src/assets/icons/eye-open.svg"
+                  className="hidden ml-auto"
+                  src="/assets/icons/eye-open.svg"
                   alt="비밀번호 표시 중"
                 />
               </button>
@@ -119,12 +119,12 @@ export default function Signup() {
               >
                 <img
                   className="ml-auto"
-                  src="/src/assets/icons/eye-closed.svg"
+                  src="/assets/icons/eye-closed.svg"
                   alt="비밀번호 숨김 상태"
                 />
                 <img
-                  className="ml-auto hidden"
-                  src="/src/assets/icons/eye-open.svg"
+                  className="hidden ml-auto"
+                  src="/assets/icons/eye-open.svg"
                   alt="비밀번호 표시 중"
                 />
               </button>
@@ -135,7 +135,7 @@ export default function Signup() {
 
         <div className="text-center p-[18px] border-solid border-gray3 border-2 rounded-[8px] text-gray3 focus-within:border-point-blue focus-within:shadow-md focus-within:ring-point-blue">
           <button
-            className="cursor-pointer w-full focus:outline-none"
+            className="w-full cursor-pointer focus:outline-none"
             type="submit"
           >
             회원가입

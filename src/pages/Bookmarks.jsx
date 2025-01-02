@@ -9,7 +9,7 @@ export default function Bookmarks() {
       <ul className="grid grid-flow-row gap-y-[50px] pb-[60px]">
         <li className="p-10 flex gap-x-[60px] border border-gray2 rounded-lg box-border items-center">
           <img
-            src="/src/assets/images/kuromi.png"
+            src="/assets/images/product-image-12.png"
             className="size-[150px]"
             alt="상품 대표 이미지"
           />
@@ -17,7 +17,7 @@ export default function Bookmarks() {
             <div className="text-[18px] text-gray3 flex gap-x-[10px] items-center">
               산리오 공식몰이고 싶음
               <img
-                src="/src/assets/icons/chevron-right.svg"
+                src="/assets/icons/chevron-right.svg"
                 className="w-[6px] h-3"
               />
             </div>
@@ -46,7 +46,7 @@ export default function Bookmarks() {
 
         <li className="p-10 flex gap-x-[60px] border border-gray2 rounded-lg box-border items-center">
           <img
-            src="/src/assets/images/kuromi.png"
+            src="/assets/images/product-image-12.png"
             className="size-[150px]"
             alt="상품 대표 이미지"
           />
@@ -54,7 +54,7 @@ export default function Bookmarks() {
             <div className="text-[18px] text-gray3 flex gap-x-[10px] items-center">
               산리오 공식몰이고 싶음
               <img
-                src="/src/assets/icons/chevron-right.svg"
+                src="/assets/icons/chevron-right.svg"
                 className="w-[6px] h-3"
               />
             </div>
@@ -83,7 +83,7 @@ export default function Bookmarks() {
 
         <li className="p-10 flex gap-x-[60px] border border-gray2 rounded-lg box-border items-center">
           <img
-            src="/src/assets/images/kuromi.png"
+            src="/assets/images/product-image-12.png"
             className="size-[150px]"
             alt="상품 대표 이미지"
           />
@@ -91,7 +91,7 @@ export default function Bookmarks() {
             <div className="text-[18px] text-gray3 flex gap-x-[10px] items-center">
               산리오 공식몰이고 싶음
               <img
-                src="/src/assets/icons/chevron-right.svg"
+                src="/assets/icons/chevron-right.svg"
                 className="w-[6px] h-3"
               />
             </div>
@@ -120,7 +120,7 @@ export default function Bookmarks() {
 
         <li className="p-10 flex gap-x-[60px] border border-gray2 rounded-lg box-border items-center">
           <img
-            src="/src/assets/images/kuromi.png"
+            src="/assets/images/product-image-12.png"
             className="size-[150px]"
             alt="상품 대표 이미지"
           />
@@ -128,7 +128,7 @@ export default function Bookmarks() {
             <div className="text-[18px] text-gray3 flex gap-x-[10px] items-center">
               산리오 공식몰이고 싶음
               <img
-                src="/src/assets/icons/chevron-right.svg"
+                src="/assets/icons/chevron-right.svg"
                 className="w-[6px] h-3"
               />
             </div>
@@ -157,7 +157,7 @@ export default function Bookmarks() {
 
         <li className="p-10 flex gap-x-[60px] border border-gray2 rounded-lg box-border items-center">
           <img
-            src="/src/assets/images/kuromi.png"
+            src="/assets/images/product-image-12.png"
             className="size-[150px]"
             alt="상품 대표 이미지"
           />
@@ -165,7 +165,7 @@ export default function Bookmarks() {
             <div className="text-[18px] text-gray3 flex gap-x-[10px] items-center">
               산리오 공식몰이고 싶음
               <img
-                src="/src/assets/icons/chevron-right.svg"
+                src="/assets/icons/chevron-right.svg"
                 className="w-[6px] h-3"
               />
             </div>
