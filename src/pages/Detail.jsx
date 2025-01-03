@@ -28,7 +28,7 @@ export default function Detail({_id}) {
     }
   }, [count]);
 
-  _id = 2;
+  _id = 1;
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -49,7 +49,7 @@ export default function Detail({_id}) {
 
     const fetchProductReview = async () => {  // 상품 후기 가져오기
       try {
-        const response = await axios.get( baseURL + `/replies/products/${_id}`,{
+        const response = await axios.get( baseURL + `/posts/${_id}/replies`,{
           headers: {
             'Content-Type': 'application/json', // request의 데이터 타입
             accept: 'application/json', // response의 데이터 타입
@@ -73,8 +73,11 @@ export default function Detail({_id}) {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-  console.log(product)
-  console.log(productReview)
+  
+
+
+  console.log(product.item);
+  console.log(product.item.mainImages);
   return (
     <main className="container px-24 py-5 bg-white">
       <section name="detailHeader">

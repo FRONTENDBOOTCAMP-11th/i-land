@@ -10,7 +10,7 @@ export default function Review() {
   useEffect(() => {
     const fetchProductReview = async () => {  // 상품 후기 가져오기
       try {
-        const response = await axios.get(baseURL + `/replies/products/2`, {
+        const response = await axios.get(baseURL + `/posts/1/replies`, {
           headers: {
             'Content-Type': 'application/json',
             accept: 'application/json',
@@ -28,6 +28,8 @@ export default function Review() {
 
     fetchProductReview();
   }, []);
+
+  
 
   // 날짜 포맷팅 함수
   const formatDate = (dateString) => {
