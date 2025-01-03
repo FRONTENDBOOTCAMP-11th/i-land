@@ -5,11 +5,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 
+// 이메일, 비밀번호 정규 표현식
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const passwordRegex = /^.{8,}$/;
 
 export default function Login() {
   const setUser = useUserStore(store => store.setUser);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -22,7 +24,6 @@ export default function Login() {
 
   const axios = useAxiosInstance();
 
-  // TODO 1: 로그인 입력 폼 검증 (react-hook-form 사용)
   const {
     register,
     handleSubmit,
@@ -30,27 +31,45 @@ export default function Login() {
     setError,
     clearErrors,
   } = useForm({
-    defaultValues: { email: "u1@market.com", password: "11111111" },
+    defaultValues: {
+      // 로컬 스토리지에 저장된 회원정보가 있는 경우, defaultValues 로 자동 기입
+      email: localStorage?.getItem("email"),
+      password: localStorage?.getItem("password"),
+    },
   });
 
-  // TODO 2: 이메일, 비밀번호를 사용하여 API 서버 요청
   // 로그인 시 API 서버 요청 함수
   const login = async formData => {
     try {
+      // 이전의 에러가 있는 경우, 에러 초기화
       if (errors) clearErrors();
+
+      // 로그인 정보 저장 체크 시, 로컬 스토리지에 이메일, 비밀번호 저장
+      if (formData.saveInfo === true) {
+        localStorage.setItem("email", formData.email);
+        localStorage.setItem("password", formData.password);
+      } else {
+        localStorage.clear();
+      }
+
       const res = await axios.post("/users/login", formData);
       console.log("로그인 성공");
       console.log(res.data.item);
 
       const user = res.data.item;
 
-      setUser(user);
+      // 쿠키에 사용자 정보 저장(_id, accessToken, refreshToken)
+      setUser({
+        _id: user._id,
+        accessToken: user.token.accessToken,
+        refreshToken: user.token.refreshToken,
+      });
 
       // 로그인 성공 시 얼럿 창 출력
-      // alert(res.data.item.name + "님 안녕하세요.");
+      alert(res.data.item.name + "님 안녕하세요.");
 
       // 이전 작업페이지 또는 메인 홈으로 이동
-      // navigate(location.state?.from || "/");
+      navigate(location.state?.from || "/");
     } catch (err) {
       // 400 error 처리(요청 에러)
       if (err.response.status === 403) {
@@ -59,14 +78,13 @@ export default function Login() {
           type: "manual",
           message: err.response.data.message,
         });
-        // 서버 에러 500
+      } else if (err.response.status >= 500) {
+        alert("잠시 후 다시 시도해주세요.");
+        navigate("/user/login");
       }
+      // 서버 에러 500
     }
   };
-
-  // TODO 4: 로그인 완료 시 이전 페이지로 이동
-  // TODO 5: 카카오 로그인 기능 구현
-  // TODO 6: 회원가입 버튼 선택 시 회원가입 페이지로 이동
 
   // 화면 렌더링
   return (
@@ -133,13 +151,13 @@ export default function Login() {
                 {isVisible ? (
                   <img
                     className="ml-auto"
-                    src="/assets/icons/eye-closed.svg"
+                    src="/assets/icons/eye-open.svg"
                     alt="비밀번호 표시 중"
                   />
                 ) : (
                   <img
                     className="ml-auto"
-                    src="/assets/icons/eye-open.svg"
+                    src="/assets/icons/eye-closed.svg"
                     alt="비밀번호 숨김 상태"
                   />
                 )}
@@ -149,12 +167,16 @@ export default function Login() {
             <InputError target={errors.password} />
           </div>
 
-          <label className="mb-[30px] flex gap-[10px] items-center">
+          <label
+            className="mb-[30px] flex gap-[10px] items-center"
+            htmlFor="saveInfo"
+          >
             <input
               type="checkbox"
-              className="appearance-none size-5 bg-[url('/src/assets/icons/checkbox.svg')] checked:bg-[url('/src/assets/icons/checkbox-checked.svg')] bg-cover align-middle"
+              className="appearance-none size-5 bg-[url('/assets/icons/checkbox.svg')] checked:bg-[url('/assets/icons/checkbox-checked.svg')] bg-cover align-middle"
+              {...register("saveInfo")}
             />
-            로그인 상태 유지
+            로그인 정보 저장
           </label>
         </fieldset>
 
@@ -171,13 +193,14 @@ export default function Login() {
           <button
             type="button"
             className="size-full focus:outline-none cursor-pointer bg-[url('/assets/icons/kakao-login.svg')] bg-cover"
-          ></button>
+          />
         </div>
 
         <div className="w-[400px] h-[60px] text-center p-[18px] rounded-[8px] text-[24px] font-bold text-gray3 border-solid  border-gray3 border-2 focus-within:border-point-blue focus-within:shadow-md focus-within:shadow-point-blue">
           <button
             type="button"
             className="cursor-pointer size-full focus:outline-none"
+            onClick={() => navigate("/user/signup")}
           >
             회원가입
           </button>
