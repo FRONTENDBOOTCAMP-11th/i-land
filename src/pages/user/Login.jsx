@@ -1,6 +1,8 @@
 import InputError from "@components/InputError";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useUserStore from "@zustand/userStore";
+import { SHA256 } from "crypto-js";
+import { CryptoJS } from "crypto-js";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -34,7 +36,10 @@ export default function Login() {
     defaultValues: {
       // 로컬 스토리지에 저장된 회원정보가 있는 경우, defaultValues 로 자동 기입
       email: localStorage?.getItem("email"),
-      password: localStorage?.getItem("password"),
+      password: CryptoJS.AES.decrypt(
+        localStorage?.getItem("password"),
+        "passphrase",
+      ),
     },
   });
 
@@ -47,7 +52,10 @@ export default function Login() {
       // 로그인 정보 저장 체크 시, 로컬 스토리지에 이메일, 비밀번호 저장
       if (formData.saveInfo === true) {
         localStorage.setItem("email", formData.email);
-        localStorage.setItem("password", formData.password);
+        localStorage.setItem(
+          "password",
+          SHA256(formData.password, "passphrase").toString(),
+        );
       } else {
         localStorage.clear();
       }
@@ -66,14 +74,15 @@ export default function Login() {
       });
 
       // 로그인 성공 시 얼럿 창 출력
-      alert(res.data.item.name + "님 안녕하세요.");
+      // alert(res.data.item.name + "님 안녕하세요.");
 
       // 이전 작업페이지 또는 메인 홈으로 이동
-      navigate(location.state?.from || "/");
+      // navigate(location.state?.from || "/");
     } catch (err) {
+      console.error(err);
       // 400 error 처리(요청 에러)
-      if (err.response.status === 403) {
-        console.log(err.response.status, err.response.data.message);
+      if (err.response.status >= 403) {
+        console.error(err.response.status, err.response.data.message);
         setError("password", {
           type: "manual",
           message: err.response.data.message,
