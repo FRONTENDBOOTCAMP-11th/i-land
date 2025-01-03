@@ -7,7 +7,7 @@ export default function Carts() {
           <label className="flex gap-[10px] items-center">
             <input
               type="checkbox"
-              className="appearance-none size-5 bg-[url('/src/assets/icons/checkbox.svg')] checked:bg-[url('/src/assets/icons/checkbox-checked.svg')] bg-cover align-middle"
+              className="appearance-none size-5 bg-[url('/assets/icons/checkbox.svg')] checked:bg-[url('/assets/icons/checkbox-checked.svg')] bg-cover align-middle"
             />
             전체 선택
           </label>
@@ -25,13 +25,13 @@ export default function Carts() {
                 <label className="mb-[20px] flex gap-[10px] items-center text-[14px]">
                   <input
                     type="checkbox"
-                    className="appearance-none size-5 bg-[url('/src/assets/icons/checkbox.svg')] checked:bg-[url('/src/assets/icons/checkbox-checked.svg')] bg-cover align-middle"
+                    className="appearance-none size-5 bg-[url('/assets/icons/checkbox.svg')] checked:bg-[url('/assets/icons/checkbox-checked.svg')] bg-cover align-middle"
                   />
                   선택
                 </label>
                 <img
                   className="w-[150px] h-[150px]"
-                  src="/src/assets/images/kuromi.png"
+                  src="/assets/images/product-image-12.png"
                   alt=""
                 />
               </div>
@@ -49,7 +49,7 @@ export default function Carts() {
             </div>
             <div className="font-bold items-center text-[18px] flex gap-x-2">
               <button>
-                <img src="/src/assets/icons/minus.svg" alt="" />
+                <img src="/assets/icons/minus.svg" alt="" />
               </button>
               <input
                 className="text-center border border-solid rounded w-7 h-7 border-gray2"
@@ -58,11 +58,11 @@ export default function Carts() {
                 name="countUp"
               />
               <button>
-                <img src="/src/assets/icons/plus.svg" alt="" />
+                <img src="/assets/icons/plus.svg" alt="" />
               </button>
             </div>
             <button className="absolute right-[40px] top-[40px]">
-              <img src="/src/assets/icons/x.svg" alt="" />
+              <img src="/assets/icons/close.svg" alt="" />
             </button>
           </div>
           <div className="relative h-[282px] p-[40px] flex justify-between border border-solid border-gray2 rounded-[8px]">
@@ -71,13 +71,13 @@ export default function Carts() {
                 <label className="mb-[20px] flex gap-[10px] items-center text-[14px]">
                   <input
                     type="checkbox"
-                    className="appearance-none size-5 bg-[url('/src/assets/icons/checkbox.svg')] checked:bg-[url('/src/assets/icons/checkbox-checked.svg')] bg-cover align-middle"
+                    className="appearance-none size-5 bg-[url('/assets/icons/checkbox.svg')] checked:bg-[url('/assets/icons/checkbox-checked.svg')] bg-cover align-middle"
                   />
                   선택
                 </label>
                 <img
                   className="w-[150px] h-[150px]"
-                  src="/src/assets/images/kuromi.png"
+                  src="/assets/images/product-image-12.png"
                   alt=""
                 />
               </div>
@@ -95,7 +95,7 @@ export default function Carts() {
             </div>
             <div className="font-bold items-center text-[18px] flex gap-x-2">
               <button>
-                <img src="/src/assets/icons/minus.svg" alt="" />
+                <img src="/assets/icons/minus.svg" alt="" />
               </button>
               <input
                 className="text-center border border-solid rounded w-7 h-7 border-gray2"
@@ -104,11 +104,11 @@ export default function Carts() {
                 name="countUp"
               />
               <button>
-                <img src="/src/assets/icons/plus.svg" alt="" />
+                <img src="/assets/icons/plus.svg" alt="" />
               </button>
             </div>
             <button className="absolute right-[40px] top-[40px]">
-              <img src="/src/assets/icons/x.svg" alt="" />
+              <img src="/assets/icons/close.svg" alt="" />
             </button>
           </div>
           <div className="relative h-[282px] p-[40px] flex justify-between border border-solid border-gray2 rounded-[8px]">
@@ -117,13 +117,13 @@ export default function Carts() {
                 <label className="mb-[20px] flex gap-[10px] items-center text-[14px]">
                   <input
                     type="checkbox"
-                    className="appearance-none size-5 bg-[url('/src/assets/icons/checkbox.svg')] checked:bg-[url('/src/assets/icons/checkbox-checked.svg')] bg-cover align-middle"
+                    className="appearance-none size-5 bg-[url('/assets/icons/checkbox.svg')] checked:bg-[url('/assets/icons/checkbox-checked.svg')] bg-cover align-middle"
                   />
                   선택
                 </label>
                 <img
                   className="w-[150px] h-[150px]"
-                  src="/src/assets/images/kuromi.png"
+                  src="/assets/images/product-image-12.png"
                   alt=""
                 />
               </div>
@@ -141,7 +141,7 @@ export default function Carts() {
             </div>
             <div className="font-bold items-center text-[18px] flex gap-x-2">
               <button>
-                <img src="/src/assets/icons/minus.svg" alt="" />
+                <img src="/assets/icons/minus.svg" alt="" />
               </button>
               <input
                 className="text-center border border-solid rounded w-7 h-7 border-gray2"
@@ -150,11 +150,11 @@ export default function Carts() {
                 name="countUp"
               />
               <button>
-                <img src="/src/assets/icons/plus.svg" alt="" />
+                <img src="/assets/icons/plus.svg" alt="" />
               </button>
             </div>
             <button className="absolute right-[40px] top-[40px]">
-              <img src="/src/assets/icons/x.svg" alt="" />
+              <img src="/assets/icons/close.svg" alt="" />
             </button>
           </div>
         </div>

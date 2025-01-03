@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: "Pretendard";
-  src: url("/PretendardVariable.ttf") format("truetype");
+  src: url("/assets/fonts/PretendardVariable.ttf") format("truetype");
 }
 
 @layer base {
