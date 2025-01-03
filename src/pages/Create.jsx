@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import ProductInput from "@components/product-create/ProductInput";
 import ProductCategory from "@components/product-create/ProductCategory";
+import ProductImageUploader from "@components/product-create/ProductImageUploader";
 
 export default function Create() {
   const [newProduct, setNewProduct] = useState({
@@ -30,6 +31,12 @@ export default function Create() {
       },
     }));
   };
+
+  const handleImageChange = images => {
+    setNewProduct(prev => ({ ...prev, mainImages: images }));
+  };
+
+  console.log("newProduct", newProduct);
 
   return (
     <div className="container">
@@ -74,30 +81,10 @@ export default function Create() {
           onChange={handleCategoryChange}
         />
 
-        <div className="mb-16">
-          <div className="flex items-center gap-2.5 mb-5">
-            <label className="section-title">상품 이미지</label>
-            <span className="mb-[20px] text-gray3">
-              상품 이미지 1~5장 필수 첨부 (jpg/jpeg/png)
-            </span>
-          </div>
-
-          <div>
-            <label
-              className="h-[50px] py-[14px] px-9 border-2 border-gray2 rounded-md cursor-pointer font-bold text-lg"
-              htmlFor="productImage"
-            >
-              이미지 첨부
-            </label>
-            <input
-              id="productImage"
-              type="file"
-              multiple
-              accept="image/png, image/jpeg, image/jpg"
-              className="hidden"
-            />
-          </div>
-        </div>
+        <ProductImageUploader
+          value={newProduct.mainImages}
+          onChange={handleImageChange}
+        />
 
         <div className="mb-16">
           <label className="section-title" htmlFor="productDescription">
