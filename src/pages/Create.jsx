@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import ProductInput from "@components/product-create/ProductInput";
+import ProductCategory from "@components/product-create/ProductCategory";
 
 export default function Create() {
   const [newProduct, setNewProduct] = useState({
@@ -20,6 +21,16 @@ export default function Create() {
     setNewProduct(prev => ({ ...prev, [id]: value }));
   };
 
+  const handleCategoryChange = categories => {
+    setNewProduct(prev => ({
+      ...prev,
+      extra: {
+        ...prev.extra,
+        category: categories,
+      },
+    }));
+  };
+
   return (
     <div className="container">
       <h1 className="page-title">상품 등록</h1>
@@ -29,8 +40,8 @@ export default function Create() {
             label="상품명"
             id="productName"
             placeholder="상품명을 입력해주세요."
-            value={newProduct.productName}
-            onChange={value => handleChange("productName", value)}
+            value={newProduct.name}
+            onChange={value => handleChange("name", value)}
           />
         </div>
 
@@ -41,8 +52,8 @@ export default function Create() {
             id="productPrice"
             placeholder="상품 가격을 입력해주세요."
             unit="원"
-            value={newProduct.productPrice}
-            onChange={value => handleChange("productPrice", value)}
+            value={newProduct.price}
+            onChange={value => handleChange("price", value)}
             isFlexible={true}
           />
 
@@ -52,45 +63,16 @@ export default function Create() {
             id="productQuantity"
             placeholder="상품 수량을 입력해주세요."
             unit="개"
-            value={newProduct.productQuantity}
-            onChange={value => handleChange("productQuantity", value)}
+            value={newProduct.quantity}
+            onChange={value => handleChange("quantity", value)}
             isFlexible={true}
           />
         </div>
 
-        <div className="mb-16">
-          <label className="section-title" htmlFor="category-1">
-            상품 카테고리
-          </label>
-          <div className="flex gap-[30px]">
-            <select
-              id="category-1"
-              className="w-[400px] h-[40px] border border-gray2 rounded-lg px-3 text-[14px] focus:outline-none"
-              name="selectedCategory1"
-            >
-              <option>상품 카테고리를 선택해주세요.</option>
-              <option value="cartoon">만화/애니메이션</option>
-              <option value="idol">아이돌</option>
-              <option value="film">영화/드라마</option>
-              <option value="figure">인형/피규어</option>
-              <option value="fashion">패션/의류</option>
-              <option value="stationary">문구/잡화</option>
-            </select>
-            <select
-              id="category-2"
-              className="w-[400px] h-[40px] border border-gray2 rounded-lg px-3 text-[14px] focus:outline-none"
-              name="selectedCategory2"
-            >
-              <option>상품 카테고리를 선택해주세요.</option>
-              <option value="cartoon">만화/애니메이션</option>
-              <option value="idol">아이돌</option>
-              <option value="film">영화/드라마</option>
-              <option value="figure">인형/피규어</option>
-              <option value="fashion">패션/의류</option>
-              <option value="stationary">문구/잡화</option>
-            </select>
-          </div>
-        </div>
+        <ProductCategory
+          value={newProduct.extra.category}
+          onChange={handleCategoryChange}
+        />
 
         <div className="mb-16">
           <div className="flex items-center gap-2.5 mb-5">
