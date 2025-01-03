@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function Detail({_id}) {
@@ -29,7 +30,7 @@ export default function Detail({_id}) {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get( baseURL + `/products/1`,{
+        const response = await axios.get( baseURL + `/products/1`,{ // 상품 정보 가져오기
           headers: {
             'Content-Type': 'application/json', // request의 데이터 타입
             accept: 'application/json', // response의 데이터 타입
@@ -42,7 +43,8 @@ export default function Detail({_id}) {
         setLoading(false);
       }
     };
-    const fetchProductReview = async () => {
+
+    const fetchProductReview = async () => {  // 상품 후기 가져오기
       try {
         const response = await axios.get( baseURL + `/replies/products/2`,{
           headers: {
@@ -144,15 +146,21 @@ export default function Detail({_id}) {
               <p className="text-black text-[24px] font-bold">총 {product.item.price.toLocaleString()} 원</p>
             </div>
             <div className="flex justify-between">
-              <button>
-                <img src="/assets/icons/heart_full_blue.svg" alt="" />
-              </button>
-              <button className="h-[50px] py-[14px] px-9 border-2 border-gray2 rounded-lg border-solid box-border">
-                <p className="text-[18px] font-bold">장바구니</p>
-              </button>
-              <button className="h-[50px] py-[14px] px-9 rounded-lg bg-point-blue box-border">
-                <p className="text-[18px] text-white font-bold">바로구매</p>
-              </button>
+              <Link to="/bookmarks">
+                <button>
+                  <img src="/assets/icons/heart_full_blue.svg" alt="" />
+                </button>
+              </Link>
+              <Link to="/carts">
+                <button className="h-[50px] py-[14px] px-9 border-2 border-gray2 rounded-lg border-solid box-border">
+                  <p className="text-[18px] font-bold">장바구니</p>
+                </button>
+              </Link>
+              <Link>
+                <button className="h-[50px] py-[14px] px-9 rounded-lg bg-point-blue box-border">
+                  <p className="text-[18px] text-white font-bold">바로구매</p>
+                </button>
+              </Link>
             </div>
           </div>
         </div>
