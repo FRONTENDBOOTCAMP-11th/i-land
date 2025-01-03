@@ -6,6 +6,7 @@ export default function Review() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [productReview, setProductReview] = useState([]); // 상품 리뷰
+  const [submitReview, setSubmitReview] = useState([]);
 
   useEffect(() => {
     const fetchProductReview = async () => {  // 상품 후기 가져오기
@@ -29,7 +30,23 @@ export default function Review() {
     fetchProductReview();
   }, []);
 
-  
+  const addReview = async () => {
+    try {
+      const response = await axios.post(baseURL + `/posts/1/replies`, {
+        headers: {
+          'Content-Type': 'application/json',
+          accept: 'application/json',
+          'client-id': 'final06',
+        }
+      });
+      setSubmitReview(response.data);
+      console.log(response.data);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   // 날짜 포맷팅 함수
   const formatDate = (dateString) => {

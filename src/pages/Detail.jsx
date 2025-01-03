@@ -149,7 +149,7 @@ export default function Detail({_id}) {
                   <img src="/assets/icons/plus.svg" alt="" />
                 </button>
               </div>
-              <p className="text-black text-[24px] font-bold">총 {product.item.price.toLocaleString()} 원</p>
+              <p className="text-black text-[24px] font-bold">총 {((count)*(product.item.price)).toLocaleString()} 원</p>
             </div>
             <div className="flex justify-between">
               <Link to="/bookmarks">
