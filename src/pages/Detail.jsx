@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import Review from "@components/layout/Review";
 import axios from "axios";
 
 export default function Detail({_id}) {
@@ -27,10 +28,12 @@ export default function Detail({_id}) {
     }
   }, [count]);
 
+  _id = 2;
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get( baseURL + `/products/1`,{ // 상품 정보 가져오기
+        const response = await axios.get( baseURL + `/products/${_id}`,{ // 상품 정보 가져오기
           headers: {
             'Content-Type': 'application/json', // request의 데이터 타입
             accept: 'application/json', // response의 데이터 타입
@@ -46,7 +49,7 @@ export default function Detail({_id}) {
 
     const fetchProductReview = async () => {  // 상품 후기 가져오기
       try {
-        const response = await axios.get( baseURL + `/replies/products/2`,{
+        const response = await axios.get( baseURL + `/replies/products/${_id}`,{
           headers: {
             'Content-Type': 'application/json', // request의 데이터 타입
             accept: 'application/json', // response의 데이터 타입
@@ -70,7 +73,7 @@ export default function Detail({_id}) {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-  
+  console.log(product)
   console.log(productReview)
   return (
     <main className="container px-24 py-5 bg-white">
@@ -80,7 +83,7 @@ export default function Detail({_id}) {
             <img
               className="w-full h-full"
               src={product.item.img}
-              alt=""
+              alt="상품 이미지"
             />
             <button>
               <img
@@ -97,7 +100,7 @@ export default function Detail({_id}) {
               />
             </button>
             <p className="absolute left-[50%] -translate-x-1/2 bottom-[10px] w-[51px] h-[23px] flex items-center justify-center text-[14px] text-gray3 bg-white bg-opacity-70 border border-solid rounded-[26px]">
-              {1}/{product.item.img}
+              {1}/{product.item.mainImages.length}
             </p>
           </div>
           <div className="w-96 flex flex-col gap-y-7">
@@ -176,29 +179,9 @@ export default function Detail({_id}) {
       <section name="detailFooter">
         <p className="mb-10 section-title">상품 후기</p>
         <div>
-          <p className="mb-7 text-[16px] font-normal">후기 {3} 개</p>
+          <p className="mb-7 text-[16px] font-normal">후기 {productReview.item.length} 개</p>
           <div name="reviewBox" className="mb-20 flex flex-col gap-y-7">
-            <div className="flex flex-col p-10 border border-solid rounded-lg border-gray1 gap-y-5">
-              <div className="flex justify-between">
-                <div className="flex items-center gap-x-4">
-                  <img className="w-[50px] h-[50px]" src="/assets/images/profile-default.png" alt="" />
-                  <p className="text-[20px] font-bold">하찮은쇼핑백</p>
-                </div>
-                <p className="text-[16px]">2024년 12월 20일</p>
-                <p>{productReview.item[0].createdAt}</p>
-              </div>
-              <div className="flex justify-between">
-                <p className="text-[16px]">{productReview.item[0].content}</p>
-                <div>
-                  <button className="h-[50px] py-[14px] px-9 text-[18px] font-bold border border-solid border-gray2 rounded-lg">
-                    수정
-                  </button>
-                  <button className="h-[50px] py-[14px] px-9 text-[18px] font-bold text-white bg-point-red rounded-lg">
-                    삭제
-                  </button>
-                </div>
-              </div>
-            </div>
+            <Review />
           </div>
           <div className="flex flex-col gap-y-7">
             <p className="section-title">상품의 후기를 작성하세요</p>
