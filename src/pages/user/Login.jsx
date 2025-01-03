@@ -1,5 +1,6 @@
 import InputError from "@components/InputError";
 import useAxiosInstance from "@hooks/useAxiosInstance";
+import useUserStore from "@zustand/userStore";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -8,6 +9,7 @@ const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const passwordRegex = /^.{8,}$/;
 
 export default function Login() {
+  const setUser = useUserStore(store => store.setUser);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -39,6 +41,10 @@ export default function Login() {
       const res = await axios.post("/users/login", formData);
       console.log("로그인 성공");
       console.log(res.data.item);
+
+      const user = res.data.item;
+
+      setUser(user);
 
       // 로그인 성공 시 얼럿 창 출력
       // alert(res.data.item.name + "님 안녕하세요.");
