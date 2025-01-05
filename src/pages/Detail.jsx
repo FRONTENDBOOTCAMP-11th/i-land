@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import Review from "@components/layout/Review";
-import axios from "axios";
+import useAxiosInstance from '@hooks/useAxiosInstance';
+
+
 
 export default function Detail({_id}) {
-  const baseURL = "https://11.fesp.shop"
-
+  const baseURL = "https://11.fesp.shop";
+  const axios = useAxiosInstance();
   const [product, setProduct] = useState(null); // 상품 정보
   const [productReview, setProductReview] = useState([]); // 상품 리뷰
   const [loading, setLoading] = useState(true); // 로딩
@@ -30,44 +32,34 @@ export default function Detail({_id}) {
 
   _id = 1;
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await axios.get( baseURL + `/products/${_id}`,{ // 상품 정보 가져오기
-          headers: {
-            'Content-Type': 'application/json', // request의 데이터 타입
-            accept: 'application/json', // response의 데이터 타입
-            'client-id': 'final06',
-          }});
-        setProduct(response.data);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchProduct = async () => {  // 상품 정보 가져오기기
+    try {
+      const response = await axios.get( `/products/${_id}`);
+      setProduct(response.data);
+    } catch (err) {
+      setError(err);
+    }
+  };
 
-    const fetchProductReview = async () => {  // 상품 후기 가져오기
-      try {
-        const response = await axios.get( baseURL + `/posts/${_id}/replies`,{
-          headers: {
-            'Content-Type': 'application/json', // request의 데이터 타입
-            accept: 'application/json', // response의 데이터 타입
-            'client-id': 'final06',
-          }});
-        setProductReview(response.data);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchProductReview = async () => {  // 상품 후기 가져오기
+    try {
+      const response = await axios.get(`/posts/${_id}/replies`);
+      setProductReview(response.data);
+    } catch (err) {
+      setError(err);
+    }
+  };
 
-    fetchProductReview();
-    fetchProduct();
-  }, [_id]);
+
   
-
+  useEffect(() => {
+    const fetchData = async () => {
+        await fetchProduct(); // 상품 정보 가져오기
+        await fetchProductReview(); // 상품 리뷰 가져오기
+        setLoading(false); // 두 호출이 끝난 후 loading false 설정
+    };
+    fetchData();
+}, [_id]);
 
 
 
@@ -76,8 +68,7 @@ export default function Detail({_id}) {
   
 
 
-  console.log(product.item);
-  console.log(product.item.mainImages);
+  
   return (
     <main className="container px-24 py-5 bg-white">
       <section name="detailHeader">
@@ -85,7 +76,7 @@ export default function Detail({_id}) {
           <div className="relative w-[480px] h-[480px]">
             <img
               className="w-full h-full"
-              src={product.item.img}
+              src={baseURL +  product.item.mainImages[0].path}
               alt="상품 이미지"
             />
             <button>

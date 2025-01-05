@@ -6,7 +6,7 @@ export default function Review() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [productReview, setProductReview] = useState([]); // 상품 리뷰
-  const [submitReview, setSubmitReview] = useState([]);
+  const [submitReview, setSubmitReview] = useState([]); // 상품 리뷰 등록
 
   useEffect(() => {
     const fetchProductReview = async () => {  // 상품 후기 가져오기
@@ -19,7 +19,6 @@ export default function Review() {
           }
         });
         setProductReview(response.data);
-        console.log(response.data);
       } catch (err) {
         setError(err);
       } finally {
@@ -40,7 +39,6 @@ export default function Review() {
         }
       });
       setSubmitReview(response.data);
-      console.log(response.data);
     } catch (err) {
       setError(err);
     } finally {
@@ -70,7 +68,7 @@ export default function Review() {
         <div key={index} className="flex flex-col p-10 border border-solid rounded-lg border-gray1">
           <div className="flex justify-between">
             <div className="flex items-center gap-x-4">
-              <img className="w-[50px] h-[50px]" src={review.user.image} alt="유저 프로필 사진" />
+              <img className="w-[50px] h-[50px]" src ={ baseURL + "/files/final06/" + review.user.image} alt="유저 프로필 사진" />
               <p className="text-[20px] font-bold">{review.user.name}</p>
             </div>
             <p className="text-[16px]">{formatDate(review.createdAt)}</p> {/* 포맷된 날짜 출력 */}
