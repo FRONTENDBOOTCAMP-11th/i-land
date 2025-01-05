@@ -5,7 +5,7 @@ import useAxiosInstance from '@hooks/useAxiosInstance';
 
 
 
-export default function Detail({_id}) {
+export default function Detail( { _id } ) {
   const baseURL = "https://11.fesp.shop";
   const axios = useAxiosInstance();
   const [product, setProduct] = useState(null); // 상품 정보
@@ -23,15 +23,6 @@ export default function Detail({_id}) {
     }
   };
   
-  useEffect(() => {
-    if (count < 1) {
-      alert("1개 이하는 구매할 수 없습니다.");
-      setCount(1);
-    }
-  }, [count]);
-
-  _id = 1;
-
   const fetchProduct = async () => {  // 상품 정보 가져오기기
     try {
       const response = await axios.get( `/products/${_id}`);
@@ -49,8 +40,6 @@ export default function Detail({_id}) {
       setError(err);
     }
   };
-
-
   
   useEffect(() => {
     const fetchData = async () => {
@@ -61,10 +50,29 @@ export default function Detail({_id}) {
     fetchData();
 }, [_id]);
 
+useEffect(() => {
+  // 수량 관련 검증
+  if (count < 1) {
+    alert("1개 이하는 구매할 수 없습니다.");
+    setCount(1);
+  } else if (product && product.item && count > product.item.quantity) { // product와 product.item이 존재하는지 확인
+    alert("구매하려는 수량이 현재 상품의 수량보다 많습니다.");
+    setCount(product.item.quantity);
+  }
+}, [count, product]); // count와 product를 의존성 배열에 포함
+
+  _id = 1;
+
+
+
+
+
+
 
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
+  if (!product) return <div>상품 정보를 불러오는 중입니다...</div>;
   
 
 
