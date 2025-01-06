@@ -1,9 +1,9 @@
-import InputError from "@components/InputError";
 import InputField from "@components/InputField";
+import PasswordInput from "@components/PasswordInput";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useUserStore from "@zustand/userStore";
 import CryptoJS from "crypto-js";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -31,14 +31,6 @@ export default function Login() {
     clearErrors,
     reset,
   } = useForm();
-
-  // 비밀번호 표시 상태 관리(컴포넌트 내부)
-  const [isVisible, setIsVisible] = useState(false);
-
-  // 비밀번호 표시 버튼
-  const togglePassword = () => {
-    setIsVisible(!isVisible);
-  };
 
   // 로그인 정보 자동 입력
   useEffect(() => {
@@ -144,46 +136,19 @@ export default function Login() {
             error={errors.email}
           />
 
-          <div className="mb-5">
-            <label htmlFor="password">비밀번호</label>
-            <div className="py-[14px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue items-center">
-              <input
-                className="text-[20px] focus:outline-none flex-grow"
-                id="password"
-                type={isVisible ? "text" : "password"}
-                placeholder="비밀번호"
-                {...register("password", {
-                  required: "비밀번호를 입력해주세요.",
-                  pattern: {
-                    value: passwordRegex,
-                    message: "올바른 형식의 비밀번호를 입력해주세요.",
-                  },
-                })}
-              />
-              <button
-                type="button"
-                className="cursor-pointer"
-                aria-label="비밀번호 표시"
-                onClick={togglePassword}
-              >
-                {isVisible ? (
-                  <img
-                    className="ml-auto"
-                    src="/assets/icons/eye-open.svg"
-                    alt="비밀번호 표시 중"
-                  />
-                ) : (
-                  <img
-                    className="ml-auto"
-                    src="/assets/icons/eye-closed.svg"
-                    alt="비밀번호 숨김 상태"
-                  />
-                )}
-              </button>
-            </div>
-            {/* <p className="text-point-red mt-[2px]">비밀번호를 입력해주세요</p> */}
-            <InputError target={errors.password} />
-          </div>
+          <PasswordInput
+            id="password"
+            label="비밀번호"
+            placeholder="비밀번호"
+            register={register("password", {
+              required: "비밀번호를 입력해주세요.",
+              pattern: {
+                value: passwordRegex,
+                message: "올바른 형식의 비밀번호를 입력해주세요.",
+              },
+            })}
+            error={errors.password}
+          />
 
           <label
             className="mb-[30px] flex gap-[10px] items-center"
