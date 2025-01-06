@@ -97,10 +97,9 @@ export default function Login() {
       console.error(err);
       // 요청 에러 400
       if (err.response.status >= 400) {
-        console.error(err.response.status, err.response.data.message);
         setError("password", {
           type: "manual",
-          message: err.response.data.message,
+          message: "이메일과 비밀번호를 확인해주세요.",
         });
       } else if (err.response.status >= 500) {
         // 서버 에러 500
