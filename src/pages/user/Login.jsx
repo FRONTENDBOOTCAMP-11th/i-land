@@ -10,20 +10,17 @@ import { useLocation, useNavigate } from "react-router-dom";
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const passwordRegex = /^.{8,}$/;
 
+// 로그인 정보 암호화 및 복호화 passkey
+const passKey = "11111111";
+
 export default function Login() {
+  // 로그인 상태 저장(전역 상태 관리)
   const setUser = useUserStore(store => store.setUser);
 
   const axios = useAxiosInstance();
 
   const navigate = useNavigate();
   const location = useLocation();
-
-  const [isVisible, setIsVisible] = useState(false);
-
-  // 비밀번호 표시 버튼
-  const togglePassword = () => {
-    setIsVisible(!isVisible);
-  };
 
   const {
     register,
@@ -34,12 +31,22 @@ export default function Login() {
     reset,
   } = useForm();
 
-  const passKey = "11111111";
+  // 비밀번호 표시 상태 관리(컴포넌트 내부)
+  const [isVisible, setIsVisible] = useState(false);
 
+  // 비밀번호 표시 버튼
+  const togglePassword = () => {
+    setIsVisible(!isVisible);
+  };
+
+  // 로그인 정보 자동 입력
   useEffect(() => {
+    // 로컬 스토리지에 email && password 가 있는 경우
     if (localStorage.getItem("email") && localStorage.getItem("password")) {
+      // 로그인 폼 입력값 자동 입력
       reset({
         email: localStorage.getItem("email"),
+        // 로컬 스토리지에 저장된 비밀번호 복호화
         password: CryptoJS.AES.decrypt(
           localStorage.getItem("password"),
           passKey,
@@ -54,23 +61,25 @@ export default function Login() {
       // 이전의 에러가 있는 경우, 에러 초기화
       if (errors) clearErrors();
 
-      // 로그인 정보 저장 체크 시, 로컬 스토리지에 이메일, 비밀번호 저장
+      // 로그인 정보 저장 체크 시, 비밀번호 암호화
       if (formData.saveInfo === true) {
         const encryptedPassword = CryptoJS.AES.encrypt(
           formData.password,
           passKey,
         ).toString();
+        // 로그인 정보 저장 체크 시, 로컬 스토리지에 저장
         localStorage.setItem("email", formData.email);
         localStorage.setItem("password", encryptedPassword);
       } else {
+        // 로그인 정보 저장 미선택 시, 로컬 스토리지에 있는 로그인 정보 삭제
         localStorage.clear();
       }
 
+      // API 서버 요청
       const res = await axios.post("/users/login", formData);
-      console.log("로그인 성공");
-      console.log(res.data.item);
-
       const user = res.data.item;
+      console.log("로그인 성공");
+      console.log(user);
 
       // 쿠키에 사용자 정보 저장(_id, accessToken, refreshToken)
       setUser({
@@ -80,24 +89,24 @@ export default function Login() {
       });
 
       // 로그인 성공 시 얼럿 창 출력
-      // alert(res.data.item.name + "님 안녕하세요.");
+      alert(res.data.item.name + "님 안녕하세요.");
 
       // 이전 작업페이지 또는 메인 홈으로 이동
-      // navigate(location.state?.from || "/");
+      navigate(location.state?.from || "/");
     } catch (err) {
       console.error(err);
-      // 400 error 처리(요청 에러)
-      if (err.response.status >= 403) {
+      // 요청 에러 400
+      if (err.response.status >= 400) {
         console.error(err.response.status, err.response.data.message);
         setError("password", {
           type: "manual",
           message: err.response.data.message,
         });
       } else if (err.response.status >= 500) {
+        // 서버 에러 500
         alert("잠시 후 다시 시도해주세요.");
         navigate("/user/login");
       }
-      // 서버 에러 500
     }
   };
 
