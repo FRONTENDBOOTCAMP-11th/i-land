@@ -5,14 +5,15 @@ import useAxiosInstance from '@hooks/useAxiosInstance';
 
 
 
-export default function Detail( { _id } ) {
-  const baseURL = "https://11.fesp.shop";
+export default function Detail( { _id = 1 } ) {
   const axios = useAxiosInstance();
   const [product, setProduct] = useState(null); // 상품 정보
   const [productReview, setProductReview] = useState([]); // 상품 리뷰
+  const [submitReview, setSubmitReview] = useState([]); // 상품 리뷰 등록
   const [loading, setLoading] = useState(true); // 로딩
   const [error, setError] = useState(null); // 에러
   const [count, setCount] = useState(1);  // 상품 수량
+  const [reviewContent, setReviewContent] = useState(''); // textarea 상태
   
   const plusValue = () => { setCount(count + 1) };
   const minusValue = () => { setCount(count - 1) };
@@ -40,6 +41,24 @@ export default function Detail( { _id } ) {
       setError(err);
     }
   };
+
+  const addReview = async (content) => { // 리뷰 내용을 파라미터로 받음
+    try {
+      const response = await axios.post(`/posts/${_id}/replies`, {
+        content: content, // 리뷰 내용을 포함
+      });
+      setProductReview((prevReviews) => [...prevReviews, response.data]); // 새 리뷰 추가
+      setReviewContent(''); // 리뷰 추가 후 textarea 비우기
+    } catch (err) {
+      setError(err);
+    }
+  };
+
+  // 리뷰를 추가하는 함수 호출 예시
+  const handleAddReview = () => {
+    const reviewContent = "여기에 리뷰 내용을 입력하세요."; // 예시 내용
+    addReview(reviewContent);
+  };
   
   useEffect(() => {
     const fetchData = async () => {
@@ -48,7 +67,7 @@ export default function Detail( { _id } ) {
         setLoading(false); // 두 호출이 끝난 후 loading false 설정
     };
     fetchData();
-}, [_id]);
+  }, [_id]);
 
 useEffect(() => {
   // 수량 관련 검증
@@ -59,9 +78,8 @@ useEffect(() => {
     alert("구매하려는 수량이 현재 상품의 수량보다 많습니다.");
     setCount(product.item.quantity);
   }
-}, [count, product]); // count와 product를 의존성 배열에 포함
+  }, [count, product]); // count와 product를 의존성 배열에 포함
 
-  _id = 1;
 
 
 
@@ -84,7 +102,7 @@ useEffect(() => {
           <div className="relative w-[480px] h-[480px]">
             <img
               className="w-full h-full"
-              src={baseURL +  product.item.mainImages[0].path}
+              src={ "https://11.fesp.shop" +  product.item.mainImages[0].path}
               alt="상품 이미지"
             />
             <button>
@@ -183,7 +201,7 @@ useEffect(() => {
         <div>
           <p className="mb-7 text-[16px] font-normal">후기 {productReview.item.length} 개</p>
           <div name="reviewBox" className="mb-20 flex flex-col gap-y-7">
-            <Review />
+            <Review _id={_id} />
           </div>
           <div className="flex flex-col gap-y-7">
             <p className="section-title">상품의 후기를 작성하세요</p>
@@ -191,10 +209,16 @@ useEffect(() => {
               <textarea
                 className="w-full h-full text-[24px] resize-none outline-none"
                 placeholder="내용을 입력하세요"
-              ></textarea>
+                value={reviewContent}
+                onChange={(e) => setReviewContent(e.target.value)} // textarea 값 변경 시 상태 업데이트
+              >
+              </textarea>
             </div>
             <div>
-              <button className="h-[50px] py-[14px] px-9 text-[18px] text-white bg-point-blue rounded-[8px] font-bold">
+              <button
+                className="h-[50px] py-[14px] px-9 text-[18px] text-white bg-point-blue rounded-[8px] font-bold"
+                onClick={handleAddReview}
+              >
                 리뷰 등록
               </button>
             </div>

@@ -1,62 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import axios from "axios";
+import useAxiosInstance from '@hooks/useAxiosInstance';
 
-export default function Review() {
+export default function Review({_id }) {
   const baseURL = "https://11.fesp.shop";
+  const axios = useAxiosInstance();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [productReview, setProductReview] = useState([]); // 상품 리뷰
-  const [submitReview, setSubmitReview] = useState([]); // 상품 리뷰 등록
-
-  useEffect(() => {
-    const fetchProductReview = async () => {  // 상품 후기 가져오기
-      try {
-        const response = await axios.get(baseURL + `/posts/1/replies`, {
-          headers: {
-            'Content-Type': 'application/json',
-            accept: 'application/json',
-            'client-id': 'final06',
-          }
-        });
-        setProductReview(response.data);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProductReview();
-  }, []);
-
-  const addReview = async () => {
-    try {
-      const response = await axios.post(baseURL + `/posts/1/replies`, {
-        headers: {
-          'Content-Type': 'application/json',
-          accept: 'application/json',
-          'client-id': 'final06',
-        }
-      });
-      setSubmitReview(response.data);
-    } catch (err) {
-      setError(err);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  // 날짜 포맷팅 함수
-  const formatDate = (dateString) => {
+  const formatDate = (dateString) => {  // 날짜 포맷팅 함수
     const date = new Date(dateString);
     return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
+
+  const fetchProductReview = async () => {  // 상품 후기 가져오기
+    try {
+      const response = await axios.get(`/posts/${_id}/replies`);
+      setProductReview(response.data);
+    } catch (err) {
+      setError(err);
+    }
+  };
+
+    
+
+
+    useEffect(() => {
+      const fetchData = async () => {
+        fetchProductReview();
+        setLoading(false); // 두 호출이 끝난 후 loading false 설정
+      };
+      fetchData();
+  }, [_id]);
+
 
   // 로딩 중일 때
   if (loading) return <p>로딩 중...</p>;
   // 에러 발생 시
   if (error) return <p>오류 발생: {error.message}</p>;
-
   // productReview가 비어 있는지 확인
   if (!productReview.item || productReview.item.length === 0) {
     return <p>리뷰가 없습니다.</p>;
