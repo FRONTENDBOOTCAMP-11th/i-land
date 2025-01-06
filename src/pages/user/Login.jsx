@@ -1,9 +1,8 @@
 import InputError from "@components/InputError";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useUserStore from "@zustand/userStore";
-import { SHA256 } from "crypto-js";
-import { CryptoJS } from "crypto-js";
-import { useState } from "react";
+import CryptoJS from "crypto-js";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -13,6 +12,8 @@ const passwordRegex = /^.{8,}$/;
 
 export default function Login() {
   const setUser = useUserStore(store => store.setUser);
+
+  const axios = useAxiosInstance();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,24 +25,28 @@ export default function Login() {
     setIsVisible(!isVisible);
   };
 
-  const axios = useAxiosInstance();
-
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
     clearErrors,
-  } = useForm({
-    defaultValues: {
-      // 로컬 스토리지에 저장된 회원정보가 있는 경우, defaultValues 로 자동 기입
-      email: localStorage?.getItem("email"),
-      password: CryptoJS.AES.decrypt(
-        localStorage?.getItem("password"),
-        "passphrase",
-      ),
-    },
-  });
+    reset,
+  } = useForm();
+
+  const passKey = "11111111";
+
+  useEffect(() => {
+    if (localStorage.getItem("email") && localStorage.getItem("password")) {
+      reset({
+        email: localStorage.getItem("email"),
+        password: CryptoJS.AES.decrypt(
+          localStorage.getItem("password"),
+          passKey,
+        ).toString(CryptoJS.enc.Utf8),
+      });
+    }
+  }, [reset]);
 
   // 로그인 시 API 서버 요청 함수
   const login = async formData => {
@@ -51,11 +56,12 @@ export default function Login() {
 
       // 로그인 정보 저장 체크 시, 로컬 스토리지에 이메일, 비밀번호 저장
       if (formData.saveInfo === true) {
+        const encryptedPassword = CryptoJS.AES.encrypt(
+          formData.password,
+          passKey,
+        ).toString();
         localStorage.setItem("email", formData.email);
-        localStorage.setItem(
-          "password",
-          SHA256(formData.password, "passphrase").toString(),
-        );
+        localStorage.setItem("password", encryptedPassword);
       } else {
         localStorage.clear();
       }
