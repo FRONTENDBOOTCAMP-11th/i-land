@@ -8,14 +8,16 @@ InputField.propTypes = {
   placeholder: PropTypes.string,
   register: PropTypes.object.isRequired,
   error: PropTypes.object,
+  children: PropTypes.node,
 };
 export default function InputField({
   label,
   id,
-  type,
+  type = "text",
   placeholder,
   register,
   error,
+  children,
 }) {
   return (
     <div className="mb-5">
@@ -28,6 +30,7 @@ export default function InputField({
           placeholder={placeholder}
           {...register}
         />
+        {children}
       </div>
       {/* <p className="text-point-red mt-[2px]">이메일을 입력해주세요</p> */}
       <InputError target={error} />
