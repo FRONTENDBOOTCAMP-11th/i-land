@@ -2,11 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Pretendard";
+  src: url("/assets/fonts/PretendardVariable.ttf") format("truetype");
+}
+
 @layer base {
   html {
     font-family: "Pretendard", sans-serif;
     line-height: 1;
-    src: url("/PretendardVariable.ttf");
+  }
+
+  /* Chrome, Safari 스핀 버튼 제거 */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    @apply appearance-none;
+  }
+
+  /* Firefox 스핀 버튼 제거 */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
+
+@layer components {
+  .page-title {
+    @apply text-[32px] leading-none font-bold text-black mb-[60px];
+  }
+
+  .section-title {
+    @apply block text-2xl leading-none font-bold text-black mb-[20px];
   }
 }
 

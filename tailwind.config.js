@@ -19,5 +19,5 @@ export default {
       "point-red": "#EB5640",
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 };
