@@ -1,4 +1,5 @@
 import InputError from "@components/InputError";
+import InputField from "@components/InputField";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useUserStore from "@zustand/userStore";
 import CryptoJS from "crypto-js";
@@ -128,26 +129,20 @@ export default function Login() {
         <fieldset className="mb-[30px]" id="userInfo">
           <legend className="sr-only">로그인 입력 폼</legend>
 
-          <div className="mb-5">
-            <label htmlFor="userEmail">이메일</label>
-            <div className="py-[10px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue items-center">
-              <input
-                className="text-[20px] focus:outline-none flex-grow"
-                id="userEmail"
-                type="email"
-                placeholder="예) iland@iland.com"
-                {...register("email", {
-                  required: "이메일을 입력해주세요.",
-                  pattern: {
-                    value: emailRegex,
-                    message: "올바른 형식의 이메일을 입력해주세요.",
-                  },
-                })}
-              />
-            </div>
-            {/* <p className="text-point-red mt-[2px]">이메일을 입력해주세요</p> */}
-            <InputError target={errors.email} />
-          </div>
+          <InputField
+            id="userEmail"
+            label="이메일"
+            type="email"
+            placeholder="예) iland@iland.com"
+            register={register("email", {
+              required: "이메일을 입력해주세요.",
+              pattern: {
+                value: emailRegex,
+                message: "올바른 형식의 이메일을 입력해주세요.",
+              },
+            })}
+            error={errors.email}
+          />
 
           <div className="mb-5">
             <label htmlFor="password">비밀번호</label>
