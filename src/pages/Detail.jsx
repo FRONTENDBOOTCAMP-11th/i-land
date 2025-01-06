@@ -41,7 +41,7 @@ export default function Detail( { _id = 1 } ) {
       setError(err);
     }
   };
-
+  
   const addReview = async (content) => { // 리뷰 내용을 파라미터로 받음
     try {
       const response = await axios.post(`/posts/${_id}/replies`, {
@@ -56,7 +56,7 @@ export default function Detail( { _id = 1 } ) {
 
   // 리뷰를 추가하는 함수 호출 예시
   const handleAddReview = () => {
-    const reviewContent = "여기에 리뷰 내용을 입력하세요."; // 예시 내용
+    const reviewContent = reviewContent;
     addReview(reviewContent);
   };
   
