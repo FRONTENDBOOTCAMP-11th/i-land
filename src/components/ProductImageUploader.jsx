@@ -8,9 +8,8 @@ export default function ProductImageUploader({ value = [], onChange }) {
   const handleFileChange = async event => {
     const files = Array.from(event.target.files);
 
-    console.log("Selected Files:", files);
+    if (files.length === 0) return;
 
-    if (files.length === 0) return; // 파일이 없으면 아무것도 하지 않음
     try {
       const uploadImages = await Promise.all(
         files.map(async file => {
@@ -25,24 +24,25 @@ export default function ProductImageUploader({ value = [], onChange }) {
             data: formData,
           });
 
-          return {
-            path: response.data.path, // 서버에서 반환된 이미지 경로
-            name: file.name,
+          if (!response.data.item || !Array.isArray(response.data.item)) {
+            throw new Error("Invalid response format: Missing 'item' array");
+          }
+
+          return response.data.item.map(item => ({
+            path: item.path,
+            name: item.name,
             originalname: file.name,
-          };
+          }));
         }),
       );
 
-      const updatedImages = [...value, ...uploadImages].slice(0, 5);
+      const flattenedImages = uploadImages.flat();
+
+      const updatedImages = [...value, ...flattenedImages].slice(0, 5);
       onChange(updatedImages);
     } catch (error) {
       console.error("이미지 업로드 중 오류:", error);
     }
-  };
-
-  const handleRemoveImage = index => {
-    const updatedImages = value.filter((_, i) => i !== index);
-    onChange(updatedImages); // 이미지 제거 후 업데이트
   };
 
   return (
@@ -70,28 +70,6 @@ export default function ProductImageUploader({ value = [], onChange }) {
           onChange={handleFileChange}
         />
       </div>
-
-      <div className="flex flex-wrap gap-4 mt-4">
-        {value.map((image, index) => (
-          <div
-            key={index}
-            className="relative flex-shrink-0 w-[100px] h-[100px]"
-          >
-            <img
-              src={image.path}
-              alt={image.originalname || `이미지 ${index + 1}`}
-              className="object-cover w-full h-full rounded"
-            />
-            <button
-              type="button"
-              className="absolute top-0 right-0 p-1 text-white bg-red-500 rounded-full"
-              onClick={() => handleRemoveImage(index)}
-            >
-              ×
-            </button>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
@@ -99,7 +77,7 @@ export default function ProductImageUploader({ value = [], onChange }) {
 ProductImageUploader.propTypes = {
   value: PropTypes.arrayOf(
     PropTypes.shape({
-      path: PropTypes.string, // 필수가 아님
+      path: PropTypes.string,
       name: PropTypes.string.isRequired,
       originalname: PropTypes.string.isRequired,
     }),

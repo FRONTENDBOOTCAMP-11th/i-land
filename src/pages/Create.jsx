@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import ProductCategory from "@components/ProductCategory";
 import ProductImageUploader from "@components/ProductImageUploader";
 import InputField from "@components/InputField";
+import ProductContent from "@components/ProductContent";
 
 export default function Create() {
   const {
@@ -17,18 +18,30 @@ export default function Create() {
   const [mainImages, setMainImages] = useState([]);
 
   const onSubmit = async data => {
-    const productData = {
-      name: data.name,
-      price: data.price,
-      quantity: data.quantity,
-      content: data.content,
-      extra: {
-        category: categories,
-      },
-      mainImages,
-    };
+    try {
+      const productData = {
+        name: data.name,
+        price: data.price,
+        quantity: data.quantity,
+        content: data.content,
+        extra: {
+          category: categories,
+        },
+        mainImages,
+      };
+      console.log("Product Data", productData);
 
-    console.log("Product Data", productData);
+      // POST 상품 등록 요청
+
+      // 성공 시
+      alert("상품 등록이 완료되었습니다.");
+      reset(); // 입력된 값 초기화
+      setMainImages([]);
+      setCategories([]);
+    } catch (error) {
+      console.error("상품 등록 실패:", error);
+      alert("상품 등록에 실패했습니다. 다시 시도해주세요.");
+    }
   };
 
   return (
@@ -80,22 +93,13 @@ export default function Create() {
 
         <ProductImageUploader value={mainImages} onChange={setMainImages} />
 
-        <div className="mb-16">
-          <label className="section-title" htmlFor="productDescription">
-            상품 설명
-          </label>
-          <textarea
-            id="productDescription"
-            className="w-full h-[400px] p-[40px] border border-gray2 rounded-lg focus:outline-none resize-none text-2xl"
-            name="productDescription"
-            placeholder="상품 설명을 입력해주세요."
-          ></textarea>
-        </div>
+        <ProductContent register={register} error={errors.description} />
 
         <div className="flex items-center justify-center gap-10">
           <button
             type="button"
             className="w-[400px] h-[60px] border-2 border-gray3 rounded-lg text-gray3 font-bold text-2xl"
+            onClick={() => reset()}
           >
             등록 취소
           </button>
