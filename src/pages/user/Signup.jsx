@@ -1,5 +1,6 @@
 import InputField from "@components/InputField";
 import PasswordInput from "@components/PasswordInput";
+import useAxiosInstance from "@hooks/useAxiosInstance";
 import { useForm } from "react-hook-form";
 
 // 이메일, 비밀번호 정규 표현식
@@ -7,15 +8,53 @@ const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const passwordRegex = /^.{8,}$/;
 
 export default function Signup() {
+  const axios = useAxiosInstance();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
+    clearErrors,
+    getValues,
   } = useForm();
 
+  // 회원가입 요청
   const signup = () => {
     console.log("회원가입 버튼 클릭");
+  };
+
+  // 닉네임 중복확인
+  const checkNickname = async () => {
+    const nicknameInput = getValues("name");
+    console.log("닉네임 중복확인 |", nicknameInput);
+    try {
+      const res = await axios.get(`/users/name?name=${nicknameInput}`);
+      console.log(res);
+    } catch (err) {
+      console.log(err.response.data.message);
+      clearErrors;
+      setError("name", {
+        type: "manual",
+        message: "이미 등록된 닉네임입니다.",
+      });
+    }
+  };
+
+  // 이메일 중복확인
+  const checkEmail = async () => {
+    const emailInput = getValues("email");
+    console.log("이메일 중복확인 |", emailInput);
+    try {
+      const res = await axios.get(`/users/email?email=${emailInput}`);
+      console.log(res);
+    } catch (err) {
+      console.log(err.response.data.message);
+      setError("email", {
+        type: "manual",
+        message: "이미 등록된 이메일입니다.",
+      });
+    }
   };
 
   return (
@@ -62,6 +101,7 @@ export default function Signup() {
                 type="button"
                 className="cursor-pointer focus:outline-none"
                 aria-label="닉네임 중복 확인 버튼"
+                onClick={checkNickname}
               >
                 중복확인
               </button>
@@ -85,7 +125,8 @@ export default function Signup() {
               <button
                 type="button"
                 className="cursor-pointer focus:outline-none"
-                aria-label="닉네임 중복 확인 버튼"
+                aria-label="이메일 중복 확인 버튼"
+                onClick={checkEmail}
               >
                 중복확인
               </button>
