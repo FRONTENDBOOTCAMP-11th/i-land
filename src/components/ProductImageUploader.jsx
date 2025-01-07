@@ -1,37 +1,36 @@
 import PropTypes from "prop-types";
-import { useMutation } from "@tanstack/react-query";
 
 import useAxiosInstance from "@hooks/useAxiosInstance";
 
 export default function ProductImageUploader({ value = [], onChange }) {
   const axios = useAxiosInstance();
 
-  const uploadMutation = useMutation({
-    mutationFn: async file => {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const response = await axios.post("/files", formData);
-      return {
-        path: response.data.path,
-        name: file.name,
-        originalname: file.name,
-      };
-    },
-    onError: error => {
-      console.error("이미지 업로드 중 오류", error);
-      alert("이미지 업로드에 실패했습니다.");
-    },
-  });
-
   const handleFileChange = async event => {
     const files = Array.from(event.target.files);
 
-    if (files.length === 0) return; // 파일이 없으면 아무것도 하지 않음
+    console.log("Selected Files:", files);
 
+    if (files.length === 0) return; // 파일이 없으면 아무것도 하지 않음
     try {
       const uploadImages = await Promise.all(
-        files.map(file => uploadMutation.mutateAsync(file)),
+        files.map(async file => {
+          const formData = new FormData();
+          formData.append("attach", file);
+
+          const response = await axios("/files", {
+            method: "post",
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            data: formData,
+          });
+
+          return {
+            path: response.data.path, // 서버에서 반환된 이미지 경로
+            name: file.name,
+            originalname: file.name,
+          };
+        }),
       );
 
       const updatedImages = [...value, ...uploadImages].slice(0, 5);
