@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import ProductInput from "@components/product-create/ProductInput";
-import ProductCategory from "@components/product-create/ProductCategory";
-import ProductImageUploader from "@components/product-create/ProductImageUploader";
+import ProductCategory from "@components/ProductCategory";
+import ProductImageUploader from "@components/ProductImageUploader";
 import InputField from "@components/InputField";
 
 export default function Create() {
@@ -14,14 +13,19 @@ export default function Create() {
     reset,
   } = useForm();
 
-  const [mainImages, setMainImages] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [mainImages, setMainImages] = useState([]);
 
   const onSubmit = async data => {
     const productData = {
       name: data.name,
       price: data.price,
       quantity: data.quantity,
+      content: data.content,
+      extra: {
+        category: categories,
+      },
+      mainImages,
     };
 
     console.log("Product Data", productData);
@@ -72,15 +76,9 @@ export default function Create() {
           </InputField>
         </div>
 
-        {/* <ProductCategory
-          value={newProduct.extra.category}
-          onChange={handleCategoryChange}
-        />
+        <ProductCategory value={categories} onChange={setCategories} />
 
-        <ProductImageUploader
-          value={newProduct.mainImages}
-          onChange={handleImageChange}
-        /> */}
+        <ProductImageUploader value={mainImages} onChange={setMainImages} />
 
         <div className="mb-16">
           <label className="section-title" htmlFor="productDescription">

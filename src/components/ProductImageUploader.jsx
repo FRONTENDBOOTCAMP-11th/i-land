@@ -1,19 +1,44 @@
 import PropTypes from "prop-types";
+import { useMutation } from "@tanstack/react-query";
+
+import useAxiosInstance from "@hooks/useAxiosInstance";
 
 export default function ProductImageUploader({ value = [], onChange }) {
-  const handleFileChange = event => {
+  const axios = useAxiosInstance();
+
+  const uploadMutation = useMutation({
+    mutationFn: async file => {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await axios.post("/files", formData);
+      return {
+        path: response.data.path,
+        name: file.name,
+        originalname: file.name,
+      };
+    },
+    onError: error => {
+      console.error("이미지 업로드 중 오류", error);
+      alert("이미지 업로드에 실패했습니다.");
+    },
+  });
+
+  const handleFileChange = async event => {
     const files = Array.from(event.target.files);
 
     if (files.length === 0) return; // 파일이 없으면 아무것도 하지 않음
 
-    const newImages = files.map(file => ({
-      path: URL.createObjectURL(file), // 브라우저에서 미리보기 가능한 URL 생성
-      name: file.name,
-      originalname: file.name,
-    }));
+    try {
+      const uploadImages = await Promise.all(
+        files.map(file => uploadMutation.mutateAsync(file)),
+      );
 
-    const updatedImages = [...value, ...newImages].slice(0, 5); // 최대 5장 제한
-    onChange(updatedImages); // 부모 컴포넌트로 업데이트된 배열 전달
+      const updatedImages = [...value, ...uploadImages].slice(0, 5);
+      onChange(updatedImages);
+    } catch (error) {
+      console.error("이미지 업로드 중 오류:", error);
+    }
   };
 
   const handleRemoveImage = index => {
@@ -54,7 +79,7 @@ export default function ProductImageUploader({ value = [], onChange }) {
             className="relative flex-shrink-0 w-[100px] h-[100px]"
           >
             <img
-              src={image.path} // 미리보기 URL로 이미지 표시
+              src={image.path}
               alt={image.originalname || `이미지 ${index + 1}`}
               className="object-cover w-full h-full rounded"
             />

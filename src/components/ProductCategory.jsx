@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 export default function ProductCategory({ value, onChange }) {
   const handleSelectChange = (index, selectedValue) => {
-    const updatedCategories = [...value]; // 기존 카테고리 복사
+    const updatedCategories = [...value];
     updatedCategories[index] = selectedValue;
     onChange(updatedCategories);
   };
