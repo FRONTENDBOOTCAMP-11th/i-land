@@ -5,9 +5,9 @@ import useAxiosInstance from '@hooks/useAxiosInstance';
 
 
 
-export default function Detail( { _id = 1 } ) {
+export default function Detail( { _id = 2 } ) {
   const axios = useAxiosInstance();
-  const [product, setProduct] = useState(null); // 상품 정보
+  const [product, setProduct] = useState(); // 상품 정보
   const [productReview, setProductReview] = useState([]); // 상품 리뷰
   const [loading, setLoading] = useState(true); // 로딩
   const [error, setError] = useState(null); // 에러
@@ -25,8 +25,11 @@ export default function Detail( { _id = 1 } ) {
   
   const fetchProduct = async () => {  // 상품 정보 가져오기기
     try {
-      const response = await axios.get( `/products/${_id}`);
-      setProduct(response.data);
+      const response = await axios.get(`/products/${_id}`);
+      console.log("response",response);
+      console.log("response",response.item);
+      setProduct(response.data.item);
+      console.log("product", product);
     } catch (err) {
       setError(err);
     }
@@ -93,7 +96,8 @@ export default function Detail( { _id = 1 } ) {
   if (!product) return <div>상품 정보를 불러오는 중입니다...</div>;
   
 
-
+  console.log(1)
+  console.log(product)
   
   return (
     <main className="container px-24 py-5 bg-white">
