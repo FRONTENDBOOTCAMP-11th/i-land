@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Review from "@components/layout/Review";
-import useAxiosInstance from '@hooks/useAxiosInstance';
+import useAxiosInstance from "@hooks/useAxiosInstance";
 
 
 
@@ -14,8 +14,17 @@ export default function Detail( { _id = 2 } ) {
   const [count, setCount] = useState(1);  // 상품 수량
   const [reviewContent, setReviewContent] = useState(''); // textarea 상태
   
-  const plusValue = () => { setCount(count + 1) };
-  const minusValue = () => { setCount(count - 1) };
+  const plusValue = () => { 
+    if(count < product.item.quantity - product.item.buyQuantity){
+      setCount(count + 1) 
+    }
+  };
+  const minusValue = () => { 
+    if(count > 1){
+      setCount(count - 1)
+    }
+  };
+  
   const inputNum = (event) => {
     const value = event.target.value;
     if (!isNaN(value) && value.trim() !== '') {
@@ -26,10 +35,7 @@ export default function Detail( { _id = 2 } ) {
   const fetchProduct = async () => {  // 상품 정보 가져오기기
     try {
       const response = await axios.get(`/products/${_id}`);
-      console.log("response",response);
-      console.log("response",response.item);
-      setProduct(response.data.item);
-      console.log("product", product);
+      setProduct(response.data);
     } catch (err) {
       setError(err);
     }
@@ -72,16 +78,7 @@ export default function Detail( { _id = 2 } ) {
     fetchData();
   }, [_id]);
 
-  useEffect(() => {
-    // 수량 관련 검증
-    if (count < 1) {
-      alert("1개 이하는 구매할 수 없습니다.");
-      setCount(1);
-    } else if (count > product.item.quantity) {
-      alert("구매하려는 수량이 현재 상품의 수량보다 많습니다.");
-      setCount(product.item.quantity);
-    }
-  }, [count, product]); // count와 product를 의존성 배열에 포함
+
 
 
 
@@ -163,8 +160,11 @@ export default function Detail( { _id = 2 } ) {
                   className="text-right border border-solid rounded w-7 h-7 border-gray2"
                   type="text"
                   value={count}
+                  min = "1"
+                  max = {product.item.quantity - product.item.buyQuantity}
                   name="countUp"
                   onChange={inputNum}
+                  readOnly = {true}
                 />
                 <button onClick={plusValue}>
                   <img src="/assets/icons/plus.svg" alt="" />
