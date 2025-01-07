@@ -5,7 +5,6 @@ export default function Review({ _id, productReview, setProductReview }) {
   const axios = useAxiosInstance();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  console.log(productReview)
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;

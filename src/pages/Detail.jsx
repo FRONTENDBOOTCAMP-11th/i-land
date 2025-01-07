@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Review from "@components/layout/Review";
 import useAxiosInstance from "@hooks/useAxiosInstance";
+import useUserStore from "@zustand/userStore";
 
 
 
-export default function Detail( { _id = 2 } ) {
+export default function Detail( { _id = 1 } ) {
+
+  const {user} = useUserStore();
+
   const axios = useAxiosInstance();
   const [product, setProduct] = useState(); // 상품 정보
   const [productReview, setProductReview] = useState([]); // 상품 리뷰
@@ -82,8 +86,10 @@ export default function Detail( { _id = 2 } ) {
 
 
 
-
-
+  console.log(productReview.item)
+  console.log("user",user)
+  // console.log("user",productReview.item[0])
+  // console.log((productReview.item).length)
 
 
 
@@ -92,9 +98,6 @@ export default function Detail( { _id = 2 } ) {
   if (error) return <div>Error: {error.message}</div>;
   if (!product) return <div>상품 정보를 불러오는 중입니다...</div>;
   
-
-  console.log(1)
-  console.log(product)
   
   return (
     <main className="container px-24 py-5 bg-white">
@@ -139,7 +142,7 @@ export default function Detail( { _id = 2 } ) {
             </p>
             <div className="flex justify-between items-center">
               <p className="font-bold text-[24px]"> {product.item.price.toLocaleString()} 원</p>
-              <p className="font-bold text-[18px]">현재 수량 {product.item.quantity} 개</p>
+              <p className="font-bold text-[18px]">현재 수량 {product.item.quantity - product.item.buyQuantity} 개</p>
             </div>
             <select
               className="w-100 h-10 px-3 text-[14px] not-italic border border-solid border-gray2 rounded-lg"
@@ -203,7 +206,7 @@ export default function Detail( { _id = 2 } ) {
       <section name="detailFooter">
         <p className="mb-10 section-title">상품 후기</p>
         <div>
-          <p className="mb-7 text-[16px] font-normal">후기 {productReview.length} 개</p>
+          <p className="mb-7 text-[16px] font-normal">후기 {productReview.item.length} 개</p>
           <div name="reviewBox" className="mb-20 flex flex-col gap-y-7">
              <Review _id={_id} productReview={productReview} setProductReview={setProductReview} />
           </div>
