@@ -1,59 +1,54 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 import ProductInput from "@components/product-create/ProductInput";
 import ProductCategory from "@components/product-create/ProductCategory";
 import ProductImageUploader from "@components/product-create/ProductImageUploader";
+import InputField from "@components/InputField";
 
 export default function Create() {
-  const [newProduct, setNewProduct] = useState({
-    name: "", // 상품명
-    price: "", // 상품 가격
-    quantity: "", // 상품 수량
-    content: "", // 상세 설명 (HTML)
-    mainImages: [], // 이미지 배열
-    extra: {
-      isNew: false, // 신상품 여부
-      category: [], // 카테고리
-      sort: 0, // 정렬 기준
-    },
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
-  const handleChange = (id, value) => {
-    setNewProduct(prev => ({ ...prev, [id]: value }));
+  const [mainImages, setMainImages] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  const onSubmit = async data => {
+    const productData = {
+      name: data.name,
+    };
   };
-
-  const handleCategoryChange = categories => {
-    setNewProduct(prev => ({
-      ...prev,
-      extra: {
-        ...prev.extra,
-        category: categories,
-      },
-    }));
-  };
-
-  const handleImageChange = images => {
-    setNewProduct(prev => ({ ...prev, mainImages: images }));
-  };
-
-  console.log("newProduct", newProduct);
 
   return (
     <div className="container">
       <h1 className="page-title">상품 등록</h1>
-      <form action="" className="pb-[60px]">
+      <form onSubmit={handleSubmit(onSubmit)} className="pb-[60px]">
         <div className="mb-16">
-          <ProductInput
+          <InputField
+            label="상품명"
+            id="productName"
+            placeholder="상품명을 입력해주세요."
+            register={register("name", {
+              required: "상품명을 입력해주세요.",
+            })}
+            className="section-title"
+          />
+
+          {/* <ProductInput
             label="상품명"
             id="productName"
             placeholder="상품명을 입력해주세요."
             value={newProduct.name}
             onChange={value => handleChange("name", value)}
-          />
+          /> */}
         </div>
 
         <div className="flex gap-[80px] mb-16">
-          <ProductInput
+          {/* <ProductInput
             type="number"
             label="상품 가격"
             id="productPrice"
@@ -62,9 +57,9 @@ export default function Create() {
             value={newProduct.price}
             onChange={value => handleChange("price", value)}
             isFlexible={true}
-          />
+          /> */}
 
-          <ProductInput
+          {/* <ProductInput
             type="number"
             label="상품 수량"
             id="productQuantity"
@@ -73,10 +68,10 @@ export default function Create() {
             value={newProduct.quantity}
             onChange={value => handleChange("quantity", value)}
             isFlexible={true}
-          />
+          /> */}
         </div>
 
-        <ProductCategory
+        {/* <ProductCategory
           value={newProduct.extra.category}
           onChange={handleCategoryChange}
         />
@@ -84,7 +79,7 @@ export default function Create() {
         <ProductImageUploader
           value={newProduct.mainImages}
           onChange={handleImageChange}
-        />
+        /> */}
 
         <div className="mb-16">
           <label className="section-title" htmlFor="productDescription">
