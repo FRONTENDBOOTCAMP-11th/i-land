@@ -77,6 +77,7 @@ export default function Login() {
       // 쿠키에 사용자 정보 저장(_id, accessToken, refreshToken)
       setUser({
         _id: user._id,
+        profileImage: user.image,
         accessToken: user.token.accessToken,
         refreshToken: user.token.refreshToken,
       });
