@@ -1,15 +1,19 @@
+import ProfileDropdown from "@components/ProfileDropdown";
 import useUserStore from "@zustand/userStore";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Header() {
   // 로그인 상태와 프로필 이미지 관리
   // TODO: Zustand를 통한 로그인 상태 관리
-  // const [isLoggedIn, setIsLoggedIn] = useState(false); // 초기값: 로그아웃 상태
-  // const [profileImage, setProfileImage] = useState(""); // 초기값: 프로필 이미지 없음
-
+  // 초기값 : null 로그아웃 상태
   const { user } = useUserStore();
 
-  console.log(user);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  const showDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
 
   return (
     <header className="container mt-[60px] mb-[60px] flex items-center justify-between">
@@ -29,16 +33,14 @@ export default function Header() {
         </Link>
 
         {user ? (
-          <Link to="/profile">
+          <button type="button" className="relative" onClick={showDropdown}>
             <img
               className="w-10 h-10 rounded-full border-2 border-gray1 box-content"
-              src={
-                `https://11.fesp.shop/${user?.profileImage}` ||
-                "/asstes/images/profile-default.png"
-              } // 프로필 이미지가 없으면 기본 이미지 노출
+              src={`https://11.fesp.shop/${user?.profileImage}`} // 프로필 이미지가 없으면 기본 이미지 노출
               alt="User Profile"
             />
-          </Link>
+            {dropdownVisible && <ProfileDropdown />}
+          </button>
         ) : (
           <Link to="/user/login" className="font-bold">
             로그인/회원가입
