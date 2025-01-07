@@ -9,7 +9,6 @@ export default function Detail( { _id = 1 } ) {
   const axios = useAxiosInstance();
   const [product, setProduct] = useState(null); // 상품 정보
   const [productReview, setProductReview] = useState([]); // 상품 리뷰
-  const [submitReview, setSubmitReview] = useState([]); // 상품 리뷰 등록
   const [loading, setLoading] = useState(true); // 로딩
   const [error, setError] = useState(null); // 에러
   const [count, setCount] = useState(1);  // 상품 수량
@@ -42,12 +41,14 @@ export default function Detail( { _id = 1 } ) {
     }
   };
   
-  const addReview = async (content) => { // 리뷰 내용을 파라미터로 받음
+  const addReview = async (content) => {
     try {
       const response = await axios.post(`/posts/${_id}/replies`, {
-        content: content, // 리뷰 내용을 포함
+        content: content,
       });
-      setProductReview((prevReviews) => [...prevReviews, response.data]); // 새 리뷰 추가
+      setProductReview((prevReviews) => {
+        return Array.isArray(prevReviews) ? [...prevReviews, response.data] : [response.data];
+      });
       setReviewContent(''); // 리뷰 추가 후 textarea 비우기
     } catch (err) {
       setError(err);
@@ -56,7 +57,6 @@ export default function Detail( { _id = 1 } ) {
 
   // 리뷰를 추가하는 함수 호출 예시
   const handleAddReview = () => {
-    const reviewContent = reviewContent;
     addReview(reviewContent);
   };
   
@@ -69,15 +69,15 @@ export default function Detail( { _id = 1 } ) {
     fetchData();
   }, [_id]);
 
-useEffect(() => {
-  // 수량 관련 검증
-  if (count < 1) {
-    alert("1개 이하는 구매할 수 없습니다.");
-    setCount(1);
-  } else if (product && product.item && count > product.item.quantity) { // product와 product.item이 존재하는지 확인
-    alert("구매하려는 수량이 현재 상품의 수량보다 많습니다.");
-    setCount(product.item.quantity);
-  }
+  useEffect(() => {
+    // 수량 관련 검증
+    if (count < 1) {
+      alert("1개 이하는 구매할 수 없습니다.");
+      setCount(1);
+    } else if (count > product.item.quantity) {
+      alert("구매하려는 수량이 현재 상품의 수량보다 많습니다.");
+      setCount(product.item.quantity);
+    }
   }, [count, product]); // count와 product를 의존성 배열에 포함
 
 
@@ -199,9 +199,9 @@ useEffect(() => {
       <section name="detailFooter">
         <p className="mb-10 section-title">상품 후기</p>
         <div>
-          <p className="mb-7 text-[16px] font-normal">후기 {productReview.item.length} 개</p>
+          <p className="mb-7 text-[16px] font-normal">후기 {productReview.length} 개</p>
           <div name="reviewBox" className="mb-20 flex flex-col gap-y-7">
-            <Review _id={_id} />
+             <Review _id={_id} productReview={productReview} setProductReview={setProductReview} />
           </div>
           <div className="flex flex-col gap-y-7">
             <p className="section-title">상품의 후기를 작성하세요</p>
