@@ -9,17 +9,8 @@ export default function Review({ _id, productReview, setProductReview }) {
     const date = new Date(dateString);
     return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
-  const deleteProductReview = async reply_id => {
-    try {
-      await axios.delete(`/posts/${_id}/replies/${reply_id}`);
-      setProductReview(prevReviews =>
-        prevReviews.filter(review => review.id !== reply_id),
-      );
-    } catch (err) {
-      setError(err);
-    }
-  };
 
+  // 상품 후기 가져오기
   const fetchProductReview = async () => {
     try {
       const response = await axios.get(`/posts/${_id}/replies`);
@@ -31,6 +22,19 @@ export default function Review({ _id, productReview, setProductReview }) {
     }
   };
 
+  // 상품 후기 삭제
+  const deleteProductReview = async reply_id => {
+    try {
+      await axios.delete(`/posts/${_id}/replies/${reply_id}`);
+      setProductReview(prevReviews =>
+        prevReviews.filter(review => review.id !== reply_id),
+      );
+    } catch (err) {
+      setError(err);
+    }
+  };
+  console.log(productReview);
+
   useEffect(() => {
     fetchProductReview();
   }, [_id]);
@@ -40,6 +44,9 @@ export default function Review({ _id, productReview, setProductReview }) {
   if (productReview.item.length === 0) {
     return <p>리뷰가 없습니다.</p>;
   }
+
+  console.log("버튼에 넘길 api1",productReview.item[0].id);
+  console.log("버튼에 넘길 api2",productReview.item);
 
   return (
     <div className="flex flex-col gap-y-5">

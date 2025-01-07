@@ -82,10 +82,7 @@ export default function Detail({ _id=1 }) {
     fetchData();
   }, [_id]);
 
-  console.log(productReview.item);
-  console.log("user", user);
-  // console.log("user",productReview.item[0])
-  // console.log((productReview.item).length)
+
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
