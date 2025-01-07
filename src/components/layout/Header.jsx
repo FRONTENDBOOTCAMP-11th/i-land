@@ -15,6 +15,10 @@ export default function Header() {
     setDropdownVisible(!dropdownVisible);
   };
 
+  const hideDropdown = () => {
+    setDropdownVisible(false);
+  };
+
   return (
     <header className="container mt-[60px] mb-[60px] flex items-center justify-between">
       <Link to="/">
@@ -33,7 +37,12 @@ export default function Header() {
         </Link>
 
         {user ? (
-          <button type="button" className="relative" onClick={showDropdown}>
+          <button
+            type="button"
+            className="relative"
+            onClick={showDropdown}
+            onBlur={hideDropdown}
+          >
             <img
               className="w-10 h-10 rounded-full border-2 border-gray1 box-content"
               src={`https://11.fesp.shop/${user?.profileImage}`} // 프로필 이미지가 없으면 기본 이미지 노출
