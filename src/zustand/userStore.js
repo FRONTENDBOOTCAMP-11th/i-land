@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { cookieStorage } from "zustand-cookie-storage";
+// import { cookieStorage } from "zustand-cookie-storage";
 
 const UserStore = set => ({
   // 기본 사용자 상태값 null
@@ -15,7 +15,7 @@ const UserStore = set => ({
 const useUserStore = create(
   persist(UserStore, {
     name: "user",
-    storage: createJSONStorage(() => cookieStorage),
+    storage: createJSONStorage(() => sessionStorage),
   }),
 );
 
