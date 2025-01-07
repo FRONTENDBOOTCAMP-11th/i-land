@@ -1,42 +1,39 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Review from "@components/layout/Review";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useUserStore from "@zustand/userStore";
 
-
-
-export default function Detail( { _id = 1 } ) {
-
-  const {user} = useUserStore();
-
+export default function Detail({ _id=1 }) {
+  const { user } = useUserStore();
   const axios = useAxiosInstance();
   const [product, setProduct] = useState(); // 상품 정보
   const [productReview, setProductReview] = useState([]); // 상품 리뷰
   const [loading, setLoading] = useState(true); // 로딩
   const [error, setError] = useState(null); // 에러
-  const [count, setCount] = useState(1);  // 상품 수량
-  const [reviewContent, setReviewContent] = useState(''); // textarea 상태
-  
-  const plusValue = () => { 
-    if(count < product.item.quantity - product.item.buyQuantity){
-      setCount(count + 1) 
+  const [count, setCount] = useState(1); // 상품 수량
+  const [reviewContent, setReviewContent] = useState(""); // textarea 상태
+
+  const plusValue = () => {
+    if (count < product.item.quantity - product.item.buyQuantity) {
+      setCount(count + 1);
     }
   };
-  const minusValue = () => { 
-    if(count > 1){
-      setCount(count - 1)
+  const minusValue = () => {
+    if (count > 1) {
+      setCount(count - 1);
     }
   };
-  
-  const inputNum = (event) => {
+
+  const inputNum = event => {
     const value = event.target.value;
-    if (!isNaN(value) && value.trim() !== '') {
+    if (!isNaN(value) && value.trim() !== "") {
       setCount(Number(value));
     }
   };
-  
-  const fetchProduct = async () => {  // 상품 정보 가져오기기
+
+  // 상품 정보 가져오기기
+  const fetchProduct = async () => {
     try {
       const response = await axios.get(`/products/${_id}`);
       setProduct(response.data);
@@ -45,7 +42,8 @@ export default function Detail( { _id = 1 } ) {
     }
   };
 
-  const fetchProductReview = async () => {  // 상품 후기 가져오기
+  // 상품 후기 가져오기
+  const fetchProductReview = async () => {
     try {
       const response = await axios.get(`/posts/${_id}/replies`);
       setProductReview(response.data);
@@ -53,16 +51,18 @@ export default function Detail( { _id = 1 } ) {
       setError(err);
     }
   };
-  
-  const addReview = async (content) => {
+
+  const addReview = async content => {
     try {
       const response = await axios.post(`/posts/${_id}/replies`, {
         content: content,
       });
-      setProductReview((prevReviews) => {
-        return Array.isArray(prevReviews) ? [...prevReviews, response.data] : [response.data];
+      setProductReview(prevReviews => {
+        return Array.isArray(prevReviews)
+          ? [...prevReviews, response.data]
+          : [response.data];
       });
-      setReviewContent(''); // 리뷰 추가 후 textarea 비우기
+      setReviewContent(""); // 리뷰 추가 후 textarea 비우기
     } catch (err) {
       setError(err);
     }
@@ -72,33 +72,25 @@ export default function Detail( { _id = 1 } ) {
   const handleAddReview = () => {
     addReview(reviewContent);
   };
-  
+
   useEffect(() => {
     const fetchData = async () => {
-        await fetchProduct(); // 상품 정보 가져오기
-        await fetchProductReview(); // 상품 리뷰 가져오기
-        setLoading(false); // 두 호출이 끝난 후 loading false 설정
+      await fetchProduct(); // 상품 정보 가져오기
+      await fetchProductReview(); // 상품 리뷰 가져오기
+      setLoading(false); // 두 호출이 끝난 후 loading false 설정
     };
     fetchData();
   }, [_id]);
 
-
-
-
-
-  console.log(productReview.item)
-  console.log("user",user)
+  console.log(productReview.item);
+  console.log("user", user);
   // console.log("user",productReview.item[0])
   // console.log((productReview.item).length)
-
-
-
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
   if (!product) return <div>상품 정보를 불러오는 중입니다...</div>;
-  
-  
+
   return (
     <main className="container px-24 py-5 bg-white">
       <section name="detailHeader">
@@ -106,7 +98,7 @@ export default function Detail( { _id = 1 } ) {
           <div className="relative w-[480px] h-[480px]">
             <img
               className="w-full h-full"
-              src={ "https://11.fesp.shop" +  product.item.mainImages[0].path}
+              src={"https://11.fesp.shop" + product.item.mainImages[0].path}
               alt="상품 이미지"
             />
             <button>
@@ -128,7 +120,10 @@ export default function Detail( { _id = 1 } ) {
             </p>
           </div>
           <div className="w-96 flex flex-col gap-y-7">
-            <a className="text-[18px] text-gray3 flex gap-x-[10px] items-center" href="">
+            <a
+              className="text-[18px]  text-gray3 flex gap-x-[10px] items-center"
+              href=""
+            >
               <p className="text-gray3 text-[18px] not-italic font-normal">
                 {product.item.name}
               </p>
@@ -141,8 +136,12 @@ export default function Detail( { _id = 1 } ) {
               {product.item.name}
             </p>
             <div className="flex justify-between items-center">
-              <p className="font-bold text-[24px]"> {product.item.price.toLocaleString()} 원</p>
-              <p className="font-bold text-[18px]">현재 수량 {product.item.quantity - product.item.buyQuantity} 개</p>
+              <p className="font-bold text-[24px]">
+                {product.item.price.toLocaleString()} 원
+              </p>
+              <p className="font-bold text-[18px]">
+                현재 수량 {product.item.quantity - product.item.buyQuantity} 개
+              </p>
             </div>
             <select
               className="w-100 h-10 px-3 text-[14px] not-italic border border-solid border-gray2 rounded-lg"
@@ -156,24 +155,26 @@ export default function Detail( { _id = 1 } ) {
             </select>
             <div className="flex justify-between">
               <div className="font-bold items-center text-[18px] flex gap-x-2">
-              <button onClick={minusValue}>
+                <button onClick={minusValue}>
                   <img src="/assets/icons/minus.svg" alt="" />
                 </button>
                 <input
                   className="text-right border border-solid rounded w-7 h-7 border-gray2"
                   type="text"
                   value={count}
-                  min = "1"
-                  max = {product.item.quantity - product.item.buyQuantity}
+                  min="1"
+                  max={product.item.quantity - product.item.buyQuantity}
                   name="countUp"
                   onChange={inputNum}
-                  readOnly = {true}
+                  readOnly={true}
                 />
                 <button onClick={plusValue}>
                   <img src="/assets/icons/plus.svg" alt="" />
                 </button>
               </div>
-              <p className="text-black text-[24px] font-bold">총 {((count)*(product.item.price)).toLocaleString()} 원</p>
+              <p className="text-black text-[24px] font-bold">
+                총 {(count * product.item.price).toLocaleString()} 원
+              </p>
             </div>
             <div className="flex justify-between">
               <Link to="/bookmarks">
@@ -198,17 +199,21 @@ export default function Detail( { _id = 1 } ) {
       <hr className="text-gray1 border border-solid my-10"></hr>
       <section name="detailMain">
         <p className="mt-5 section-title">상품 설명</p>
-          <div name="productContent">
-            {product.item.content}
-          </div>
+        <div name="productContent">{product.item.content}</div>
       </section>
       <hr className="text-gray1 border border-solid my-10"></hr>
       <section name="detailFooter">
         <p className="mb-10 section-title">상품 후기</p>
         <div>
-          <p className="mb-7 text-[16px] font-normal">후기 {productReview.item.length} 개</p>
+          <p className="mb-7 text-[16px] font-normal">
+            후기 {productReview.item.length} 개
+          </p>
           <div name="reviewBox" className="mb-20 flex flex-col gap-y-7">
-             <Review _id={_id} productReview={productReview} setProductReview={setProductReview} />
+            <Review
+              _id={_id}
+              productReview={productReview}
+              setProductReview={setProductReview}
+            />
           </div>
           <div className="flex flex-col gap-y-7">
             <p className="section-title">상품의 후기를 작성하세요</p>
@@ -217,9 +222,8 @@ export default function Detail( { _id = 1 } ) {
                 className="w-full h-full text-[24px] resize-none outline-none"
                 placeholder="내용을 입력하세요"
                 value={reviewContent}
-                onChange={(e) => setReviewContent(e.target.value)} // textarea 값 변경 시 상태 업데이트
-              >
-              </textarea>
+                onChange={e => setReviewContent(e.target.value)} // textarea 값 변경 시 상태 업데이트
+              ></textarea>
             </div>
             <div>
               <button
@@ -234,5 +238,4 @@ export default function Detail( { _id = 1 } ) {
       </section>
     </main>
   );
-  
 }
