@@ -37,7 +37,7 @@ export default function Review({ _id, productReview, setProductReview }) {
 
   if (loading) return <p>로딩 중...</p>;
   if (error) return <p>오류 발생: {error.message}</p>;
-  if (productReview.length === 0) {
+  if (productReview.item.length === 0) {
     return <p>리뷰가 없습니다.</p>;
   }
 
