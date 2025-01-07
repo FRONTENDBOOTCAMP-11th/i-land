@@ -22,7 +22,7 @@ export default function InputField({
   className = "",
 }) {
   return (
-    <div className="mb-5">
+    <div className="w-full mb-5">
       <label className={className} htmlFor={id}>
         {label}
       </label>
