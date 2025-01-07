@@ -26,7 +26,7 @@ export default function Detail() {
           <div className="flex flex-col w-96 gap-y-7">
             <a href="">
               <p className="text-gray3 text-[18px] not-italic font-normal">
-                산리오 공식물이고 싶음 >
+                산리오 공식물이고 싶음
               </p>
             </a>
             <p className="text-black text-[32px] not-italic font-bold">

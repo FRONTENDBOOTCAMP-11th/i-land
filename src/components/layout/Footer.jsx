@@ -1,17 +1,8 @@
 import { Link } from "react-router-dom";
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer
-      className="w-[1200px] h-[290px] bg-[#0093FF] text-white mx-auto"
-      style={{
-        position: "fixed",
-        bottom: 0,
-        left: "50%",
-        transform: "translateX(-50%)",
-        paddingTop: "60px",
-      }}
-    >
+    <footer className="container bg-point-blue text-white py-[60px]">
       <div className="text-center space-y-4">
         {/* 링크 섹션 */}
         <div className="text-sm text-white">
@@ -40,28 +31,28 @@ const Footer = () => {
         <div className="flex justify-center space-x-6 mt-6">
           <a href="https://www.instagram.com">
             <img
-              src="../../../public/assets/icons/Instagram.svg"
+              src="/assets/icons/Instagram.svg"
               alt="Instagram"
               className="w-6 h-6"
             />
           </a>
           <a href="https://www.facebook.com">
             <img
-              src="../../../public/assets/icons/Facebook.svg"
+              src="/assets/icons/Facebook.svg"
               alt="Facebook"
               className="w-6 h-6"
             />
           </a>
           <a href="https://www.twitter.com">
             <img
-              src="../../../public/assets/icons/Twitter.svg"
+              src="/assets/icons/Twitter.svg"
               alt="Twitter"
               className="w-6 h-6"
             />
           </a>
           <a href="https://www.kakaocorp.com">
             <img
-              src="../../../public/assets/icons/KakaoTalk.svg"
+              src="/assets/icons/KakaoTalk.svg"
               alt="KakaoTalk"
               className="w-6 h-6"
             />
@@ -70,6 +61,4 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

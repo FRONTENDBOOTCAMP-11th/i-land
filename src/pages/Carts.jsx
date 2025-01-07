@@ -38,7 +38,7 @@ export default function Carts() {
               <div className="flex flex-col gap-y-[14px] self-center">
                 <a href="">
                   <p className="text-gray3 text-[18px] not-italic font-normal">
-                    산리오 공식물이고 싶음 >
+                    산리오 공식물이고 싶음
                   </p>
                 </a>
                 <p className="text-black text-[32px] not-italic font-bold">
@@ -84,7 +84,7 @@ export default function Carts() {
               <div className="flex flex-col gap-y-[14px] self-center">
                 <a href="">
                   <p className="text-gray3 text-[18px] not-italic font-normal">
-                    산리오 공식물이고 싶음 >
+                    산리오 공식물이고 싶음
                   </p>
                 </a>
                 <p className="text-black text-[32px] not-italic font-bold">
@@ -130,7 +130,7 @@ export default function Carts() {
               <div className="flex flex-col gap-y-[14px] self-center">
                 <a href="">
                   <p className="text-gray3 text-[18px] not-italic font-normal">
-                    산리오 공식물이고 싶음 >
+                    산리오 공식물이고 싶음
                   </p>
                 </a>
                 <p className="text-black text-[32px] not-italic font-bold">

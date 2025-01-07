@@ -2,7 +2,7 @@ import InputField from "@components/InputField";
 import PasswordInput from "@components/PasswordInput";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useUserStore from "@zustand/userStore";
-import CryptoJS from "crypto-js";
+// import CryptoJS from "crypto-js";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
