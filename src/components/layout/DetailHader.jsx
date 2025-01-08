@@ -4,12 +4,12 @@ import useAxiosInstance from "@hooks/useAxiosInstance";
 
 export default function DetailHeader({_id}) {
   const axios = useAxiosInstance();
-  const [product, setProduct] = useState(); // 상품 정보
-  const [loading, setLoading] = useState(true); // 로딩
-  const [error, setError] = useState(null); // 에러
-  const [count, setCount] = useState(1); // 상품 수량
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [count, setCount] = useState(1);
   const plusValue = () => {
-    if (count < productNow) {
+    if (count < productNowQuantity) {
       setCount(count + 1);
     }
   };
@@ -24,40 +24,34 @@ export default function DetailHeader({_id}) {
       setCount(Number(value));
     }
   };
-
-  // 상품 정보 가져오기
   const fetchProduct = async () => {
     try {
       const response = await axios.get(`/products/${_id}`);
-      setProduct(response.data.item);
+      setProduct(response?.data);
     } catch (err) {
       setError(err);
     }
   };
-  console.log("product", product.buyQuantity);
-  // console.log("product.data", product.data);
-  // console.log("product.data", product.data);
-  const productNow = 10; // product.quantity - product.buyQuantity;
-  // const productReviewLength = product.item.replies.length;
-
   useEffect(() => {
-    const fetchData = async () => {
-      await fetchProduct(); // 상품 정보 가져오기
-      setLoading(false);
-    };
-    fetchData();
+    fetchProduct(); // 상품 정보 가져오기
+    setLoading(false); // 로딩 종료
   }, [_id]);
+  const productNowQuantity =
+    product?.item?.quantity - product?.item?.buyQuantity; // 상품의 현재 수량
+  const mainImages = product?.item?.mainImages; // 메인 이미지 배열
+  const mainImagesLength = mainImages?.length; // 메인 이미지 개수
+  const sellerName = product?.item?.seller?.name; // 해당 상품 판매자 이름
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
   if (!product) return <div>상품 정보를 불러오는 중입니다...</div>;
   return (
     <main>
-      {/* <section name="detailHeader">
+      <section name="detailHeader">
         <div className="flex items-center gap-x-20">
           <div className="relative w-[480px] h-[480px]">
             <img
               className="w-full h-full"
-              src={"https://11.fesp.shop" + product.mainImages[0].path}
+              src={"https://11.fesp.shop" + mainImages[0]?.path} // [imageCount] 이런식으로 변수를 줘서 여러장의 이미지를 변경할 수 있게할 수 있을듯함
               alt="상품 이미지"
             />
             <button>
@@ -75,7 +69,7 @@ export default function DetailHeader({_id}) {
               />
             </button>
             <p className="absolute left-[50%] -translate-x-1/2 bottom-[10px] w-[51px] h-[23px] flex items-center justify-center text-[14px] text-gray3 bg-white bg-opacity-70 border border-solid rounded-[26px]">
-              {1}/{product.mainImages.length}
+              {1}/{mainImagesLength}
             </p>
           </div>
           <div className="w-96 flex flex-col gap-y-7">
@@ -84,7 +78,7 @@ export default function DetailHeader({_id}) {
               href=""
             >
               <p className="text-gray3 text-[18px] not-italic font-normal">
-                {product.name}
+                {sellerName}
               </p>
               <img
                 src="/src/assets/icons/chevron-right.svg"
@@ -92,13 +86,15 @@ export default function DetailHeader({_id}) {
               />
             </a>
             <p className="text-black text-[32px] not-italic font-bold">
-              {product.name}
+              {product?.item?.name}
             </p>
             <div className="flex justify-between items-center">
               <p className="font-bold text-[24px]">
-                {product.price.toLocaleString()} 원
+                {product?.price?.toLocaleString()} 원
               </p>
-              <p className="font-bold text-[18px]">현재 수량 {productNow} 개</p>
+              <p className="font-bold text-[18px]">
+                현재 수량 {productNowQuantity} 개
+              </p>
             </div>
             <select
               className="w-100 h-10 px-3 text-[14px] not-italic border border-solid border-gray2 rounded-lg"
@@ -120,7 +116,7 @@ export default function DetailHeader({_id}) {
                   type="text"
                   value={count}
                   min="1"
-                  max={product.quantity - product.buyQuantity}
+                  max={productNowQuantity}
                   name="countUp"
                   onChange={inputNum}
                   readOnly={true}
@@ -130,7 +126,7 @@ export default function DetailHeader({_id}) {
                 </button>
               </div>
               <p className="text-black text-[24px] font-bold">
-                총 {(count * product.price).toLocaleString()} 원
+                총 {(count * product?.item?.price)?.toLocaleString()} 원
               </p>
             </div>
             <div className="flex justify-between">
@@ -158,8 +154,8 @@ export default function DetailHeader({_id}) {
 
       <section name="detailMain">
         <p className="mt-5 section-title">상품 설명</p>
-        <div name="productContent">{product.content}</div>
-      </section> */}
+        <div name="productContent">{product?.item?.content}</div>
+      </section>
     </main>
   );
 }

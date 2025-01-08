@@ -1,10 +1,12 @@
 // import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import DetailFooter from "@components/layout/DetailFooter";
 import DetailHeader from "@components/layout/DetailHader";
 // import useAxiosInstance from "@hooks/useAxiosInstance";
 // import useUserStore from "@zustand/userStore";
 
-export default function Detail({_id=1}) {
+export default function Detail() {
+  const { _id } = useParams(); // URL에서 id 추출
   // const { user } = useUserStore();
   // const axios = useAxiosInstance();
 
@@ -18,12 +20,11 @@ export default function Detail({_id=1}) {
   //     setError(err);
   //   }
   // };
-
   return (
     <main className="container px-24 py-5 bg-white">
       <DetailHeader _id={_id} />
       <hr className="text-gray1 border border-solid my-10"></hr>
-      {/* <DetailFooter _id={_id} /> */}
+      <DetailFooter _id={_id} />
     </main>
   );
 }

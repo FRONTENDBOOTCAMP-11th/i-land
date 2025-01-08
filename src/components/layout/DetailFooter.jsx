@@ -1,6 +1,6 @@
+import { useState, useEffect } from "react";
 import ProductsReview from "@components/layout/ProductsReview";
 import useAxiosInstance from "@hooks/useAxiosInstance";
-import { useState, useEffect } from "react";
 import useUserStore from "@zustand/userStore";
 
 export default function DetailFooter({_id}) {
@@ -8,32 +8,34 @@ export default function DetailFooter({_id}) {
   const axios = useAxiosInstance();
   const [loading, setLoading] = useState(true); // 로딩
   const [error, setError] = useState(null); // 에러
-  const [product, setProduct] = useState(); // 상품 정보
-  const [userInfo, setUserInfo] = useState(); // 유저 정보
+  const [product, setProduct] = useState(null); // 상품 정보
+  const [userInfo, setUserInfo] = useState(null); // 유저 정보
   const [productReview, setProductReview] = useState([]); // 상품 리뷰
   const [reviewContent, setReviewContent] = useState(""); // textarea 상태
-
-  // 상품 후기 목록 조회
-  const fetchProductReview = async () => {
+  // 현재 유저 정보 가져오기
+  const fetchUser = async () => {
     try {
-      const response = await axios.get(`/replies/products/${_id}`);
-      if (response.data.item === 0) {
-        console.log("댓글이 없습니다.");
-      }
-      setProductReview(response);
+      const response = await axios.get(`/users/${user?._id}`); // user._id를 통해서 로그인한 유저의 _id 값을 호출
+      setUserInfo(response.data.item);
     } catch (err) {
       setError(err);
     }
   };
-
-  // 리뷰 추가
+  // 구매 후기 등록
   const addReview = async content => {
     try {
-      const response = await axios.post(`/replies/`, {
-        content: content,
-        order_id: userInfo._id,
-        product_id: product._id,
-      });
+      const response = await axios.post(
+        `/replies`,
+        {
+          content: content,
+          order_id: userInfo?._id,
+          product_id: product?.item?._id,
+          image: userInfo?.image,
+        },
+        {
+          headers: { Authorization: `Bearer ${user?.accessToken}` }, // 로그인 상태인 유저의 엑세스  토큰
+        },
+      );
       setProductReview(prevReviews => {
         return Array.isArray(prevReviews)
           ? [...prevReviews, response.data]
@@ -44,24 +46,35 @@ export default function DetailFooter({_id}) {
       setError(err);
     }
   };
-
+  // 상품 상세 정보
+  const fetchProduct = async () => {
+    try {
+      const response = await axios.get(`/products/${_id}`);
+      setProduct(response?.data);
+    } catch (err) {
+      setError(err);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      await fetchProductReview(); // 상품 정보 가져오기
-      setLoading(false); // 호출이 끝난 후 loading false 설정
-    };
-    fetchData();
+    fetchUser(); // 유저 정보
+    fetchProduct(); // 상품 상세 정보
+    setLoading(false); // 로딩 종료
   }, [_id]);
-  console.log("상품후기목록입니다.", productReview.data);
+  const ProductsReviewLength = product?.item?.replies?.length; // 등록된 후기 개수
+  // console.log("123", userInfo);
+  // console.log("123", userInfo?.image);
+  if (loading) return <p>로딩 중...</p>;
+  if (error) return <p>오류 발생: {error.message}</p>;
+  if (ProductsReviewLength === 0) return <p>리뷰가 없습니다.</p>;
   return (
     <section name="detailFooter">
       <p className="mb-10 section-title">상품 후기</p>
       <div>
         <p className="mb-7 text-[16px] font-normal">
-          후기 {productReview.length} 개
+          후기 {ProductsReviewLength} 개
         </p>
         <div name="reviewBox" className="mb-20 flex flex-col gap-y-7">
-          <ProductsReview _id={_id} productReview={productReview} />
+          <ProductsReview _id={_id} />
         </div>
         <div className="flex flex-col gap-y-7">
           <p className="section-title">상품의 후기를 작성하세요</p>
