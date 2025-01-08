@@ -30,8 +30,27 @@ export default function Signup() {
 
   // 회원가입 요청
   const signup = formData => {
-    console.log(formData);
-    console.log("회원가입 버튼 클릭");
+    if (validNickname === false && validEmail === false) {
+      setError("name", {
+        type: "manual",
+        message: "중복확인을 진행해주세요.",
+      });
+      setError("email", {
+        type: "manual",
+        message: "중복확인을 진행해주세요.",
+      });
+    } else {
+      console.log("before", formData);
+      const newFormData = {
+        ...formData,
+        extra: { username: formData.username },
+      };
+      console.log("after", newFormData);
+
+      delete newFormData.passwordCheck;
+      delete newFormData.username;
+      console.log("회원가입 버튼 클릭");
+    }
   };
 
   // 닉네임 중복확인
@@ -113,6 +132,12 @@ export default function Signup() {
 
         <fieldset className="mb-[10px]" id="userInfo">
           <legend className="sr-only">사용자 정보 입력</legend>
+          <input type="hidden" {...register("type")} value="seller" />
+          <input
+            type="hidden"
+            {...register("image")}
+            value="/files/final06/default-profile.png"
+          />
           <InputField
             id="userName"
             label="이름"
