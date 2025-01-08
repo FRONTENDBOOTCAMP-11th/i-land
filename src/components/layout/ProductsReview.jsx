@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useUserStore from "@zustand/userStore";
 
-export default function Review({ _id, productReview, setProductReview }) {
+export default function Review({ _id, productReview }) {
   const { user } = useUserStore();
   const axios = useAxiosInstance();
   const [error, setError] = useState(null);
@@ -24,19 +24,19 @@ export default function Review({ _id, productReview, setProductReview }) {
   //   }
   // };
 
-  // 상품 후기 삭제
-  const deleteProductReview = async reply_id => {
-    try {
-      await axios.delete(`/products/${_id}/replies/${reply_id}`, {
-        headers: { Authorization: `Bearer ${user.accessToken}` }, // 로그인 상태인 유저의 엑세스  토큰
-      });
-      setProductReview(prevReviews =>
-        prevReviews.filter(review => review._id !== reply_id),
-      );
-    } catch (err) {
-      setError(err);
-    }
-  };
+  // // 상품 후기 삭제
+  // const deleteProductReview = async reply_id => {
+  //   try {
+  //     await axios.delete(`/products/${_id}/replies/${reply_id}`, {
+  //       headers: { Authorization: `Bearer ${user.accessToken}` }, // 로그인 상태인 유저의 엑세스  토큰
+  //     });
+  //     setProductReview(prevReviews =>
+  //       prevReviews.filter(review => review._id !== reply_id),
+  //     );
+  //   } catch (err) {
+  //     setError(err);
+  //   }
+  // };
 
   useEffect(() => {
     // fetchProductReview();

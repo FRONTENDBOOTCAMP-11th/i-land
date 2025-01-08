@@ -9,7 +9,7 @@ export default function DetailHeader({_id}) {
   const [error, setError] = useState(null); // 에러
   const [count, setCount] = useState(1); // 상품 수량
   const plusValue = () => {
-    if (count < product.item.quantity - product.item.buyQuantity) {
+    if (count < productNow) {
       setCount(count + 1);
     }
   };
@@ -30,15 +30,20 @@ export default function DetailHeader({_id}) {
     try {
       const response = await axios.get(`/products/${_id}`);
       setProduct(response.data.item);
-      console.log("가져온 상품 정보", product);
     } catch (err) {
       setError(err);
     }
   };
+  console.log("product", product.buyQuantity);
+  // console.log("product.data", product.data);
+  // console.log("product.data", product.data);
+  const productNow = 10; // product.quantity - product.buyQuantity;
+  // const productReviewLength = product.item.replies.length;
+
   useEffect(() => {
     const fetchData = async () => {
       await fetchProduct(); // 상품 정보 가져오기
-      setLoading(false); // 호출이 끝난 후 loading false 설정
+      setLoading(false);
     };
     fetchData();
   }, [_id]);
@@ -47,7 +52,7 @@ export default function DetailHeader({_id}) {
   if (!product) return <div>상품 정보를 불러오는 중입니다...</div>;
   return (
     <main>
-      <section name="detailHeader">
+      {/* <section name="detailHeader">
         <div className="flex items-center gap-x-20">
           <div className="relative w-[480px] h-[480px]">
             <img
@@ -93,9 +98,7 @@ export default function DetailHeader({_id}) {
               <p className="font-bold text-[24px]">
                 {product.price.toLocaleString()} 원
               </p>
-              <p className="font-bold text-[18px]">
-                현재 수량 {product.quantity - product.buyQuantity} 개
-              </p>
+              <p className="font-bold text-[18px]">현재 수량 {productNow} 개</p>
             </div>
             <select
               className="w-100 h-10 px-3 text-[14px] not-italic border border-solid border-gray2 rounded-lg"
@@ -156,7 +159,7 @@ export default function DetailHeader({_id}) {
       <section name="detailMain">
         <p className="mt-5 section-title">상품 설명</p>
         <div name="productContent">{product.content}</div>
-      </section>
+      </section> */}
     </main>
   );
 }
