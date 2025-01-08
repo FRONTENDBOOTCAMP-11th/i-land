@@ -1,8 +1,9 @@
 import InputField from "@components/InputField";
 import PasswordInput from "@components/PasswordInput";
 import useAxiosInstance from "@hooks/useAxiosInstance";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 // 이메일, 비밀번호 정규 표현식
 const usernameRegex = /^[가-힣]{2,5}$/;
@@ -12,6 +13,8 @@ const passwordRegex = /^.{8,}$/;
 
 export default function Signup() {
   const axios = useAxiosInstance();
+
+  const navigate = useNavigate();
 
   // 닉네임 중복확인
   const [validNickname, setValidNickname] = useState(false);
@@ -26,30 +29,43 @@ export default function Signup() {
     setError,
     clearErrors,
     getValues,
+    watch,
   } = useForm();
 
   // 회원가입 요청
-  const signup = formData => {
+  const signup = async formData => {
+    // nickname, email 중복확인 미진행 시 오류 메시지 출력
     if (validNickname === false && validEmail === false) {
       setError("name", {
-        type: "manual",
+        type: "nickname-not-checked",
         message: "중복확인을 진행해주세요.",
       });
       setError("email", {
-        type: "manual",
+        type: "email-not-checked",
         message: "중복확인을 진행해주세요.",
       });
     } else {
-      console.log("before", formData);
+      // 검증이 끝난 값 중, API 서버 요청 시 사용되는 데이터만 추출
       const newFormData = {
         ...formData,
         extra: { username: formData.username },
       };
-      console.log("after", newFormData);
-
+      // 불필요한 값 제거
       delete newFormData.passwordCheck;
       delete newFormData.username;
       console.log("회원가입 버튼 클릭");
+      try {
+        const res = await axios.post("/users/", newFormData);
+        console.log(res);
+        // 얼럿 출력 후 로그인 페이지로 이동
+        alert("회원가입이 완료됐습니다.");
+        navigate("/user/login");
+      } catch (err) {
+        console.error(err.response.status);
+        if (err.response.status === 500) {
+          alert("잠시 후 다시 시도해주세요.");
+        }
+      }
     }
   };
 
@@ -73,7 +89,7 @@ export default function Signup() {
         clearErrors("name");
         setValidNickname(false);
         setError("name", {
-          type: "manual",
+          type: "used-nickname",
           message: "이미 등록된 닉네임입니다.",
         });
       }
@@ -81,7 +97,7 @@ export default function Signup() {
       // 유효하지 않은 nickname 형식
       setValidNickname(false);
       setError("name", {
-        type: "manual",
+        type: "invalid-nickname-form",
         message: "올바른 형식의 닉네임을 입력해주세요.",
       });
     }
@@ -106,7 +122,7 @@ export default function Signup() {
         clearErrors("email");
         setValidNickname(false);
         setError("email", {
-          type: "manual",
+          type: "used-email",
           message: "이미 등록된 이메일입니다.",
         });
       }
@@ -114,11 +130,23 @@ export default function Signup() {
       // 유효하지 않은 email 형식
       setValidEmail(false);
       setError("email", {
-        type: "manual",
+        type: "invalid-email-form",
         message: "올바른 형식의 이메일을 입력해주세요.",
       });
     }
   };
+
+  // 비밀번호 일치 여부 판단
+  useEffect(() => {
+    if (watch("password") !== watch("passwordCheck")) {
+      setError("passwordCheck", {
+        type: "password-mismatch",
+        message: "비밀번호가 일치하지 않습니다.",
+      });
+    } else {
+      clearErrors("passwordCheck");
+    }
+  }, [watch("password"), watch("passwordCheck")]);
 
   return (
     <div className="container">
@@ -234,11 +262,7 @@ export default function Signup() {
             label="비밀번호 확인"
             placeholder="비밀번호 확인"
             register={register("passwordCheck", {
-              required: "비밀번호를 입력해주세요.",
-              pattern: {
-                value: passwordRegex,
-                message: "올바른 형식의 비밀번호를 입력해주세요.",
-              },
+              required: "비밀번호를 확인해주세요.",
             })}
             error={errors.passwordCheck}
           />
