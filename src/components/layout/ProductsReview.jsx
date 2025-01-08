@@ -12,17 +12,17 @@ export default function Review({ _id, productReview, setProductReview }) {
     return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
 
-  // 상품 후기 가져오기
-  const fetchProductReview = async () => {
-    try {
-      const response = await axios.get(`/replies/${_id}`);
-      setProductReview(response.data);
-    } catch (err) {
-      setError(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // // 상품 후기 가져오기
+  // const fetchProductReview = async () => {
+  //   try {
+  //     const response = await axios.get(`/replies/${_id}`);
+  //     setProductReview(response.data);
+  //   } catch (err) {
+  //     setError(err);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   // 상품 후기 삭제
   const deleteProductReview = async reply_id => {
@@ -39,7 +39,7 @@ export default function Review({ _id, productReview, setProductReview }) {
   };
 
   useEffect(() => {
-    fetchProductReview();
+    // fetchProductReview();
   }, [_id]);
 
   if (loading) return <p>로딩 중...</p>;
