@@ -99,7 +99,7 @@ export default function Signup() {
       }
     } else {
       // 유효하지 않은 nickname 형식
-      // setValidNickname(false)
+      setValidNickname(false);
       setError("name", {
         type: "invalid-nickname-form",
         message: "올바른 형식의 닉네임을 입력해주세요.",
@@ -193,6 +193,9 @@ export default function Signup() {
                 value: nicknameRegex,
                 message: "닉네임은 최대 16자까지 입력 가능합니다.",
               },
+              onChange: () => {
+                setValidNickname(false);
+              },
             })}
             error={errors.name}
           >
@@ -222,6 +225,9 @@ export default function Signup() {
               pattern: {
                 value: emailRegex,
                 message: "올바른 형식의 이메일을 입력해주세요.",
+              },
+              onChange: () => {
+                setValidEmail(false);
               },
             })}
             error={errors.email}
