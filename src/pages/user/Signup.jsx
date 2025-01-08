@@ -73,7 +73,6 @@ export default function Signup() {
   const checkNickname = async () => {
     // nicknameInput 값 획득
     const nicknameInput = getValues("name");
-    console.log("닉네임 중복확인 |", nicknameInput);
     // nickname 유효성 검사
     if (nicknameInput.length !== 0 && nicknameRegex.test(nicknameInput)) {
       // 기존의 에러 초기화
@@ -107,7 +106,6 @@ export default function Signup() {
   const checkEmail = async () => {
     // emailInput 값 획득
     const emailInput = getValues("email");
-    console.log("이메일 중복확인 |", emailInput);
     // email 유효성 검사
     if (emailInput.length !== 0 && emailRegex.test(emailInput)) {
       clearErrors("email");
