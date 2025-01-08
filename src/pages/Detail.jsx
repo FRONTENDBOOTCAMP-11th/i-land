@@ -37,7 +37,7 @@ export default function Detail({ _id=1 }) {
   const fetchUser = async () => {
     try {
       const response = await axios.get(`/users/${user._id}`); // user._id를 통해서 로그인한 유저의 _id 값을 호출
-      setUserInfo(response.data);
+      setUserInfo(response.data.item);
       console.log("가져온 유저정보", userInfo);
     } catch (err) {
       setError(err);
@@ -48,7 +48,8 @@ export default function Detail({ _id=1 }) {
   const fetchProduct = async () => {
     try {
       const response = await axios.get(`/products/${_id}`);
-      setProduct(response.data);
+      setProduct(response.data.item);
+      console.log("가져온 상품 정보", product);
     } catch (err) {
       setError(err);
     }
@@ -62,7 +63,7 @@ export default function Detail({ _id=1 }) {
         console.log("댓글이 없습니다.");
       }
       console.log("가져온 상품 후기", response.data);
-      setProductReview(response.data);
+      setProductReview(response.data.item);
     } catch (err) {
       setError(err);
     }
@@ -71,19 +72,17 @@ export default function Detail({ _id=1 }) {
   // 리뷰 추가
   const addReview = async content => {
     try {
-      const reviewData = {
-        content: content,
-        user: {
-          name: userInfo.name,
-          image: userInfo.image,
-          _id: userInfo._id,
+      const response = await axios.post(
+        `/replies/`,
+        {
+          content: content,
+          order_id: userInfo._id,
+          product_id: product._id,
         },
-      };
-
-      const response = await axios.post(`/replies/${_id}`, reviewData, {
-        headers: { Authorization: `Bearer ${user.accessToken}` }, // 로그인 상태인 유저의 엑세스  토큰
-      });
-
+        {
+          headers: { Authorization: `Bearer ${user.accessToken}` },
+        },
+      );
       setProductReview(prevReviews => {
         return Array.isArray(prevReviews)
           ? [...prevReviews, response.data]
@@ -116,7 +115,7 @@ export default function Detail({ _id=1 }) {
           <div className="relative w-[480px] h-[480px]">
             <img
               className="w-full h-full"
-              src={"https://11.fesp.shop" + product.item.mainImages[0].path}
+              src={"https://11.fesp.shop" + product.mainImages[0].path}
               alt="상품 이미지"
             />
             <button>
@@ -134,7 +133,7 @@ export default function Detail({ _id=1 }) {
               />
             </button>
             <p className="absolute left-[50%] -translate-x-1/2 bottom-[10px] w-[51px] h-[23px] flex items-center justify-center text-[14px] text-gray3 bg-white bg-opacity-70 border border-solid rounded-[26px]">
-              {1}/{product.item.mainImages.length}
+              {1}/{product.mainImages.length}
             </p>
           </div>
           <div className="w-96 flex flex-col gap-y-7">
@@ -143,7 +142,7 @@ export default function Detail({ _id=1 }) {
               href=""
             >
               <p className="text-gray3 text-[18px] not-italic font-normal">
-                {product.item.name}
+                {product.name}
               </p>
               <img
                 src="/src/assets/icons/chevron-right.svg"
@@ -151,14 +150,14 @@ export default function Detail({ _id=1 }) {
               />
             </a>
             <p className="text-black text-[32px] not-italic font-bold">
-              {product.item.name}
+              {product.name}
             </p>
             <div className="flex justify-between items-center">
               <p className="font-bold text-[24px]">
-                {product.item.price.toLocaleString()} 원
+                {product.price.toLocaleString()} 원
               </p>
               <p className="font-bold text-[18px]">
-                현재 수량 {product.item.quantity - product.item.buyQuantity} 개
+                현재 수량 {product.quantity - product.buyQuantity} 개
               </p>
             </div>
             <select
@@ -181,7 +180,7 @@ export default function Detail({ _id=1 }) {
                   type="text"
                   value={count}
                   min="1"
-                  max={product.item.quantity - product.item.buyQuantity}
+                  max={product.quantity - product.buyQuantity}
                   name="countUp"
                   onChange={inputNum}
                   readOnly={true}
@@ -191,7 +190,7 @@ export default function Detail({ _id=1 }) {
                 </button>
               </div>
               <p className="text-black text-[24px] font-bold">
-                총 {(count * product.item.price).toLocaleString()} 원
+                총 {(count * product.price).toLocaleString()} 원
               </p>
             </div>
             <div className="flex justify-between">
@@ -217,14 +216,14 @@ export default function Detail({ _id=1 }) {
       <hr className="text-gray1 border border-solid my-10"></hr>
       <section name="detailMain">
         <p className="mt-5 section-title">상품 설명</p>
-        <div name="productContent">{product.item.content}</div>
+        <div name="productContent">{product.content}</div>
       </section>
       <hr className="text-gray1 border border-solid my-10"></hr>
       <section name="detailFooter">
         <p className="mb-10 section-title">상품 후기</p>
         <div>
           <p className="mb-7 text-[16px] font-normal">
-            후기 {productReview.item.length} 개
+            후기 {productReview.length} 개
           </p>
           <div name="reviewBox" className="mb-20 flex flex-col gap-y-7">
             <Review
