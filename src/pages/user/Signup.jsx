@@ -99,7 +99,7 @@ export default function Signup() {
       }
     } else {
       // 유효하지 않은 nickname 형식
-      setValidNickname(false);
+      // setValidNickname(false)
       setError("name", {
         type: "invalid-nickname-form",
         message: "올바른 형식의 닉네임을 입력해주세요.",
@@ -123,7 +123,7 @@ export default function Signup() {
       } catch (err) {
         // 중복된 email 이 있는 경우
         clearErrors("email");
-        setValidNickname(false);
+        setValidEmail(false);
         setError("email", {
           type: "used-email",
           message: "이미 등록된 이메일입니다.",
