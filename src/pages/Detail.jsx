@@ -72,17 +72,11 @@ export default function Detail({ _id=1 }) {
   // 리뷰 추가
   const addReview = async content => {
     try {
-      const response = await axios.post(
-        `/replies/`,
-        {
-          content: content,
-          order_id: userInfo._id,
-          product_id: product._id,
-        },
-        {
-          headers: { Authorization: `Bearer ${user.accessToken}` },
-        },
-      );
+      const response = await axios.post(`/replies/`, {
+        content: content,
+        order_id: userInfo._id,
+        product_id: product._id,
+      });
       setProductReview(prevReviews => {
         return Array.isArray(prevReviews)
           ? [...prevReviews, response.data]
