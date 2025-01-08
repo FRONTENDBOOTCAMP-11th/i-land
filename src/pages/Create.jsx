@@ -34,14 +34,17 @@ export default function Create() {
         extra: {
           category: categories,
         },
-        mainImages,
+        mainImages, // TODO: 이미지 미리보기 기능 개발하기
       };
 
-      await axios.post("/seller/products", productData, {
+      const response = await axios.post("/seller/products", productData, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
+
+      // 등록 상품 정보 브라우저 콘솔 확인
+      console.log("등록 상품 정보: ", response.data);
 
       alert("상품 등록이 완료되었습니다.");
       reset();
