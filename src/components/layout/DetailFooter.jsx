@@ -14,6 +14,7 @@ export default function DetailFooter({_id}) {
   const [userInfo, setUserInfo] = useState(null); // 유저 정보
   const [productReview, setProductReview] = useState([]); // 상품 리뷰
   const [reviewContent, setReviewContent] = useState(""); // textarea 상태
+
   // 현재 유저 정보 가져오기
   const fetchUser = async () => {
     if (!user?._id) return; // user가 없으면 조기 리턴
@@ -24,6 +25,7 @@ export default function DetailFooter({_id}) {
       setError(err);
     }
   };
+
   // 구매 후기 등록
   const addReview = async content => {
     if (!user?.accessToken) {
@@ -54,6 +56,7 @@ export default function DetailFooter({_id}) {
       setError(err);
     }
   };
+
   // 상품 상세 정보
   const fetchProduct = async () => {
     try {
@@ -63,14 +66,14 @@ export default function DetailFooter({_id}) {
       setError(err);
     }
   };
+
   useEffect(() => {
     fetchUser(); // 유저 정보
     fetchProduct(); // 상품 상세 정보
     setLoading(false); // 로딩 종료
   }, [_id]);
+
   const ProductsReviewLength = product?.item?.replies?.length; // 등록된 후기 개수
-  // console.log("123", userInfo);
-  // console.log("123", userInfo?.image);
   if (loading) return <p>로딩 중...</p>;
   if (error) return <p>오류 발생: {error.message}</p>;
   if (ProductsReviewLength === 0) return <p>리뷰가 없습니다.</p>;
