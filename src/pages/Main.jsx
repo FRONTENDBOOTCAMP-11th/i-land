@@ -1,6 +1,22 @@
 import MainProductList from "@components/MainProductList";
+import useAxiosInstance from "@hooks/useAxiosInstance";
+import useUserStore from "@zustand/userStore";
+import { useEffect } from "react";
 
 export default function Main() {
+  // TODO 1: 로그인 상태가 아닌 경우, 찜한 상품 영역 표시 X
+  const { user } = useUserStore();
+
+  console.log(user._id);
+
+  const axios = useAxiosInstance();
+
+  const getBookmarkedItem = async _id => {
+    const res = await axios.get(`/users/${_id}/bookmarks`);
+    console.log(res.data.item.product);
+    return res.data.item.product;
+  };
+
   return (
     <div className="container">
       <section className="aspect-[50/21] border border-gray2 rounded-lg mb-[60px] relative flex place-items-center justify-center">
@@ -115,7 +131,7 @@ export default function Main() {
         </ul>
       </section>
 
-      <MainProductList label="찜한 목록" />
+      {user && <MainProductList label="찜한 목록" />}
       <MainProductList label="인기 상품" />
       <MainProductList label="이번주 신상" />
       <MainProductList label="인기 판매자" />
