@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import InputError from "@components/InputError";
 
 export default function ProductContent({ register, error }) {
   return (
@@ -10,11 +11,12 @@ export default function ProductContent({ register, error }) {
         id="productContent"
         className="w-full h-[400px] p-[40px] border border-gray2 rounded-lg focus:outline-none resize-none text-2xl"
         name="productDescription"
-        placeholder="상품 설명을 입력해주세요."
+        placeholder="예) 최강야구 이대호 굿즈 3종 세트입니다."
         {...register("content", {
-          required: "상품 설명은 필수 항목입니다.",
+          required: "상품 설명을 입력해주세요.",
         })}
       ></textarea>
+      <InputError target={error} />
     </div>
   );
 }
