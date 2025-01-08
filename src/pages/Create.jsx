@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import useAxiosInstance from "@hooks/useAxiosInstance";
+import useUserStore from "@zustand/userStore";
 
 import ProductCategory from "@components/ProductCategory";
 import ProductImageUploader from "@components/ProductImageUploader";
@@ -7,6 +9,11 @@ import InputField from "@components/InputField";
 import ProductContent from "@components/ProductContent";
 
 export default function Create() {
+  const axios = useAxiosInstance();
+  const { user } = useUserStore();
+  const accessToken = user?.accessToken;
+  console.log(accessToken);
+
   const {
     register,
     handleSubmit,
@@ -29,17 +36,19 @@ export default function Create() {
         },
         mainImages,
       };
-      console.log("Product Data", productData);
 
-      // POST 상품 등록 요청
+      await axios.post("/seller/products", productData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
 
-      // 성공 시
       alert("상품 등록이 완료되었습니다.");
-      reset(); // 입력된 값 초기화
+      reset();
       setMainImages([]);
       setCategories([]);
     } catch (error) {
-      console.error("상품 등록 실패:", error);
+      console.error("상품 등록 실패:", error.respose || error);
       alert("상품 등록에 실패했습니다. 다시 시도해주세요.");
     }
   };
