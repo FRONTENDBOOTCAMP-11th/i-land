@@ -34,16 +34,21 @@ export default function Signup() {
 
   // 회원가입 요청
   const signup = async formData => {
-    // nickname, email 중복확인 미진행 시 오류 메시지 출력
-    if (validNickname === false && validEmail === false) {
-      setError("name", {
-        type: "nickname-not-checked",
-        message: "중복확인을 진행해주세요.",
-      });
-      setError("email", {
-        type: "email-not-checked",
-        message: "중복확인을 진행해주세요.",
-      });
+    // nickname 또는 email 중복확인 미진행 시 오류 메시지 출력
+    if (validNickname === false || validEmail === false) {
+      // nickname 중복확인 미진행 시
+      if (validNickname === false) {
+        setError("name", {
+          type: "nickname-not-checked",
+          message: "중복확인을 진행해주세요.",
+        });
+      }
+      if (validEmail === false) {
+        setError("email", {
+          type: "email-not-checked",
+          message: "중복확인을 진행해주세요.",
+        });
+      }
     } else {
       // 검증이 끝난 값 중, API 서버 요청 시 사용되는 데이터만 추출
       const newFormData = {
@@ -266,10 +271,10 @@ export default function Signup() {
           />
         </fieldset>
 
-        <div className="text-center p-[18px] border-solid border-gray3 border-2 rounded-[8px] text-gray3 focus-within:border-point-blue focus-within:shadow-md focus-within:ring-point-blue">
+        <div className="w-[400px] h-[60px] text-center p-[18px] rounded-[8px] text-[24px] font-bold text-gray3 border-solid  border-gray3 border-2 focus-within:border-point-blue focus-within:shadow-md focus-within:shadow-point-blue">
           <button
-            className="w-full cursor-pointer focus:outline-none"
             type="submit"
+            className="cursor-pointer size-full focus:outline-none"
           >
             회원가입
           </button>
