@@ -1,14 +1,23 @@
 import InputField from "@components/InputField";
 import PasswordInput from "@components/PasswordInput";
 import useAxiosInstance from "@hooks/useAxiosInstance";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 // 이메일, 비밀번호 정규 표현식
+const usernameRegex = /^[가-힣]{2,5}$/;
+const nicknameRegex = /^[가-힣a-zA-Z0-9]{2,16}$/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const passwordRegex = /^.{8,}$/;
 
 export default function Signup() {
   const axios = useAxiosInstance();
+
+  // 닉네임 중복확인
+  const [validNickname, setValidNickname] = useState(false);
+
+  // 이메일 중복확인
+  const [validEmail, setValidEmail] = useState(false);
 
   const {
     register,
@@ -20,39 +29,74 @@ export default function Signup() {
   } = useForm();
 
   // 회원가입 요청
-  const signup = () => {
+  const signup = formData => {
+    console.log(formData);
     console.log("회원가입 버튼 클릭");
   };
 
   // 닉네임 중복확인
   const checkNickname = async () => {
+    // nicknameInput 값 획득
     const nicknameInput = getValues("name");
     console.log("닉네임 중복확인 |", nicknameInput);
-    try {
-      const res = await axios.get(`/users/name?name=${nicknameInput}`);
-      console.log(res);
-    } catch (err) {
-      console.log(err.response.data.message);
-      clearErrors;
+    // nickname 유효성 검사
+    if (nicknameInput.length !== 0 && nicknameRegex.test(nicknameInput)) {
+      // 기존의 에러 초기화
+      clearErrors("name");
+      try {
+        // 서버에 nickname 중복확인 요청
+        const res = await axios.get(`/users/name?name=${nicknameInput}`);
+        console.log(res);
+        // nickname 인증 상태 false => true 로 변경
+        setValidNickname(true);
+      } catch (err) {
+        // 중복된 nickname 이 있는 경우
+        clearErrors("name");
+        setValidNickname(false);
+        setError("name", {
+          type: "manual",
+          message: "이미 등록된 닉네임입니다.",
+        });
+      }
+    } else {
+      // 유효하지 않은 nickname 형식
+      setValidNickname(false);
       setError("name", {
         type: "manual",
-        message: "이미 등록된 닉네임입니다.",
+        message: "올바른 형식의 닉네임을 입력해주세요.",
       });
     }
   };
 
   // 이메일 중복확인
   const checkEmail = async () => {
+    // emailInput 값 획득
     const emailInput = getValues("email");
     console.log("이메일 중복확인 |", emailInput);
-    try {
-      const res = await axios.get(`/users/email?email=${emailInput}`);
-      console.log(res);
-    } catch (err) {
-      console.log(err.response.data.message);
+    // email 유효성 검사
+    if (emailInput.length !== 0 && emailRegex.test(emailInput)) {
+      clearErrors("email");
+      try {
+        // 서버에 email 중복확인 요청
+        const res = await axios.get(`/users/email?email=${emailInput}`);
+        console.log(res);
+        // email 인증 상태 false => true 로 변경
+        setValidEmail(true);
+      } catch (err) {
+        // 중복된 email 이 있는 경우
+        clearErrors("email");
+        setValidNickname(false);
+        setError("email", {
+          type: "manual",
+          message: "이미 등록된 이메일입니다.",
+        });
+      }
+    } else {
+      // 유효하지 않은 email 형식
+      setValidEmail(false);
       setError("email", {
         type: "manual",
-        message: "이미 등록된 이메일입니다.",
+        message: "올바른 형식의 이메일을 입력해주세요.",
       });
     }
   };
@@ -76,7 +120,7 @@ export default function Signup() {
             register={register("username", {
               required: "이름을 입력해주세요.",
               pattern: {
-                value: /^[가-힣]{2,5}$/,
+                value: usernameRegex,
                 message: "이름은 최대 5자까지 입력 가능합니다.",
               },
             })}
@@ -90,7 +134,7 @@ export default function Signup() {
             register={register("name", {
               required: "닉네임을 입력해주세요.",
               pattern: {
-                value: /^[가-힣a-zA-Z0-9]{2,16}$/,
+                value: nicknameRegex,
                 message: "닉네임은 최대 16자까지 입력 가능합니다.",
               },
             })}
@@ -107,6 +151,11 @@ export default function Signup() {
               </button>
             </div>
           </InputField>
+          {validNickname && (
+            <p className="text-point-blue -mt-[18px] mb-5">
+              사용 가능한 닉네임입니다.
+            </p>
+          )}
 
           <InputField
             id="email"
@@ -132,6 +181,11 @@ export default function Signup() {
               </button>
             </div>
           </InputField>
+          {validEmail && (
+            <p className="text-point-blue -mt-[18px] mb-5">
+              사용 가능한 이메일입니다.
+            </p>
+          )}
         </fieldset>
 
         <fieldset id="userPw">
