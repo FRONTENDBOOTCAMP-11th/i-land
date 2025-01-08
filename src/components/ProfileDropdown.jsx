@@ -1,8 +1,10 @@
 import useUserStore from "@zustand/userStore";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function ProfileDropdown() {
   const { resetUser } = useUserStore();
+
+  const navigate = useNavigate();
 
   const logout = () => {
     resetUser();
@@ -11,8 +13,13 @@ export default function ProfileDropdown() {
 
   return (
     <ul className="absolute -bottom-[92] right-0 border border-gray2 bg-white z-50 w-[110px] rounded-md">
-      <li className="p-[14px] w-full">
-        <Link to="/create">상품등록</Link>
+      <li
+        className="p-[14px]"
+        onClick={() => {
+          navigate("/create");
+        }}
+      >
+        상품등록
       </li>
       <hr className="border border-gray2" />
       <li className="p-[14px]" onClick={logout}>
