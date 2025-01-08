@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // 추가: React Router
 import ProductsReview from "@components/layout/ProductsReview";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useUserStore from "@zustand/userStore";
@@ -6,6 +7,7 @@ import useUserStore from "@zustand/userStore";
 export default function DetailFooter({_id}) {
   const { user } = useUserStore();
   const axios = useAxiosInstance();
+  const navigate = useNavigate(); // 추가: useNavigate 훅
   const [loading, setLoading] = useState(true); // 로딩
   const [error, setError] = useState(null); // 에러
   const [product, setProduct] = useState(null); // 상품 정보
@@ -14,6 +16,7 @@ export default function DetailFooter({_id}) {
   const [reviewContent, setReviewContent] = useState(""); // textarea 상태
   // 현재 유저 정보 가져오기
   const fetchUser = async () => {
+    if (!user?._id) return; // user가 없으면 조기 리턴
     try {
       const response = await axios.get(`/users/${user?._id}`); // user._id를 통해서 로그인한 유저의 _id 값을 호출
       setUserInfo(response.data.item);
@@ -23,6 +26,11 @@ export default function DetailFooter({_id}) {
   };
   // 구매 후기 등록
   const addReview = async content => {
+    if (!user?.accessToken) {
+      alert("리뷰 등록은 로그인시 이용 가능합니다.");
+      navigate("/user/login"); // 로그인 페이지로 이동
+      return;
+    }
     try {
       const response = await axios.post(
         `/replies`,
