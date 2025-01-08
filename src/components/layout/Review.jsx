@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import useAxiosInstance from "@hooks/useAxiosInstance";
+import useUserStore from "@zustand/userStore";
 
 export default function Review({ _id, productReview, setProductReview }) {
+  const { user } = useUserStore();
   const axios = useAxiosInstance();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -13,7 +15,7 @@ export default function Review({ _id, productReview, setProductReview }) {
   // 상품 후기 가져오기
   const fetchProductReview = async () => {
     try {
-      const response = await axios.get(`/posts/${_id}/replies`);
+      const response = await axios.get(`/replies/${_id}`);
       setProductReview(response.data);
     } catch (err) {
       setError(err);
@@ -25,15 +27,16 @@ export default function Review({ _id, productReview, setProductReview }) {
   // 상품 후기 삭제
   const deleteProductReview = async reply_id => {
     try {
-      await axios.delete(`/posts/${_id}/replies/${reply_id}`);
+      await axios.delete(`/products/${_id}/replies/${reply_id}`, {
+        headers: { Authorization: `Bearer ${user.accessToken}` }, // 로그인 상태인 유저의 엑세스  토큰
+      });
       setProductReview(prevReviews =>
-        prevReviews.filter(review => review.id !== reply_id),
+        prevReviews.filter(review => review._id !== reply_id),
       );
     } catch (err) {
       setError(err);
     }
   };
-  console.log(productReview);
 
   useEffect(() => {
     fetchProductReview();
@@ -44,9 +47,6 @@ export default function Review({ _id, productReview, setProductReview }) {
   if (productReview.item.length === 0) {
     return <p>리뷰가 없습니다.</p>;
   }
-
-  console.log("버튼에 넘길 api1",productReview.item[0].id);
-  console.log("버튼에 넘길 api2",productReview.item);
 
   return (
     <div className="flex flex-col gap-y-5">
@@ -74,7 +74,7 @@ export default function Review({ _id, productReview, setProductReview }) {
               </button>
               <button
                 className="h-[50px] py-[14px] px-9 text-[18px] font-bold text-white bg-point-red rounded-lg"
-                onClick={() => deleteProductReview(review.id)}
+                onClick={() => deleteProductReview(review._id)}
               >
                 삭제
               </button>
