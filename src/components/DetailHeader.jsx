@@ -90,7 +90,7 @@ export default function DetailHeader({_id}) {
             </p>
             <div className="flex justify-between items-center">
               <p className="font-bold text-[24px]">
-                {product?.price?.toLocaleString()} 원
+                {product?.item?.price?.toLocaleString()} 원
               </p>
               <p className="font-bold text-[18px]">
                 현재 수량 {productNowQuantity} 개
