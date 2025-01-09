@@ -1,3 +1,4 @@
+import ProductLikeBtn from "@components/common/ProductLikeBtn";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
@@ -11,6 +12,7 @@ ProductCard.propTypes = {
       _id: PropTypes.number,
       mainImages: PropTypes.array,
       name: PropTypes.string,
+      price: PropTypes.number,
     }),
   }),
 };
@@ -32,33 +34,25 @@ export default function ProductCard({ item }) {
   }, []);
 
   return (
-    <li className="w-[180px]">
+    <li className="w-[180px] relative">
       {/* 상품 카드 클릭 시 상품 페이지로 이동 */}
       <Link
         to={`/products/${item.product._id}`}
         aria-label="상품 페이지로 이동"
       >
-        <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
+        <div className="aspect-[180/180] rounded-[8px] border border-gray3 overflow-hidden">
           <img
             src={baseURL + item.product.mainImages[0].path}
             alt={`${item.product.name} 상품 이미지`}
           />
-          <button
-            type="button"
-            aria-label="상품 찜하기 버튼"
-            className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
-          >
-            <img
-              src="/assets/icons/heart-smm.svg"
-              className="w-4 h-[14px] hidden"
-            />
-            <img
-              src="/assets/icons/heart-fill-sm.svg"
-              className="w-4 h-[14px]"
-            />
-          </button>
         </div>
-        <div className="flex items-center gap-1 mb-[10px]">
+      </Link>
+      <ProductLikeBtn id={item.product._id} />
+      <Link
+        to={`/products/${item.product._id}`}
+        aria-label="상품 페이지로 이동"
+      >
+        <div className="flex items-center gap-1 mb-[10px] pt-3">
           <p className="text-[12px] text-gray3 line-clamp-1">{sellerName}</p>
           <img
             src="/assets/icons/chevron-right.svg"
