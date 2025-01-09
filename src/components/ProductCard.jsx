@@ -1,11 +1,18 @@
-export default function ProductCard() {
+import { Link } from "react-router-dom";
+
+const baseURL = "https://11.fesp.shop";
+
+export default function ProductCard({ item }) {
   return (
     <li className="w-[180px]">
-      <a href="#" aria-label="상품 페이지로 이동">
+      <Link
+        to={`/products/${item.product._id}`}
+        aria-label="상품 페이지로 이동"
+      >
         <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
           <img
-            src="/assets/images/product-image-12.png"
-            alt="상품 제목 이미지"
+            src={baseURL + item.product.mainImages[0].path}
+            alt={`${item.product.name} 상품 이미지`}
           />
           <button
             type="button"
@@ -30,9 +37,9 @@ export default function ProductCard() {
           />
         </div>
         <h3 className="text-[18px] font-bold mb-3 leading-normal line-clamp-2">
-          상품 이름 최대 두 줄 상품 이름 최대 두 줄
+          {item.product.name}
         </h3>
-        <p className="mb-[10px]">12,000 원</p>
+        <p className="mb-[10px]">{item.product.price.toLocaleString()} 원</p>
         <div className="flex gap-x-[6px] gap-y-1 flex-wrap">
           <div className="px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
             만화/애니메이션
@@ -47,7 +54,7 @@ export default function ProductCard() {
             만화/애니메이션
           </div>
         </div>
-      </a>
+      </Link>
     </li>
   );
 }
