@@ -8,10 +8,14 @@ export default function Main() {
   const { user } = useUserStore();
 
   // 찜한 상품 state
-  const [bookmark, setBookmark] = useState();
+  const [bookmarks, setBookmarks] = useState();
+
+  // 인기 상품 state
+  const [topProducts, setTopProducts] = useState();
 
   // 일반 상품 state - test
   const [products, setProducts] = useState();
+
   const axios = useAxiosInstance();
 
   const getBookmarkedItem = async () => {
@@ -22,12 +26,12 @@ export default function Main() {
         },
       });
       const bookmarkData = res.data;
-      let bookmarks = [];
+      let bookmarksList = [];
       for (let i = 0; i < 10; i++) {
         if (!bookmarkData?.item[i]) break;
-        bookmarks.push(bookmarkData?.item[i].product);
+        bookmarksList.push(bookmarkData?.item[i].product);
       }
-      setBookmark(bookmarks);
+      setBookmarks(bookmarksList);
     } catch (err) {
       console.error(err.response.data.message);
     }
@@ -48,13 +52,26 @@ export default function Main() {
     }
   };
 
+  const getTopProducts = async () => {
+    try {
+      const res = await axios.get("/products", {
+        params: {
+          sort: JSON.stringify({ bookmarks: -1 }),
+          limit: 10,
+        },
+      });
+      const topProductList = res.data.item;
+      setTopProducts(topProductList);
+    } catch (err) {
+      console.error(err.response.data.message);
+    }
+  };
+
   useEffect(() => {
     getBookmarkedItem();
     getProducts();
+    getTopProducts();
   }, []);
-
-  console.log("찜", bookmark);
-  console.log("그냥", products);
 
   return (
     <div className="container">
@@ -170,8 +187,8 @@ export default function Main() {
         </ul>
       </section>
 
-      {user && <MainProductList label="찜한 목록" data={bookmark} />}
-      <MainProductList label="인기 상품" data={products} />
+      {user && <MainProductList label="찜한 목록" data={bookmarks} />}
+      <MainProductList label="인기 상품" data={topProducts} />
       <MainProductList label="이번주 신상" data={products} />
       {/* <MainProductList label="인기 판매자" data={products} /> */}
 

@@ -20,11 +20,9 @@ export default function MainProductList({ label, data }) {
       <h2 className="section-title">{label}</h2>
       <div className="overflow-x-scroll scrollbar-hide">
         <ul
-          className={`grid
-            grid-cols-${data?.length <= 5 ? 5 : data?.length}
-            gap-x-[25px]
-            mr-[-${data?.length > 5 ? marginRightValue : null}px]`}
+          className={`grid grid-cols-${data?.length <= 5 ? 5 : data?.length} gap-x-[25px] mr-[-${data?.length > 5 ? marginRightValue : null}px]`}
         >
+          {/* <ul className={`grid grid-cols-10 gap-x-[25px] mr-[-1000px]`}> */}
           {productList}
         </ul>
       </div>
