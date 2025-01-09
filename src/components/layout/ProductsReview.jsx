@@ -1,13 +1,7 @@
-import { useState, useEffect } from "react";
-import useAxiosInstance from "@hooks/useAxiosInstance";
 import useUserStore from "@zustand/userStore";
 
-export default function ProductsReview({_id}) {
+export default function ProductsReview({productReview}) {
   const { user } = useUserStore();
-  const axios = useAxiosInstance();
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [product, setProduct] = useState(null);
   const formatDate = dateString => {
     const date = new Date(dateString);
     return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
@@ -27,23 +21,6 @@ export default function ProductsReview({_id}) {
   //   }
   // };
 
-  const fetchProduct = async () => {
-    try {
-      const response = await axios.get(`/products/${_id}`);
-      setProduct(response?.data);
-    } catch (err) {
-      setError(err);
-    }
-  };
-  useEffect(() => {
-    fetchProduct(); // 상품 정보 가져오기
-    setLoading(false); // 로딩 종료
-  }, [_id]);
-  const productReview = product?.item?.replies;
-  console.log("123", productReview);
-  if (loading) return <p>로딩 중...</p>;
-  if (error) return <p>오류 발생: {error.message}</p>;
-  if (productReview?.length === 0) return <p>리뷰가 없습니다.</p>;
   return (
     <div className="flex flex-col gap-y-5">
       {productReview?.map((review, index) => (

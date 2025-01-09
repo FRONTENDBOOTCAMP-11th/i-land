@@ -79,7 +79,7 @@ export default function DetailFooter({_id}) {
           후기 {ProductsReviewLength} 개
         </p>
         <div name="reviewBox" className="mb-20 flex flex-col gap-y-7">
-          <ProductsReview _id={_id} />
+          <ProductsReview _id={_id} productReview={product?.item?.replies} />
         </div>
         <div className="flex flex-col gap-y-7">
           <p className="section-title">상품의 후기를 작성하세요</p>
