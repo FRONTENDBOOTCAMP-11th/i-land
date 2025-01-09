@@ -1,4 +1,4 @@
-import ProfileDropdown from "@components/ProfileDropdown";
+import ProfileDropdown from "@components/common/ProfileDropdown";
 import useUserStore from "@zustand/userStore";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -44,7 +44,7 @@ export default function Header() {
             onBlur={hideDropdown}
           >
             <img
-              className="w-10 h-10 rounded-full border-2 border-gray1 box-content"
+              className="box-content w-10 h-10 border-2 rounded-full border-gray1"
               src={`https://11.fesp.shop/${user?.profileImage}`} // 프로필 이미지가 없으면 기본 이미지 노출
               alt="User Profile"
             />

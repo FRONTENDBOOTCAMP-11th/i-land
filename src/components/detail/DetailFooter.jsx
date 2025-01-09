@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // 추가: React Router
-import ProductsReview from "@components/ProductsReview";
+import ProductsReview from "@components/detail/ProductsReview";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useUserStore from "@zustand/userStore";
 
-export default function DetailFooter({_id}) {
+export default function DetailFooter({ _id }) {
   const { user } = useUserStore();
   const axios = useAxiosInstance();
   const navigate = useNavigate(); // 추가: useNavigate 훅
@@ -77,7 +77,7 @@ export default function DetailFooter({_id}) {
         <p className="mb-[30px] text-[16px] font-normal">
           후기 {ProductsReviewLength} 개
         </p>
-        <div name="reviewBox" className="mb-20 flex flex-col gap-y-7">
+        <div name="reviewBox" className="flex flex-col mb-20 gap-y-7">
           <ProductsReview _id={_id} productReview={product?.item?.replies} />
         </div>
         <div className="flex flex-col gap-y-7">
