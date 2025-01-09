@@ -3,24 +3,15 @@ import PropTypes from "prop-types";
 
 MainProductList.propTypes = {
   label: PropTypes.string,
-  data: PropTypes.shape({
-    item: PropTypes.array,
-  }),
+  data: PropTypes.array,
 };
 
 export default function MainProductList({ label, data }) {
-  // 최대 10개 상품만 출력
-  let bookmarks = [];
-  for (let i = 0; i < 10; i++) {
-    if (!data?.item[i]) break;
-    bookmarks.push(data?.item[i]);
-  }
-
   // 상품의 개수만큼 margin right value 지정
-  const marginRightValue = 1000 - 200 * (10 - bookmarks.length);
+  const marginRightValue = 1000 - 200 * (10 - data?.length);
 
   // ProductCard 에 props 로 전달
-  const productList = bookmarks.map(item => (
+  const productList = data?.map(item => (
     <ProductCard key={item._id} item={item} />
   ));
 
@@ -30,9 +21,9 @@ export default function MainProductList({ label, data }) {
       <div className="overflow-x-scroll scrollbar-hide">
         <ul
           className={`grid
-            grid-cols-${bookmarks.length <= 5 ? 5 : bookmarks.length}
+            grid-cols-${data?.length <= 5 ? 5 : data?.length}
             gap-x-[25px]
-            mr-[-${bookmarks.length > 5 ? marginRightValue : null}px]`}
+            mr-[-${data?.length > 5 ? marginRightValue : null}px]`}
         >
           {productList}
         </ul>
