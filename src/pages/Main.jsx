@@ -7,8 +7,11 @@ export default function Main() {
   // TODO 1: 로그인 상태가 아닌 경우, 찜한 상품 영역 표시 X
   const { user } = useUserStore();
 
+  // 찜한 상품 state
   const [bookmark, setBookmark] = useState();
 
+  // 일반 상품 state - test
+  const [products, setProducts] = useState();
   const axios = useAxiosInstance();
 
   const getBookmarkedItem = async () => {
@@ -19,7 +22,27 @@ export default function Main() {
         },
       });
       const bookmarkData = res.data;
-      setBookmark(bookmarkData);
+      let bookmarks = [];
+      for (let i = 0; i < 10; i++) {
+        if (!bookmarkData?.item[i]) break;
+        bookmarks.push(bookmarkData?.item[i].product);
+      }
+      setBookmark(bookmarks);
+    } catch (err) {
+      console.error(err.response.data.message);
+    }
+  };
+
+  const getProducts = async () => {
+    try {
+      const res = await axios.get("/products");
+      const productData = res.data;
+      const productsList = [];
+      for (let i = 0; i < 10; i++) {
+        if (!productData?.item[i]) break;
+        productsList.push(productData?.item[i]);
+      }
+      setProducts(productsList);
     } catch (err) {
       console.error(err.response.data.message);
     }
@@ -27,7 +50,11 @@ export default function Main() {
 
   useEffect(() => {
     getBookmarkedItem();
+    getProducts();
   }, []);
+
+  console.log("찜", bookmark);
+  console.log("그냥", products);
 
   return (
     <div className="container">
@@ -144,9 +171,9 @@ export default function Main() {
       </section>
 
       {user && <MainProductList label="찜한 목록" data={bookmark} />}
-      {/* <MainProductList label="인기 상품" />
-      <MainProductList label="이번주 신상" />
-      <MainProductList label="인기 판매자" /> */}
+      <MainProductList label="인기 상품" data={products} />
+      <MainProductList label="이번주 신상" data={products} />
+      {/* <MainProductList label="인기 판매자" data={products} /> */}
 
       <section className="mb-[70px]">
         <h2 className="section-title">인기 판매자</h2>
