@@ -28,8 +28,8 @@ export default function Create() {
     try {
       const productData = {
         name: data.name,
-        price: data.price,
-        quantity: data.quantity,
+        price: Number(data.price),
+        quantity: Number(data.quantity),
         content: data.content,
         extra: {
           category: categories,
@@ -86,6 +86,9 @@ export default function Create() {
             placeholder="예) 10,000원"
             register={register("price", {
               required: "상품 가격을 입력해주세요.",
+              valueAsNumber: true,
+              validate: value =>
+                value > 0 || "상품 가격은 1원 이상이어야 합니다.",
             })}
             className="section-title"
             error={errors.price}
@@ -100,6 +103,9 @@ export default function Create() {
             placeholder="예) 10개"
             register={register("quantity", {
               required: "상품 수량을 입력해주세요.",
+              valueAsNumber: true,
+              validate: value =>
+                value > 0 || "상품 수량은 1개 이상이어야 합니다.",
             })}
             className="section-title"
             error={errors.quantity}
