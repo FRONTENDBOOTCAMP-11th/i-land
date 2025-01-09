@@ -19,7 +19,7 @@
     "react-router-dom": "^7.1.1",
     "tailwind-scrollbar-hide": "^2.0.0",
     "zustand": "^5.0.2",
-    "zustand-cookie-storage": "^1.0.6"
+    "zustand-cookie-storage": "^1.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
