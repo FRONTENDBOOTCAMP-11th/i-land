@@ -42,7 +42,7 @@ export default function ProductsReview({productReview}) {
           <div className="flex justify-between">
             <p className="text-[16px]">{review.content}</p>
             {user?.accessToken && user._id === review.user?._id && (
-              <div>
+              <div className="flex gap-[20px]">
                 <button className="h-[50px] py-[14px] px-9 text-[18px] font-bold border border-solid border-gray2 rounded-lg">
                   수정
                 </button>
