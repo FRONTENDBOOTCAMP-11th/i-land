@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // 추가: React Router
-import ProductsReview from "@components/layout/ProductsReview";
+import ProductsReview from "@components/ProductsReview";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useUserStore from "@zustand/userStore";
 
