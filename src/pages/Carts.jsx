@@ -6,9 +6,7 @@ export default function Carts() {
   return (
     <div className="container">
       <CartsDelete />
-
       <CartsBox />
-
       <CartsPayment />
     </div>
   );

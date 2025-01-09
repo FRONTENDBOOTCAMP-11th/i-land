@@ -1,4 +1,29 @@
-export default function CartsBox() {
+import useAxiosInstance from "@hooks/useAxiosInstance";
+import { useState, useEffect } from "react";
+
+export default function CartsBox({_id}) {
+  const [loading, setLoading] = useState(true); // 로딩
+
+  // 장바구니 정보
+  const fetchCarts = async () => {
+    try {
+      const response = await axios.get(`/carts/`);
+      setProduct(response?.data);
+    } catch (err) {
+      setError(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchCarts(); // 상품 상세 정보
+    setLoading(false); // 로딩 종료
+  }, [_id]);
+
+
+
+
+
+
   return (
     <section name="cartMain">
     <div className="flex flex-col gap-y-[50px]">
