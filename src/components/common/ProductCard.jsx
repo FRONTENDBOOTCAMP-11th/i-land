@@ -1,4 +1,6 @@
+import useAxiosInstance from "@hooks/useAxiosInstance";
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const baseURL = "https://11.fesp.shop";
@@ -14,6 +16,21 @@ ProductCard.propTypes = {
 };
 
 export default function ProductCard({ item }) {
+  const axios = useAxiosInstance();
+
+  const [sellerName, setSellerName] = useState();
+
+  // 상품 판매자 이름 획득
+  const fetchSellerInfo = async _id => {
+    const res = await axios.get(`/products/${_id}`);
+    const sellerName = res.data.item.seller.name;
+    setSellerName(sellerName);
+  };
+
+  useEffect(() => {
+    fetchSellerInfo(item.product._id);
+  }, []);
+
   return (
     <li className="w-[180px]">
       {/* 상품 카드 클릭 시 상품 페이지로 이동 */}
@@ -42,7 +59,7 @@ export default function ProductCard({ item }) {
           </button>
         </div>
         <div className="flex items-center gap-1 mb-[10px]">
-          <p className="text-[12px] text-gray3 line-clamp-1">상품 판매자 명</p>
+          <p className="text-[12px] text-gray3 line-clamp-1">{sellerName}</p>
           <img
             src="/assets/icons/chevron-right.svg"
             className="w-[3px] h-[6px]"
