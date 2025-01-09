@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
-import DetailFooter from "@components/DetailFooter";
-import DetailHeader from "@components/DetailHeader";
+import DetailFooter from "@components/detail/DetailFooter";
+import DetailHeader from "@components/detail/DetailHeader";
 
 export default function Detail() {
   const { _id } = useParams(); // URL에서 id 추출
