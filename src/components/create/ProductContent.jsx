@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import InputError from "@components/InputError";
+import InputError from "@components/common/InputError";
 
 export default function ProductContent({ register, error }) {
   return (

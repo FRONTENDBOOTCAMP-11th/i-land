@@ -1,4 +1,4 @@
-import InputError from "@components/InputError";
+import InputError from "@components/common/InputError";
 import PropTypes from "prop-types";
 
 InputField.propTypes = {

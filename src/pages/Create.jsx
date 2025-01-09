@@ -3,10 +3,10 @@ import { useForm } from "react-hook-form";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useUserStore from "@zustand/userStore";
 
-import ProductCategory from "@components/ProductCategory";
-import ProductImageUploader from "@components/ProductImageUploader";
-import InputField from "@components/InputField";
-import ProductContent from "@components/ProductContent";
+import InputField from "@components/common/InputField";
+import ProductCategory from "@components/create/ProductCategory";
+import ProductImageUploader from "@components/create/ProductImageUploader";
+import ProductContent from "@components/create/ProductContent";
 
 export default function Create() {
   const axios = useAxiosInstance();
