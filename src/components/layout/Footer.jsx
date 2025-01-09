@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="container bg-point-blue text-white py-[60px]">
-      <div className="text-center space-y-4">
+    <footer className="bg-point-blue text-white py-[60px]">
+      <div className="container text-center space-y-4">
         {/* 링크 섹션 */}
         <div className="text-sm text-white">
           <Link to="/terms" className="hover:underline">
