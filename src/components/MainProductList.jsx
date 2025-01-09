@@ -1,6 +1,7 @@
 import ProductCard from "@components/ProductCard";
 
 export default function MainProductList({ label, data }) {
+  const marginRightValue = 1000 - 200 * (10 - data?.product.length);
   const productList = data?.product.map(item => (
     <ProductCard key={item._id} item={item} />
   ));
@@ -13,7 +14,7 @@ export default function MainProductList({ label, data }) {
           className={`grid 
             ${data?.product.length < 5 ? "grid-cols-5" : `grid-cols-${data?.product.length}`}
             gap-x-[25px] 
-            ${data?.product.length > 5 ? `mr-[-1000px]` : null}`}
+            ${data?.product.length > 5 ? `mr-[-${marginRightValue}px]` : null}`}
         >
           {productList}
         </ul>
