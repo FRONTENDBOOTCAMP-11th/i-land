@@ -1,5 +1,5 @@
-import InputField from "@components/InputField";
-import PasswordInput from "@components/PasswordInput";
+import InputField from "@components/common/InputField";
+import PasswordInput from "@components/user/PasswordInput";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useUserStore from "@zustand/userStore";
 import CryptoJS from "crypto-js";

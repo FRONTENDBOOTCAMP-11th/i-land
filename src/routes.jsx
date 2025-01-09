@@ -11,7 +11,7 @@ import Create from "@pages/Create";
 import Carts from "@pages/Carts";
 import Products from "@pages/Products";
 import Detail from "@pages/Detail";
-import PrivateRoute from "@components/PrivateRoute";
+import PrivateRoute from "@components/common/PrivateRoute";
 
 const router = createBrowserRouter(
   [
