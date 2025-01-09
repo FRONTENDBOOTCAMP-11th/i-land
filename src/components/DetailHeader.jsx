@@ -7,21 +7,32 @@ export default function DetailHeader({_id}) {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [count, setCount] = useState(1);
-  const plusValue = () => {
-    if (count < productNowQuantity) {
-      setCount(count + 1);
+  const [quantitycount, setQuantityCount] = useState(1);
+  const [imgcount, setImgCount] = useState(0);
+  const plusQuantityCount = () => {
+    if (quantitycount < productNowQuantity) {
+      setQuantityCount(quantitycount + 1);
     }
   };
-  const minusValue = () => {
-    if (count > 1) {
-      setCount(count - 1);
+  const minusQuantityCount = () => {
+    if (quantitycount > 1) {
+      setQuantityCount(quantitycount - 1);
+    }
+  };
+  const plusImgCount = () => {
+    if (imgcount < mainImagesLength - 1) {
+      setImgCount(imgcount + 1);
+    }
+  };
+  const minusImgCount = () => {
+    if (imgcount > 0) {
+      setImgCount(imgcount - 1);
     }
   };
   const inputNum = event => {
     const value = event.target.value;
     if (!isNaN(value) && value.trim() !== "") {
-      setCount(Number(value));
+      setQuantityCount(Number(value));
     }
   };
   const fetchProduct = async () => {
@@ -36,10 +47,12 @@ export default function DetailHeader({_id}) {
     fetchProduct(); // 상품 정보 가져오기
     setLoading(false); // 로딩 종료
   }, [_id]);
+
   const productNowQuantity =
     product?.item?.quantity - product?.item?.buyQuantity; // 상품의 현재 수량
   const mainImages = product?.item?.mainImages; // 메인 이미지 배열
   const mainImagesLength = mainImages?.length; // 메인 이미지 개수
+  const imgNowPages = 1 + imgcount; // 메인 이미지의 현재 배열
   const sellerName = product?.item?.seller?.name; // 해당 상품 판매자 이름
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -51,26 +64,28 @@ export default function DetailHeader({_id}) {
           <div className="relative w-[480px] h-[480px]">
             <img
               className="w-full h-full"
-              src={"https://11.fesp.shop" + mainImages[0]?.path} // [imageCount] 이런식으로 변수를 줘서 여러장의 이미지를 변경할 수 있게할 수 있을듯함
+              src={"https://11.fesp.shop" + mainImages[imgcount]?.path} // [imageCount] 이런식으로 변수를 줘서 여러장의 이미지를 변경할 수 있게할 수 있을듯함
               alt="상품 이미지"
             />
-            <button>
+            <button onClick={minusImgCount}>
               <img
                 className="absolute left-[16px] top-[50%]"
                 src="/assets/icons/left.svg"
                 alt=""
               />
             </button>
-            <button>
+            <button onClick={plusImgCount}>
               <img
                 className="absolute right-[16px] top-[50%]"
                 src="/assets/icons/right.svg"
                 alt=""
               />
             </button>
-            <p className="absolute left-[50%] -translate-x-1/2 bottom-[10px] w-[51px] h-[23px] flex items-center justify-center text-[14px] text-gray3 bg-white bg-opacity-70 border border-solid rounded-[26px]">
-              {1}/{mainImagesLength}
-            </p>
+            {mainImagesLength > 0 && (
+              <p className="absolute left-[50%] -translate-x-1/2 bottom-[10px] w-[51px] h-[23px] flex items-center justify-center text-[14px] text-gray3 bg-white bg-opacity-70 border border-solid rounded-[26px]">
+                {imgNowPages}/{mainImagesLength}
+              </p>
+            )}
           </div>
           <div className="w-96 flex flex-col gap-y-7">
             <a
@@ -108,25 +123,25 @@ export default function DetailHeader({_id}) {
             </select>
             <div className="flex justify-between">
               <div className="font-bold items-center text-[18px] flex gap-x-2">
-                <button onClick={minusValue}>
+                <button onClick={minusQuantityCount}>
                   <img src="/assets/icons/minus.svg" alt="" />
                 </button>
                 <input
                   className="text-right border border-solid rounded w-7 h-7 border-gray2"
                   type="text"
-                  value={count}
+                  value={quantitycount}
                   min="1"
                   max={productNowQuantity}
                   name="countUp"
                   onChange={inputNum}
                   readOnly={true}
                 />
-                <button onClick={plusValue}>
+                <button onClick={plusQuantityCount}>
                   <img src="/assets/icons/plus.svg" alt="" />
                 </button>
               </div>
               <p className="text-black text-[24px] font-bold">
-                총 {(count * product?.item?.price)?.toLocaleString()} 원
+                총 {(quantitycount * product?.item?.price)?.toLocaleString()} 원
               </p>
             </div>
             <div className="flex justify-between">
