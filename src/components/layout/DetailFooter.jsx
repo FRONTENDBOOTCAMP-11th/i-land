@@ -14,7 +14,6 @@ export default function DetailFooter({_id}) {
   const [productReview, setProductReview] = useState([]); // 상품 리뷰
   const [reviewContent, setReviewContent] = useState(""); // textarea 상태
 
-
   // 구매 후기 등록
   const addReview = async content => {
     if (!user?.accessToken) {
