@@ -28,10 +28,10 @@ export default function ProductsReview({productReview}) {
           key={index}
           className="flex flex-col p-10 border border-solid rounded-lg border-gray1"
         >
-          <div className="flex justify-between">
+          <div className="flex justify-between mb-5">
             <div className="flex items-center gap-x-4">
               <img
-                className="w-[50px] h-[50px]"
+                className="w-[50px] h-[50px]  border-2 border-gray1 rounded-full"
                 src={"https://11.fesp.shop/" + review.user?.image}
                 alt="유저 프로필 사진"
               />
