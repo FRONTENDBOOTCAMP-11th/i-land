@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 MainProductList.propTypes = {
   label: PropTypes.string,
   data: PropTypes.shape({
-    product: PropTypes.array,
+    item: PropTypes.array,
   }),
 };
 
@@ -12,8 +12,8 @@ export default function MainProductList({ label, data }) {
   // 최대 10개 상품만 출력
   let bookmarks = [];
   for (let i = 0; i < 10; i++) {
-    if (!data?.product[i]) break;
-    bookmarks.push(data?.product[i]);
+    if (!data?.item[i]) break;
+    bookmarks.push(data?.item[i]);
   }
 
   // 상품의 개수만큼 margin right value 지정

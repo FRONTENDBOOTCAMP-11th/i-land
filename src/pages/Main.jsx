@@ -11,10 +11,14 @@ export default function Main() {
 
   const axios = useAxiosInstance();
 
-  const getBookmarkedItem = async _id => {
+  const getBookmarkedItem = async () => {
     try {
-      const res = await axios.get(`/users/${_id}/bookmarks`);
-      const bookmarkData = res.data.item;
+      const res = await axios.get(`/bookmarks/product`, {
+        headers: {
+          Authorization: `Bearer ${user.accessToken}`,
+        },
+      });
+      const bookmarkData = res.data;
       setBookmark(bookmarkData);
     } catch (err) {
       console.error(err.response.data.message);
@@ -22,7 +26,7 @@ export default function Main() {
   };
 
   useEffect(() => {
-    getBookmarkedItem(user?._id);
+    getBookmarkedItem();
   }, []);
 
   return (
@@ -140,9 +144,9 @@ export default function Main() {
       </section>
 
       {user && <MainProductList label="찜한 목록" data={bookmark} />}
-      <MainProductList label="인기 상품" />
+      {/* <MainProductList label="인기 상품" />
       <MainProductList label="이번주 신상" />
-      <MainProductList label="인기 판매자" />
+      <MainProductList label="인기 판매자" /> */}
 
       <section className="mb-[70px]">
         <h2 className="section-title">인기 판매자</h2>
