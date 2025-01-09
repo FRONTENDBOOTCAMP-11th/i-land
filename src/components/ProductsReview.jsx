@@ -41,17 +41,19 @@ export default function ProductsReview({productReview}) {
           </div>
           <div className="flex justify-between">
             <p className="text-[16px]">{review.content}</p>
-            <div>
-              <button className="h-[50px] py-[14px] px-9 text-[18px] font-bold border border-solid border-gray2 rounded-lg">
-                수정
-              </button>
-              <button
-                className="h-[50px] py-[14px] px-9 text-[18px] font-bold text-white bg-point-red rounded-lg"
-                // onClick={() => deleteProductReview(review._id)}
-              >
-                삭제
-              </button>
-            </div>
+            {user?.accessToken && user._id === review.user?._id && (
+              <div>
+                <button className="h-[50px] py-[14px] px-9 text-[18px] font-bold border border-solid border-gray2 rounded-lg">
+                  수정
+                </button>
+                <button
+                  className="h-[50px] py-[14px] px-9 text-[18px] font-bold text-white bg-point-red rounded-lg"
+                  // onClick={() => deleteProductReview(review._id)}
+                >
+                  삭제
+                </button>
+              </div>
+            )}
           </div>
         </div>
       ))}
