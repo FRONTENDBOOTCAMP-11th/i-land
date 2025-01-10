@@ -13,11 +13,12 @@ export default function Main() {
   // 인기 상품 state
   const [topProducts, setTopProducts] = useState();
 
-  // 일반 상품 state - test
-  const [products, setProducts] = useState();
+  // 신상품 state
+  const [newProducts, setNewProducts] = useState();
 
   const axios = useAxiosInstance();
 
+  // 사용자 찜한 상품 목록 조회
   const getBookmarkedItem = async () => {
     try {
       const res = await axios.get(`/bookmarks/product`, {
@@ -37,21 +38,7 @@ export default function Main() {
     }
   };
 
-  const getProducts = async () => {
-    try {
-      const res = await axios.get("/products");
-      const productData = res.data;
-      const productsList = [];
-      for (let i = 0; i < 10; i++) {
-        if (!productData?.item[i]) break;
-        productsList.push(productData?.item[i]);
-      }
-      setProducts(productsList);
-    } catch (err) {
-      console.error(err.response.data.message);
-    }
-  };
-
+  // 인기 상품(찜 많은 순) 목록 조회
   const getTopProducts = async () => {
     try {
       const res = await axios.get("/products", {
@@ -67,10 +54,26 @@ export default function Main() {
     }
   };
 
+  // 최신 상품(날짜 최근 순) 목록 조회
+  const getNewProducts = async () => {
+    try {
+      const res = await axios.get("/products", {
+        params: {
+          sort: JSON.stringify({ createdAt: -1 }),
+          limit: 10,
+        },
+      });
+      const newProductList = res.data.item;
+      setNewProducts(newProductList);
+    } catch (err) {
+      console.error(err.response.data.message);
+    }
+  };
+
   useEffect(() => {
     getBookmarkedItem();
-    getProducts();
     getTopProducts();
+    getNewProducts();
   }, []);
 
   return (
@@ -189,7 +192,7 @@ export default function Main() {
 
       {user && <MainProductList label="찜한 목록" data={bookmarks} />}
       <MainProductList label="인기 상품" data={topProducts} />
-      <MainProductList label="이번주 신상" data={products} />
+      <MainProductList label="이번주 신상" data={newProducts} />
       {/* <MainProductList label="인기 판매자" data={products} /> */}
 
       <section className="mb-[70px]">
