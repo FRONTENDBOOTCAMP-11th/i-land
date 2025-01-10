@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 const baseURL = "https://11.fesp.shop";
 
+// ProductCard 에 props 는 하나의 item 항목만 전달
 ProductCard.propTypes = {
   item: PropTypes.shape({
     _id: PropTypes.number,
@@ -19,6 +20,7 @@ ProductCard.propTypes = {
   }),
 };
 
+// 상품 판매자 name 조회
 export default function ProductCard({ item }) {
   const axios = useAxiosInstance();
 
@@ -54,6 +56,7 @@ export default function ProductCard({ item }) {
           />
         </div>
       </Link>
+      {/* 찜 버튼 Link 외부에 배치 */}
       <ProductLikeBtn id={item._id} />
       <Link to={`/products/${item._id}`} aria-label="상품 페이지로 이동">
         <div className="flex items-center gap-1 mb-[10px] pt-3">

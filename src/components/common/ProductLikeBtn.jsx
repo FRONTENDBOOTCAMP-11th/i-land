@@ -12,6 +12,7 @@ export default function ProductLikeBtn({ id }) {
   // zustand 찜한 상품에 대한 store 추가 필요
   const [likeProduct, setLikeProduct] = useState();
 
+  // 상품 찜하기(bookmark) API
   const bookmarkProduct = () => {
     console.log(id);
   };

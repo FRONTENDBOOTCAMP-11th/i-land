@@ -10,7 +10,7 @@ export default function MainProductList({ label, data }) {
   // 상품의 개수만큼 margin right value 지정
   const marginRightValue = 1000 - 200 * (10 - data?.length);
 
-  // ProductCard 에 props 로 전달
+  // ProductCard 에 props 로 하나의 item 전달
   const productList = data?.map(item => (
     <ProductCard key={item._id} item={item} />
   ));

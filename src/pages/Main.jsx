@@ -19,7 +19,7 @@ export default function Main() {
 
   const axios = useAxiosInstance();
 
-  // 사용자 찜한 상품 목록 조회
+  // 사용자 찜한 상품 목록 조회 API
   const getBookmarkedItem = async () => {
     try {
       const res = await axios.get(`/bookmarks/product`, {
@@ -29,6 +29,7 @@ export default function Main() {
       });
       const bookmarkData = res.data;
       let bookmarkList = [];
+      // 응답 데이터로 최대 10개만 표시
       for (let i = 0; i < 10; i++) {
         if (!bookmarkData?.item[i]) break;
         bookmarkList.push(bookmarkData?.item[i].product);
@@ -39,7 +40,7 @@ export default function Main() {
     }
   };
 
-  // 인기 상품(판매 많은 순) 목록 조회
+  // 인기 상품(판매 많은 순) 목록 조회 API
   const getTopProducts = async () => {
     try {
       const res = await axios.get("/products", {
@@ -55,7 +56,7 @@ export default function Main() {
     }
   };
 
-  // 최신 상품(날짜 최근 순) 목록 조회
+  // 최신 상품(상품 등록 일자 최신순) 목록 조회 API
   const getNewProducts = async () => {
     try {
       const res = await axios.get("/products", {
