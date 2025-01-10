@@ -26,7 +26,6 @@ export default function MainProductList({ label, data }) {
               marginRight: data?.length > 5 ? `-${marginRightValue}px` : "0",
             }}
           >
-            {/* <ul className={`grid grid-cols-10 gap-x-[25px] mr-[-1000px]`}> */}
             {productList}
           </ul>
         </div>
