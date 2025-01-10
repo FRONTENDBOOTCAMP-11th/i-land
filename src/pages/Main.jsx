@@ -3,6 +3,7 @@ import MainProductList from "@components/main/MainProductList";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useUserStore from "@zustand/userStore";
 import { useEffect, useState } from "react";
+import CategorySection from "@components/common/CategorySection";
 
 export default function Main() {
   // TODO 1: 로그인 상태가 아닌 경우, 찜한 상품 영역 표시 X
@@ -22,11 +23,7 @@ export default function Main() {
   // 사용자 찜한 상품 목록 조회 API
   const getBookmarkedItem = async () => {
     try {
-      const res = await axios.get(`/bookmarks/product`, {
-        headers: {
-          Authorization: `Bearer ${user.accessToken}`,
-        },
-      });
+      const res = await axios.get(`/bookmarks/product`);
       const bookmarkData = res.data;
       let bookmarkList = [];
       // 응답 데이터로 최대 10개만 표시
@@ -81,95 +78,8 @@ export default function Main() {
   return (
     <div className="container">
       <MainBanner />
-      <section className="mb-[70px]">
-        <h2 className="section-title">카테고리</h2>
 
-        <ul className="grid grid-flow-col grid-cols-6 gap-8">
-          <li>
-            <a
-              href="#"
-              className="text-center"
-              aria-label="만화/애니메이션 카테고리 상품 리스트"
-            >
-              <img
-                src="/assets/icons/category/comics-anime.svg"
-                className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
-              />
-              <p className="text-[18px]">만화/애니메이션</p>
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="#"
-              className="text-center"
-              aria-label="아이돌 카테고리 상품 리스트"
-            >
-              <img
-                src="/assets/icons/category/idol.svg"
-                className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
-              />
-              <p className="text-[18px]">아이돌</p>
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="#"
-              className="text-center"
-              aria-label="영화/드라마 카테고리 상품 리스트"
-            >
-              <img
-                src="/assets/icons/category/movie-drama.svg"
-                className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
-              />
-              <p className="text-[18px]">영화/드라마</p>
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="#"
-              className="text-center"
-              aria-label="인형/피규어 카테고리 상품 리스트"
-            >
-              <img
-                src="/assets/icons/category/dolls-figures.svg"
-                className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
-              />
-              <p className="text-[18px]">인형/피규어</p>
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="#"
-              className="text-center"
-              aria-label="패션/의류 카테고리 상품 리스트"
-            >
-              <img
-                src="/assets/icons/category/fashion-clothing.svg"
-                className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
-              />
-              <p className="text-[18px]">패션/의류</p>
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="#"
-              className="text-center"
-              aria-label="문구/잡화 카테고리 상품 리스트"
-            >
-              <img
-                src="/assets/icons/category/stationaries.svg"
-                className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
-              />
-              <p className="text-[18px]">문구/잡화</p>
-            </a>
-          </li>
-        </ul>
-      </section>
+      <CategorySection />
 
       {/* 찜한 목록 - 로그인 이후 표시 */}
       {user && <MainProductList label="찜한 목록" data={bookmarks} />}
