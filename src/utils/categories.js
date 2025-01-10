@@ -2,32 +2,38 @@ const categories = [
   {
     id: 1,
     name: "character",
-    icon: "/assets/icons/category/character.svg",
+    src: "/assets/icons/category/character.svg",
+    text: "캐릭터",
   },
   {
     id: 2,
     name: "artist",
-    icon: "/assets/icons/category/artist.svg",
+    src: "/assets/icons/category/artist.svg",
+    text: "가수/연예인",
   },
   {
     id: 3,
     name: "media",
-    icon: "/assets/icons/category/media.svg",
+    src: "/assets/icons/category/media.svg",
+    text: "영화/드라마",
   },
   {
     id: 4,
     name: "figurines",
-    icon: "/assets/icons/category/figurines.svg",
+    src: "/assets/icons/category/figurines.svg",
+    text: "인형/피규어",
   },
   {
     id: 5,
     name: "apparel",
-    icon: "/assets/icons/category/apparel.svg",
+    src: "/assets/icons/category/apparel.svg",
+    text: "패션/액세서리",
   },
   {
     id: 6,
     name: "stationery",
-    icon: "/assets/icons/category/stationery.svg",
+    src: "/assets/icons/category/stationery.svg",
+    text: "문구/잡화",
   },
 ];
 
