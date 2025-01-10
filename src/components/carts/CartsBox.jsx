@@ -10,33 +10,46 @@ export default function CartsBox({ _id }) {
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [carts, setCarts] = useState([]); // 장바구니 정보
   const [error, setError] = useState(null); // 에러 상태
-  const [checked, setChecked] = useState(false); // 체크 상태
+  const [checkedItems, setCheckedItems] = useState([]); // 선택된 항목의 ID 배열
+  const [allChecked, setAllChecked] = useState(false); // 전체 선택 상태
 
   // 체크 상태 변경
-  const handleCheckboxChange = () => {
-    const newCheckedState = !checked;
-    setChecked(newCheckedState);
-    // 체크 상태에 따라 값을 반환
-    if (newCheckedState) {
-      console.log("체크됨"); // 체크되었을 때 반환할 값
-    } else {
-      console.log("체크 해제됨"); // 체크 해제되었을 때 반환할 값
-    }
+  const handleCheckboxChange = id => {
+    const newCheckedItems = checkedItems.includes(id)
+      ? checkedItems.filter(itemId => itemId !== id) // 체크 해제
+      : [...checkedItems, id]; // 체크
+
+    setCheckedItems(newCheckedItems);
+
+    // 전체 선택 상태 업데이트
+    setAllChecked(newCheckedItems.length === carts.length);
   };
 
+  // 전체 선택 체크박스 변경
+  const handleAllCheckboxChange = () => {
+    if (allChecked) {
+      setCheckedItems([]); // 전체 체크 해제
+    } else {
+      setCheckedItems(carts?.item?.map(cartlist => cartlist?._id)); // 전체 체크
+    }
+    setAllChecked(!allChecked); // 전체 선택 상태 반전
+  };
+
+  // 선택된 상품 장바구니에서 제거
   const handleDelete = () => {
-    if (checked) {
-      // 선택 삭제 로직을 여기에 추가
-      console.log("선택 삭제가 실행됩니다.");
+    if (checkedItems.length > 0) {
+      console.log("선택 삭제가 실행됩니다.", checkedItems);
+      // 선택 삭제 로직 추가
     } else {
       console.log("삭제할 항목이 없습니다.");
     }
   };
+
   // 장바구니 목록 조회 - 로그인 (/carts/)
   const fetchCarts = async () => {
     try {
       const response = await axios.get(`/carts/`, {
-        headers: { Authorization: `Bearer ${user?.accessToken}` }, // 로그인 상태인 유저의 엑세스  토큰
+        headers: { Authorization: `Bearer ${user?.accessToken}` }, // 로그인 상태인 유저의 엑세스 토큰
       });
       setCarts(response?.data);
     } catch (err) {
@@ -45,14 +58,14 @@ export default function CartsBox({ _id }) {
       setLoading(false); // 로딩 종료
     }
   };
-  // console.log(carts?.item?.product?.image?.path);
 
   useEffect(() => {
     fetchCarts(); // 장바구니 정보 가져오기
   }, [_id]);
-  console.log("carts", carts);
+
   if (loading) return <div>Loading...</div>; // 로딩 중일 때
   if (error) return <div>Error: {error.message}</div>; // 에러 발생 시
+
   return (
     <main>
       <section name="cartHeader">
@@ -61,8 +74,8 @@ export default function CartsBox({ _id }) {
           <label className="flex gap-[10px] items-center">
             <input
               type="checkbox"
-              checked={checked} // 체크박스 상태 연결
-              onChange={handleCheckboxChange} // 상태 변경 핸들러 연결
+              checked={allChecked} // 전체 선택 상태 연결
+              onChange={handleAllCheckboxChange} // 전체 선택 핸들러 연결
               className="appearance-none size-5 bg-[url('/assets/icons/checkbox.svg')] checked:bg-[url('/assets/icons/checkbox-checked.svg')] bg-cover align-middle"
             />
             전체 선택
@@ -77,9 +90,9 @@ export default function CartsBox({ _id }) {
       </section>
       <section name="cartMain">
         <div className="flex flex-col gap-y-[50px]">
-          {carts?.item?.map((cartlist, index) => (
+          {carts?.item?.map(cartlist => (
             <div
-              key={index}
+              key={cartlist._id}
               className="relative h-[282px] p-[40px] flex justify-between border border-solid border-gray2 rounded-[8px]"
             >
               <div className="flex gap-x-[60px]">
@@ -87,15 +100,17 @@ export default function CartsBox({ _id }) {
                   <label className="mb-[20px] flex gap-[10px] items-center text-[14px]">
                     <input
                       type="checkbox"
+                      checked={checkedItems.includes(cartlist._id)} // 개별 체크박스 상태 연결
+                      onChange={() => handleCheckboxChange(cartlist._id)} // 개별 체크 상태 변경 핸들러 연결
                       className="appearance-none size-5 bg-[url('/assets/icons/checkbox.svg')] checked:bg-[url('/assets/icons/checkbox-checked.svg')] bg-cover align-middle"
-                      checked={checked} // 체크박스 상태 연결
-                      onChange={handleCheckboxChange} // 상태 변경 핸들러 연결
                     />
                     선택
                   </label>
                   <img
                     className="w-[150px] h-[150px]"
-                    src={"https://11.fesp.shop" + cartlist?.product?.image?.path}
+                    src={
+                      "https://11.fesp.shop" + cartlist?.product?.image?.path
+                    }
                     alt=""
                   />
                 </div>
