@@ -1,4 +1,5 @@
-import MainProductList from "@components/MainProductList";
+import MainBanner from "@components/main/MainBanner";
+import MainProductList from "@components/main/MainProductList";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useUserStore from "@zustand/userStore";
 import { useEffect, useState } from "react";
@@ -38,7 +39,7 @@ export default function Main() {
     }
   };
 
-  // 인기 상품(찜 많은 순) 목록 조회
+  // 인기 상품(판매 많은 순) 목록 조회
   const getTopProducts = async () => {
     try {
       const res = await axios.get("/products", {
@@ -78,28 +79,7 @@ export default function Main() {
 
   return (
     <div className="container">
-      <section className="aspect-[50/21] border border-gray2 rounded-lg mb-[60px] relative flex place-items-center justify-center">
-        <div className="absolute top-0 left-0 flex items-center size-full px-9">
-          <button className="mr-auto">
-            <img src="/assets/icons/chevron-left.svg" />
-          </button>
-          <div className="px-3 py-1 mt-auto mb-5 border rounded-full border-gray3 text-gray3">
-            <span>1</span> / <span>1</span>
-          </div>
-          <button className="ml-auto">
-            <img src="/assets/icons/chevron-right.svg" />
-          </button>
-        </div>
-        <h1 className="text-[32px] font-bold w-[288px] mr-[60px] text-point-blue">
-          나의 취향을 한 곳에서 모아보세요
-        </h1>
-        <img
-          src="/assets/logos/logo-favicon.svg"
-          className="w-[112px] h-[123px]"
-          alt="메인 로고 캐릭터"
-        />
-      </section>
-
+      <MainBanner />
       <section className="mb-[70px]">
         <h2 className="section-title">카테고리</h2>
 
@@ -190,11 +170,17 @@ export default function Main() {
         </ul>
       </section>
 
+      {/* 찜한 목록 - 로그인 이후 표시 */}
       {user && <MainProductList label="찜한 목록" data={bookmarks} />}
-      <MainProductList label="인기 상품" data={topProducts} />
-      <MainProductList label="이번주 신상" data={newProducts} />
-      {/* <MainProductList label="인기 판매자" data={products} /> */}
 
+      {/* 인기 상품 */}
+      <MainProductList label="인기 상품" data={topProducts} />
+
+      {/* 이번주 신상 */}
+      <MainProductList label="이번주 신상" data={newProducts} />
+
+      {/* 인기 판매자 */}
+      {/* <MainProductList label="인기 판매자" data={products} /> */}
       <section className="mb-[70px]">
         <h2 className="section-title">인기 판매자</h2>
         <div className="overflow-x-scroll scrollbar-hide">
