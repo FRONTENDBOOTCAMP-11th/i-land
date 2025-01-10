@@ -1,29 +1,36 @@
 import useAxiosInstance from "@hooks/useAxiosInstance";
+import useUserStore from "@zustand/userStore";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // 추가: React Router
 
 export default function CartsBox({_id}) {
-  const [loading, setLoading] = useState(true); // 로딩
-
-  // 장바구니 정보
-  const fetchCarts = async () => {
+  const navigate = useNavigate();
+  const axios = useAxiosInstance();
+  const { user } = useUserStore();  // 로그인 상태인 유저의 정보
+  const [loading, setLoading] = useState(true); // 로딩 상태
+  const [carts, setCarts] = useState([]); // 장바구니 정보
+  const [error, setError] = useState(null); // 에러 상태
+   
+  // 장바구니 정보 가져오기 (로그인 상태)
+   const fetchCarts = async () => {
     try {
-      const response = await axios.get(`/carts/`);
-      setProduct(response?.data);
+      const response = await axios.get(`/carts/`, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` }, // 로그인 상태인 유저의 엑세스  토큰
+      });
+      setCarts(response?.data);
     } catch (err) {
       setError(err);
+    } finally {
+      setLoading(false); // 로딩 종료
     }
   };
 
   useEffect(() => {
-    fetchCarts(); // 상품 상세 정보
-    setLoading(false); // 로딩 종료
+    fetchCarts(); // 장바구니 정보 가져오기
   }, [_id]);
-
-
-
-
-
-
+  console.log("carts", carts);
+  if (loading) return <div>Loading...</div>; // 로딩 중일 때
+  if (error) return <div>Error: {error.message}</div>; // 에러 발생 시
   return (
     <section name="cartMain">
     <div className="flex flex-col gap-y-[50px]">

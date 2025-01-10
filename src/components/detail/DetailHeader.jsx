@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 
 export default function DetailHeader({_id}) {
   const axios = useAxiosInstance();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
