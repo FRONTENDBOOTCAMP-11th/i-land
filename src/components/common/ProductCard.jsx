@@ -1,3 +1,4 @@
+import CategoryChip from "@components/common/CategoryChip";
 import ProductLikeBtn from "@components/common/ProductLikeBtn";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import PropTypes from "prop-types";
@@ -12,6 +13,9 @@ ProductCard.propTypes = {
     mainImages: PropTypes.array,
     name: PropTypes.string,
     price: PropTypes.number,
+    extra: PropTypes.shape({
+      category: PropTypes.array,
+    }),
   }),
 };
 
@@ -30,6 +34,11 @@ export default function ProductCard({ item }) {
   useEffect(() => {
     fetchSellerInfo(item._id);
   }, []);
+
+  // 상품 카테고리 칩 출력
+  const categoryList = item.extra.category?.map((item, index) => (
+    <CategoryChip key={index} category={item} />
+  ));
 
   return (
     <li className="w-[180px] relative">
@@ -58,20 +67,7 @@ export default function ProductCard({ item }) {
           {item.name}
         </h3>
         <p className="mb-[10px]">{item.price.toLocaleString()} 원</p>
-        <div className="flex gap-x-[6px] gap-y-1 flex-wrap">
-          <div className="px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
-            만화/애니메이션
-          </div>
-          <div className="px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
-            만화/애니메이션
-          </div>
-          <div className="px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
-            만화/애니메이션
-          </div>
-          <div className="px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
-            만화/애니메이션
-          </div>
-        </div>
+        <div className="flex gap-x-[6px] gap-y-1 flex-wrap">{categoryList}</div>
       </Link>
     </li>
   );

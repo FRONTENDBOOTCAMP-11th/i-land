@@ -27,12 +27,12 @@ export default function Main() {
         },
       });
       const bookmarkData = res.data;
-      let bookmarksList = [];
+      let bookmarkList = [];
       for (let i = 0; i < 10; i++) {
         if (!bookmarkData?.item[i]) break;
-        bookmarksList.push(bookmarkData?.item[i].product);
+        bookmarkList.push(bookmarkData?.item[i].product);
       }
-      setBookmarks(bookmarksList);
+      setBookmarks(bookmarkList);
     } catch (err) {
       console.error(err.response.data.message);
     }
