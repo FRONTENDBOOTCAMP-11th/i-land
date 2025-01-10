@@ -15,11 +15,7 @@ export default function DetailFooter({ _id, user }) {
 
   // 구매 후기 등록
   const addReview = async content => {
-    if (!user?.accessToken) {
-      alert("리뷰 등록은 로그인시 이용 가능합니다.");
-      navigate("/user/login"); // 로그인 페이지로 이동
-      return;
-    } else if (content?.trim() === "") {
+    if (content?.trim() === "") {
       alert("내용을 입력해주세요");
       return;
     } else if (content?.length <= 1) {
@@ -27,18 +23,12 @@ export default function DetailFooter({ _id, user }) {
       return;
     }
     try {
-      const response = await axios.post(
-        `/replies`,
-        {
-          content: content,
-          order_id: user?._id,
-          product_id: product?.item?._id,
-          image: user?.image,
-        },
-        {
-          headers: { Authorization: `Bearer ${user?.accessToken}` }, // 로그인 상태인 유저의 엑세스  토큰
-        },
-      );
+      const response = await axios.post(`/replies`, {
+        content: content,
+        order_id: user?._id,
+        product_id: product?.item?._id,
+        image: user?.image,
+      });
       setProductReview(prevReviews => {
         return Array.isArray(prevReviews)
           ? [...prevReviews, response.data]
