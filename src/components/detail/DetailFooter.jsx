@@ -1,11 +1,10 @@
+import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // 추가: React Router
 import ProductsReview from "@components/detail/ProductsReview";
 import useAxiosInstance from "@hooks/useAxiosInstance";
-import useUserStore from "@zustand/userStore";
 
-export default function DetailFooter({ _id }) {
-  const { user } = useUserStore();
+export default function DetailFooter({ _id, user }) {
   const axios = useAxiosInstance();
   const navigate = useNavigate(); // 추가: useNavigate 훅
   const [loading, setLoading] = useState(true); // 로딩
@@ -103,3 +102,8 @@ export default function DetailFooter({ _id }) {
     </section>
   );
 }
+
+DetailFooter.propTypes = {
+  _id: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
+};
