@@ -1,3 +1,5 @@
+import CategorySection from "@components/common/CategorySection";
+
 export default function Main() {
   return (
     <div className="container">
@@ -23,95 +25,7 @@ export default function Main() {
         />
       </section>
 
-      <section className="mb-[70px]">
-        <h2 className="section-title">카테고리</h2>
-
-        <ul className="grid grid-flow-col grid-cols-6 gap-8">
-          <li>
-            <a
-              href="#"
-              className="text-center"
-              aria-label="만화/애니메이션 카테고리 상품 리스트"
-            >
-              <img
-                src="/assets/icons/category/comics-anime.svg"
-                className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
-              />
-              <p className="text-[18px]">만화/애니메이션</p>
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="#"
-              className="text-center"
-              aria-label="아이돌 카테고리 상품 리스트"
-            >
-              <img
-                src="/assets/icons/category/idol.svg"
-                className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
-              />
-              <p className="text-[18px]">아이돌</p>
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="#"
-              className="text-center"
-              aria-label="영화/드라마 카테고리 상품 리스트"
-            >
-              <img
-                src="/assets/icons/category/movie-drama.svg"
-                className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
-              />
-              <p className="text-[18px]">영화/드라마</p>
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="#"
-              className="text-center"
-              aria-label="인형/피규어 카테고리 상품 리스트"
-            >
-              <img
-                src="/assets/icons/category/dolls-figures.svg"
-                className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
-              />
-              <p className="text-[18px]">인형/피규어</p>
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="#"
-              className="text-center"
-              aria-label="패션/의류 카테고리 상품 리스트"
-            >
-              <img
-                src="/assets/icons/category/fashion-clothing.svg"
-                className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
-              />
-              <p className="text-[18px]">패션/의류</p>
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="#"
-              className="text-center"
-              aria-label="문구/잡화 카테고리 상품 리스트"
-            >
-              <img
-                src="/assets/icons/category/stationaries.svg"
-                className="size-[140px] border-solid border-4 border-gray1 rounded-[40px] mb-4"
-              />
-              <p className="text-[18px]">문구/잡화</p>
-            </a>
-          </li>
-        </ul>
-      </section>
+      <CategorySection />
 
       <section className="mb-[70px]">
         <h2 className="section-title">찜한 목록</h2>
