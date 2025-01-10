@@ -13,9 +13,17 @@ export default function DetailFooter({ _id, user }) {
   const [productReview, setProductReview] = useState([]); // 상품 리뷰
   const [reviewContent, setReviewContent] = useState(""); // textarea 상태
 
+  const confirmNavigate = window.confirm("장바구니로 이동하시겠습니까?");
+  if (!confirmNavigate) {
+    event.preventDefault(); // 사용자가 취소하면 링크 이동을 막음
+  }
   // 구매 후기 등록
   const addReview = async content => {
-    if (content?.trim() === "") {
+    if (!user?.accessToken) {
+      const goLogin = window.confirm("로그인이 필요합니다./n 로그인 페이지로 이동하시겠습니까?")
+      if(!goLogin){}
+      return;
+    } else if (content?.trim() === "") {
       alert("내용을 입력해주세요");
       return;
     } else if (content?.length <= 1) {

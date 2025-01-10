@@ -1,12 +1,10 @@
 import useAxiosInstance from "@hooks/useAxiosInstance";
-import useUserStore from "@zustand/userStore";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // 추가: React Router
 
 export default function CartsBox({ _id }) {
   const navigate = useNavigate();
   const axios = useAxiosInstance();
-  const { user } = useUserStore(); // 로그인 상태인 유저의 정보
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [carts, setCarts] = useState([]); // 장바구니 정보
   const [error, setError] = useState(null); // 에러 상태
@@ -60,10 +58,9 @@ export default function CartsBox({ _id }) {
   useEffect(() => {
     fetchCarts(); // 장바구니 정보 가져오기
   }, [_id]);
-
+  console.log("ada", carts.item);
   if (loading) return <div>Loading...</div>; // 로딩 중일 때
   if (error) return <div>Error: {error.message}</div>; // 에러 발생 시
-
   return (
     <main>
       <section name="cartHeader">
@@ -109,7 +106,7 @@ export default function CartsBox({ _id }) {
                     src={
                       "https://11.fesp.shop" + cartlist?.product?.image?.path
                     }
-                    alt=""
+                    alt="상품 이미지"
                   />
                 </div>
                 <div className="flex flex-col gap-y-[14px] self-center">
