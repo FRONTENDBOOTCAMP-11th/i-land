@@ -43,7 +43,7 @@ export default function Main() {
     try {
       const res = await axios.get("/products", {
         params: {
-          sort: JSON.stringify({ bookmarks: -1 }),
+          sort: JSON.stringify({ buyQuantity: -1 }),
           limit: 10,
         },
       });
