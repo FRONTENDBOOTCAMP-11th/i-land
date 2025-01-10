@@ -48,9 +48,7 @@ export default function CartsBox({ _id }) {
   // 장바구니 목록 조회 - 로그인 (/carts/)
   const fetchCarts = async () => {
     try {
-      const response = await axios.get(`/carts/`, {
-        headers: { Authorization: `Bearer ${user?.accessToken}` }, // 로그인 상태인 유저의 엑세스 토큰
-      });
+      const response = await axios.get(`/carts/`);
       setCarts(response?.data);
     } catch (err) {
       setError(err);
