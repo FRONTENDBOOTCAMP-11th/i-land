@@ -1,5 +1,5 @@
-import InputField from "@components/InputField";
-import PasswordInput from "@components/PasswordInput";
+import InputField from "@components/common/InputField";
+import PasswordInput from "@components/user/PasswordInput";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useUserStore from "@zustand/userStore";
 import CryptoJS from "crypto-js";
@@ -77,6 +77,7 @@ export default function Login() {
       // 쿠키에 사용자 정보 저장(_id, accessToken, refreshToken)
       setUser({
         _id: user._id,
+        profileImage: user.image,
         accessToken: user.token.accessToken,
         refreshToken: user.token.refreshToken,
       });

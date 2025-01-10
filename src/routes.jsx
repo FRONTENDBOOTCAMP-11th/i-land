@@ -11,6 +11,7 @@ import Create from "@pages/Create";
 import Carts from "@pages/Carts";
 import Products from "@pages/Products";
 import Detail from "@pages/Detail";
+import PrivateRoute from "@components/common/PrivateRoute";
 
 const router = createBrowserRouter(
   [
@@ -23,11 +24,17 @@ const router = createBrowserRouter(
         { path: "user/signup", element: <Signup /> },
         { path: "search", element: <Search /> },
         { path: "search/results", element: <SearchResults /> },
-        { path: "bookmarks", element: <Bookmarks /> },
-        { path: "create", element: <Create /> },
-        { path: "carts", element: <Carts /> },
+        {
+          path: "/",
+          element: <PrivateRoute />,
+          children: [
+            { path: "bookmarks", element: <Bookmarks /> },
+            { path: "create", element: <Create /> },
+            { path: "carts", element: <Carts /> },
+          ],
+        },
         { path: "products", element: <Products /> },
-        { path: "products/:id", element: <Detail /> },
+        { path: "products/:_id", element: <Detail /> },
       ],
     },
   ],

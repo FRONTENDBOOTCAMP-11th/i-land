@@ -1,134 +1,126 @@
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import useAxiosInstance from "@hooks/useAxiosInstance";
+import useUserStore from "@zustand/userStore";
+
+import InputField from "@components/common/InputField";
+import ProductCategory from "@components/create/ProductCategory";
+import ProductImageUploader from "@components/create/ProductImageUploader";
+import ProductContent from "@components/create/ProductContent";
+
 export default function Create() {
+  const axios = useAxiosInstance();
+  const { user } = useUserStore();
+  const accessToken = user?.accessToken;
+  console.log(accessToken);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+
+  const [categories, setCategories] = useState([]);
+  const [mainImages, setMainImages] = useState([]);
+
+  const onSubmit = async data => {
+    try {
+      const productData = {
+        name: data.name,
+        price: Number(data.price),
+        quantity: Number(data.quantity),
+        content: data.content,
+        extra: {
+          category: categories,
+        },
+        mainImages, // TODO: 이미지 미리보기 기능 개발하기
+      };
+
+      const response = await axios.post("/seller/products", productData);
+
+      // 등록 상품 정보 브라우저 콘솔 확인
+      console.log("등록 상품 정보: ", response.data);
+
+      alert("상품 등록이 완료되었습니다.");
+      reset();
+      setMainImages([]);
+      setCategories([]);
+    } catch (error) {
+      console.error("상품 등록 실패:", error.respose || error);
+      alert("상품 등록에 실패했습니다. 다시 시도해주세요.");
+    }
+  };
+
   return (
     <div className="container">
       <h1 className="page-title">상품 등록</h1>
-
-      <form action="" className="pb-[60px]">
+      <form onSubmit={handleSubmit(onSubmit)} className="pb-[60px]">
         <div className="mb-16">
-          <label className="section-title" htmlFor="productName">
-            상품명
-          </label>
-          <input
-            type="text"
+          <InputField
+            label="상품명"
             id="productName"
-            className="w-full py-[15px] text-2xl leading-none border-b-4 border-solid border-gray3 focus-within:border-point-blue focus:outline-none"
-            placeholder="상품명을 입력해주세요."
+            type="text"
+            placeholder="예) 최강야구 이대호 굿즈 3종 세트"
+            register={register("name", {
+              required: "상품명을 입력해주세요.",
+              minLength: {
+                value: 10,
+                message: "상품명을 10자 이상 입력해주세요.",
+              },
+            })}
+            className="flex-grow section-title"
+            error={errors.name}
           />
         </div>
 
         <div className="flex gap-[80px] mb-16">
-          <div className="relative flex-1">
-            <label className="section-title" htmlFor="productPrice">
-              상품 가격
-            </label>
-            <div className="flex items-center">
-              <input
-                type="number"
-                id="productPrice"
-                className="flex-1 py-[15px] text-2xl leading-none border-b-4 border-solid border-gray3 focus-within:border-point-blue focus:outline-none"
-                placeholder="상품 가격을 입력해주세요."
-                min="0"
-              />
-              <span className="absolute right-0 text-2xl leading-none bottom-5">
-                원
-              </span>
-            </div>
-          </div>
+          <InputField
+            label="상품 가격"
+            id="productprice"
+            type="number"
+            placeholder="예) 10,000원"
+            register={register("price", {
+              required: "상품 가격을 입력해주세요.",
+              valueAsNumber: true,
+              validate: value =>
+                value > 0 || "상품 가격은 1원 이상이어야 합니다.",
+            })}
+            className="section-title"
+            error={errors.price}
+          >
+            <span className="text-2xl">원</span>
+          </InputField>
 
-          <div className="relative flex-1">
-            <label className="section-title" htmlFor="productQuantity">
-              상품 수량
-            </label>
-            <div className="flex items-center">
-              <input
-                type="number"
-                id="productQuantity"
-                className="flex-1 py-[15px] text-2xl leading-none border-b-4 border-solid border-gray3 focus-within:border-point-blue focus:outline-none"
-                placeholder="상품 수량을 입력해주세요."
-                min="0"
-              />
-              <span className="absolute right-0 text-2xl leading-none bottom-5">
-                개
-              </span>
-            </div>
-          </div>
+          <InputField
+            label="상품 수량"
+            id="productQuantity"
+            type="number"
+            placeholder="예) 10개"
+            register={register("quantity", {
+              required: "상품 수량을 입력해주세요.",
+              valueAsNumber: true,
+              validate: value =>
+                value > 0 || "상품 수량은 1개 이상이어야 합니다.",
+            })}
+            className="section-title"
+            error={errors.quantity}
+          >
+            <span className="text-2xl">개</span>
+          </InputField>
         </div>
 
-        <div className="mb-16">
-          <label className="section-title" htmlFor="category-1">
-            상품 카테고리
-          </label>
-          <div className="flex gap-[30px]">
-            <select
-              id="category-1"
-              className="w-[400px] h-[40px] border border-gray2 rounded-lg px-3 text-[14px] focus:outline-none"
-              name="selectedCategory1"
-            >
-              <option>상품 카테고리를 선택해주세요.</option>
-              <option value="cartoon">만화/애니메이션</option>
-              <option value="idol">아이돌</option>
-              <option value="film">영화/드라마</option>
-              <option value="figure">인형/피규어</option>
-              <option value="fashion">패션/의류</option>
-              <option value="stationary">문구/잡화</option>
-            </select>
-            <select
-              id="category-2"
-              className="w-[400px] h-[40px] border border-gray2 rounded-lg px-3 text-[14px] focus:outline-none"
-              name="selectedCategory2"
-            >
-              <option>상품 카테고리를 선택해주세요.</option>
-              <option value="cartoon">만화/애니메이션</option>
-              <option value="idol">아이돌</option>
-              <option value="film">영화/드라마</option>
-              <option value="figure">인형/피규어</option>
-              <option value="fashion">패션/의류</option>
-              <option value="stationary">문구/잡화</option>
-            </select>
-          </div>
-        </div>
+        <ProductCategory value={categories} onChange={setCategories} />
 
-        <div className="mb-16">
-          <div className="flex items-center gap-2.5 mb-5">
-            <label className="section-title">상품 이미지</label>
-            <span className="mb-[20px] text-gray3">
-              상품 이미지 1~5장 필수 첨부 (jpg/jpeg/png)
-            </span>
-          </div>
+        <ProductImageUploader value={mainImages} onChange={setMainImages} />
 
-          <div>
-            <label
-              className="h-[50px] py-[14px] px-9 border-2 border-gray2 rounded-md cursor-pointer font-bold text-lg"
-              htmlFor="productImage"
-            >
-              이미지 첨부
-            </label>
-            <input
-              id="productImage"
-              type="file"
-              multiple
-              accept="image/png, image/jpeg, image/jpg"
-              className="hidden"
-            />
-          </div>
-        </div>
-
-        <div className="mb-16">
-          <label className="section-title" htmlFor="productDescription">
-            상품 설명
-          </label>
-          <textarea
-            id="productDescription"
-            className="w-full h-[400px] p-[40px] border border-gray2 rounded-lg focus:outline-none resize-none text-2xl"
-            name="productDescription"
-            placeholder="상품 설명을 입력해주세요."
-          ></textarea>
-        </div>
+        <ProductContent register={register} error={errors.content} />
 
         <div className="flex items-center justify-center gap-10">
           <button
             type="button"
             className="w-[400px] h-[60px] border-2 border-gray3 rounded-lg text-gray3 font-bold text-2xl"
+            onClick={() => reset()}
           >
             등록 취소
           </button>
