@@ -84,7 +84,7 @@ export default function Main() {
             <img src="/assets/icons/chevron-left.svg" />
           </button>
           <div className="px-3 py-1 mt-auto mb-5 border rounded-full border-gray3 text-gray3">
-            <span>1</span> / <span>2</span>
+            <span>1</span> / <span>1</span>
           </div>
           <button className="ml-auto">
             <img src="/assets/icons/chevron-right.svg" />
