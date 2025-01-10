@@ -46,16 +46,10 @@ export default function DetailHeader({ _id, user }) {
   // 장바구니에 상품 추가 (/carts/)
   const addCart = async () => {
     try {
-      const response = await axios.post(
-        `/carts/`,
-        {
-          product_id: product?.item?._id,
-          quantity: quantitycount,
-        },
-        {
-          headers: { Authorization: `Bearer ${user?.accessToken}` }, // 로그인 상태인 유저의 엑세스  토큰
-        },
-      );
+      const response = await axios.post(`/carts/`, {
+        product_id: product?.item?._id,
+        quantity: quantitycount,
+      });
       setCart(prevCart => [...prevCart, response?.data]);
       console.log("123", response?.data);
     } catch (err) {

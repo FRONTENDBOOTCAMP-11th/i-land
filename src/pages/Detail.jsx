@@ -8,7 +8,7 @@ export default function Detail() {
   const { _id } = useParams(); // URL에서 id 추출
   return (
     <main className="container px-24 py-5 bg-white">
-      <DetailHeader _id={_id} user={user} />
+      <DetailHeader _id={_id} />
       <hr className="text-gray1 border border-solid my-10"></hr>
       <DetailFooter _id={_id} user={user} />
     </main>
