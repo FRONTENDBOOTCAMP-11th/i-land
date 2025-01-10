@@ -44,7 +44,7 @@ export default function ProductCard({ item }) {
     <li className="w-[180px] relative">
       {/* 상품 카드 클릭 시 상품 페이지로 이동 */}
       <Link to={`/products/${item._id}`} aria-label="상품 페이지로 이동">
-        <div className="aspect-[180/180] rounded-[8px] border border-gray3 overflow-hidden bg-white">
+        <div className="aspect-[180/180] rounded-[8px] border border-gray3 overflow-hidden bg-white content-center">
           <img
             src={
               baseURL +
