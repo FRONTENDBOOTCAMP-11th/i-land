@@ -21,15 +21,14 @@ export default function Main() {
   const axios = useAxiosInstance();
 
   // 사용자 찜한 상품 목록 조회 API
-  const getBookmarkedItem = async () => {
+  const getBookmarkedItem = async _id => {
     try {
-      const res = await axios.get(`/bookmarks/product`);
-      const bookmarkData = res.data;
+      const res = await axios.get(`/users/${_id}/bookmarks`);
+      const bookmarkData = res.data.item?.product;
       let bookmarkList = [];
-      // 응답 데이터로 최대 10개만 표시
       for (let i = 0; i < 10; i++) {
-        if (!bookmarkData?.item[i]) break;
-        bookmarkList.push(bookmarkData?.item[i].product);
+        if (!bookmarkData[i]) break;
+        bookmarkList.push(bookmarkData[i].product);
       }
       setBookmarks(bookmarkList);
     } catch (err) {
@@ -70,7 +69,7 @@ export default function Main() {
   };
 
   useEffect(() => {
-    getBookmarkedItem();
+    getBookmarkedItem(user?._id);
     getTopProducts();
     getNewProducts();
   }, []);
