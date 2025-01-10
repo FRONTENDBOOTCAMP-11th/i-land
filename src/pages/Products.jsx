@@ -1,3 +1,5 @@
+import categories from "../utils/categories";
+
 export default function Products() {
   return (
     <div className="container">
