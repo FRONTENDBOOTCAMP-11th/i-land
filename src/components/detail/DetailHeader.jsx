@@ -51,7 +51,6 @@ export default function DetailHeader({ _id, user }) {
         quantity: quantitycount,
       });
       setCart(prevCart => [...prevCart, response?.data]);
-      console.log("123", response?.data);
     } catch (err) {
       setError(err);
     }
