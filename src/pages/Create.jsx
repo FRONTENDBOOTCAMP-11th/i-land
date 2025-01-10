@@ -37,11 +37,7 @@ export default function Create() {
         mainImages, // TODO: 이미지 미리보기 기능 개발하기
       };
 
-      const response = await axios.post("/seller/products", productData, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const response = await axios.post("/seller/products", productData);
 
       // 등록 상품 정보 브라우저 콘솔 확인
       console.log("등록 상품 정보: ", response.data);
