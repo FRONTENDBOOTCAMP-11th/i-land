@@ -18,14 +18,21 @@ export default function MainProductList({ label, data }) {
   return (
     <section className="mb-[70px]">
       <h2 className="section-title">{label}</h2>
-      <div className="overflow-x-scroll scrollbar-hide">
-        <ul
-          className={`grid grid-cols-${data?.length <= 5 ? 5 : data?.length} gap-x-[25px] mr-[-${data?.length > 5 ? marginRightValue : null}px]`}
-        >
-          {/* <ul className={`grid grid-cols-10 gap-x-[25px] mr-[-1000px]`}> */}
-          {productList}
-        </ul>
-      </div>
+      {data?.length !== 0 ? (
+        <div className="overflow-x-scroll scrollbar-hide">
+          <ul
+            className={`grid grid-cols-${data?.length <= 5 ? 5 : data?.length} gap-x-[25px]`}
+            style={{
+              marginRight: data?.length > 5 ? `-${marginRightValue}px` : "0",
+            }}
+          >
+            {/* <ul className={`grid grid-cols-10 gap-x-[25px] mr-[-1000px]`}> */}
+            {productList}
+          </ul>
+        </div>
+      ) : (
+        <p>찜한 상품이 없습니다.</p>
+      )}
     </section>
   );
 }
