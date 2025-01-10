@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 import categories from "../../utils/categories";
 import CategoryCard from "@components/common/CategoryCard";
@@ -6,9 +7,11 @@ import CategoryCard from "@components/common/CategoryCard";
 export default function CategorySection() {
   const location = useLocation();
   const isMainPage = location.pathname === "/";
+  const queryClient = useQueryClient();
 
   const handleCategoryClick = categoryName => {
     // TODO: "/products" 일 때 CategoryCard 클릭 시 DB 데이터 가져오기
+    // URL : https://11.fesp.shop/products?custom={"extra.category": "카테고리"}
     console.log(`${categoryName} clicked`);
   };
 
