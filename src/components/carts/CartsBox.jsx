@@ -39,7 +39,7 @@ export default function CartsBox({ _id }) {
       console.log("선택 삭제가 실행됩니다.", checkedItems);
       // 선택 삭제 로직 추가
     } else {
-      console.log("삭제할 항목이 없습니다.");
+      console.log("삭제한 항목이 없습니다.");
     }
   };
 
@@ -58,7 +58,7 @@ export default function CartsBox({ _id }) {
   useEffect(() => {
     fetchCarts(); // 장바구니 정보 가져오기
   }, [_id]);
-  console.log("ada", carts.item);
+  // console.log("ada", carts.item);
   if (loading) return <div>Loading...</div>; // 로딩 중일 때
   if (error) return <div>Error: {error.message}</div>; // 에러 발생 시
   return (

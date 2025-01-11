@@ -2,9 +2,11 @@ import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useAxiosInstance from "@hooks/useAxiosInstance";
+import { useNavigate } from "react-router-dom"; // 추가: React Router
 
-export default function DetailHeader({ _id }) {
+export default function DetailHeader({ _id, user }) {
   const axios = useAxiosInstance();
+  const navigate = useNavigate(); // 추가: useNavigate 훅
   const [cart, setCart] = useState([]); // 장바구니 상태
   const [loading, setLoading] = useState(true); // 로딩
   const [error, setError] = useState(null); // 에러
@@ -57,6 +59,18 @@ export default function DetailHeader({ _id }) {
   };
   // 사용자의 장바구니 페이지 이동유무 결정
   const addCartAndMove = event => {
+    if (!user?.accessToken) {
+      const goLogin = window.confirm(
+        "로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?",
+      );
+      console.log("1");
+      if (!goLogin) {
+        return;
+      } else {
+        navigate("/user/login");
+        return;
+      }
+    }
     addCart();
     alert(
       `${product?.item?.name} ${quantitycount}개가 장바구니에 추가 되었습니다.`,
@@ -211,4 +225,5 @@ export default function DetailHeader({ _id }) {
 
 DetailHeader.propTypes = {
   _id: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
 };
