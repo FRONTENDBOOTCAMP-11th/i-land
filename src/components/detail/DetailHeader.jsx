@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 
-export default function DetailHeader({ _id, user }) {
+export default function DetailHeader({ _id }) {
   const axios = useAxiosInstance();
   const [cart, setCart] = useState([]); // 장바구니 상태
   const [loading, setLoading] = useState(true); // 로딩
@@ -211,5 +211,4 @@ export default function DetailHeader({ _id, user }) {
 
 DetailHeader.propTypes = {
   _id: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
 };
