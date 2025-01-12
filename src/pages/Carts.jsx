@@ -122,6 +122,8 @@ export default function Carts() {
       <CartsBox
         error={error}
         loading={loading}
+        setError={setError}
+        setLoading={setLoading}
         fetchCarts={fetchCarts}
         carts={carts}
         handleCheckboxChange={handleCheckboxChange}

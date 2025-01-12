@@ -2,11 +2,9 @@ import PropTypes from "prop-types";
 
 export default function CartsPayment({ checkedItems, carts }) {
   // 선택된 상품의 총합 계산
-  console.log("checkedItems", checkedItems);
   const calculateTotalPrice = () => {
     return checkedItems.reduce((total, id) => {
       const cartItem = carts.item.find(cart => cart._id === id);
-      console.log("크아악", cartItem);
       return cartItem
         ? total + cartItem.product.price * cartItem.quantity
         : total;
