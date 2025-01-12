@@ -1,4 +1,4 @@
-import CartEmpty from "@components/carts/CartEmpty";
+import CartEmpty from "@components/carts/CartsEmpty";
 import CartsBox from "@components/carts/CartsBox";
 import CartsDelete from "@components/carts/CartsDelete";
 import CartsPayment from "@components/carts/CartsPayment";
