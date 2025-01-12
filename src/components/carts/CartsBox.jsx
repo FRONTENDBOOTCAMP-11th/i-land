@@ -9,11 +9,16 @@ export default function CartsBox({
   fetchCarts,
   handleCheckboxChange,
   checkedItems,
+  patchQuantityPlusCart,
+  patchQuantityMinusCart,
 }) {
+  // 상품 수량 증감
+
   useEffect(() => {
     fetchCarts(); // 장바구니 정보 가져오기
   }, [_id]);
-  // console.log("ada", carts.item);
+
+  console.log("ada", carts.item);
   if (loading) return <div>Loading...</div>; // 로딩 중일 때
   if (error) return <div>Error: {error.message}</div>; // 에러 발생 시
   return (
@@ -59,7 +64,7 @@ export default function CartsBox({
               </div>
             </div>
             <div className="font-bold items-center text-[18px] flex gap-x-2">
-              <button>
+              <button onClick={() => patchQuantityMinusCart(cartlist._id)}>
                 <img src="/assets/icons/minus.svg" alt="" />
               </button>
               <input
@@ -68,7 +73,7 @@ export default function CartsBox({
                 value={cartlist.quantity}
                 name="countUp"
               />
-              <button>
+              <button onClick={() => patchQuantityPlusCart(cartlist._id)}>
                 <img src="/assets/icons/plus.svg" alt="" />
               </button>
             </div>
@@ -90,4 +95,6 @@ CartsBox.propTypes = {
   fetchCarts: PropTypes.func.isRequired,
   handleCheckboxChange: PropTypes.func.isRequired,
   checkedItems: PropTypes.array.isRequired,
+  patchQuantityMinusCart: PropTypes.func.isRequired,
+  patchQuantityPlusCart: PropTypes.func.isRequired,
 };

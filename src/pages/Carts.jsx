@@ -11,7 +11,57 @@ export default function Carts() {
   const [carts, setCarts] = useState([]); // 장바구니 정보
   const [checkedItems, setCheckedItems] = useState([]); // 선택된 항목의 ID 배열
   const [allChecked, setAllChecked] = useState(false); // 전체 선택 상태
-  // 장바구니 상품 수량 증감
+
+  // 장바구니 상품 수량 수정 (/carts/{_id})
+  const patchQuantityPlusCart = async _id => {
+    // 현재 장바구니에서 해당 아이템 찾기
+    const cartItem = carts.item.find(cart => cart._id === _id);
+    if (cartItem) {
+      const productNowQuantity =
+        cartItem.product?.quantity - cartItem.product?.buyQuantity;
+      console.log("productNowQuantity", productNowQuantity);
+      console.log("productNowQuantity", cartItem.product?.quantity);
+      console.log("productNowQuantity", cartItem.product?.buyQuantity);
+      const newQuantity = cartItem.quantity + 1; // 기존 수량에서 1 증가
+      // 서버에 새로운 수량을 요청
+      if (newQuantity > productNowQuantity) {
+        return;
+      }
+      await axios.patch(`/carts/${_id}`, {
+        quantity: newQuantity, // 증가된 수량 전송
+      });
+      // 로컬 상태 업데이트
+      setCarts(prevCarts => ({
+        ...prevCarts, // 기존 상태를 복사
+        item: prevCarts?.item.map(
+          cart =>
+            cart._id === _id ? { ...cart, quantity: newQuantity } : cart, // 업데이트된 수량 반영
+        ),
+      }));
+    }
+  };
+  const patchQuantityMinusCart = async _id => {
+    // 현재 장바구니에서 해당 아이템 찾기
+    const cartItem = carts.item.find(cart => cart._id === _id);
+    if (cartItem) {
+      const newQuantity = cartItem.quantity - 1; // 기존 수량에서 1 감소
+      // 서버에 새로운 수량을 요청
+      if (newQuantity == 0) {
+        return;
+      }
+      await axios.patch(`/carts/${_id}`, {
+        quantity: newQuantity, // 감소된 수량 전송
+      });
+      // 로컬 상태 업데이트
+      setCarts(prevCarts => ({
+        ...prevCarts, // 기존 상태를 복사
+        item: prevCarts?.item.map(
+          cart =>
+            cart._id === _id ? { ...cart, quantity: newQuantity } : cart, // 업데이트된 수량 반영
+        ),
+      }));
+    }
+  };
 
   // 체크 상태 변경
   const handleCheckboxChange = id => {
@@ -46,6 +96,7 @@ export default function Carts() {
       setLoading(false); // 로딩 종료
     }
   };
+  // console.log("carts", carts);
   return (
     <div className="container">
       <CartsDelete
@@ -60,6 +111,8 @@ export default function Carts() {
         carts={carts}
         handleCheckboxChange={handleCheckboxChange}
         checkedItems={checkedItems}
+        patchQuantityPlusCart={patchQuantityPlusCart}
+        patchQuantityMinusCart={patchQuantityMinusCart}
       />
       <CartsPayment />
     </div>
