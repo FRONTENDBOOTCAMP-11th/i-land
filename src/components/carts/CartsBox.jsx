@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import useAxiosInstance from "@hooks/useAxiosInstance";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export default function CartsBox({
@@ -46,10 +47,8 @@ export default function CartsBox({
           const productItem = product?.item?.find(
             prod => prod._id === cartlist.product_id,
           );
-
           // 판매자 정보 가져오기
           const sellerName = productItem?.seller?.name;
-
           return (
             <div
               key={cartlist._id}
@@ -66,23 +65,27 @@ export default function CartsBox({
                     />
                     선택
                   </label>
-                  <img
-                    className="w-[150px] h-[150px]"
-                    src={
-                      "https://11.fesp.shop" + cartlist?.product?.image?.path
-                    }
-                    alt="상품 이미지"
-                  />
+                  <Link to={`/products/${productItem?._id}`}>
+                    <img
+                      className="w-[150px] h-[150px]"
+                      src={
+                        "https://11.fesp.shop" + cartlist?.product?.image?.path
+                      }
+                      alt="상품 이미지"
+                    />
+                  </Link>
                 </div>
                 <div className="flex flex-col gap-y-[14px] self-center">
                   <a href="">
                     <p className="text-gray3 text-[18px] not-italic font-normal">
-                      {sellerName} {/* 판매자 이름 표시 */}
+                      {sellerName}
                     </p>
                   </a>
-                  <p className="text-black text-[32px] not-italic font-bold">
-                    {`${cartlist.product.name}`}
-                  </p>
+                  <Link to={`/products/${productItem?._id}`}>
+                    <p className="text-black text-[32px] not-italic font-bold">
+                      {`${cartlist.product.name}`}
+                    </p>
+                  </Link>
                   <p className="font-bold text-[24px]">
                     {(
                       cartlist.product.price * cartlist.quantity
