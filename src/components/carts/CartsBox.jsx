@@ -11,6 +11,7 @@ export default function CartsBox({
   checkedItems,
   patchQuantityPlusCart,
   patchQuantityMinusCart,
+  DeleteCarts,
 }) {
   // 상품 수량 증감
 
@@ -18,7 +19,7 @@ export default function CartsBox({
     fetchCarts(); // 장바구니 정보 가져오기
   }, [_id]);
 
-  console.log("ada", carts.item);
+  // console.log("ada", carts.item);
   if (loading) return <div>Loading...</div>; // 로딩 중일 때
   if (error) return <div>Error: {error.message}</div>; // 에러 발생 시
   return (
@@ -77,7 +78,10 @@ export default function CartsBox({
                 <img src="/assets/icons/plus.svg" alt="" />
               </button>
             </div>
-            <button className="absolute right-[40px] top-[40px]">
+            <button
+              onClick={() => DeleteCarts(cartlist._id)}
+              className="absolute right-[40px] top-[40px]"
+            >
               <img src="/assets/icons/close.svg" alt="" />
             </button>
           </div>
@@ -97,4 +101,5 @@ CartsBox.propTypes = {
   checkedItems: PropTypes.array.isRequired,
   patchQuantityMinusCart: PropTypes.func.isRequired,
   patchQuantityPlusCart: PropTypes.func.isRequired,
+  DeleteCarts: PropTypes.func.isRequired,
 };

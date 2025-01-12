@@ -19,9 +19,6 @@ export default function Carts() {
     if (cartItem) {
       const productNowQuantity =
         cartItem.product?.quantity - cartItem.product?.buyQuantity;
-      console.log("productNowQuantity", productNowQuantity);
-      console.log("productNowQuantity", cartItem.product?.quantity);
-      console.log("productNowQuantity", cartItem.product?.buyQuantity);
       const newQuantity = cartItem.quantity + 1; // 기존 수량에서 1 증가
       // 서버에 새로운 수량을 요청
       if (newQuantity > productNowQuantity) {
@@ -84,7 +81,22 @@ export default function Carts() {
     }
     setAllChecked(!allChecked); // 전체 선택 상태 반전
   };
-
+  // 장바구니 상품 한건 삭제 (/carts/{_id})
+  const DeleteCarts = async _id => {
+    setLoading(true); // 삭제 요청 시작 시 로딩 상태 설정
+    try {
+      await axios.delete(`/carts/${_id}`);
+      // 로컬 상태에서 해당 아이템 제거
+      setCarts(prevCarts => ({
+        ...prevCarts,
+        item: prevCarts.item.filter(cart => cart._id !== _id), // 삭제된 아이템 제외
+      }));
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false); // 로딩 종료
+    }
+  };
   // 장바구니 목록 조회 - 로그인 (/carts/)
   const fetchCarts = async () => {
     try {
@@ -100,6 +112,9 @@ export default function Carts() {
   return (
     <div className="container">
       <CartsDelete
+        setCarts={setCarts}
+        setError={setError}
+        setLoading={setLoading}
         handleAllCheckboxChange={handleAllCheckboxChange}
         checkedItems={checkedItems}
         allChecked={allChecked}
@@ -113,6 +128,7 @@ export default function Carts() {
         checkedItems={checkedItems}
         patchQuantityPlusCart={patchQuantityPlusCart}
         patchQuantityMinusCart={patchQuantityMinusCart}
+        DeleteCarts={DeleteCarts}
       />
       <CartsPayment />
     </div>
