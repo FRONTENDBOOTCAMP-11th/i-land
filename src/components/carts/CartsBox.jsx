@@ -15,6 +15,18 @@ export default function CartsBox({
 }) {
   // 상품 수량 증감
 
+  // 회원 정보 조회(모든 속성) (/users/{_id})
+  const getUserInfo = async _id => {
+    try {
+      const response = await axios.get(`/users/${_id}`);
+      setCarts(response?.data);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false); // 로딩 종료
+    }
+  };
+
   useEffect(() => {
     fetchCarts(); // 장바구니 정보 가져오기
   }, [_id]);

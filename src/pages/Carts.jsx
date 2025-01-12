@@ -130,7 +130,11 @@ export default function Carts() {
         patchQuantityMinusCart={patchQuantityMinusCart}
         DeleteCarts={DeleteCarts}
       />
-      <CartsPayment />
+      <CartsPayment
+        checkedItems={checkedItems}
+        setCarts={setCarts}
+        carts={carts}
+      />
     </div>
   );
 }
