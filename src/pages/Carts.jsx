@@ -1,3 +1,4 @@
+import CartEmpty from "@components/carts/CartEmpty";
 import CartsBox from "@components/carts/CartsBox";
 import CartsDelete from "@components/carts/CartsDelete";
 import CartsPayment from "@components/carts/CartsPayment";
@@ -9,7 +10,7 @@ export default function Carts() {
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [error, setError] = useState(null); // 에러 상태
   const [carts, setCarts] = useState([]); // 장바구니 정보
-  const [checkedItems, setCheckedItems] = useState([]); // 선택된 항목의 ID 배열
+  const [checkedItems, setCheckedItems] = useState([]); // 선택된 항목의 배열
   const [allChecked, setAllChecked] = useState(false); // 전체 선택 상태
 
   // 장바구니 상품 수량 수정 (/carts/{_id})
@@ -108,7 +109,6 @@ export default function Carts() {
       setLoading(false); // 로딩 종료
     }
   };
-  // console.log("carts", carts);
   return (
     <div className="container">
       <CartsDelete
@@ -119,24 +119,30 @@ export default function Carts() {
         checkedItems={checkedItems}
         allChecked={allChecked}
       />
-      <CartsBox
-        error={error}
-        loading={loading}
-        setError={setError}
-        setLoading={setLoading}
-        fetchCarts={fetchCarts}
-        carts={carts}
-        handleCheckboxChange={handleCheckboxChange}
-        checkedItems={checkedItems}
-        patchQuantityPlusCart={patchQuantityPlusCart}
-        patchQuantityMinusCart={patchQuantityMinusCart}
-        DeleteCarts={DeleteCarts}
-      />
-      <CartsPayment
-        checkedItems={checkedItems}
-        setCarts={setCarts}
-        carts={carts}
-      />
+      {carts.item?.length === 0 ? (
+        <CartEmpty />
+      ) : (
+        <>
+          <CartsBox
+            error={error}
+            loading={loading}
+            setError={setError}
+            setLoading={setLoading}
+            fetchCarts={fetchCarts}
+            carts={carts}
+            handleCheckboxChange={handleCheckboxChange}
+            checkedItems={checkedItems}
+            patchQuantityPlusCart={patchQuantityPlusCart}
+            patchQuantityMinusCart={patchQuantityMinusCart}
+            DeleteCarts={DeleteCarts}
+          />
+          <CartsPayment
+            checkedItems={checkedItems}
+            setCarts={setCarts}
+            carts={carts}
+          />
+        </>
+      )}
     </div>
   );
 }

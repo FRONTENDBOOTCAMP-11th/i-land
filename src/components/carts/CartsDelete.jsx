@@ -1,15 +1,15 @@
 import PropTypes from "prop-types";
-import useAxiosInstance from "@hooks/useAxiosInstance"; // axios 인스턴스 가져오기
+import useAxiosInstance from "@hooks/useAxiosInstance";
 
 export default function CartsDelete({
   handleAllCheckboxChange,
   allChecked,
   checkedItems,
-  setCarts, // setCarts를 props로 받아야 합니다.
+  setCarts,
   setLoading,
   setError,
 }) {
-  const axios = useAxiosInstance(); // axios 인스턴스 생성
+  const axios = useAxiosInstance();
 
   // 선택된 상품 장바구니에서 제거
   const DeleteSelectedCarts = async () => {
@@ -17,7 +17,6 @@ export default function CartsDelete({
       console.log("삭제할 항목이 없습니다.");
       return;
     }
-
     setLoading(true); // 삭제 요청 시작 시 로딩 상태 설정
     try {
       await Promise.all(checkedItems.map(id => axios.delete(`/carts/${id}`))); // 여러 개 DELETE 요청
@@ -30,7 +29,7 @@ export default function CartsDelete({
       setError(err);
       console.error("선택 삭제 중 오류 발생:", err);
     } finally {
-      setLoading(false); // 로딩 종료
+      setLoading(false);
     }
   };
 
@@ -64,10 +63,10 @@ export default function CartsDelete({
 }
 
 CartsDelete.propTypes = {
-  checkedItems: PropTypes.array.isRequired, // checkedItems는 필수 배열
-  handleAllCheckboxChange: PropTypes.func.isRequired, // 전체 체크박스 핸들러
-  allChecked: PropTypes.bool.isRequired, // 전체 선택 상태
-  setCarts: PropTypes.func.isRequired, // setCarts 함수
-  setLoading: PropTypes.func.isRequired, // setLoading 함수
-  setError: PropTypes.func.isRequired, // setError 함수
+  checkedItems: PropTypes.array.isRequired,
+  handleAllCheckboxChange: PropTypes.func.isRequired,
+  allChecked: PropTypes.bool.isRequired,
+  setCarts: PropTypes.func.isRequired,
+  setLoading: PropTypes.func.isRequired,
+  setError: PropTypes.func.isRequired,
 };
