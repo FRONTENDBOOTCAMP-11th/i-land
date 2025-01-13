@@ -1,18 +1,7 @@
 /** @type {import('tailwindcss').Config} **/
 export default {
   content: ["./src/**/*.{html,js,jsx}"],
-  safelist: [
-    "grid-cols-1",
-    "grid-cols-2",
-    "grid-cols-3",
-    "grid-cols-4",
-    "grid-cols-5",
-    "grid-cols-6",
-    "grid-cols-7",
-    "grid-cols-8",
-    "grid-cols-9",
-    "grid-cols-10",
-  ],
+  safelist: Array.from({ length: 20 }, (_, i) => `grid-cols-${i + 1}`),
   theme: {
     screens: {
       container: "1200px",
