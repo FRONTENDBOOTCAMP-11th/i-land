@@ -82,9 +82,6 @@ export default function Bookmarks() {
     fetchProduct();
     setLoading(false); // 로딩 종료
   }, []);
-  // console.log("product", product?.item);
-  // console.log("bookmarks", bookmarks?.item);
-  // console.log("carts", carts?.item);
   loading && <p>Loading...</p>;
   error && <p>Error: {error.message}</p>;
   return (
