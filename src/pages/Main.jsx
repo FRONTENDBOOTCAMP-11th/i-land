@@ -5,13 +5,16 @@ import useUserStore from "@zustand/userStore";
 import { useEffect, useState } from "react";
 import CategorySection from "@components/common/CategorySection";
 import TopSellerList from "@components/main/TopSellerList";
+import useBookmarkStore from "@zustand/bookmarkStore";
 
 export default function Main() {
   // TODO 1: 로그인 상태가 아닌 경우, 찜한 상품 영역 표시 X
   const { user } = useUserStore();
 
   // 찜한 상품 state
-  const [bookmarks, setBookmarks] = useState();
+  const [bookmarkList, setBookmarkList] = useState();
+
+  const { bookmarkStore, setBookmarkStore } = useBookmarkStore();
 
   // 인기 상품 state
   const [topProducts, setTopProducts] = useState();
@@ -25,18 +28,24 @@ export default function Main() {
   const axios = useAxiosInstance();
 
   // 사용자 찜한 상품 목록 조회 API
-  const getBookmarkedItem = async _id => {
-    try {
-      const res = await axios.get(`/users/${_id}/bookmarks`);
-      const bookmarkData = res.data.item?.product;
-      let bookmarkList = [];
-      for (let i = 0; i < 10; i++) {
-        if (!bookmarkData[i]) break;
-        bookmarkList.push(bookmarkData[i].product);
+  const getBookmarkedItem = async () => {
+    if (user) {
+      try {
+        const res = await axios.get(`/bookmarks/product`);
+        // let bookmarkList = [];
+        // for (let i = 0; i < 10; i++) {
+        //   if (!bookmarkData[i]) break;
+        //   bookmarkList.push(bookmarkData[i].product);
+        // }
+        console.log(res.data.item);
+        // const bookmarkList = res.data.item?.product.map(index => index.product);
+        const bookmarkList = res.data.item.map(index => index.product);
+
+        // setBookmarkStore(bookmarkList);
+        setBookmarkList(bookmarkList);
+      } catch (err) {
+        console.error(err.response.data.message);
       }
-      setBookmarks(bookmarkList);
-    } catch (err) {
-      console.error(err.response.data.message);
     }
   };
 
@@ -102,7 +111,7 @@ export default function Main() {
       <CategorySection />
 
       {/* 찜한 목록 - 로그인 이후 표시 */}
-      {user && <MainProductList label="찜한 목록" data={bookmarks} />}
+      {user && <MainProductList label="찜한 목록" data={bookmarkList} />}
 
       {/* 인기 상품 */}
       <MainProductList label="인기 상품" data={topProducts} />
