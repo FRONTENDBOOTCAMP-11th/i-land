@@ -15,6 +15,7 @@ export default function CartsBox({
   patchQuantityMinusCart,
   DeleteCarts,
   setError,
+  setCheckedItems,
 }) {
   const axios = useAxiosInstance();
   const [product, setProduct] = useState(null); // 상품 초기값 null
@@ -33,6 +34,12 @@ export default function CartsBox({
     fetchProduct();
     fetchCarts(); // 장바구니 정보 가져오기
   }, [_id]);
+
+  useEffect(() => {
+    if (carts?.item) {
+      setCheckedItems(carts.item.map(cartlist => cartlist._id)); // 모든 체크박스를 선택됨으로 설정
+    }
+  }, [carts]);
 
   // 로딩 중일 때
   if (loading) return <div>Loading...</div>;
@@ -134,4 +141,5 @@ CartsBox.propTypes = {
   patchQuantityPlusCart: PropTypes.func.isRequired,
   DeleteCarts: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
+  setCheckedItems: PropTypes.func.isRequired,
 };

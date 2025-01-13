@@ -11,7 +11,7 @@ export default function Carts() {
   const [error, setError] = useState(null); // 에러 상태
   const [carts, setCarts] = useState([]); // 장바구니 정보
   const [checkedItems, setCheckedItems] = useState([]); // 선택된 항목의 배열
-  const [allChecked, setAllChecked] = useState(false); // 전체 선택 상태
+  const [allChecked, setAllChecked] = useState(true); // 전체 선택 상태
 
   // 장바구니 상품 수량 수정 (/carts/{_id})
   const patchQuantityPlusCart = async _id => {
@@ -115,6 +115,7 @@ export default function Carts() {
         setCarts={setCarts}
         setError={setError}
         setLoading={setLoading}
+        setCheckedItems={setCheckedItems}
         handleAllCheckboxChange={handleAllCheckboxChange}
         checkedItems={checkedItems}
         allChecked={allChecked}
@@ -128,6 +129,7 @@ export default function Carts() {
             loading={loading}
             setError={setError}
             setLoading={setLoading}
+            setCheckedItems={setCheckedItems}
             fetchCarts={fetchCarts}
             carts={carts}
             handleCheckboxChange={handleCheckboxChange}
