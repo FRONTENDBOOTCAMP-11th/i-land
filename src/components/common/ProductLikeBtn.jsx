@@ -14,18 +14,21 @@ export default function ProductLikeBtn({ id }) {
 
   // 상품 찜하기(bookmark) API
   const bookmarkProduct = () => {
-    console.log(id);
+    setLikeProduct(!likeProduct);
   };
 
   return (
     <button
       type="button"
       aria-label="상품 찜하기 버튼"
-      className="absolute grid bg-white rounded-full size-7 place-items-center left-36 top-36"
+      className="absolute grid bg-white rounded-full size-7 place-items-center left-36 top-36 border border-gray2"
       onClick={bookmarkProduct}
     >
-      <img src="/assets/icons/heart-smm.svg" className="w-4 h-[14px] hidden" />
-      <img src="/assets/icons/heart-fill-sm.svg" className="w-4 h-[14px]" />
+      {likeProduct ? (
+        <img src="/assets/icons/heart-fill-sm.svg" className="w-4 h-[14px]" />
+      ) : (
+        <img src="/assets/icons/heart-sm.svg" className="w-4 h-[14px]" />
+      )}
     </button>
   );
 }
