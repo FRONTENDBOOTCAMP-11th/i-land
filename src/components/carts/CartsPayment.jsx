@@ -37,7 +37,7 @@ export default function CartsPayment({ checkedItems, carts }) {
 }
 
 CartsPayment.propTypes = {
-  carts: PropTypes.object.isRequired, // carts는 객체로 수정
+  carts: PropTypes.object.isRequired,
   setCarts: PropTypes.func.isRequired,
   checkedItems: PropTypes.array.isRequired,
 };

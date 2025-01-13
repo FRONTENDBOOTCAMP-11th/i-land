@@ -57,7 +57,7 @@ export default function DetailHeader({ _id, user }) {
       setError(err);
     }
   };
-  // 사용자의 장바구니 페이지 이동유무 결정
+  // 비회원 사용자의 장바구니 추가 차단
   const addCartHandleler = event => {
     if (!user?.accessToken) {
       navigate("/carts");

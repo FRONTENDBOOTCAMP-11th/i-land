@@ -8,7 +8,6 @@ export default function CartsDelete({
   setCarts,
   setLoading,
   setError,
-  setCheckedItems,
 }) {
   const axios = useAxiosInstance();
 
@@ -70,5 +69,4 @@ CartsDelete.propTypes = {
   setCarts: PropTypes.func.isRequired,
   setLoading: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
-  setCheckedItems: PropTypes.func.isRequired,
 };

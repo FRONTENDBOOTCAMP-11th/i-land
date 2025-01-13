@@ -115,9 +115,8 @@ export default function Carts() {
         setCarts={setCarts}
         setError={setError}
         setLoading={setLoading}
-        setCheckedItems={setCheckedItems}
-        handleAllCheckboxChange={handleAllCheckboxChange}
         checkedItems={checkedItems}
+        handleAllCheckboxChange={handleAllCheckboxChange}
         allChecked={allChecked}
       />
       {carts.item?.length === 0 ? (
