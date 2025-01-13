@@ -1,190 +1,149 @@
+import CartEmpty from "@components/carts/CartsEmpty";
+import CartsBox from "@components/carts/CartsBox";
+import CartsDelete from "@components/carts/CartsDelete";
+import CartsPayment from "@components/carts/CartsPayment";
+import useAxiosInstance from "@hooks/useAxiosInstance";
+import { useState } from "react";
+
 export default function Carts() {
+  const axios = useAxiosInstance();
+  const [loading, setLoading] = useState(true); // 로딩 상태
+  const [error, setError] = useState(null); // 에러 상태
+  const [carts, setCarts] = useState([]); // 장바구니 정보
+  const [checkedItems, setCheckedItems] = useState([]); // 선택된 항목의 배열
+  const [allChecked, setAllChecked] = useState(true); // 전체 선택 상태
+
+  // 장바구니 상품 수량 수정 (/carts/{_id})
+  const patchQuantityPlusCart = async _id => {
+    // 현재 장바구니에서 해당 아이템 찾기
+    const cartItem = carts.item.find(cart => cart._id === _id);
+    if (cartItem) {
+      const productNowQuantity =
+        cartItem.product?.quantity - cartItem.product?.buyQuantity;
+      const newQuantity = cartItem.quantity + 1; // 기존 수량에서 1 증가
+      // 서버에 새로운 수량을 요청
+      if (newQuantity > productNowQuantity) {
+        return;
+      }
+      await axios.patch(`/carts/${_id}`, {
+        quantity: newQuantity, // 증가된 수량 전송
+      });
+      // 로컬 상태 업데이트
+      setCarts(prevCarts => ({
+        ...prevCarts, // 기존 상태를 복사
+        item: prevCarts?.item.map(
+          cart =>
+            cart._id === _id ? { ...cart, quantity: newQuantity } : cart, // 업데이트된 수량 반영
+        ),
+      }));
+    }
+  };
+  const patchQuantityMinusCart = async _id => {
+    // 현재 장바구니에서 해당 아이템 찾기
+    const cartItem = carts.item.find(cart => cart._id === _id);
+    if (cartItem) {
+      const newQuantity = cartItem.quantity - 1; // 기존 수량에서 1 감소
+      // 서버에 새로운 수량을 요청
+      if (newQuantity == 0) {
+        return;
+      }
+      await axios.patch(`/carts/${_id}`, {
+        quantity: newQuantity, // 감소된 수량 전송
+      });
+      // 로컬 상태 업데이트
+      setCarts(prevCarts => ({
+        ...prevCarts, // 기존 상태를 복사
+        item: prevCarts?.item.map(
+          cart =>
+            cart._id === _id ? { ...cart, quantity: newQuantity } : cart, // 업데이트된 수량 반영
+        ),
+      }));
+    }
+  };
+
+  // 체크 상태 변경
+  const handleCheckboxChange = id => {
+    const newCheckedItems = checkedItems.includes(id)
+      ? checkedItems.filter(itemId => itemId !== id) // 체크 해제
+      : [...checkedItems, id]; // 체크
+
+    setCheckedItems(newCheckedItems);
+
+    // 전체 선택 상태 업데이트
+    setAllChecked(newCheckedItems.length === carts.length);
+  };
+
+  // 전체 선택 체크박스 변경
+  const handleAllCheckboxChange = () => {
+    if (allChecked) {
+      setCheckedItems([]); // 전체 체크 해제
+    } else {
+      setCheckedItems(carts?.item?.map(cartlist => cartlist?._id)); // 전체 체크
+    }
+    setAllChecked(!allChecked); // 전체 선택 상태 반전
+  };
+  // 장바구니 상품 한건 삭제 (/carts/{_id})
+  const DeleteCarts = async _id => {
+    setLoading(true); // 삭제 요청 시작 시 로딩 상태 설정
+    try {
+      await axios.delete(`/carts/${_id}`);
+      // 로컬 상태에서 해당 아이템 제거
+      setCarts(prevCarts => ({
+        ...prevCarts,
+        item: prevCarts.item.filter(cart => cart._id !== _id), // 삭제된 아이템 제외
+      }));
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false); // 로딩 종료
+    }
+  };
+  // 장바구니 목록 조회 - 로그인 (/carts/)
+  const fetchCarts = async () => {
+    try {
+      const response = await axios.get(`/carts/`);
+      setCarts(response?.data);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false); // 로딩 종료
+    }
+  };
   return (
     <div className="container">
-      <section name="cartHeader">
-        <p className="page-title">장바구니</p>
-        <div className="mt-[63px] mb-[43px] flex justify-between text-[14px]">
-          <label className="flex gap-[10px] items-center">
-            <input
-              type="checkbox"
-              className="appearance-none size-5 bg-[url('/assets/icons/checkbox.svg')] checked:bg-[url('/assets/icons/checkbox-checked.svg')] bg-cover align-middle"
-            />
-            전체 선택
-          </label>
-          <button className="w-[96px] h-[24px] border border-solid border-gray2 rounded-[8px]">
-            선택 삭제
-          </button>
-        </div>
-      </section>
-
-      <section name="cartMain">
-        <div className="flex flex-col gap-y-[50px]">
-          <div className="relative h-[282px] p-[40px] flex justify-between border border-solid border-gray2 rounded-[8px]">
-            <div className="flex gap-x-[60px]">
-              <div>
-                <label className="mb-[20px] flex gap-[10px] items-center text-[14px]">
-                  <input
-                    type="checkbox"
-                    className="appearance-none size-5 bg-[url('/assets/icons/checkbox.svg')] checked:bg-[url('/assets/icons/checkbox-checked.svg')] bg-cover align-middle"
-                  />
-                  선택
-                </label>
-                <img
-                  className="w-[150px] h-[150px]"
-                  src="/assets/images/product-image-12.png"
-                  alt=""
-                />
-              </div>
-              <div className="flex flex-col gap-y-[14px] self-center">
-                <a href="">
-                  <p className="text-gray3 text-[18px] not-italic font-normal">
-                    산리오 공식물이고 싶음 >
-                  </p>
-                </a>
-                <p className="text-black text-[32px] not-italic font-bold">
-                  쿠로미 보온 머그잔
-                </p>
-                <p className="font-bold text-[24px]">120,000 원</p>
-              </div>
-            </div>
-            <div className="font-bold items-center text-[18px] flex gap-x-2">
-              <button>
-                <img src="/assets/icons/minus.svg" alt="" />
-              </button>
-              <input
-                className="text-center border border-solid rounded w-7 h-7 border-gray2"
-                type="text"
-                value="1"
-                name="countUp"
-              />
-              <button>
-                <img src="/assets/icons/plus.svg" alt="" />
-              </button>
-            </div>
-            <button className="absolute right-[40px] top-[40px]">
-              <img src="/assets/icons/close.svg" alt="" />
-            </button>
-          </div>
-          <div className="relative h-[282px] p-[40px] flex justify-between border border-solid border-gray2 rounded-[8px]">
-            <div className="flex gap-x-[60px]">
-              <div>
-                <label className="mb-[20px] flex gap-[10px] items-center text-[14px]">
-                  <input
-                    type="checkbox"
-                    className="appearance-none size-5 bg-[url('/assets/icons/checkbox.svg')] checked:bg-[url('/assets/icons/checkbox-checked.svg')] bg-cover align-middle"
-                  />
-                  선택
-                </label>
-                <img
-                  className="w-[150px] h-[150px]"
-                  src="/assets/images/product-image-12.png"
-                  alt=""
-                />
-              </div>
-              <div className="flex flex-col gap-y-[14px] self-center">
-                <a href="">
-                  <p className="text-gray3 text-[18px] not-italic font-normal">
-                    산리오 공식물이고 싶음 >
-                  </p>
-                </a>
-                <p className="text-black text-[32px] not-italic font-bold">
-                  쿠로미 보온 머그잔
-                </p>
-                <p className="font-bold text-[24px]">120,000 원</p>
-              </div>
-            </div>
-            <div className="font-bold items-center text-[18px] flex gap-x-2">
-              <button>
-                <img src="/assets/icons/minus.svg" alt="" />
-              </button>
-              <input
-                className="text-center border border-solid rounded w-7 h-7 border-gray2"
-                type="text"
-                value="1"
-                name="countUp"
-              />
-              <button>
-                <img src="/assets/icons/plus.svg" alt="" />
-              </button>
-            </div>
-            <button className="absolute right-[40px] top-[40px]">
-              <img src="/assets/icons/close.svg" alt="" />
-            </button>
-          </div>
-          <div className="relative h-[282px] p-[40px] flex justify-between border border-solid border-gray2 rounded-[8px]">
-            <div className="flex gap-x-[60px]">
-              <div>
-                <label className="mb-[20px] flex gap-[10px] items-center text-[14px]">
-                  <input
-                    type="checkbox"
-                    className="appearance-none size-5 bg-[url('/assets/icons/checkbox.svg')] checked:bg-[url('/assets/icons/checkbox-checked.svg')] bg-cover align-middle"
-                  />
-                  선택
-                </label>
-                <img
-                  className="w-[150px] h-[150px]"
-                  src="/assets/images/product-image-12.png"
-                  alt=""
-                />
-              </div>
-              <div className="flex flex-col gap-y-[14px] self-center">
-                <a href="">
-                  <p className="text-gray3 text-[18px] not-italic font-normal">
-                    산리오 공식물이고 싶음 >
-                  </p>
-                </a>
-                <p className="text-black text-[32px] not-italic font-bold">
-                  쿠로미 보온 머그잔
-                </p>
-                <p className="font-bold text-[24px]">120,000 원</p>
-              </div>
-            </div>
-            <div className="font-bold items-center text-[18px] flex gap-x-2">
-              <button>
-                <img src="/assets/icons/minus.svg" alt="" />
-              </button>
-              <input
-                className="text-center border border-solid rounded w-7 h-7 border-gray2"
-                type="text"
-                value="1"
-                name="countUp"
-              />
-              <button>
-                <img src="/assets/icons/plus.svg" alt="" />
-              </button>
-            </div>
-            <button className="absolute right-[40px] top-[40px]">
-              <img src="/assets/icons/close.svg" alt="" />
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <hr className="text-gray1 border border-solid my-[100px]" />
-
-      <section name="cartFooter">
-        <div className="flex flex-col items-center">
-          <div className="p-[60px] min-w-[1000px] h-[338px] border border-gray2 border-solid rounded-[8px] flex flex-col gap-y-[40px]">
-            <div className="flex justify-between text-[28px] font-bold">
-              <p>상품 금액</p>
-              <p>120,000 원</p>
-            </div>
-            <div className="flex justify-between text-[28px] font-bold">
-              <p>배송비</p>
-              <p>120,000 원</p>
-            </div>
-            <p className="border border-solid text-gray1"></p>
-            <div className="flex justify-between text-[32px] font-bold">
-              <p>총 결제 금액</p>
-              <p>240,000 원</p>
-            </div>
-          </div>
-
-          <button className="w-[400px] h-[60px] mt-[60px] px-[89px] py-[16px] bg-point-blue text-white rounded-[8px] text-[24px] font-bold">
-            선택 상품 결제
-          </button>
-        </div>
-      </section>
+      <CartsDelete
+        setCarts={setCarts}
+        setError={setError}
+        setLoading={setLoading}
+        checkedItems={checkedItems}
+        handleAllCheckboxChange={handleAllCheckboxChange}
+        allChecked={allChecked}
+      />
+      {carts.item?.length === 0 ? (
+        <CartEmpty />
+      ) : (
+        <>
+          <CartsBox
+            error={error}
+            loading={loading}
+            setError={setError}
+            setLoading={setLoading}
+            setCheckedItems={setCheckedItems}
+            fetchCarts={fetchCarts}
+            carts={carts}
+            handleCheckboxChange={handleCheckboxChange}
+            checkedItems={checkedItems}
+            patchQuantityPlusCart={patchQuantityPlusCart}
+            patchQuantityMinusCart={patchQuantityMinusCart}
+            DeleteCarts={DeleteCarts}
+          />
+          <CartsPayment
+            checkedItems={checkedItems}
+            setCarts={setCarts}
+            carts={carts}
+          />
+        </>
+      )}
     </div>
   );
 }
