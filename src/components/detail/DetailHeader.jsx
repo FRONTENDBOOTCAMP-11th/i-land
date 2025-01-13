@@ -1,14 +1,20 @@
+import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useAxiosInstance from "@hooks/useAxiosInstance";
+import { useNavigate } from "react-router-dom"; // 추가: React Router
 
-export default function DetailHeader({_id}) {
+export default function DetailHeader({ _id, user }) {
   const axios = useAxiosInstance();
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [quantitycount, setQuantityCount] = useState(1);
-  const [imgcount, setImgCount] = useState(0);
+  const navigate = useNavigate(); // 추가: useNavigate 훅
+  const [cart, setCart] = useState([]); // 장바구니 상태
+  const [loading, setLoading] = useState(true); // 로딩
+  const [error, setError] = useState(null); // 에러
+  const [product, setProduct] = useState(null); // 상품 초기값 null
+  const [quantitycount, setQuantityCount] = useState(1); // 상품 수량 초기값 1로 설정
+  const [imgcount, setImgCount] = useState(0); // 상품 메인 이미지 배열[0]을 초기값으로 설정
+
+  // 상품 수량 증감
   const plusQuantityCount = () => {
     if (quantitycount < productNowQuantity) {
       setQuantityCount(quantitycount + 1);
@@ -19,6 +25,7 @@ export default function DetailHeader({_id}) {
       setQuantityCount(quantitycount - 1);
     }
   };
+  // 상품 이미지 페이지 표시
   const plusImgCount = () => {
     if (imgcount < mainImagesLength - 1) {
       setImgCount(imgcount + 1);
@@ -29,12 +36,7 @@ export default function DetailHeader({_id}) {
       setImgCount(imgcount - 1);
     }
   };
-  const inputNum = event => {
-    const value = event.target.value;
-    if (!isNaN(value) && value.trim() !== "") {
-      setQuantityCount(Number(value));
-    }
-  };
+  // 상품 상세 조회 (/products/{_id})
   const fetchProduct = async () => {
     try {
       const response = await axios.get(`/products/${_id}`);
@@ -43,17 +45,56 @@ export default function DetailHeader({_id}) {
       setError(err);
     }
   };
+  // 장바구니에 상품 추가 (/carts/)
+  const addCart = async () => {
+    try {
+      const response = await axios.post(`/carts/`, {
+        product_id: product?.item?._id,
+        quantity: quantitycount,
+      });
+      setCart(prevCart => [...prevCart, response?.data]);
+    } catch (err) {
+      setError(err);
+    }
+  };
+  // 비회원 사용자의 장바구니 추가 차단
+  const addCartHandleler = event => {
+    if (!user?.accessToken) {
+      navigate("/carts");
+      return;
+    }
+    addCart();
+    const confirmNavigate = window.confirm(
+      `${product?.item?.name} ${quantitycount}개가 장바구니에 추가 되었습니다.\n` +
+        "장바구니로 이동하시겠습니까?",
+    );
+    if (!confirmNavigate) {
+      event.preventDefault(); // 사용자가 취소하면 링크 이동을 막음
+    }
+  };
+  // _id값 변경시 실행
   useEffect(() => {
     fetchProduct(); // 상품 정보 가져오기
     setLoading(false); // 로딩 종료
   }, [_id]);
 
+  // 상품의 현재 수량
   const productNowQuantity =
-    product?.item?.quantity - product?.item?.buyQuantity; // 상품의 현재 수량
-  const mainImages = product?.item?.mainImages; // 메인 이미지 배열
-  const mainImagesLength = mainImages?.length; // 메인 이미지 개수
-  const imgNowPages = 1 + imgcount; // 메인 이미지의 현재 배열
-  const sellerName = product?.item?.seller?.name; // 해당 상품 판매자 이름
+    product?.item?.quantity - product?.item?.buyQuantity;
+
+  // 메인 이미지 배열
+  const mainImages = product?.item?.mainImages;
+
+  // 메인 이미지 개수
+  const mainImagesLength = mainImages?.length;
+
+  // 메인 이미지의 현재 배열
+  const imgNowPages = 1 + imgcount;
+
+  // 해당 상품 판매자 이름
+  const sellerName = product?.item?.seller?.name;
+
+  // 정상 작동이 안 될 시에 로딩, 에러 표시
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
   if (!product) return <div>상품 정보를 불러오는 중입니다...</div>;
@@ -64,7 +105,7 @@ export default function DetailHeader({_id}) {
           <div className="relative w-[480px] h-[480px]">
             <img
               className="w-full h-full"
-              src={"https://11.fesp.shop" + mainImages[imgcount]?.path} // [imageCount] 이런식으로 변수를 줘서 여러장의 이미지를 변경할 수 있게할 수 있을듯함
+              src={"https://11.fesp.shop" + mainImages[imgcount]?.path}
               alt="상품 이미지"
             />
             <button onClick={minusImgCount}>
@@ -133,7 +174,6 @@ export default function DetailHeader({_id}) {
                   min="1"
                   max={productNowQuantity}
                   name="countUp"
-                  onChange={inputNum}
                   readOnly={true}
                 />
                 <button onClick={plusQuantityCount}>
@@ -150,7 +190,7 @@ export default function DetailHeader({_id}) {
                   <img src="/assets/icons/heart_full_blue.svg" alt="" />
                 </button>
               </Link>
-              <Link to="/carts">
+              <Link to="/carts" onClick={addCartHandleler}>
                 <button className="h-[50px] py-[14px] px-9 border-2 border-gray2 rounded-lg border-solid box-border">
                   <p className="text-[18px] font-bold">장바구니</p>
                 </button>
@@ -174,3 +214,8 @@ export default function DetailHeader({_id}) {
     </main>
   );
 }
+
+DetailHeader.propTypes = {
+  _id: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
+};

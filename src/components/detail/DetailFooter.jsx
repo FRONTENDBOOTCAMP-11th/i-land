@@ -1,11 +1,10 @@
+import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // 추가: React Router
 import ProductsReview from "@components/detail/ProductsReview";
 import useAxiosInstance from "@hooks/useAxiosInstance";
-import useUserStore from "@zustand/userStore";
 
-export default function DetailFooter({ _id }) {
-  const { user } = useUserStore();
+export default function DetailFooter({ _id, user }) {
   const axios = useAxiosInstance();
   const navigate = useNavigate(); // 추가: useNavigate 훅
   const [loading, setLoading] = useState(true); // 로딩
@@ -16,7 +15,18 @@ export default function DetailFooter({ _id }) {
 
   // 구매 후기 등록
   const addReview = async content => {
-    if (content?.trim() === "") {
+    if (!user?.accessToken) {
+      const goLogin = window.confirm(
+        "로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?",
+      );
+      console.log("1");
+      if (!goLogin) {
+        return;
+      } else {
+        navigate("/user/login");
+        return;
+      }
+    } else if (content?.trim() === "") {
       alert("내용을 입력해주세요");
       return;
     } else if (content?.length <= 1) {
@@ -93,3 +103,8 @@ export default function DetailFooter({ _id }) {
     </section>
   );
 }
+
+DetailFooter.propTypes = {
+  _id: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
+};
