@@ -45,7 +45,6 @@ export default function CartsBox({
   if (loading) return <div>Loading...</div>;
   // 에러 발생 시
   if (error) return <div>Error: {error.message}</div>;
-  console.log("carts", carts.item.length);
   return (
     <section name="cartMain">
       <div className="flex flex-col gap-y-[50px]">
