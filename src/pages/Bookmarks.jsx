@@ -26,7 +26,22 @@ export default function Bookmarks() {
       setError(err);
     }
   };
-
+  // 북마크 삭제 (/bookmarks/{_id})
+  const DeleteBookmarks = async _id => {
+    setLoading(true); // 삭제 요청 시작 시 로딩 상태 설정
+    try {
+      await axios.delete(`/bookmarks/${_id}`);
+      // 로컬 상태에서 해당 아이템 제거
+      setBookmarks(prevBookmarks => ({
+        ...prevBookmarks,
+        item: prevBookmarks.item.filter(Bookmark => Bookmark._id !== _id), // 삭제된 아이템 제외
+      }));
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false); // 로딩 종료
+    }
+  };
   useEffect(() => {
     fetchBookmarks();
     fetchProduct();
@@ -91,6 +106,7 @@ export default function Bookmarks() {
                   type="button"
                   className="w-[120px] h-[50px] py-[14px] px-9 rounded-lg text-[18px] font-bold text-white bg-point-red box-border"
                   aria-label="찜하기 목록에서 삭제 버튼"
+                  onClick={() => DeleteBookmarks(bookmarkslist._id)}
                 >
                   삭제
                 </button>
