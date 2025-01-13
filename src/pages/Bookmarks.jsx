@@ -4,6 +4,7 @@ import useAxiosInstance from "@hooks/useAxiosInstance";
 export default function Bookmarks() {
   const axios = useAxiosInstance();
   const [bookmarks, setBookmarks] = useState(null); // 상품 초기값 null
+  const [product, setProduct] = useState(null); // 상품 초기값 null
   const [loading, setLoading] = useState(true); // 로딩
   const [error, setError] = useState(null); // 에러
 
@@ -16,11 +17,23 @@ export default function Bookmarks() {
       setError(err);
     }
   };
+  // 상품 상세 조회 (/products/{_id})
+  const fetchProduct = async () => {
+    try {
+      const response = await axios.get(`/products/`);
+      setProduct(response?.data);
+    } catch (err) {
+      setError(err);
+    }
+  };
+
   useEffect(() => {
     fetchBookmarks();
+    fetchProduct();
     setLoading(false); // 로딩 종료
   }, [0]);
-  // console.log("123", bookmarks?.item[0]?.product?.mainImages[0]?.path);
+  // console.log("product", product?.item);
+  // console.log("bookmarks", bookmarks?.item);
   return (
     <div className="container">
       <section className="mb-[50px]">
@@ -30,6 +43,12 @@ export default function Bookmarks() {
 
       <ul className="grid grid-flow-row gap-y-[50px] pb-[60px]">
         {bookmarks?.item?.map(bookmarkslist => {
+          // 각 cartlist에 대한 productItem 찾기
+          const productItem = product?.item?.find(
+            prod => prod._id === bookmarkslist.product._id,
+          );
+          // 판매자 정보 가져오기
+          const sellerName = productItem?.seller?.name;
           return (
             <li
               key={bookmarkslist.product._id}
@@ -43,7 +62,7 @@ export default function Bookmarks() {
                 />
                 <div className="grid grid-flow-row gap-y-[14px] items-center">
                   <div className="text-[18px] text-gray3 flex gap-x-[10px] items-center">
-                    산리오 공식몰이고 싶음
+                    {sellerName}
                     <img
                       src="/assets/icons/chevron-right.svg"
                       className="w-[6px] h-3"
