@@ -21,25 +21,18 @@ export default function CategorySection() {
   } = useQuery({
     queryKey: ["productCategory"],
     queryFn: async () => {
-      try {
-        const response = await axios.get("/codes/productCategory");
-        return response.data.item.productCategory.codes;
-      } catch (err) {
-        console.error("Error fetching product categories:", err);
-        throw new Error("Failed to fetch product categories");
+      const response = await axios.get("/codes/productCategory");
+      if (!response.data || !response.data.item) {
+        throw new Error("Invalid response format");
       }
+      return response.data.item.productCategory.codes;
     },
   });
 
-  if (isLoading) {
-    console.log("Loading categories...");
-  } else {
-    console.log("Categories Data:", categories);
-  }
   const handleCategoryClick = async categoryName => {
-    const queryKey = getCategoryQueryKey(categoryName);
-    const url = getCategoryUrl(categoryName);
+    const { queryKey, url } = getCategoryData(categoryName);
 
+    // 캐시 데이터 확인
     const cachedData = queryClient.getQueryData(queryKey);
     if (cachedData) {
       console.log("Using cached data: ", cachedData);
@@ -47,18 +40,12 @@ export default function CategorySection() {
     }
 
     try {
-      console.log("url", url);
-      const response = await axios.get(url);
-
-      const data = response.data;
-
-      console.log(data);
+      // 서버에서 데이터 가져오기
+      await axios.get(url);
     } catch (error) {
-      console.log("Error", error);
+      console.log("Error fetching category data : ", error);
     }
   };
-
-  console.log(categories);
 
   return (
     <section className="mb-[70px]">
@@ -94,10 +81,8 @@ export default function CategorySection() {
   );
 }
 
-function getCategoryQueryKey(categoryName) {
-  return ["products", categoryName];
-}
-
-function getCategoryUrl(categoryName) {
-  return `/products?custom=${JSON.stringify({ "extra.category": categoryName })}`;
+function getCategoryData(categoryName) {
+  const queryKey = ["products", categoryName];
+  const url = `/products?custom=${JSON.stringify({ "extra.category": categoryName })}`;
+  return { queryKey, url };
 }
