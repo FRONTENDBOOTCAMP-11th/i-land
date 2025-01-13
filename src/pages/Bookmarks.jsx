@@ -125,9 +125,11 @@ export default function Bookmarks() {
                           className="w-[6px] h-3"
                         />
                       </div>
-                      <h2 className="text-[32px] font-bold">
-                        {bookmarkslist?.product?.name}
-                      </h2>
+                      <Link to={`/products/${productItem?._id}`}>
+                        <h2 className="text-[32px] font-bold">
+                          {bookmarkslist?.product?.name}
+                        </h2>
+                      </Link>
                       <p className="text-[18px]">
                         <span className="text-[24px] font-bold">
                           {bookmarkslist?.product?.price.toLocaleString()}
