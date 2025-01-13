@@ -1,6 +1,6 @@
 import useUserStore from "@zustand/userStore";
 
-export default function ProductsReview({productReview}) {
+export default function ProductsReview({ productReview }) {
   const { user } = useUserStore();
   const formatDate = dateString => {
     const date = new Date(dateString);
