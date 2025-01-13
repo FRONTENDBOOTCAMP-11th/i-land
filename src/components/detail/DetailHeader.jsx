@@ -58,18 +58,10 @@ export default function DetailHeader({ _id, user }) {
     }
   };
   // 사용자의 장바구니 페이지 이동유무 결정
-  const addCartAndMove = event => {
+  const addCartHandleler = event => {
     if (!user?.accessToken) {
-      const goLogin = window.confirm(
-        "로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?",
-      );
-      console.log("1");
-      if (!goLogin) {
-        return;
-      } else {
-        navigate("/user/login");
-        return;
-      }
+      navigate("/carts");
+      return;
     }
     addCart();
     const confirmNavigate = window.confirm(
@@ -198,7 +190,7 @@ export default function DetailHeader({ _id, user }) {
                   <img src="/assets/icons/heart_full_blue.svg" alt="" />
                 </button>
               </Link>
-              <Link to="/carts" onClick={addCartAndMove}>
+              <Link to="/carts" onClick={addCartHandleler}>
                 <button className="h-[50px] py-[14px] px-9 border-2 border-gray2 rounded-lg border-solid box-border">
                   <p className="text-[18px] font-bold">장바구니</p>
                 </button>
