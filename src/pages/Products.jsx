@@ -1,32 +1,38 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import useAxiosInstance from "@hooks/useAxiosInstance";
 
 import CategorySection from "@components/common/CategorySection";
 import ProductCard from "@components/common/ProductCard";
+import EmptyPage from "@components/common/EmptyPage";
 
 export default function Products() {
   const location = useLocation();
+  const navigate = useNavigate();
   const axios = useAxiosInstance();
-
+  const queryClient = useQueryClient();
   const queryParams = new URLSearchParams(location.search);
   const custom = queryParams.get("custom");
 
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(() => {
+    return queryClient.getQueryData("selectedCategory") || "";
+  });
 
   useEffect(() => {
     // URL 파라미터에서 초기 카테고리 값 설정
     try {
       if (custom) {
         const parsedCustom = JSON.parse(custom);
-        setSelectedCategory(parsedCustom["extra.category"]);
+        const category = parsedCustom["extra.category"];
+        setSelectedCategory(category);
+        queryClient.setQueryData("selectedCategory", category); // React Query 캐시 저장
       }
     } catch (error) {
       console.error("Failed to parse custom parameter: ", error);
     }
-  }, [custom]);
+  }, [custom, queryClient]);
 
   // 카테고리 데이터 서버에서 불러오기
   const { data: categories } = useQuery({
@@ -61,6 +67,13 @@ export default function Products() {
 
   const handleCategoryClick = categoryCode => {
     setSelectedCategory(categoryCode);
+    queryClient.setQueryData("selectedCategory", categoryCode); // React Query 캐시 저장
+
+    // URL 업데이트
+    const queryParam = encodeURIComponent(
+      JSON.stringify({ "extra.category": categoryCode }),
+    );
+    navigate(`/products?custom=${queryParam}`); // URL 변경
   };
 
   return (
@@ -88,11 +101,15 @@ export default function Products() {
       </section>
 
       <section>
-        <ul className="grid grid-cols-5 gap-x-[25px] gap-y-[40px]">
-          {products.map(product => (
-            <ProductCard key={product._id} item={product} />
-          ))}
-        </ul>
+        {products.length === 0 ? (
+          <EmptyPage />
+        ) : (
+          <ul className="grid grid-cols-5 gap-x-[25px] gap-y-[40px]">
+            {products.map(product => (
+              <ProductCard key={product._id} item={product} />
+            ))}
+          </ul>
+        )}
       </section>
     </div>
   );
