@@ -58,7 +58,10 @@ export default function CategorySection() {
         ) : (
           categories.map(category =>
             isMainPage ? (
-              <Link key={category.code} to="/products">
+              <Link
+                key={category.code}
+                to={`/products?extra={"extra.category":"${category.code}"}`}
+              >
                 <CategoryCard
                   categoryIconSrc={category.path}
                   categoryName={category.code}
