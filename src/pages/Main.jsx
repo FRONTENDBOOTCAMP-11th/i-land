@@ -86,7 +86,7 @@ export default function Main() {
     try {
       const res = await axios.get("/users", {
         params: {
-          sort: JSON.stringify({ postViews: -1 }),
+          sort: JSON.stringify({ totalSales: -1 }),
           limit: 10,
         },
       });

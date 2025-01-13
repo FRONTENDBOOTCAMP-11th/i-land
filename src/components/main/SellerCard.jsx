@@ -5,7 +5,7 @@ SellerCard.propTypes = {
   item: PropTypes.shape({
     name: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
-    postViews: PropTypes.number.isRequired,
+    totalSales: PropTypes.number.isRequired,
   }),
 };
 
@@ -20,7 +20,9 @@ export default function SellerCard({ item }) {
         <h3 className="text-[18px] font-bold mb-3 leading-normal line-clamp-2">
           {item.name}
         </h3>
-        <p className="mb-[10px">조회수 : {item.postViews.toLocaleString()}</p>
+        <p className="mb-[10px">
+          총 판매 횟수 : <strong>{item.totalSales.toLocaleString()}</strong>건
+        </p>
       </Link>
     </li>
   );
