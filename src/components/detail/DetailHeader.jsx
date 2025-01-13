@@ -72,10 +72,10 @@ export default function DetailHeader({ _id, user }) {
       }
     }
     addCart();
-    alert(
-      `${product?.item?.name} ${quantitycount}개가 장바구니에 추가 되었습니다.`,
+    const confirmNavigate = window.confirm(
+      `${product?.item?.name} ${quantitycount}개가 장바구니에 추가 되었습니다.\n` +
+        "장바구니로 이동하시겠습니까?",
     );
-    const confirmNavigate = window.confirm("장바구니로 이동하시겠습니까?");
     if (!confirmNavigate) {
       event.preventDefault(); // 사용자가 취소하면 링크 이동을 막음
     }
