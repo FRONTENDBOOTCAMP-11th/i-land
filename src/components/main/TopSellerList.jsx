@@ -2,7 +2,7 @@ import SellerCard from "@components/main/SellerCard";
 import PropTypes from "prop-types";
 
 TopSellerList.propTypes = {
-  lable: PropTypes.string,
+  label: PropTypes.string,
   data: PropTypes.array,
 };
 
