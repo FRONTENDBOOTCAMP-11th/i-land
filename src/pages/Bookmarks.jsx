@@ -1,13 +1,26 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 
 export default function Bookmarks() {
   const axios = useAxiosInstance();
-  const [bookmarks, setBookmarks] = useState(null); // 상품 초기값 null
-  const [product, setProduct] = useState(null); // 상품 초기값 null
+  const [bookmarks, setBookmarks] = useState([]); // 상품 초기값 null
+  const [product, setProduct] = useState([]); // 상품 초기값 null
+  const [carts, setCarts] = useState([]); // 장바구니 상태
   const [loading, setLoading] = useState(true); // 로딩
   const [error, setError] = useState(null); // 에러
 
+  // 장바구니 목록 조회 - 로그인 (/carts/)
+  const fetchCarts = async () => {
+    try {
+      const response = await axios.get(`/carts/`);
+      setCarts(response?.data);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false); // 로딩 종료
+    }
+  };
   // 북마크 목록 조회 (/bookmarks/{type})
   const fetchBookmarks = async () => {
     try {
@@ -28,6 +41,10 @@ export default function Bookmarks() {
   };
   // 북마크 삭제 (/bookmarks/{_id})
   const DeleteBookmarks = async _id => {
+    const confirmNavigate = window.confirm("상품을 삭제하시겠습니까?");
+    if (!confirmNavigate) {
+      return;
+    }
     setLoading(true); // 삭제 요청 시작 시 로딩 상태 설정
     try {
       await axios.delete(`/bookmarks/${_id}`);
@@ -42,13 +59,34 @@ export default function Bookmarks() {
       setLoading(false); // 로딩 종료
     }
   };
+  // 장바구니에 상품 1개 추가
+  const addCart = async productId => {
+    alert("장바구니에 상품이 추가 되었습니다.");
+    try {
+      const response = await axios.post(`/carts/`, {
+        product_id: productId,
+        quantity: 1,
+      });
+      setCarts(prevCart =>
+        Array.isArray(prevCart)
+          ? [...prevCart, response.data]
+          : [response.data],
+      );
+    } catch (err) {
+      setError(err);
+    }
+  };
   useEffect(() => {
+    fetchCarts();
     fetchBookmarks();
     fetchProduct();
     setLoading(false); // 로딩 종료
-  }, [0]);
+  }, []);
   // console.log("product", product?.item);
   // console.log("bookmarks", bookmarks?.item);
+  // console.log("carts", carts?.item);
+  loading && <p>Loading...</p>;
+  error && <p>Error: {error.message}</p>;
   return (
     <div className="container">
       <section className="mb-[50px]">
@@ -70,11 +108,13 @@ export default function Bookmarks() {
               className="p-10 flex justify-between gap-x-[60px] border border-gray2 rounded-lg box-border items-center"
             >
               <div className="flex gap-x-[60px]">
-                <img
-                  src={`https://11.fesp.shop//${bookmarkslist?.product?.mainImages[0]?.path}`}
-                  className="size-[150px]"
-                  alt="상품 대표 이미지"
-                />
+                <Link to={`/products/${productItem?._id}`}>
+                  <img
+                    src={`https://11.fesp.shop//${bookmarkslist?.product?.mainImages[0]?.path}`}
+                    className="size-[150px]"
+                    alt="상품 대표 이미지"
+                  />
+                </Link>
                 <div className="grid grid-flow-row gap-y-[14px] items-center">
                   <div className="text-[18px] text-gray3 flex gap-x-[10px] items-center">
                     {sellerName}
@@ -99,6 +139,7 @@ export default function Bookmarks() {
                   type="button"
                   className="w-[150px] h-[50px] py-[14px] px-9 rounded-lg text-[18px] font-bold border-2 border-gray2 box-border"
                   aria-label="장바구니 담기 버튼"
+                  onClick={() => addCart(bookmarkslist.product._id)}
                 >
                   장바구니
                 </button>
