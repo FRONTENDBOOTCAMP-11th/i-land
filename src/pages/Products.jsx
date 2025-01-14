@@ -1,16 +1,96 @@
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
+import useAxiosInstance from "@hooks/useAxiosInstance";
+
 import CategorySection from "@components/common/CategorySection";
+import ProductCard from "@components/common/ProductCard";
+import EmptyPage from "@components/common/EmptyPage";
 
 export default function Products() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const axios = useAxiosInstance();
+  const queryClient = useQueryClient();
+  const queryParams = new URLSearchParams(location.search);
+  const custom = queryParams.get("custom");
+
+  const [selectedCategory, setSelectedCategory] = useState(() => {
+    return queryClient.getQueryData("selectedCategory") || "";
+  });
+
+  useEffect(() => {
+    // URL 파라미터에서 초기 카테고리 값 설정
+    try {
+      if (custom) {
+        const parsedCustom = JSON.parse(custom);
+        const category = parsedCustom["extra.category"];
+        setSelectedCategory(category);
+        queryClient.setQueryData("selectedCategory", category); // React Query 캐시 저장
+      }
+    } catch (error) {
+      console.error("Failed to parse custom parameter: ", error);
+    }
+  }, [custom, queryClient]);
+
+  // 카테고리 데이터 서버에서 불러오기
+  const { data: categories } = useQuery({
+    queryKey: ["productCategory"],
+    queryFn: async () => {
+      const response = await axios.get("/codes/productCategory");
+      if (!response.data || !response.data.item) {
+        throw new Error("Invalid response format");
+      }
+      return response.data.item.productCategory.codes;
+    },
+  });
+
+  // 선택된 카테고리의 value 가져오기
+  const categoryValue =
+    categories?.find(category => category.code === selectedCategory)?.value ||
+    "";
+
+  // 선택된 카테고리 상품 데이터 불러오기
+  const { data: products = [] } = useQuery({
+    queryKey: ["products", selectedCategory],
+    queryFn: async () => {
+      if (!selectedCategory) return [];
+      const queryParam = JSON.stringify({ "extra.category": selectedCategory });
+      const response = await axios.get(
+        `/products?custom=${encodeURIComponent(queryParam)}`,
+      );
+      return response.data.item || []; // 상품 데이터 배열 반환
+    },
+    enabled: !!selectedCategory, // 선택된 카테고리가 있을 때만 실행
+  });
+
+  const handleCategoryClick = categoryCode => {
+    setSelectedCategory(categoryCode);
+    queryClient.setQueryData("selectedCategory", categoryCode); // React Query 캐시 저장
+
+    // URL 업데이트
+    const queryParam = encodeURIComponent(
+      JSON.stringify({ "extra.category": categoryCode }),
+    );
+    navigate(`/products?custom=${queryParam}`); // URL 변경
+  };
+
   return (
     <div className="container">
       <header>
         <h1 className="page-title">카테고리별 상품 리스트</h1>
       </header>
 
-      <CategorySection />
+      <CategorySection
+        onCategorySelect={handleCategoryClick}
+        selectedCategory={selectedCategory}
+      />
 
       <section>
-        <h2 className="section-title">만화/애니메이션</h2>
+        <h2 className="section-title">
+          {categoryValue ? `${categoryValue}` : "전체 카테고리"}
+        </h2>
         <div className="flex items-center justify-end mb-[50px]">
           <select
             name="sort"
@@ -24,278 +104,15 @@ export default function Products() {
       </section>
 
       <section>
-        <ul className="grid grid-cols-5 gap-x-[25px] gap-y-[40px]">
-          <li className="w-[180px]">
-            <a href="#" aria-label="상품 상세 페이지 이동">
-              <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                <img
-                  src="/assets/images/product-image-3.png"
-                  alt="상품 이미지"
-                />
-                <button
-                  type="button"
-                  aria-label="상품 찜하기 버튼"
-                  className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
-                >
-                  <img
-                    src="/assets/icons/heart-sm.svg"
-                    className="w-4 h-[14px] hidden"
-                  />
-                  <img
-                    src="/assets/icons/heart-fill-sm.svg"
-                    className="w-4 h-[14px]"
-                  />
-                </button>
-              </div>
-              <div className="flex items-center gap-1 mb-[10px]">
-                <p className="text-[12px] text-gray3 line-clamp-1">
-                  지우와 아이들
-                </p>
-                <img
-                  src="/assets/icons/chevron-right.svg"
-                  className="w-[3px] h-[6px]"
-                />
-              </div>
-              <h3 className="text-[18px] font-bold mb-3 leading-normal line-clamp-2">
-                꼬부기 저금통
-              </h3>
-              <p className="mb-[10px]">12,000원</p>
-              <div className="flex gap-x-[6px] gap-y-1 flex-wrap">
-                <div className=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
-                  만화/애니메이션
-                </div>
-                <div className=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
-                  문구/잡화
-                </div>
-              </div>
-            </a>
-          </li>
-          <li className="w-[180px]">
-            <a href="#" aria-label="상품 상세 페이지 이동">
-              <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                <img
-                  src="/assets/images/product-image-3.png"
-                  alt="상품 이미지"
-                />
-                <button
-                  type="button"
-                  aria-label="상품 찜하기 버튼"
-                  className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
-                >
-                  <img
-                    src="/assets/icons/heart-sm.svg"
-                    className="w-4 h-[14px] hidden"
-                  />
-                  <img
-                    src="/assets/icons/heart-fill-sm.svg"
-                    className="w-4 h-[14px]"
-                  />
-                </button>
-              </div>
-              <div className="flex items-center gap-1 mb-[10px]">
-                <p className="text-[12px] text-gray3 line-clamp-1">
-                  지우와 아이들
-                </p>
-                <img
-                  src="/assets/icons/chevron-right.svg"
-                  className="w-[3px] h-[6px]"
-                />
-              </div>
-              <h3 className="text-[18px] font-bold mb-3 leading-normal line-clamp-2">
-                꼬부기 저금통
-              </h3>
-              <p className="mb-[10px]">12,000원</p>
-              <div className="flex gap-x-[6px] gap-y-1 flex-wrap">
-                <div className=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
-                  만화/애니메이션
-                </div>
-                <div className=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
-                  문구/잡화
-                </div>
-              </div>
-            </a>
-          </li>
-          <li className="w-[180px]">
-            <a href="#" aria-label="상품 상세 페이지 이동">
-              <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                <img
-                  src="/assets/images/product-image-3.png"
-                  alt="상품 이미지"
-                />
-                <button
-                  type="button"
-                  aria-label="상품 찜하기 버튼"
-                  className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
-                >
-                  <img
-                    src="/assets/icons/heart-sm.svg"
-                    className="w-4 h-[14px] hidden"
-                  />
-                  <img
-                    src="/assets/icons/heart-fill-sm.svg"
-                    className="w-4 h-[14px]"
-                  />
-                </button>
-              </div>
-              <div className="flex items-center gap-1 mb-[10px]">
-                <p className="text-[12px] text-gray3 line-clamp-1">
-                  지우와 아이들
-                </p>
-                <img
-                  src="/assets/icons/chevron-right.svg"
-                  className="w-[3px] h-[6px]"
-                />
-              </div>
-              <h3 className="text-[18px] font-bold mb-3 leading-normal line-clamp-2">
-                꼬부기 저금통
-              </h3>
-              <p className="mb-[10px]">12,000원</p>
-              <div className="flex gap-x-[6px] gap-y-1 flex-wrap">
-                <div className=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
-                  만화/애니메이션
-                </div>
-                <div className=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
-                  문구/잡화
-                </div>
-              </div>
-            </a>
-          </li>
-          <li className="w-[180px]">
-            <a href="#" aria-label="상품 상세 페이지 이동">
-              <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                <img
-                  src="/assets/images/product-image-3.png"
-                  alt="상품 이미지"
-                />
-                <button
-                  type="button"
-                  aria-label="상품 찜하기 버튼"
-                  className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
-                >
-                  <img
-                    src="/assets/icons/heart-sm.svg"
-                    className="w-4 h-[14px] hidden"
-                  />
-                  <img
-                    src="/assets/icons/heart-fill-sm.svg"
-                    className="w-4 h-[14px]"
-                  />
-                </button>
-              </div>
-              <div className="flex items-center gap-1 mb-[10px]">
-                <p className="text-[12px] text-gray3 line-clamp-1">
-                  지우와 아이들
-                </p>
-                <img
-                  src="/assets/icons/chevron-right.svg"
-                  className="w-[3px] h-[6px]"
-                />
-              </div>
-              <h3 className="text-[18px] font-bold mb-3 leading-normal line-clamp-2">
-                꼬부기 저금통
-              </h3>
-              <p className="mb-[10px]">12,000원</p>
-              <div className="flex gap-x-[6px] gap-y-1 flex-wrap">
-                <div className=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
-                  만화/애니메이션
-                </div>
-                <div className=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
-                  문구/잡화
-                </div>
-              </div>
-            </a>
-          </li>
-          <li className="w-[180px]">
-            <a href="#" aria-label="상품 상세 페이지 이동">
-              <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                <img
-                  src="/assets/images/product-image-3.png"
-                  alt="상품 이미지"
-                />
-                <button
-                  type="button"
-                  aria-label="상품 찜하기 버튼"
-                  className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
-                >
-                  <img
-                    src="/assets/icons/heart-sm.svg"
-                    className="w-4 h-[14px] hidden"
-                  />
-                  <img
-                    src="/assets/icons/heart-fill-sm.svg"
-                    className="w-4 h-[14px]"
-                  />
-                </button>
-              </div>
-              <div className="flex items-center gap-1 mb-[10px]">
-                <p className="text-[12px] text-gray3 line-clamp-1">
-                  지우와 아이들
-                </p>
-                <img
-                  src="/assets/icons/chevron-right.svg"
-                  className="w-[3px] h-[6px]"
-                />
-              </div>
-              <h3 className="text-[18px] font-bold mb-3 leading-normal line-clamp-2">
-                꼬부기 저금통
-              </h3>
-              <p className="mb-[10px]">12,000원</p>
-              <div className="flex gap-x-[6px] gap-y-1 flex-wrap">
-                <div className=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
-                  만화/애니메이션
-                </div>
-                <div className=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
-                  문구/잡화
-                </div>
-              </div>
-            </a>
-          </li>
-          <li className="w-[180px]">
-            <a href="#" aria-label="상품 상세 페이지 이동">
-              <div className="relative aspect-[180/180] rounded-[8px] border border-gray3 mb-3 overflow-hidden">
-                <img
-                  src="/assets/images/product-image-3.png"
-                  alt="상품 이미지"
-                />
-                <button
-                  type="button"
-                  aria-label="상품 찜하기 버튼"
-                  className="absolute grid bg-white rounded-full size-7 place-items-center right-2 bottom-2"
-                >
-                  <img
-                    src="/assets/icons/heart-sm.svg"
-                    className="w-4 h-[14px] hidden"
-                  />
-                  <img
-                    src="/assets/icons/heart-fill-sm.svg"
-                    className="w-4 h-[14px]"
-                  />
-                </button>
-              </div>
-              <div className="flex items-center gap-1 mb-[10px]">
-                <p className="text-[12px] text-gray3 line-clamp-1">
-                  지우와 아이들
-                </p>
-                <img
-                  src="/assets/icons/chevron-right.svg"
-                  className="w-[3px] h-[6px]"
-                />
-              </div>
-              <h3 className="text-[18px] font-bold mb-3 leading-normal line-clamp-2">
-                꼬부기 저금통
-              </h3>
-              <p className="mb-[10px]">12,000원</p>
-              <div className="flex gap-x-[6px] gap-y-1 flex-wrap">
-                <div className=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
-                  만화/애니메이션
-                </div>
-                <div className=" px-2 py-1 w-fit text-[10px] text-white rounded-full bg-point-blue">
-                  문구/잡화
-                </div>
-              </div>
-            </a>
-          </li>
-        </ul>
+        {products.length === 0 ? (
+          <EmptyPage />
+        ) : (
+          <ul className="grid grid-cols-5 gap-x-[25px] gap-y-[40px]">
+            {products.map(product => (
+              <ProductCard key={product._id} item={product} />
+            ))}
+          </ul>
+        )}
       </section>
     </div>
   );
