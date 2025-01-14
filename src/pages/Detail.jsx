@@ -74,11 +74,7 @@ export default function Detail() {
   if (!products) return <div>상품 정보를 불러오는 중입니다...</div>;
   return (
     <main className="container px-24 py-5 bg-white">
-      <ProductsDetailInfomation
-        user={user}
-        products={products}
-        setLoading={setLoading}
-      />
+      <ProductsDetailInfomation user={user} products={products} />
       <hr className="text-gray1 border border-solid my-10"></hr>
       <ProductsExplanation products={products} />
       <hr className="text-gray1 border border-solid my-10"></hr>
@@ -89,10 +85,7 @@ export default function Detail() {
       <ReviewList
         user={user}
         ProductsReview={ProductsReview}
-        _id={_id}
         fetchProduct={fetchProduct}
-        useState={useState}
-        setReviewContent={setReviewContent}
       />
       <AddReview
         reviewContent={reviewContent}
