@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import { useNavigate } from "react-router-dom"; // 추가: React Router
 
-export default function ProductsDetailInfomation({ products, user, setError }) {
+export default function ProductsDetailInfomation({ products, user }) {
   const axios = useAxiosInstance();
   const navigate = useNavigate(); // 추가: useNavigate 훅
   const [quantitycount, setQuantityCount] = useState(1); // 상품 수량 초기값 1로 설정
@@ -48,7 +48,7 @@ export default function ProductsDetailInfomation({ products, user, setError }) {
         quantity: quantitycount,
       });
     } catch (err) {
-      setError(err);
+      console.log(err);
     }
   };
 
@@ -180,6 +180,5 @@ export default function ProductsDetailInfomation({ products, user, setError }) {
 
 ProductsDetailInfomation.propTypes = {
   user: PropTypes.object.isRequired,
-  setError: PropTypes.func.isRequired,
   products: PropTypes.object.isRequired,
 };

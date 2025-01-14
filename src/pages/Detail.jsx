@@ -59,7 +59,7 @@ export default function Detail() {
       setReviewContent(""); // 리뷰 추가 후 textarea 비우기
       fetchProduct();
     } catch (err) {
-      setError(err);
+      console.log(err);
     }
   };
 
@@ -78,7 +78,6 @@ export default function Detail() {
         user={user}
         products={products}
         setLoading={setLoading}
-        setError={setError}
       />
       <hr className="text-gray1 border border-solid my-10"></hr>
       <ProductsExplanation products={products} />
@@ -91,7 +90,6 @@ export default function Detail() {
         user={user}
         ProductsReview={ProductsReview}
         _id={_id}
-        setError={setError}
         fetchProduct={fetchProduct}
         useState={useState}
         setReviewContent={setReviewContent}

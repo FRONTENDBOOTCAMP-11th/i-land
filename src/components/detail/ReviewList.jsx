@@ -2,12 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from "react"; // useState 추가
 import useAxiosInstance from "@hooks/useAxiosInstance";
 
-export default function ReviewList({
-  user,
-  ProductsReview,
-  setError,
-  fetchProduct,
-}) {
+export default function ReviewList({ user, ProductsReview, fetchProduct }) {
   const axios = useAxiosInstance();
   const formatDate = dateString => {
     const date = new Date(dateString);
@@ -22,7 +17,7 @@ export default function ReviewList({
       });
       fetchProduct();
     } catch (err) {
-      setError(err);
+      console.log(err);
     }
   };
 
@@ -32,7 +27,7 @@ export default function ReviewList({
       await axios.delete(`replies/${reply_id}`);
       fetchProduct();
     } catch (err) {
-      setError(err);
+      console.log(err);
     }
   };
 
@@ -130,6 +125,5 @@ export default function ReviewList({
 ReviewList.propTypes = {
   user: PropTypes.object.isRequired,
   ProductsReview: PropTypes.array.isRequired,
-  setError: PropTypes.func.isRequired,
   fetchProduct: PropTypes.func.isRequired,
 };
