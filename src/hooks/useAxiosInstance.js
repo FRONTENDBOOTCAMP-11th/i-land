@@ -47,9 +47,8 @@ export default function useAxiosInstance() {
       "로그인 후 이용 가능합니다.\n로그인 페이지로 이동하시겠습니까?",
     );
     // state 는 location 객체에 state 객체 > from 이라는 속성으로 추가
-    gotoLogin
-      ? navigate("/user/login", { state: { from: location.pathname } })
-      : navigate(0);
+    gotoLogin &&
+      navigate("/user/login", { state: { from: location.pathname } })
   }
   return instance;
 }
