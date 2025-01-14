@@ -17,11 +17,8 @@ export default function Detail() {
   const [error, setError] = useState(null); // 에러
   const [products, setProduct] = useState(null); // 상품 초기값 null
   const [reviewContent, setReviewContent] = useState(""); // textarea 상태
-  const [productReview, setProductReview] = useState(null); // 에러
-  const [replies, setReplies] = useState(null);
   const ProductsReviewLength = products?.item?.replies?.length; // 등록된 후기 개수
   const ProductsReview = products?.item?.replies; //  등록된 후기 (in products)
-  const ProductReplies = replies?.item?.product?._id; // 등록된 후기 (in replies)
 
   // 상품 상세 조회 (/products/{_id})
   const fetchProduct = async () => {
@@ -39,7 +36,6 @@ export default function Detail() {
       const goLogin = window.confirm(
         "로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?",
       );
-      console.log("1");
       if (!goLogin) {
         return;
       } else {
@@ -58,6 +54,7 @@ export default function Detail() {
         content: content,
         order_id: user?._id,
         image: user?.image,
+        product_id: products?.item?._id,
       });
       setReviewContent(""); // 리뷰 추가 후 textarea 비우기
       fetchProduct();
@@ -65,20 +62,8 @@ export default function Detail() {
       setError(err);
     }
   };
-  // 구매 후기 삭제 (/replies/{_id})
-  const deleteProductReview = async reply_id => {
-    if (ProductReplies === reply_id) {
-      try {
-        await axios.delete(`/replies/${reply_id}`);
-        setProductReview(prevReviews =>
-          prevReviews.filter(review => review._id !== reply_id),
-        );
-      } catch (err) {
-        setError(err);
-      }
-    }
-  };
 
+  const [replies, setReplies] = useState(null);
   // 구매 후기 목록 (/replies/)
   const repliesList = async () => {
     try {
@@ -99,32 +84,30 @@ export default function Detail() {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
   if (!products) return <div>상품 정보를 불러오는 중입니다...</div>;
-  console.log("repliesList", replies);
   return (
     <main className="container px-24 py-5 bg-white">
       <ProductsDetailInfomation
         user={user}
-        product={products}
+        products={products}
         setLoading={setLoading}
         setError={setError}
       />
       <hr className="text-gray1 border border-solid my-10"></hr>
-      <ProductsExplanation product={products} />
+      <ProductsExplanation products={products} />
       <hr className="text-gray1 border border-solid my-10"></hr>
       <p className="mb-[40px] section-title">상품 후기</p>
       <p className="mb-[30px] text-[16px] font-normal">
         후기 {ProductsReviewLength} 개
       </p>
-      <div name="reviewBox" className="flex flex-col mb-20 gap-y-7">
-        <ReviewList
-          user={user}
-          ProductsReview={ProductsReview}
-          _id={_id}
-          setError={setError}
-          setProductReview={setProductReview}
-          deleteProductReview={deleteProductReview}
-        />
-      </div>
+      <ReviewList
+        user={user}
+        ProductsReview={ProductsReview}
+        _id={_id}
+        replies={replies}
+        products={products}
+        setError={setError}
+        fetchProduct={fetchProduct}
+      />
       <AddReview
         reviewContent={reviewContent}
         addReview={addReview}
