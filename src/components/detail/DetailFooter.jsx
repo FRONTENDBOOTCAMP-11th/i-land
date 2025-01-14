@@ -105,6 +105,6 @@ export default function DetailFooter({ _id, user }) {
 }
 
 DetailFooter.propTypes = {
-  _id: PropTypes.string.isRequired,
+  _id: PropTypes.number.isRequired,
   user: PropTypes.object.isRequired,
 };
