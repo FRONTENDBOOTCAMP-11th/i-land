@@ -5,7 +5,6 @@ import useUserStore from "@zustand/userStore";
 import { useEffect, useState } from "react";
 import CategorySection from "@components/common/CategorySection";
 import TopSellerList from "@components/main/TopSellerList";
-import useBookmarkStore from "@zustand/bookmarkStore";
 
 export default function Main() {
   // TODO 1: 로그인 상태가 아닌 경우, 찜한 상품 영역 표시 X
@@ -13,8 +12,6 @@ export default function Main() {
 
   // 찜한 상품 state
   const [bookmarkList, setBookmarkList] = useState();
-
-  const { bookmarkStore, setBookmarkStore } = useBookmarkStore();
 
   // 인기 상품 state
   const [topProducts, setTopProducts] = useState();
@@ -27,21 +24,12 @@ export default function Main() {
 
   const axios = useAxiosInstance();
 
-  // 사용자 찜한 상품 목록 조회 API
+  // 사용자 찜한 상품 목록 조회 API(로그인 시에만)
   const getBookmarkedItem = async () => {
     if (user) {
       try {
         const res = await axios.get(`/bookmarks/product`);
-        // let bookmarkList = [];
-        // for (let i = 0; i < 10; i++) {
-        //   if (!bookmarkData[i]) break;
-        //   bookmarkList.push(bookmarkData[i].product);
-        // }
-        console.log(res.data.item);
-        // const bookmarkList = res.data.item?.product.map(index => index.product);
         const bookmarkList = res.data.item.map(index => index.product);
-
-        // setBookmarkStore(bookmarkList);
         setBookmarkList(bookmarkList);
       } catch (err) {
         console.error(err.response.data.message);
@@ -98,11 +86,11 @@ export default function Main() {
   };
 
   useEffect(() => {
-    getBookmarkedItem(user?._id);
+    getBookmarkedItem();
     getTopProducts();
     getNewProducts();
     getTopSellers();
-  }, []);
+  }, [bookmarkList]);
 
   return (
     <div className="container">
