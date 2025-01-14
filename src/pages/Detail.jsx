@@ -63,20 +63,8 @@ export default function Detail() {
     }
   };
 
-  const [replies, setReplies] = useState(null);
-  // 구매 후기 목록 (/replies/)
-  const repliesList = async () => {
-    try {
-      const response = await axios.get(`/replies/`);
-      setReplies(response?.data);
-    } catch (err) {
-      setError(err);
-    }
-  };
-
   // _id값 변경시 실행
   useEffect(() => {
-    repliesList();
     fetchProduct(); // 상품 정보 가져오기
     setLoading(false); // 로딩 종료
   }, [_id]);
@@ -103,8 +91,6 @@ export default function Detail() {
         user={user}
         ProductsReview={ProductsReview}
         _id={_id}
-        replies={replies}
-        products={products}
         setError={setError}
         fetchProduct={fetchProduct}
       />

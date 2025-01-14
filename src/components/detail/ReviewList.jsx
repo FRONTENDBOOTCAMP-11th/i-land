@@ -4,8 +4,6 @@ export default function ReviewList({
   user,
   ProductsReview,
   setError,
-  replies,
-  products,
   fetchProduct,
 }) {
   const axios = useAxiosInstance();
@@ -14,11 +12,18 @@ export default function ReviewList({
     return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
 
+  // 구매 후기 수정 (/replies/{_id})
+  const patchReview = async () => {
+    try {
+      const response = await axios.get(`/replies/{_id}`);
+      setProduct(response?.data);
+    } catch (err) {
+      setError(err);
+    }
+  };
+
   // 상품 후기 삭제 (/replies/{_id})
   const deleteProductReview = async reply_id => {
-    const ReviewProducts_id = replies?.item?.product?._id;
-    const Products_id = products?.item?._id;
-    if (Products_id === ReviewProducts_id && true) return;
     try {
       await axios.delete(`replies/${reply_id}`);
       fetchProduct();
@@ -71,8 +76,6 @@ export default function ReviewList({
 ReviewList.propTypes = {
   user: PropTypes.object.isRequired,
   ProductsReview: PropTypes.object.isRequired,
-  replies: PropTypes.string.isRequired,
-  products: PropTypes.string.isRequired,
   setError: PropTypes.func.isRequired,
   fetchProduct: PropTypes.func.isRequired,
 };
