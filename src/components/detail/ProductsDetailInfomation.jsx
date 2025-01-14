@@ -1,16 +1,12 @@
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import { useNavigate } from "react-router-dom"; // 추가: React Router
 
-export default function DetailHeader({ _id, user }) {
+export default function ProductsDetailInfomation({ product, user, setError }) {
   const axios = useAxiosInstance();
   const navigate = useNavigate(); // 추가: useNavigate 훅
-  const [cart, setCart] = useState([]); // 장바구니 상태
-  const [loading, setLoading] = useState(true); // 로딩
-  const [error, setError] = useState(null); // 에러
-  const [product, setProduct] = useState(null); // 상품 초기값 null
   const [quantitycount, setQuantityCount] = useState(1); // 상품 수량 초기값 1로 설정
   const [imgcount, setImgCount] = useState(0); // 상품 메인 이미지 배열[0]을 초기값으로 설정
 
@@ -36,27 +32,19 @@ export default function DetailHeader({ _id, user }) {
       setImgCount(imgcount - 1);
     }
   };
-  // 상품 상세 조회 (/products/{_id})
-  const fetchProduct = async () => {
-    try {
-      const response = await axios.get(`/products/${_id}`);
-      setProduct(response?.data);
-    } catch (err) {
-      setError(err);
-    }
-  };
+
   // 장바구니에 상품 추가 (/carts/)
   const addCart = async () => {
     try {
-      const response = await axios.post(`/carts/`, {
+      await axios.post(`/carts/`, {
         product_id: product?.item?._id,
         quantity: quantitycount,
       });
-      setCart(prevCart => [...prevCart, response?.data]);
     } catch (err) {
       setError(err);
     }
   };
+
   // 비회원 사용자의 장바구니 추가 차단
   const addCartHandleler = event => {
     if (!user?.accessToken) {
@@ -72,11 +60,6 @@ export default function DetailHeader({ _id, user }) {
       event.preventDefault(); // 사용자가 취소하면 링크 이동을 막음
     }
   };
-  // _id값 변경시 실행
-  useEffect(() => {
-    fetchProduct(); // 상품 정보 가져오기
-    setLoading(false); // 로딩 종료
-  }, [_id]);
 
   // 상품의 현재 수량
   const productNowQuantity =
@@ -94,10 +77,6 @@ export default function DetailHeader({ _id, user }) {
   // 해당 상품 판매자 이름
   const sellerName = product?.item?.seller?.name;
 
-  // 정상 작동이 안 될 시에 로딩, 에러 표시
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-  if (!product) return <div>상품 정보를 불러오는 중입니다...</div>;
   return (
     <main>
       <section name="detailHeader">
@@ -158,9 +137,10 @@ export default function DetailHeader({ _id, user }) {
               id=""
             >
               <option value="">상품 옵션을 선택해 주세요</option>
-              <option value="">선택1</option>
-              <option value="">선택2</option>
-              <option value="">선택3</option>
+              <option value="">안녕하세요!</option>
+              <option value="">상품 옵션은 추후에 개발 예정입니다.</option>
+              <option value="">감사합니다!</option>
+              <option value="">😀😀😀😀😀</option>
             </select>
             <div className="flex justify-between">
               <div className="font-bold items-center text-[18px] flex gap-x-2">
@@ -204,18 +184,17 @@ export default function DetailHeader({ _id, user }) {
           </div>
         </div>
       </section>
-
-      <hr className="text-gray1 border border-solid my-10"></hr>
-
-      <section name="detailMain">
-        <p className="mt-5 section-title">상품 설명</p>
-        <div name="productContent">{product?.item?.content}</div>
-      </section>
     </main>
   );
 }
 
-DetailHeader.propTypes = {
+ProductsDetailInfomation.propTypes = {
   _id: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
+  setLoading: PropTypes.func.isRequired,
+  setError: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired,
+  fetchProduct: PropTypes.func.isRequired,
+  product: PropTypes.string.isRequired,
 };

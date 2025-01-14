@@ -1,13 +1,12 @@
-import useUserStore from "@zustand/userStore";
+import PropTypes from "prop-types";
 
-export default function ProductsReview({ productReview }) {
-  const { user } = useUserStore();
+export default function ReviewList({ user, ProductsReview }) {
   const formatDate = dateString => {
     const date = new Date(dateString);
     return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
 
-  // // 상품 후기 삭제
+  // 상품 후기 삭제 (/replies/{_id})
   // const deleteProductReview = async reply_id => {
   //   try {
   //     await axios.delete(`/products/${_id}/replies/${reply_id}`, {
@@ -23,7 +22,7 @@ export default function ProductsReview({ productReview }) {
 
   return (
     <div className="flex flex-col gap-y-5">
-      {productReview?.map((review, index) => (
+      {ProductsReview?.map((review, index) => (
         <div
           key={index}
           className="flex flex-col p-10 border border-solid rounded-lg border-gray1"
@@ -60,3 +59,8 @@ export default function ProductsReview({ productReview }) {
     </div>
   );
 }
+
+ReviewList.propTypes = {
+  user: PropTypes.object.isRequired,
+  ProductsReview: PropTypes.object.isRequired,
+};
