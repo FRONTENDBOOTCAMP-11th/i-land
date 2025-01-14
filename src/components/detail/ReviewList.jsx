@@ -1,24 +1,13 @@
 import PropTypes from "prop-types";
+import useAxiosInstance from "@hooks/useAxiosInstance";
+import { useState } from "react";
 
-export default function ReviewList({ user, ProductsReview }) {
+export default function ReviewList({ user, ProductsReview, _id, setError, deleteProductReview, setProductReview }) {
+  const axios = useAxiosInstance();
   const formatDate = dateString => {
     const date = new Date(dateString);
     return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
-
-  // 상품 후기 삭제 (/replies/{_id})
-  // const deleteProductReview = async reply_id => {
-  //   try {
-  //     await axios.delete(`/products/${_id}/replies/${reply_id}`, {
-  //       headers: { Authorization: `Bearer ${user.accessToken}` }, // 로그인 상태인 유저의 엑세스  토큰
-  //     });
-  //     setProductReview(prevReviews =>
-  //       prevReviews.filter(review => review._id !== reply_id),
-  //     );
-  //   } catch (err) {
-  //     setError(err);
-  //   }
-  // };
 
   return (
     <div className="flex flex-col gap-y-5">
@@ -47,7 +36,7 @@ export default function ReviewList({ user, ProductsReview }) {
                 </button>
                 <button
                   className="h-[50px] py-[14px] px-9 text-[18px] font-bold text-white bg-point-red rounded-lg"
-                  // onClick={() => deleteProductReview(review._id)}
+                  onClick={() => deleteProductReview(review._id)}
                 >
                   삭제
                 </button>

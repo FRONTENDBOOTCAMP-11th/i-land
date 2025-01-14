@@ -4,11 +4,18 @@ import { Link } from "react-router-dom";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import { useNavigate } from "react-router-dom"; // 추가: React Router
 
-export default function ProductsDetailInfomation({ product, user, setError }) {
+export default function ProductsDetailInfomation({ products, user, setError }) {
   const axios = useAxiosInstance();
   const navigate = useNavigate(); // 추가: useNavigate 훅
   const [quantitycount, setQuantityCount] = useState(1); // 상품 수량 초기값 1로 설정
   const [imgcount, setImgCount] = useState(0); // 상품 메인 이미지 배열[0]을 초기값으로 설정
+  const mainImages = products?.item?.mainImages; // 메인 이미지 배열
+  const mainImagesLength = mainImages?.length; // 메인 이미지 개수
+  const imgNowPages = 1 + imgcount; // 메인 이미지의 현재 배열
+  const sellerName = products?.item?.seller?.name; // 해당 상품 판매자 이름
+  // 상품의 현재 수량
+  const productNowQuantity =
+    products?.item?.quantity - products?.item?.buyQuantity;
 
   // 상품 수량 증감
   const plusQuantityCount = () => {
@@ -37,7 +44,7 @@ export default function ProductsDetailInfomation({ product, user, setError }) {
   const addCart = async () => {
     try {
       await axios.post(`/carts/`, {
-        product_id: product?.item?._id,
+        product_id: products?.item?._id,
         quantity: quantitycount,
       });
     } catch (err) {
@@ -53,30 +60,13 @@ export default function ProductsDetailInfomation({ product, user, setError }) {
     }
     addCart();
     const confirmNavigate = window.confirm(
-      `${product?.item?.name} ${quantitycount}개가 장바구니에 추가 되었습니다.\n` +
+      `${products?.item?.name} ${quantitycount}개가 장바구니에 추가 되었습니다.\n` +
         "장바구니로 이동하시겠습니까?",
     );
     if (!confirmNavigate) {
       event.preventDefault(); // 사용자가 취소하면 링크 이동을 막음
     }
   };
-
-  // 상품의 현재 수량
-  const productNowQuantity =
-    product?.item?.quantity - product?.item?.buyQuantity;
-
-  // 메인 이미지 배열
-  const mainImages = product?.item?.mainImages;
-
-  // 메인 이미지 개수
-  const mainImagesLength = mainImages?.length;
-
-  // 메인 이미지의 현재 배열
-  const imgNowPages = 1 + imgcount;
-
-  // 해당 상품 판매자 이름
-  const sellerName = product?.item?.seller?.name;
-
   return (
     <main>
       <section name="detailHeader">
@@ -121,11 +111,11 @@ export default function ProductsDetailInfomation({ product, user, setError }) {
               />
             </a>
             <p className="text-black text-[32px] not-italic font-bold">
-              {product?.item?.name}
+              {products?.item?.name}
             </p>
             <div className="flex justify-between items-center">
               <p className="font-bold text-[24px]">
-                {product?.item?.price?.toLocaleString()} 원
+                {products?.item?.price?.toLocaleString()} 원
               </p>
               <p className="font-bold text-[18px]">
                 현재 수량 {productNowQuantity} 개
@@ -161,7 +151,7 @@ export default function ProductsDetailInfomation({ product, user, setError }) {
                 </button>
               </div>
               <p className="text-black text-[24px] font-bold">
-                총 {(quantitycount * product?.item?.price)?.toLocaleString()} 원
+                총 {(quantitycount * products?.item?.price)?.toLocaleString()}원
               </p>
             </div>
             <div className="flex justify-between">
@@ -196,5 +186,5 @@ ProductsDetailInfomation.propTypes = {
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
   fetchProduct: PropTypes.func.isRequired,
-  product: PropTypes.string.isRequired,
+  products: PropTypes.string.isRequired,
 };
