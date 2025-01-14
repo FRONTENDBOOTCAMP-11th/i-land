@@ -40,17 +40,24 @@ export default function ProductsDetailInfomation({
   };
 
   // 장바구니에 상품 추가 (/carts/)
-  const addCart = async () => {
+  const addCart = async quantitycount => {
     try {
       await axios.post(`/carts/`, {
-        product_id: products?.item?.products_id,
+        product_id: products?.item?._id,
         quantity: quantitycount,
       });
+      const confirmNavigate = window.confirm(
+        `${products?.item?.name} ${quantitycount}개가 장바구니에 추가 되었습니다.\n` +
+          "장바구니로 이동하시겠습니까?",
+      );
+      if (confirmNavigate) {
+        navigate("/carts");
+        return;
+      } else return;
     } catch (err) {
       console.log(err);
     }
   };
-
   // 비회원 사용자의 장바구니 추가 차단
   // const addCartHandleler = event => {
   //   if (!user?.accessToken) {
@@ -215,8 +222,11 @@ export default function ProductsDetailInfomation({
                   <img src="/assets/icons/heart_empty.svg" alt="찜하기 버튼" />
                 )}
               </button>
-              <Link to="/carts" onClick={addCart}>
-                <button className="h-[50px] py-[14px] px-9 border-2 border-gray2 rounded-lg border-solid box-border">
+              <Link>
+                <button
+                  className="h-[50px] py-[14px] px-9 border-2 border-gray2 rounded-lg border-solid box-border"
+                  onClick={() => addCart(quantitycount)}
+                >
                   <p className="text-[18px] font-bold">장바구니</p>
                 </button>
               </Link>
@@ -238,5 +248,5 @@ ProductsDetailInfomation.propTypes = {
   user: PropTypes.object.isRequired,
   products: PropTypes.object.isRequired,
   setLike: PropTypes.func.isRequired,
-  like: PropTypes.array.isRequired,
+  like: PropTypes.number.isRequired,
 };

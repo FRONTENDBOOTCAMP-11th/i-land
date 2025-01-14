@@ -77,7 +77,10 @@ export default function Detail() {
   };
   // _id값 변경시 실행
   useEffect(() => {
-    checkIfLiked();
+    // 로그인 상태가 아니라면 찜하기 상태 불러오지 않음
+    if (user?.accessToken) {
+      checkIfLiked();
+    }
     fetchProduct(); // 상품 정보 가져오기
     setLoading(false); // 로딩 종료
   }, [_id]);
