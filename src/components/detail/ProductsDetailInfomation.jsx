@@ -6,7 +6,6 @@ import useAxiosInstance from "@hooks/useAxiosInstance";
 
 export default function ProductsDetailInfomation({
   products,
-  user,
   products_id,
   like,
   setLike,
@@ -58,22 +57,6 @@ export default function ProductsDetailInfomation({
       console.log(err);
     }
   };
-  // 비회원 사용자의 장바구니 추가 차단
-  // const addCartHandleler = event => {
-  //   if (!user?.accessToken) {
-  //     navigate("/carts");
-  //     return;
-  //   }
-  //   addCart();
-  //   const confirmNavigate = window.confirm(
-  //     `${products?.item?.name} ${quantitycount}개가 장바구니에 추가 되었습니다.\n` +
-  //       "장바구니로 이동하시겠습니까?",
-  //   );
-  //   if (!confirmNavigate) {
-  //     event.preventDefault(); // 사용자가 취소하면 링크 이동을 막음
-  //   }
-  // };
-
   // 상품 북마크에 추가/삭제
   const toggleLike = async () => {
     if (!like) {
@@ -245,7 +228,6 @@ export default function ProductsDetailInfomation({
 
 ProductsDetailInfomation.propTypes = {
   products_id: PropTypes.number.isRequired,
-  user: PropTypes.object.isRequired,
   products: PropTypes.object.isRequired,
   setLike: PropTypes.func.isRequired,
   like: PropTypes.number.isRequired,

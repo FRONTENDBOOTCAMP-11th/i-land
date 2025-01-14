@@ -93,7 +93,6 @@ export default function Detail() {
     <main className="container px-24 py-5 bg-white">
       <ProductsDetailInfomation
         products_id={products_id}
-        user={user}
         products={products}
         like={like}
         setLike={setLike}
