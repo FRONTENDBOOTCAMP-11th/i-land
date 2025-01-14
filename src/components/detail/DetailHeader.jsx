@@ -89,13 +89,14 @@ export default function DetailHeader({ _id, user }) {
   };
 
   // 상품 북마크에 추가/삭제
-  const addLike = async () => {
+  const toggleLike = async () => {
     if (!like) {
       try {
         const response = await axios.post("/bookmarks/product", {
           target_id: _id,
         });
         setLike(response.data.item._id);
+        alert("찜한 목록에 추가되었습니다.");
       } catch (err) {
         setError(err);
       }
@@ -104,6 +105,7 @@ export default function DetailHeader({ _id, user }) {
         const response = await axios.delete(`/bookmarks/${like}`);
         console.log(response.data.item);
         setLike(null);
+        alert("찜한 목록에서 삭제되었습니다.");
       } catch (err) {
         // setError(err);
         console.error(err.response.data.item);
@@ -225,7 +227,7 @@ export default function DetailHeader({ _id, user }) {
               </p>
             </div>
             <div className="flex justify-between">
-              <button type="button" onClick={addLike}>
+              <button type="button" onClick={toggleLike}>
                 {like ? (
                   <img src="/assets/icons/heart_full.svg" alt="찜한 상품" />
                 ) : (
