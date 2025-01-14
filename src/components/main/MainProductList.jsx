@@ -30,7 +30,7 @@ export default function MainProductList({ label, data }) {
           </ul>
         </div>
       ) : (
-        <p>찜한 상품이 없습니다.</p>
+        <p>관련 상품이 없습니다.</p>
       )}
     </section>
   );
