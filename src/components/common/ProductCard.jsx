@@ -57,7 +57,7 @@ export default function ProductCard({ item }) {
         </div>
       </Link>
       {/* 찜 버튼 Link 외부에 배치 */}
-      <ProductLikeBtn id={item._id} />
+      <ProductLikeBtn _id={item._id} />
       <Link to={`/products/${item._id}`} aria-label="상품 페이지로 이동">
         <div className="flex items-center gap-1 mb-[10px] pt-3">
           <p className="text-[12px] text-gray3 line-clamp-1">{sellerName}</p>
