@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // 추가: React Router
+import { useNavigate } from "react-router-dom";
 import useUserStore from "@zustand/userStore";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import ProductsDetailInfomation from "@components/detail/ProductsDetailInfomation";
@@ -13,9 +13,11 @@ export default function Detail() {
   const navigate = useNavigate();
   const { user } = useUserStore();
   const { _id } = useParams(); // URL에서 id 추출
+  const products_id = Number(_id);
   const [loading, setLoading] = useState(true); // 로딩
   const [error, setError] = useState(null); // 에러
   const [products, setProduct] = useState(null); // 상품 초기값 null
+  const [like, setLike] = useState(null); // 찜 상태
   const [reviewContent, setReviewContent] = useState(""); // textarea 상태
   const ProductsReviewLength = products?.item?.replies?.length; // 등록된 후기 개수
   const ProductsReview = products?.item?.replies; //  등록된 후기 (in products)
@@ -62,19 +64,37 @@ export default function Detail() {
       console.log(err);
     }
   };
-
+  // 찜 상태 확인
+  const checkIfLiked = async () => {
+    try {
+      const response = await axios.get(`/bookmarks/product/${products_id}`);
+      if (response.data && response.data.item) {
+        setLike(response.data.item._id); // 찜한 상품 ID 저장
+      }
+    } catch (err) {
+      console.error("찜 상태 확인 중 오류 발생:", err);
+    }
+  };
   // _id값 변경시 실행
   useEffect(() => {
+    checkIfLiked();
     fetchProduct(); // 상품 정보 가져오기
     setLoading(false); // 로딩 종료
-  }, [0]);
+  }, [_id]);
+
   // 정상 작동이 안 될 시에 로딩, 에러 표시
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
   if (!products) return <div>상품 정보를 불러오는 중입니다...</div>;
   return (
     <main className="container px-24 py-5 bg-white">
-      <ProductsDetailInfomation user={user} products={products} />
+      <ProductsDetailInfomation
+        products_id={products_id}
+        user={user}
+        products={products}
+        like={like}
+        setLike={setLike}
+      />
       <hr className="text-gray1 border border-solid my-10"></hr>
       <ProductsExplanation products={products} />
       <hr className="text-gray1 border border-solid my-10"></hr>

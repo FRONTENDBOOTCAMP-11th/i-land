@@ -1,29 +1,20 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import useAxiosInstance from "@hooks/useAxiosInstance";
 import { useNavigate } from "react-router-dom"; // 추가: React Router
+import useAxiosInstance from "@hooks/useAxiosInstance";
 
-export default function ProductsDetailInfomation({ products, user }) {
+export default function ProductsDetailInfomation({
+  products,
+  user,
+  products_id,
+  like,
+  setLike,
+}) {
   const axios = useAxiosInstance();
   const navigate = useNavigate(); // 추가: useNavigate 훅
-<<<<<<< HEAD:src/components/detail/ProductsDetailInfomation.jsx
-=======
-  const [cart, setCart] = useState([]); // 장바구니 상태
-  const [like, setLike] = useState(null); // 찜 상태
-  const [loading, setLoading] = useState(true); // 로딩
-  const [error, setError] = useState(null); // 에러
-  const [product, setProduct] = useState(null); // 상품 초기값 null
->>>>>>> 064ba834035a7faa1a8ffdf31ec168ba5ec1f054:src/components/detail/DetailHeader.jsx
   const [quantitycount, setQuantityCount] = useState(1); // 상품 수량 초기값 1로 설정
   const [imgcount, setImgCount] = useState(0); // 상품 메인 이미지 배열[0]을 초기값으로 설정
-  const mainImages = products?.item?.mainImages; // 메인 이미지 배열
-  const mainImagesLength = mainImages?.length; // 메인 이미지 개수
-  const imgNowPages = 1 + imgcount; // 메인 이미지의 현재 배열
-  const sellerName = products?.item?.seller?.name; // 해당 상품 판매자 이름
-  // 상품의 현재 수량
-  const productNowQuantity =
-    products?.item?.quantity - products?.item?.buyQuantity;
 
   // 상품 수량 증감
   const plusQuantityCount = () => {
@@ -52,7 +43,7 @@ export default function ProductsDetailInfomation({ products, user }) {
   const addCart = async () => {
     try {
       await axios.post(`/carts/`, {
-        product_id: products?.item?._id,
+        product_id: products?.item?.products_id,
         quantity: quantitycount,
       });
     } catch (err) {
@@ -61,75 +52,65 @@ export default function ProductsDetailInfomation({ products, user }) {
   };
 
   // 비회원 사용자의 장바구니 추가 차단
-  const addCartHandleler = event => {
-    if (!user?.accessToken) {
-      navigate("/carts");
-      return;
-    }
-    addCart();
-    const confirmNavigate = window.confirm(
-      `${products?.item?.name} ${quantitycount}개가 장바구니에 추가 되었습니다.\n` +
-        "장바구니로 이동하시겠습니까?",
-    );
-    if (!confirmNavigate) {
-      event.preventDefault(); // 사용자가 취소하면 링크 이동을 막음
-    }
-  };
-<<<<<<< HEAD:src/components/detail/ProductsDetailInfomation.jsx
-=======
-
-  // 상품 북마크 한건 조회
-  const fetchLike = async product_id => {
-    if (user) {
-      try {
-        const response = await axios.get(`bookmarks/product/${product_id}`);
-        setLike(response.data.item._id);
-      } catch (err) {
-        // setError(err);
-        console.error(err.response.data.item);
-        setLike(null);
-      }
-    }
-  };
+  // const addCartHandleler = event => {
+  //   if (!user?.accessToken) {
+  //     navigate("/carts");
+  //     return;
+  //   }
+  //   addCart();
+  //   const confirmNavigate = window.confirm(
+  //     `${products?.item?.name} ${quantitycount}개가 장바구니에 추가 되었습니다.\n` +
+  //       "장바구니로 이동하시겠습니까?",
+  //   );
+  //   if (!confirmNavigate) {
+  //     event.preventDefault(); // 사용자가 취소하면 링크 이동을 막음
+  //   }
+  // };
 
   // 상품 북마크에 추가/삭제
   const toggleLike = async () => {
     if (!like) {
+      // 찜 추가
       try {
         const response = await axios.post("/bookmarks/product", {
-          target_id: _id,
+          target_id: products_id,
         });
         setLike(response.data.item._id);
         alert("찜한 목록에 추가되었습니다.");
       } catch (err) {
-        setError(err);
+        console.error(err);
+        if (err.response) {
+          // 서버에서 반환한 에러 메시지 확인
+          alert(`찜 추가에 실패했습니다: ${err.response.data.message}`);
+        } else {
+          alert("찜 추가에 실패했습니다. 나중에 다시 시도해 주세요.");
+        }
       }
     } else {
+      // 찜 삭제
       try {
         const response = await axios.delete(`/bookmarks/${like}`);
-        console.log(response.data.item);
-        setLike(null);
-        alert("찜한 목록에서 삭제되었습니다.");
+        if (response.status === 200) {
+          setLike(null);
+          alert("찜한 목록에서 삭제되었습니다.");
+        }
       } catch (err) {
-        // setError(err);
-        console.error(err.response.data.item);
+        console.error(err.response?.data);
+        if (err.response) {
+          alert(`찜 삭제에 실패했습니다: ${err.response.data.message}`);
+        } else {
+          alert("찜 삭제에 실패했습니다. 나중에 다시 시도해 주세요.");
+        }
       }
     }
   };
 
-  // _id값 변경시 실행
-  useEffect(() => {
-    fetchProduct(); // 상품 정보 가져오기
-    setLoading(false); // 로딩 종료
-    fetchLike(_id);
-  }, []);
-
   // 상품의 현재 수량
   const productNowQuantity =
-    product?.item?.quantity - product?.item?.buyQuantity;
+    products?.item?.quantity - products?.item?.buyQuantity;
 
   // 메인 이미지 배열
-  const mainImages = product?.item?.mainImages;
+  const mainImages = products?.item?.mainImages;
 
   // 메인 이미지 개수
   const mainImagesLength = mainImages?.length;
@@ -138,13 +119,7 @@ export default function ProductsDetailInfomation({ products, user }) {
   const imgNowPages = 1 + imgcount;
 
   // 해당 상품 판매자 이름
-  const sellerName = product?.item?.seller?.name;
-
-  // 정상 작동이 안 될 시에 로딩, 에러 표시
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-  if (!product) return <div>상품 정보를 불러오는 중입니다...</div>;
->>>>>>> 064ba834035a7faa1a8ffdf31ec168ba5ec1f054:src/components/detail/DetailHeader.jsx
+  const sellerName = products?.item?.seller?.name;
   return (
     <main>
       <section name="detailHeader">
@@ -240,7 +215,7 @@ export default function ProductsDetailInfomation({ products, user }) {
                   <img src="/assets/icons/heart_empty.svg" alt="찜하기 버튼" />
                 )}
               </button>
-              <Link to="/carts" onClick={addCartHandleler}>
+              <Link to="/carts" onClick={addCart}>
                 <button className="h-[50px] py-[14px] px-9 border-2 border-gray2 rounded-lg border-solid box-border">
                   <p className="text-[18px] font-bold">장바구니</p>
                 </button>
@@ -258,12 +233,10 @@ export default function ProductsDetailInfomation({ products, user }) {
   );
 }
 
-<<<<<<< HEAD:src/components/detail/ProductsDetailInfomation.jsx
 ProductsDetailInfomation.propTypes = {
-=======
-DetailHeader.propTypes = {
-  _id: PropTypes.number.isRequired,
->>>>>>> 064ba834035a7faa1a8ffdf31ec168ba5ec1f054:src/components/detail/DetailHeader.jsx
+  products_id: PropTypes.number.isRequired,
   user: PropTypes.object.isRequired,
   products: PropTypes.object.isRequired,
+  setLike: PropTypes.func.isRequired,
+  like: PropTypes.array.isRequired,
 };
