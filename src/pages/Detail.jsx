@@ -93,6 +93,8 @@ export default function Detail() {
         _id={_id}
         setError={setError}
         fetchProduct={fetchProduct}
+        useState={useState}
+        setReviewContent={setReviewContent}
       />
       <AddReview
         reviewContent={reviewContent}
