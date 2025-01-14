@@ -77,8 +77,6 @@ export default function DetailHeader({ _id, user }) {
   // 상품 북마크 한건 조회
   const fetchLike = async product_id => {
     if (user) {
-      console.log(user);
-      console.log(product_id);
       try {
         const response = await axios.get(`bookmarks/product/${product_id}`);
         setLike(response.data.item._id);
@@ -94,10 +92,9 @@ export default function DetailHeader({ _id, user }) {
   const addLike = async () => {
     if (!like) {
       try {
-        const response = await axios.post("bookmarks/product", {
+        const response = await axios.post("/bookmarks/product", {
           target_id: _id,
         });
-        console.log(response.data.item);
         setLike(response.data.item._id);
       } catch (err) {
         setError(err);
@@ -120,8 +117,6 @@ export default function DetailHeader({ _id, user }) {
     setLoading(false); // 로딩 종료
     fetchLike(_id);
   }, []);
-
-  console.log(like);
 
   // 상품의 현재 수량
   const productNowQuantity =
@@ -263,6 +258,6 @@ export default function DetailHeader({ _id, user }) {
 }
 
 DetailHeader.propTypes = {
-  _id: PropTypes.string.isRequired,
+  _id: PropTypes.number.isRequired,
   user: PropTypes.object.isRequired,
 };
