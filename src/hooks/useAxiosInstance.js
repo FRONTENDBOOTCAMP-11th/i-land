@@ -48,7 +48,7 @@ export default function useAxiosInstance() {
     );
     // state 는 location 객체에 state 객체 > from 이라는 속성으로 추가
     gotoLogin &&
-      navigate("/user/login", { state: { from: location.pathname } })
+      navigate("/user/login", { state: { from: location.pathname } });
   }
   return instance;
 }

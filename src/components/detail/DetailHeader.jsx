@@ -8,6 +8,7 @@ export default function DetailHeader({ _id, user }) {
   const axios = useAxiosInstance();
   const navigate = useNavigate(); // 추가: useNavigate 훅
   const [cart, setCart] = useState([]); // 장바구니 상태
+  const [like, setLike] = useState(null); // 찜 상태
   const [loading, setLoading] = useState(true); // 로딩
   const [error, setError] = useState(null); // 에러
   const [product, setProduct] = useState(null); // 상품 초기값 null
@@ -72,11 +73,55 @@ export default function DetailHeader({ _id, user }) {
       event.preventDefault(); // 사용자가 취소하면 링크 이동을 막음
     }
   };
+
+  // 상품 북마크 한건 조회
+  const fetchLike = async product_id => {
+    if (user) {
+      console.log(user);
+      console.log(product_id);
+      try {
+        const response = await axios.get(`bookmarks/product/${product_id}`);
+        setLike(response.data.item._id);
+      } catch (err) {
+        // setError(err);
+        console.error(err.response.data.item);
+        setLike(null);
+      }
+    }
+  };
+
+  // 상품 북마크에 추가/삭제
+  const addLike = async () => {
+    if (!like) {
+      try {
+        const response = await axios.post("bookmarks/product", {
+          target_id: _id,
+        });
+        console.log(response.data.item);
+        setLike(response.data.item._id);
+      } catch (err) {
+        setError(err);
+      }
+    } else {
+      try {
+        const response = await axios.delete(`/bookmarks/${like}`);
+        console.log(response.data.item);
+        setLike(null);
+      } catch (err) {
+        // setError(err);
+        console.error(err.response.data.item);
+      }
+    }
+  };
+
   // _id값 변경시 실행
   useEffect(() => {
     fetchProduct(); // 상품 정보 가져오기
     setLoading(false); // 로딩 종료
-  }, [_id]);
+    fetchLike(_id);
+  }, []);
+
+  console.log(like);
 
   // 상품의 현재 수량
   const productNowQuantity =
@@ -137,7 +182,7 @@ export default function DetailHeader({ _id, user }) {
                 {sellerName}
               </p>
               <img
-                src="/src/assets/icons/chevron-right.svg"
+                src="/assets/icons/chevron-right.svg"
                 className="w-[6px] h-3"
               />
             </a>
@@ -185,11 +230,13 @@ export default function DetailHeader({ _id, user }) {
               </p>
             </div>
             <div className="flex justify-between">
-              <Link to="/bookmarks">
-                <button>
-                  <img src="/assets/icons/heart_full_blue.svg" alt="" />
-                </button>
-              </Link>
+              <button type="button" onClick={addLike}>
+                {like ? (
+                  <img src="/assets/icons/heart_full.svg" alt="찜한 상품" />
+                ) : (
+                  <img src="/assets/icons/heart_empty.svg" alt="찜하기 버튼" />
+                )}
+              </button>
               <Link to="/carts" onClick={addCartHandleler}>
                 <button className="h-[50px] py-[14px] px-9 border-2 border-gray2 rounded-lg border-solid box-border">
                   <p className="text-[18px] font-bold">장바구니</p>
