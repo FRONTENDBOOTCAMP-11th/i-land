@@ -11,7 +11,7 @@ export default function Main() {
   const { user } = useUserStore();
 
   // 찜한 상품 state
-  const [bookmarks, setBookmarks] = useState();
+  const [bookmarkList, setBookmarkList] = useState();
 
   // 인기 상품 state
   const [topProducts, setTopProducts] = useState();
@@ -24,19 +24,16 @@ export default function Main() {
 
   const axios = useAxiosInstance();
 
-  // 사용자 찜한 상품 목록 조회 API
-  const getBookmarkedItem = async _id => {
-    try {
-      const res = await axios.get(`/users/${_id}/bookmarks`);
-      const bookmarkData = res.data.item?.product;
-      let bookmarkList = [];
-      for (let i = 0; i < 10; i++) {
-        if (!bookmarkData[i]) break;
-        bookmarkList.push(bookmarkData[i].product);
+  // 사용자 찜한 상품 목록 조회 API(로그인 시에만)
+  const getBookmarkedItem = async () => {
+    if (user) {
+      try {
+        const res = await axios.get(`/bookmarks/product`);
+        const bookmarkList = res.data.item.map(index => index.product);
+        setBookmarkList(bookmarkList);
+      } catch (err) {
+        console.error(err.response.data.message);
       }
-      setBookmarks(bookmarkList);
-    } catch (err) {
-      console.error(err.response.data.message);
     }
   };
 
@@ -89,7 +86,7 @@ export default function Main() {
   };
 
   useEffect(() => {
-    getBookmarkedItem(user?._id);
+    getBookmarkedItem();
     getTopProducts();
     getNewProducts();
     getTopSellers();
@@ -102,7 +99,7 @@ export default function Main() {
       <CategorySection />
 
       {/* 찜한 목록 - 로그인 이후 표시 */}
-      {user && <MainProductList label="찜한 목록" data={bookmarks} />}
+      {user && <MainProductList label="찜한 목록" data={bookmarkList} />}
 
       {/* 인기 상품 */}
       <MainProductList label="인기 상품" data={topProducts} />
