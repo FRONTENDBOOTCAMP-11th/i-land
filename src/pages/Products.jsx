@@ -82,7 +82,10 @@ export default function Products() {
         <h1 className="page-title">카테고리별 상품 리스트</h1>
       </header>
 
-      <CategorySection onCategorySelect={handleCategoryClick} />
+      <CategorySection
+        onCategorySelect={handleCategoryClick}
+        selectedCategory={selectedCategory}
+      />
 
       <section>
         <h2 className="section-title">

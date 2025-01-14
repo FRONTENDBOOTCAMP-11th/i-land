@@ -6,7 +6,10 @@ import useAxiosInstance from "@hooks/useAxiosInstance";
 
 import CategoryCard from "@components/common/CategoryCard";
 
-export default function CategorySection({ onCategorySelect }) {
+export default function CategorySection({
+  onCategorySelect,
+  selectedCategory,
+}) {
   const location = useLocation();
 
   const axios = useAxiosInstance();
@@ -35,8 +38,9 @@ export default function CategorySection({ onCategorySelect }) {
     <section className="mb-[70px]">
       {isMainPage && <h2 className="section-title">카테고리</h2>}
       <ul className="grid grid-flow-col grid-cols-6 gap-8">
-        {categories.map(category =>
-          isMainPage ? (
+        {categories.map(category => {
+          const isSelected = selectedCategory === category.code;
+          return isMainPage ? (
             <Link
               key={category.code}
               to={`/products?custom=${encodeURIComponent(
@@ -47,6 +51,7 @@ export default function CategorySection({ onCategorySelect }) {
                 categoryIconSrc={category.path}
                 categoryName={category.code}
                 categoryText={category.value}
+                isSelected={isSelected}
               />
             </Link>
           ) : (
@@ -55,10 +60,11 @@ export default function CategorySection({ onCategorySelect }) {
               categoryIconSrc={category.path}
               categoryName={category.code}
               categoryText={category.value}
+              isSelected={isSelected}
               onClick={() => handleCategoryClick(category.code)}
             />
-          ),
-        )}
+          );
+        })}
       </ul>
     </section>
   );
@@ -66,4 +72,5 @@ export default function CategorySection({ onCategorySelect }) {
 
 CategorySection.propTypes = {
   onCategorySelect: PropTypes.func,
+  selectedCategory: PropTypes.string,
 };
