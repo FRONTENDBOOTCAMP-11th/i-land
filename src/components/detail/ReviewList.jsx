@@ -13,10 +13,12 @@ export default function ReviewList({
   };
 
   // 구매 후기 수정 (/replies/{_id})
-  const patchReview = async () => {
+  const patchReview = async reply_id => {
     try {
-      const response = await axios.get(`/replies/{_id}`);
-      setProduct(response?.data);
+      await axios.patch(`/replies/${reply_id}`, {
+        content: "하루만에 고장났지만 다시 보내줬어요",
+      });
+      fetchProduct();
     } catch (err) {
       setError(err);
     }
@@ -31,6 +33,11 @@ export default function ReviewList({
       setError(err);
     }
   };
+
+  const patchReviewHandleler = () => {
+    
+  };
+
   return (
     <div name="reviewBox" className="flex flex-col mb-20 gap-y-7">
       <div className="flex flex-col gap-y-5">
@@ -54,7 +61,10 @@ export default function ReviewList({
               <p className="text-[16px]">{review.content}</p>
               {user?.accessToken && user._id === review.user?._id && (
                 <div className="flex gap-[20px]">
-                  <button className="h-[50px] py-[14px] px-9 text-[18px] font-bold border border-solid border-gray2 rounded-lg">
+                  <button
+                    className="h-[50px] py-[14px] px-9 text-[18px] font-bold border border-solid border-gray2 rounded-lg"
+                    onClick={() => patchReview(review._id)}
+                  >
                     수정
                   </button>
                   <button
