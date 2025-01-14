@@ -1,13 +1,23 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function SearchNoResult() {
+  const navigate = useNavigate();
+
+  // 이전 페이지로 돌아가는 함수
+  const handleGoBack = () => {
+    navigate(-1); // 이전 페이지로 이동
+  };
+
   return (
     <div className="mt-[110px] flex flex-col items-center gap-[30px]">
       <img src="/src/assets/images/error.png" alt="검색 결과 없음" />
       <p className="text-[24px] font-bold">검색 결과가 없어요 😭</p>
-      <Link to="/" className="text-blue-500 underline">
-        홈으로 돌아가기
-      </Link>
+      <button
+        onClick={handleGoBack}
+        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+      >
+        이전 페이지로 돌아가기
+      </button>
     </div>
   );
 }
