@@ -67,7 +67,7 @@ export default function Detail() {
   useEffect(() => {
     fetchProduct(); // 상품 정보 가져오기
     setLoading(false); // 로딩 종료
-  }, [_id]);
+  }, [0]);
   // 정상 작동이 안 될 시에 로딩, 에러 표시
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;

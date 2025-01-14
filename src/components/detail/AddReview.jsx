@@ -33,8 +33,6 @@ export default function AddReview({
 }
 
 AddReview.propTypes = {
-  _id: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
   setReviewContent: PropTypes.func.isRequired,
   addReview: PropTypes.func.isRequired,
   reviewContent: PropTypes.string.isRequired,

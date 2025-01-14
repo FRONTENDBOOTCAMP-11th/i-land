@@ -179,12 +179,7 @@ export default function ProductsDetailInfomation({ products, user, setError }) {
 }
 
 ProductsDetailInfomation.propTypes = {
-  _id: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
-  setLoading: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
-  error: PropTypes.string.isRequired,
-  fetchProduct: PropTypes.func.isRequired,
-  products: PropTypes.string.isRequired,
+  products: PropTypes.object.isRequired,
 };

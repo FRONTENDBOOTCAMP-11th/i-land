@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
 
 export default function ProductsExplanation({ products }) {
   return (
@@ -11,5 +10,5 @@ export default function ProductsExplanation({ products }) {
 }
 
 ProductsExplanation.propTypes = {
-  products: PropTypes.string.isRequired,
+  products: PropTypes.object.isRequired,
 };
