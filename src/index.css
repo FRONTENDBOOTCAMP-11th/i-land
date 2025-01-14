@@ -26,6 +26,14 @@
 }
 
 @layer components {
+  .layout-container {
+    @apply flex flex-col min-h-screen;
+  }
+
+  .layout-main {
+    @apply flex-grow;
+  }
+
   .page-title {
     @apply text-[32px] leading-none font-bold text-black mb-[60px];
   }
