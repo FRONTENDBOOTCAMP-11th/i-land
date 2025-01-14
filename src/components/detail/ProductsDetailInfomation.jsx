@@ -7,6 +7,14 @@ import { useNavigate } from "react-router-dom"; // 추가: React Router
 export default function ProductsDetailInfomation({ products, user }) {
   const axios = useAxiosInstance();
   const navigate = useNavigate(); // 추가: useNavigate 훅
+<<<<<<< HEAD:src/components/detail/ProductsDetailInfomation.jsx
+=======
+  const [cart, setCart] = useState([]); // 장바구니 상태
+  const [like, setLike] = useState(null); // 찜 상태
+  const [loading, setLoading] = useState(true); // 로딩
+  const [error, setError] = useState(null); // 에러
+  const [product, setProduct] = useState(null); // 상품 초기값 null
+>>>>>>> 064ba834035a7faa1a8ffdf31ec168ba5ec1f054:src/components/detail/DetailHeader.jsx
   const [quantitycount, setQuantityCount] = useState(1); // 상품 수량 초기값 1로 설정
   const [imgcount, setImgCount] = useState(0); // 상품 메인 이미지 배열[0]을 초기값으로 설정
   const mainImages = products?.item?.mainImages; // 메인 이미지 배열
@@ -67,6 +75,76 @@ export default function ProductsDetailInfomation({ products, user }) {
       event.preventDefault(); // 사용자가 취소하면 링크 이동을 막음
     }
   };
+<<<<<<< HEAD:src/components/detail/ProductsDetailInfomation.jsx
+=======
+
+  // 상품 북마크 한건 조회
+  const fetchLike = async product_id => {
+    if (user) {
+      try {
+        const response = await axios.get(`bookmarks/product/${product_id}`);
+        setLike(response.data.item._id);
+      } catch (err) {
+        // setError(err);
+        console.error(err.response.data.item);
+        setLike(null);
+      }
+    }
+  };
+
+  // 상품 북마크에 추가/삭제
+  const toggleLike = async () => {
+    if (!like) {
+      try {
+        const response = await axios.post("/bookmarks/product", {
+          target_id: _id,
+        });
+        setLike(response.data.item._id);
+        alert("찜한 목록에 추가되었습니다.");
+      } catch (err) {
+        setError(err);
+      }
+    } else {
+      try {
+        const response = await axios.delete(`/bookmarks/${like}`);
+        console.log(response.data.item);
+        setLike(null);
+        alert("찜한 목록에서 삭제되었습니다.");
+      } catch (err) {
+        // setError(err);
+        console.error(err.response.data.item);
+      }
+    }
+  };
+
+  // _id값 변경시 실행
+  useEffect(() => {
+    fetchProduct(); // 상품 정보 가져오기
+    setLoading(false); // 로딩 종료
+    fetchLike(_id);
+  }, []);
+
+  // 상품의 현재 수량
+  const productNowQuantity =
+    product?.item?.quantity - product?.item?.buyQuantity;
+
+  // 메인 이미지 배열
+  const mainImages = product?.item?.mainImages;
+
+  // 메인 이미지 개수
+  const mainImagesLength = mainImages?.length;
+
+  // 메인 이미지의 현재 배열
+  const imgNowPages = 1 + imgcount;
+
+  // 해당 상품 판매자 이름
+  const sellerName = product?.item?.seller?.name;
+
+  // 정상 작동이 안 될 시에 로딩, 에러 표시
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+  if (!product) return <div>상품 정보를 불러오는 중입니다...</div>;
+>>>>>>> 064ba834035a7faa1a8ffdf31ec168ba5ec1f054:src/components/detail/DetailHeader.jsx
   return (
     <main>
       <section name="detailHeader">
@@ -106,7 +184,7 @@ export default function ProductsDetailInfomation({ products, user }) {
                 {sellerName}
               </p>
               <img
-                src="/src/assets/icons/chevron-right.svg"
+                src="/assets/icons/chevron-right.svg"
                 className="w-[6px] h-3"
               />
             </a>
@@ -155,11 +233,13 @@ export default function ProductsDetailInfomation({ products, user }) {
               </p>
             </div>
             <div className="flex justify-between">
-              <Link to="/bookmarks">
-                <button>
-                  <img src="/assets/icons/heart_full_blue.svg" alt="" />
-                </button>
-              </Link>
+              <button type="button" onClick={toggleLike}>
+                {like ? (
+                  <img src="/assets/icons/heart_full.svg" alt="찜한 상품" />
+                ) : (
+                  <img src="/assets/icons/heart_empty.svg" alt="찜하기 버튼" />
+                )}
+              </button>
               <Link to="/carts" onClick={addCartHandleler}>
                 <button className="h-[50px] py-[14px] px-9 border-2 border-gray2 rounded-lg border-solid box-border">
                   <p className="text-[18px] font-bold">장바구니</p>
@@ -178,7 +258,12 @@ export default function ProductsDetailInfomation({ products, user }) {
   );
 }
 
+<<<<<<< HEAD:src/components/detail/ProductsDetailInfomation.jsx
 ProductsDetailInfomation.propTypes = {
+=======
+DetailHeader.propTypes = {
+  _id: PropTypes.number.isRequired,
+>>>>>>> 064ba834035a7faa1a8ffdf31ec168ba5ec1f054:src/components/detail/DetailHeader.jsx
   user: PropTypes.object.isRequired,
   products: PropTypes.object.isRequired,
 };
