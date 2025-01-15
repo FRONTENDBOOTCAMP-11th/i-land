@@ -1,3 +1,7 @@
+import { useEffect } from "react";
+
+import useSearchStore from "@zustand/useSearchStore";
+
 export default function Search() {
   const { isSearchOpen, closeSearch } = useSearchStore();
 
@@ -19,9 +23,9 @@ export default function Search() {
   if (!isSearchOpen) return null;
 
   return (
-    <div className="fixed inset-0 px-[100px] mt-[30px] mb-[10px] flex flex-col bg-white">
-      <div className="flex items-center justify-end">
-        <button>
+    <div className="fixed inset-0 px-[100px] flex flex-col bg-white z-50">
+      <div className="flex items-center justify-end mt-[30px] mb-[10px]">
+        <button onClick={closeSearch}>
           <img
             className="w-5 h-5"
             src="/assets/icons/close.svg"
@@ -47,54 +51,53 @@ export default function Search() {
             </button>
           </div>
 
-            <div className="mb-[50px]">
-              <h2 className="section-title">최근 검색어</h2>
-              <div className="flex flex-wrap gap-[20px]">
-                {[
-                  "기이이이이이이이인 검색어",
-                  "짧은거",
-                  "기이이이이이이이인 검색어",
-                  "짧은거",
-                  "기이이이이이이이인 검색어",
-                  "짧은거",
-                  "짧은거",
-                  "짧은거",
-                  "짧은거",
-                  "짧은거",
-                ].map((item, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-2 px-3 py-1 text-[16px] text-white rounded-full bg-point-blue"
-                  >
-                    <span>{item}</span>
-                    <button className="text-white">
-                      <img src="/assets/icons/close-sm.svg" alt="Close Chips" />
-                    </button>
-                  </div>
-                ))}
-              </div>
+          <div className="mb-[50px]">
+            <h2 className="section-title">최근 검색어</h2>
+            <div className="flex flex-wrap gap-[20px]">
+              {[
+                "기이이이이이이이인 검색어",
+                "짧은거",
+                "기이이이이이이이인 검색어",
+                "짧은거",
+                "기이이이이이이이인 검색어",
+                "짧은거",
+                "짧은거",
+                "짧은거",
+                "짧은거",
+                "짧은거",
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-2 px-3 py-1 text-[16px] text-white rounded-full bg-point-blue"
+                >
+                  <span>{item}</span>
+                  <button className="text-white">
+                    <img src="/assets/icons/close-sm.svg" alt="Close Chips" />
+                  </button>
+                </div>
+              ))}
             </div>
+          </div>
 
-            <div>
-              <h2 className="section-title">인기 검색어</h2>
-              <div className="flex flex-wrap gap-[20px]">
-                {[
-                  "아무 검색어 추천",
-                  "아무 검색어",
-                  "역시 아무 검색어나 입력함",
-                ].map((item, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-2 px-3 py-1 text-[16px] text-white rounded-full bg-point-blue"
-                  >
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
+          <div>
+            <h2 className="section-title">인기 검색어</h2>
+            <div className="flex flex-wrap gap-[20px]">
+              {[
+                "아무 검색어 추천",
+                "아무 검색어",
+                "역시 아무 검색어나 입력함",
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-2 px-3 py-1 text-[16px] text-white rounded-full bg-point-blue"
+                >
+                  <span>{item}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -10,11 +10,10 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
+      <Search />
       <HelmetProvider>
         <RouterProvider router={router} future={{ v7_startTransition: true }} />
       </HelmetProvider>
-      <Search />
-      <RouterProvider router={router} future={{ v7_startTransition: true }} />
     </QueryClientProvider>
   );
 }

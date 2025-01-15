@@ -8,7 +8,7 @@ import ProfileDropdown from "@components/common/ProfileDropdown";
 
 export default function Header() {
   const { user } = useUserStore();
-  const { openSearch, isSearchOpen } = useSearchStore();
+  const { openSearch } = useSearchStore();
 
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
