@@ -78,13 +78,13 @@ export default function ReviewList({ user, ProductsReview, fetchProduct }) {
                   />
                   <div className="flex gap-[20px]">
                     <button
-                      className="w-[105px] h-[50px] py-[14px] px-9 text-[18px] font-bold border border-solid border-gray2 rounded-lg"
+                      className="w-[110px] h-[50px] py-[14px] px-9 text-[18px] font-bold border border-solid border-gray2 rounded-lg"
                       onClick={() => handleSave(review._id)} // 저장 버튼
                     >
                       저장
                     </button>
                     <button
-                      className="w-[105px] h-[50px] py-[14px] px-9 text-[18px] font-bold text-white bg-point-red rounded-lg"
+                      className="w-[110px] h-[50px] py-[14px] px-9 text-[18px] font-bold text-white bg-point-red rounded-lg"
                       onClick={handleCancel} // 취소 버튼
                     >
                       취소
