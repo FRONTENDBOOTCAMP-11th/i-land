@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
-
+// import { useEffect, useState } from "react";
+// import { useNavigate, useLocation } from "react-router-dom";
 import SearchNoResult from "@components/search/SearchNoResult";
 
 SearchResults.propTypes = {
