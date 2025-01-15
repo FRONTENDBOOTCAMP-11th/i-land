@@ -23,6 +23,10 @@ export default function ReviewList({ user, ProductsReview, fetchProduct }) {
 
   // 상품 후기 삭제 (/replies/{_id})
   const deleteProductReview = async reply_id => {
+    const confirmDeleteReview = window.confirm(
+      "작성하신 상품 후기를 삭제하시겠습니까?",
+    );
+    if (!confirmDeleteReview) return;
     try {
       await axios.delete(`replies/${reply_id}`);
       fetchProduct();
