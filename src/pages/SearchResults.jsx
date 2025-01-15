@@ -42,7 +42,6 @@ export default function SearchResults() {
     <>
       <Helmet>
         <title>{keyword} 검색 결과 - ILAND</title>
-
         <meta property="og:title" content={`${keyword} 검색 결과 - ILAND`} />
         <meta
           property="og:description"

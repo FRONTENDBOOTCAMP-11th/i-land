@@ -1,13 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import useSearchStore from "@zustand/useSearchStore";
+import SearchRecents from "@components/search/SearchRecents";
+import SearchPopulars from "@components/search/SearchPopulars";
 
 export default function Search() {
   const [keyword, setKeyword] = useState("");
   const navigate = useNavigate();
+  const inputRef = useRef(null); // Input에 접근하기 위한 ref
 
   const { isSearchOpen, closeSearch } = useSearchStore();
+
+  const recentKeywords = ["개발 예정입니다", "시간이 없어요"];
+  const popularKeywords = ["나좀 살려줘", "이거 다 개발하고 싶어"];
 
   useEffect(() => {
     if (isSearchOpen) {
@@ -35,6 +41,13 @@ export default function Search() {
     }
   };
 
+  const handleInputClear = () => {
+    setKeyword("");
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
   if (!isSearchOpen) return null;
 
   return (
@@ -55,6 +68,7 @@ export default function Search() {
             <input
               type="text"
               className="w-full py-[18px] text-2xl leading-none border-b-4 border-solid border-gray3 focus-within:border-point-blue focus:outline-none"
+              ref={inputRef}
               value={keyword}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
@@ -62,7 +76,7 @@ export default function Search() {
             />
             <button
               className="flex items-center justify-center -ml-5"
-              onClick={() => setKeyword("")}
+              onClick={handleInputClear}
             >
               <img
                 className="w-5 h-5"
@@ -72,51 +86,9 @@ export default function Search() {
             </button>
           </div>
 
-          <div className="mb-[50px]">
-            <h2 className="section-title">최근 검색어</h2>
-            <div className="flex flex-wrap gap-[20px]">
-              {[
-                "기이이이이이이이인 검색어",
-                "짧은거",
-                "기이이이이이이이인 검색어",
-                "짧은거",
-                "기이이이이이이이인 검색어",
-                "짧은거",
-                "짧은거",
-                "짧은거",
-                "짧은거",
-                "짧은거",
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-2 px-3 py-1 text-[16px] text-white rounded-full bg-point-blue"
-                >
-                  <span>{item}</span>
-                  <button className="text-white">
-                    <img src="/assets/icons/close-sm.svg" alt="Close Chips" />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
+          <SearchRecents items={recentKeywords} onRemove={console.log} />
 
-          <div>
-            <h2 className="section-title">인기 검색어</h2>
-            <div className="flex flex-wrap gap-[20px]">
-              {[
-                "아무 검색어 추천",
-                "아무 검색어",
-                "역시 아무 검색어나 입력함",
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-2 px-3 py-1 text-[16px] text-white rounded-full bg-point-blue"
-                >
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          <SearchPopulars items={popularKeywords} />
         </div>
       </div>
     </div>
