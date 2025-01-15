@@ -59,7 +59,7 @@ export default function ReviewList({ user, ProductsReview, fetchProduct }) {
         {ProductsReview?.map(review => (
           <div
             key={review._id}
-            className={`flex flex-col p-10 border-solid rounded-lg ${editingReviewId === review._id ? "border-2" : "border border-gray1"}`}
+            className={`flex flex-col p-10 border-solid rounded-lg ${editingReviewId === review._id ? " border-4 border-point-blue" : "border border-gray1"}`}
           >
             <div className="flex justify-between mb-5">
               <div className="flex items-center gap-x-4">
@@ -82,16 +82,16 @@ export default function ReviewList({ user, ProductsReview, fetchProduct }) {
                   />
                   <div className="flex gap-[20px]">
                     <button
-                      className="w-[110px] h-[50px] py-[14px] px-9 text-[18px] font-bold border rounded-lg text-white bg-point-blue"
-                      onClick={() => handleSave(review._id)} // 저장 버튼
-                    >
-                      저장
-                    </button>
-                    <button
                       className="w-[110px] h-[50px] py-[14px] px-9 text-[18px] font-bold text-white bg-point-red rounded-lg"
                       onClick={handleCancel} // 취소 버튼
                     >
                       취소
+                    </button>
+                    <button
+                      className="w-[110px] h-[50px] py-[14px] px-9 text-[18px] font-bold border rounded-lg text-white bg-point-blue"
+                      onClick={() => handleSave(review._id)} // 저장 버튼
+                    >
+                      저장
                     </button>
                   </div>
                 </>
