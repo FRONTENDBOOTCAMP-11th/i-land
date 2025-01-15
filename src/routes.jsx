@@ -2,8 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 
 import Layout from "@components/layout";
 import Main from "@pages/Main";
-import Login from "@pages/user/Login";
-import Signup from "@pages/user/Signup";
+import Login from "@pages/users/Login";
+import Signup from "@pages/users/Signup";
 import Search from "@pages/Search";
 import SearchResults from "@pages/SearchResults";
 import Bookmarks from "@pages/Bookmarks";
@@ -12,6 +12,7 @@ import Carts from "@pages/Carts";
 import Products from "@pages/Products";
 import Detail from "@pages/Detail";
 import PrivateRoute from "@components/common/PrivateRoute";
+import LoginKakao from "@pages/users/LoginKakao";
 
 const router = createBrowserRouter(
   [
@@ -20,8 +21,17 @@ const router = createBrowserRouter(
       element: <Layout />,
       children: [
         { index: true, element: <Main /> },
-        { path: "user/login", element: <Login /> },
-        { path: "user/signup", element: <Signup /> },
+        {
+          path: "users/login",
+          element: <Login />,
+          children: [
+            {
+              path: "kakao",
+              element: <LoginKakao />,
+            },
+          ],
+        },
+        { path: "users/signup", element: <Signup /> },
         { path: "search", element: <Search /> },
         { path: "search/results", element: <SearchResults /> },
         {

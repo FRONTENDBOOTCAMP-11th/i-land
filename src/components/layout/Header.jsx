@@ -51,7 +51,7 @@ export default function Header() {
             {dropdownVisible && <ProfileDropdown />}
           </button>
         ) : (
-          <Link to="/user/login" className="font-bold">
+          <Link to="/users/login" className="font-bold">
             로그인/회원가입
           </Link>
         )}

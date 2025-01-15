@@ -42,7 +42,7 @@ export default function Detail() {
       if (!goLogin) {
         return;
       } else {
-        navigate("/user/login");
+        navigate("/users/login");
         return;
       }
     } else if (content?.trim() === "") {

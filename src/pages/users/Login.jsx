@@ -15,6 +15,12 @@ const passwordRegex = /^.{8,}$/;
 // 로그인 정보 암호화 및 복호화 passkey
 const passKey = "11111111";
 
+// 카카오 로그인 관련 변수
+const JS_KEY = "4acd22929119c6a0ce382ad711087dd4";
+const INTEGRITY_VALUE =
+  "sha384-DKYJZ8NLiK8MN4/C5P2dtSmLQ4KwPaoqAfyA/DfmEc1VDxu4yyC7wy6K1Hs90nka";
+const REDIRECT_URI = `${window.location.origin}/users/login/kakao`;
+
 export default function Login() {
   // 로그인 상태 저장(전역 상태 관리)
   const setUser = useUserStore(store => store.setUser);
@@ -99,11 +105,33 @@ export default function Login() {
       } else if (err.response.status >= 500) {
         // 서버 에러 500
         alert("잠시 후 다시 시도해주세요.");
-        navigate("/user/login");
+        navigate("/users/login");
       }
     }
   };
 
+  const useKakaoLogin = async () => {
+    Kakao.init(JS_KEY);
+    Kakao.Auth.authorize({
+      redirectUri: REDIRECT_URI,
+    });
+  };
+
+  const code = new URLSearchParams(window.location.search).get("code");
+  if (code) {
+    console.log(code);
+    try {
+      const res = axios.post("/users/login/kakao", {
+        code: code,
+        redirect_uri: REDIRECT_URI,
+        user: {},
+      });
+      const user = res.data.item;
+      console.log(user);
+    } catch (err) {
+      console.error(err);
+    }
+  }
   // 화면 렌더링
   return (
     <>
@@ -188,6 +216,7 @@ export default function Login() {
             <button
               type="button"
               className="size-full focus:outline-none cursor-pointer bg-[url('/assets/icons/kakao-login.svg')] bg-cover"
+              onClick={useKakaoLogin}
             />
           </div>
 
@@ -195,7 +224,7 @@ export default function Login() {
             <button
               type="button"
               className="cursor-pointer size-full focus:outline-none"
-              onClick={() => navigate("/user/signup")}
+              onClick={() => navigate("/users/signup")}
             >
               회원가입
             </button>

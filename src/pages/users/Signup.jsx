@@ -65,7 +65,7 @@ export default function Signup() {
         console.log(res);
         // 얼럿 출력 후 로그인 페이지로 이동
         alert("회원가입이 완료됐습니다.");
-        navigate("/user/login");
+        navigate("/users/login");
       } catch (err) {
         console.error(err.response.status);
         if (err.response.status === 500) {
