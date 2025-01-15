@@ -81,14 +81,14 @@ export default function CartsBox({
                     />
                   </Link>
                 </div>
-                <div className="flex flex-col gap-y-[14px] self-center grow">
+                <div className="flex flex-col gap-y-[14px] self-center grow max-w-[500px] overflow-hidden">
                   <a href="">
-                    <p className="text-gray3 text-[18px] not-italic font-normal">
+                    <p className="text-gray3 text-[18px] not-italic font-normal line-clamp-2">
                       {sellerName}
                     </p>
                   </a>
                   <Link to={`/products/${productItem?._id}`}>
-                    <p className="text-black text-[32px] not-italic font-bold">
+                    <p className="text-black text-[32px] not-italic font-bold line-clamp-2">
                       {`${cartlist.product.name}`}
                     </p>
                   </Link>
