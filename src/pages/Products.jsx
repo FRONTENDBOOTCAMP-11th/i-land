@@ -80,15 +80,15 @@ export default function Products() {
   return (
     <>
       <Helmet>
-        <title>{categoryValue} 상품 리스트 - I-LAND</title>
+        <title>{categoryValue} 상품 리스트 - ILAND</title>
 
         <meta
           property="og:title"
-          content={`${categoryValue} 상품 리스트 - I-LAND`}
+          content={`${categoryValue} 상품 리스트 - ILAND`}
         />
         <meta
           property="og:description"
-          content="I-LAND에서 내 취향을 모아보세요."
+          content="ILAND에서 내 취향을 모아보세요."
         />
       </Helmet>
       <div className="container">

@@ -89,12 +89,12 @@ export default function Bookmarks() {
   return (
     <>
       <Helmet>
-        <title>찜한 상품 - I-LAND</title>
+        <title>찜한 상품 - ILAND</title>
 
-        <meta property="og:title" content="찜한 상품 - I-LAND" />
+        <meta property="og:title" content="찜한 상품 - ILAND" />
         <meta
           property="og:description"
-          content="I-LAND에서 내 취향을 모아보세요."
+          content="ILAND에서 내 취향을 모아보세요."
         />
       </Helmet>
       <div className="container">

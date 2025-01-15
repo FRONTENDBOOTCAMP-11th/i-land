@@ -96,12 +96,12 @@ export default function Main() {
   return (
     <>
       <Helmet>
-        <title>내 취향을 위한 공간 - I-LAND</title>
+        <title>내 취향을 위한 공간 - ILAND</title>
 
-        <meta property="og:title" content="홈 - I-LAND" />
+        <meta property="og:title" content="홈 - ILAND" />
         <meta
           property="og:description"
-          content="I-LAND에서 내 취향을 모아보세요."
+          content="ILAND에서 내 취향을 모아보세요."
         />
       </Helmet>
       <div className="container">

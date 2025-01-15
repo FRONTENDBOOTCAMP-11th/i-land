@@ -93,12 +93,12 @@ export default function Detail() {
   return (
     <>
       <Helmet>
-        <title>{products.item.name} - I-LAND</title>
+        <title>{products.item.name} - ILAND</title>
 
-        <meta property="og:title" content={`${products.item.name} - I-LAND`} />
+        <meta property="og:title" content={`${products.item.name} - ILAND`} />
         <meta
           property="og:description"
-          content="I-LAND에서 내 취향을 모아보세요."
+          content="ILAND에서 내 취향을 모아보세요."
         />
       </Helmet>
       <main className="container px-24 py-5 bg-white">

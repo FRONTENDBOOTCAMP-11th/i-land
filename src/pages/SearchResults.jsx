@@ -11,12 +11,12 @@ export default function SearchResults({ results = [1] }) {
   return (
     <>
       <Helmet>
-        <title>{results} 검색 결과 - I-LAND</title>
+        <title>{results} 검색 결과 - ILAND</title>
 
-        <meta property="og:title" content={`${results} 검색 결과 - I-LAND`} />
+        <meta property="og:title" content={`${results} 검색 결과 - ILAND`} />
         <meta
           property="og:description"
-          content="I-LAND에서 내 취향을 모아보세요."
+          content="ILAND에서 내 취향을 모아보세요."
         />
       </Helmet>
       <div className="container">

@@ -108,12 +108,12 @@ export default function Login() {
   return (
     <>
       <Helmet>
-        <title>로그인 - I-LAND</title>
+        <title>로그인 - ILAND</title>
 
-        <meta property="og:title" content="로그인 - I-LAND" />
+        <meta property="og:title" content="로그인 - ILAND" />
         <meta
           property="og:description"
-          content="I-LAND에서 내 취향을 모아보세요."
+          content="ILAND에서 내 취향을 모아보세요."
         />
       </Helmet>
       <div className="container">

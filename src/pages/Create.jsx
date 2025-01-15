@@ -56,12 +56,12 @@ export default function Create() {
   return (
     <>
       <Helmet>
-        <title>상품 등록 - I-LAND</title>
+        <title>상품 등록 - ILAND</title>
 
-        <meta property="og:title" content="상품 등록 - I-LAND" />
+        <meta property="og:title" content="상품 등록 - ILAND" />
         <meta
           property="og:description"
-          content="I-LAND에서 내 취향을 모아보세요."
+          content="ILAND에서 내 취향을 모아보세요."
         />
       </Helmet>
       <div className="container">
