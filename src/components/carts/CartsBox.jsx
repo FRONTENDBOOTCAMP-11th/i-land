@@ -60,7 +60,7 @@ export default function CartsBox({
               key={cartlist._id}
               className="relative h-[282px] p-[40px] flex justify-between border border-solid border-gray2 rounded-[8px]"
             >
-              <div className="flex gap-x-[60px]">
+              <div className="flex gap-x-[60px] grow-3">
                 <div>
                   <label className="mb-[20px] flex gap-[10px] items-center text-[14px]">
                     <input
@@ -81,7 +81,7 @@ export default function CartsBox({
                     />
                   </Link>
                 </div>
-                <div className="flex flex-col gap-y-[14px] self-center">
+                <div className="flex flex-col gap-y-[14px] self-center grow">
                   <a href="">
                     <p className="text-gray3 text-[18px] not-italic font-normal">
                       {sellerName}
@@ -100,12 +100,12 @@ export default function CartsBox({
                   </p>
                 </div>
               </div>
-              <div className="font-bold items-center text-[18px] flex gap-x-2">
+              <div className="font-bold items-center text-[18px] flex gap-x-2 grow-1">
                 <button onClick={() => patchQuantityMinusCart(cartlist._id)}>
                   <img src="/assets/icons/minus.svg" alt="" />
                 </button>
                 <input
-                  className="text-center border border-solid rounded w-7 h-7 border-gray2"
+                  className="text-center border border-solid rounded w-[28px] h-[28px] border-gray2"
                   type="text"
                   value={cartlist.quantity}
                   name="countUp"
