@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
-import { useState } from "react"; // useState 추가
+import { useState, useRef, useEffect } from "react";
+
 import useAxiosInstance from "@hooks/useAxiosInstance";
 
 export default function ReviewList({ user, ProductsReview, fetchProduct }) {
@@ -43,7 +44,7 @@ export default function ReviewList({ user, ProductsReview, fetchProduct }) {
     setEditingReviewId(review._id); // 수정할 리뷰 ID 설정
     setEditedContent(review.content); // 해당 리뷰 내용 설정
   };
-
+  // 수정 저장장
   const handleSave = reviewId => {
     const confirmSaveChanges =
       window.confirm("변경된 내용을 저장하시겠습니까?");
@@ -51,11 +52,17 @@ export default function ReviewList({ user, ProductsReview, fetchProduct }) {
     patchReview(reviewId, editedContent); // 수정된 내용으로 패치
     setEditingReviewId(null); // 수정 완료 후 수정 상태 초기화
   };
-
+  // 수정 취소
   const handleCancel = () => {
-    setEditingReviewId(null); // 수정 취소
+    setEditingReviewId(null);
   };
 
+  const textareaRef = useRef(null);
+  useEffect(() => {
+    if (editingReviewId) {
+      textareaRef.current?.focus();
+    }
+  }, [editingReviewId]);
   return (
     <div name="reviewBox" className="flex flex-col mb-20 gap-y-7">
       <div className="flex flex-col gap-y-5">
@@ -75,11 +82,12 @@ export default function ReviewList({ user, ProductsReview, fetchProduct }) {
               </div>
               <p className="text-[16px]">{formatDate(review.createdAt)}</p>
             </div>
-            <div className="flex justify-between">
+            <div className="flex items-center gap-[20px] justify-between">
               {editingReviewId === review._id ? (
                 <>
                   <textarea
-                    className="w-full h-full placeholder-black text-[16px] resize-none"
+                    ref={textareaRef} // ref를 textarea에 연결
+                    className="w-full h-full placeholder-black text-[16px] resize-none outline-point-blue"
                     value={editedContent}
                     onChange={e => setEditedContent(e.target.value)}
                   />
