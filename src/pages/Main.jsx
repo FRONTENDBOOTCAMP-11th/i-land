@@ -5,6 +5,7 @@ import useUserStore from "@zustand/userStore";
 import { useEffect, useState } from "react";
 import CategorySection from "@components/common/CategorySection";
 import TopSellerList from "@components/main/TopSellerList";
+import { Helmet } from "react-helmet-async";
 
 export default function Main() {
   // TODO 1: 로그인 상태가 아닌 경우, 찜한 상품 영역 표시 X
@@ -93,22 +94,33 @@ export default function Main() {
   }, []);
 
   return (
-    <div className="container">
-      <MainBanner />
+    <>
+      <Helmet>
+        <title>내 취향을 위한 공간 - ILAND</title>
 
-      <CategorySection />
+        <meta property="og:title" content="홈 - ILAND" />
+        <meta
+          property="og:description"
+          content="ILAND에서 내 취향을 모아보세요."
+        />
+      </Helmet>
+      <div className="container">
+        <MainBanner />
 
-      {/* 찜한 목록 - 로그인 이후 표시 */}
-      {user && <MainProductList label="찜한 상품" data={bookmarkList} />}
+        <CategorySection />
 
-      {/* 인기 상품 */}
-      <MainProductList label="인기 상품" data={topProducts} />
+        {/* 찜한 목록 - 로그인 이후 표시 */}
+        {user && <MainProductList label="찜한 상품" data={bookmarkList} />}
 
-      {/* 이번주 신상 */}
-      <MainProductList label="이번주 신상" data={newProducts} />
+        {/* 인기 상품 */}
+        <MainProductList label="인기 상품" data={topProducts} />
 
-      {/* 인기 판매자 */}
-      <TopSellerList label="인기 판매자" data={topSellers} />
-    </div>
+        {/* 이번주 신상 */}
+        <MainProductList label="이번주 신상" data={newProducts} />
+
+        {/* 인기 판매자 */}
+        <TopSellerList label="인기 판매자" data={topSellers} />
+      </div>
+    </>
   );
 }

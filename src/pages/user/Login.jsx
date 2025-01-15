@@ -4,6 +4,7 @@ import useAxiosInstance from "@hooks/useAxiosInstance";
 import useUserStore from "@zustand/userStore";
 import CryptoJS from "crypto-js";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -105,91 +106,102 @@ export default function Login() {
 
   // 화면 렌더링
   return (
-    <div className="container">
-      <div className="mx-auto w-fit mb-[40px]">
-        <figure>
-          <img className="mx-auto" src="/assets/logos/logo-vertical.svg" />
-          <figcaption className="font-bold text-[18px]">
-            내 취향을 위한 공간
-          </figcaption>
-        </figure>
-      </div>
+    <>
+      <Helmet>
+        <title>로그인 - ILAND</title>
 
-      <form
-        className="w-[400px] mx-auto pb-[60px]"
-        onSubmit={handleSubmit(login)}
-      >
-        <fieldset className="mb-[30px]" id="userInfo">
-          <legend className="sr-only">로그인 입력 폼</legend>
+        <meta property="og:title" content="로그인 - ILAND" />
+        <meta
+          property="og:description"
+          content="ILAND에서 내 취향을 모아보세요."
+        />
+      </Helmet>
+      <div className="container">
+        <div className="mx-auto w-fit mb-[40px]">
+          <figure>
+            <img className="mx-auto" src="/assets/logos/logo-vertical.svg" />
+            <figcaption className="font-bold text-[18px]">
+              내 취향을 위한 공간
+            </figcaption>
+          </figure>
+        </div>
 
-          <InputField
-            id="userEmail"
-            label="이메일"
-            type="email"
-            placeholder="예) iland@iland.com"
-            register={register("email", {
-              required: "이메일을 입력해주세요.",
-              pattern: {
-                value: emailRegex,
-                message: "올바른 형식의 이메일을 입력해주세요.",
-              },
-            })}
-            error={errors.email}
-          />
+        <form
+          className="w-[400px] mx-auto pb-[60px]"
+          onSubmit={handleSubmit(login)}
+        >
+          <fieldset className="mb-[30px]" id="userInfo">
+            <legend className="sr-only">로그인 입력 폼</legend>
 
-          <PasswordInput
-            id="password"
-            label="비밀번호"
-            placeholder="비밀번호"
-            register={register("password", {
-              required: "비밀번호를 입력해주세요.",
-              pattern: {
-                value: passwordRegex,
-                message: "올바른 형식의 비밀번호를 입력해주세요.",
-              },
-            })}
-            error={errors.password}
-          />
-
-          <label
-            className="mb-[30px] flex gap-[10px] items-center"
-            htmlFor="saveInfo"
-          >
-            <input
-              type="checkbox"
-              className="appearance-none size-5 bg-[url('/assets/icons/checkbox.svg')] checked:bg-[url('/assets/icons/checkbox-checked.svg')] bg-cover align-middle"
-              {...register("saveInfo")}
+            <InputField
+              id="userEmail"
+              label="이메일"
+              type="email"
+              placeholder="예) iland@iland.com"
+              register={register("email", {
+                required: "이메일을 입력해주세요.",
+                pattern: {
+                  value: emailRegex,
+                  message: "올바른 형식의 이메일을 입력해주세요.",
+                },
+              })}
+              error={errors.email}
             />
-            로그인 정보 저장
-          </label>
-        </fieldset>
 
-        <div className="w-[400px] h-[60px] text-center p-[18px] rounded-[8px] text-[24px] font-bold text-white bg-point-blue focus-within:border-point-blue focus-within:shadow-md focus-within:shadow-point-blue mb-[10px]">
-          <button
-            type="submit"
-            className="cursor-pointer size-full focus:outline-none"
-          >
-            로그인
-          </button>
-        </div>
+            <PasswordInput
+              id="password"
+              label="비밀번호"
+              placeholder="비밀번호"
+              register={register("password", {
+                required: "비밀번호를 입력해주세요.",
+                pattern: {
+                  value: passwordRegex,
+                  message: "올바른 형식의 비밀번호를 입력해주세요.",
+                },
+              })}
+              error={errors.password}
+            />
 
-        <div className="w-[400px] h-[60px] text-center rounded-[8px] focus-within:border-point-blue focus-within:shadow-md focus-within:shadow-point-blue mb-[10px]">
-          <button
-            type="button"
-            className="size-full focus:outline-none cursor-pointer bg-[url('/assets/icons/kakao-login.svg')] bg-cover"
-          />
-        </div>
+            <label
+              className="mb-[30px] flex gap-[10px] items-center"
+              htmlFor="saveInfo"
+            >
+              <input
+                type="checkbox"
+                className="appearance-none size-5 bg-[url('/assets/icons/checkbox.svg')] checked:bg-[url('/assets/icons/checkbox-checked.svg')] bg-cover align-middle"
+                {...register("saveInfo")}
+              />
+              로그인 정보 저장
+            </label>
+          </fieldset>
 
-        <div className="w-[400px] h-[60px] text-center p-[18px] rounded-[8px] text-[24px] font-bold text-gray3 border-solid  border-gray3 border-2 focus-within:border-point-blue focus-within:shadow-md focus-within:shadow-point-blue">
-          <button
-            type="button"
-            className="cursor-pointer size-full focus:outline-none"
-            onClick={() => navigate("/user/signup")}
-          >
-            회원가입
-          </button>
-        </div>
-      </form>
-    </div>
+          <div className="w-[400px] h-[60px] text-center p-[18px] rounded-[8px] text-[24px] font-bold text-white bg-point-blue focus-within:border-point-blue focus-within:shadow-md focus-within:shadow-point-blue mb-[10px]">
+            <button
+              type="submit"
+              className="cursor-pointer size-full focus:outline-none"
+            >
+              로그인
+            </button>
+          </div>
+
+          <div className="w-[400px] h-[60px] text-center rounded-[8px] focus-within:border-point-blue focus-within:shadow-md focus-within:shadow-point-blue mb-[10px]">
+            <button
+              type="button"
+              className="size-full focus:outline-none cursor-pointer bg-[url('/assets/icons/kakao-login.svg')] bg-cover"
+            />
+          </div>
+
+          <div className="w-[400px] h-[60px] text-center p-[18px] rounded-[8px] text-[24px] font-bold text-gray3 border-solid  border-gray3 border-2 focus-within:border-point-blue focus-within:shadow-md focus-within:shadow-point-blue">
+            <button
+              type="button"
+              className="cursor-pointer size-full focus:outline-none"
+              onClick={() => navigate("/user/signup")}
+            >
+              회원가입
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }
