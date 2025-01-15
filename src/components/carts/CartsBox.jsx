@@ -58,10 +58,10 @@ export default function CartsBox({
           return (
             <div
               key={cartlist._id}
-              className="relative h-[282px] p-[40px] flex justify-between border border-solid border-gray2 rounded-[8px]"
+              className="relative h-[282px] p-[40px] flex gap-[120px] justify-between border border-solid border-gray2 rounded-[8px] overflow-hidden"
             >
-              <div className="flex gap-x-[60px] grow-3">
-                <div>
+              <div className="flex gap-x-[60px]">
+                <div className="shrink-0">
                   <label className="mb-[20px] flex gap-[10px] items-center text-[14px]">
                     <input
                       type="checkbox"
@@ -100,7 +100,7 @@ export default function CartsBox({
                   </p>
                 </div>
               </div>
-              <div className="font-bold items-center text-[18px] flex gap-x-2 grow-1">
+              <div className="font-bold items-center text-[18px] flex gap-x-2 shrink-0">
                 <button onClick={() => patchQuantityMinusCart(cartlist._id)}>
                   <img src="/assets/icons/minus.svg" alt="" />
                 </button>
