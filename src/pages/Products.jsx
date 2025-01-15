@@ -7,6 +7,7 @@ import useAxiosInstance from "@hooks/useAxiosInstance";
 import CategorySection from "@components/common/CategorySection";
 import ProductCard from "@components/common/ProductCard";
 import EmptyPage from "@components/common/EmptyPage";
+import { Helmet } from "react-helmet-async";
 
 export default function Products() {
   const location = useLocation();
@@ -77,43 +78,57 @@ export default function Products() {
   };
 
   return (
-    <div className="container">
-      <header>
-        <h1 className="page-title">카테고리별 상품 리스트</h1>
-      </header>
+    <>
+      <Helmet>
+        <title>{categoryValue} 상품 리스트 - I-LAND</title>
 
-      <CategorySection
-        onCategorySelect={handleCategoryClick}
-        selectedCategory={selectedCategory}
-      />
+        <meta
+          property="og:title"
+          content={`${categoryValue} 상품 리스트 - I-LAND`}
+        />
+        <meta
+          property="og:description"
+          content="I-LAND에서 내 취향을 모아보세요."
+        />
+      </Helmet>
+      <div className="container">
+        <header>
+          <h1 className="page-title">카테고리별 상품 리스트</h1>
+        </header>
 
-      <section>
-        <h2 className="section-title">
-          {categoryValue ? `${categoryValue}` : "전체 카테고리"}
-        </h2>
-        <div className="flex items-center justify-end mb-[50px]">
-          <select
-            name="sort"
-            className="w-[125px] h-[40px] border border-gray2 rounded-lg px-3 text-[14px] focus:outline-none"
-            id="sortOrder"
-          >
-            <option value="bookmarks">인기순</option>
-            <option value="createdAt">최신순</option>
-          </select>
-        </div>
-      </section>
+        <CategorySection
+          onCategorySelect={handleCategoryClick}
+          selectedCategory={selectedCategory}
+        />
 
-      <section>
-        {products.length === 0 ? (
-          <EmptyPage />
-        ) : (
-          <ul className="grid grid-cols-5 gap-x-[25px] gap-y-[40px]">
-            {products.map(product => (
-              <ProductCard key={product._id} item={product} />
-            ))}
-          </ul>
-        )}
-      </section>
-    </div>
+        <section>
+          <h2 className="section-title">
+            {categoryValue ? `${categoryValue}` : "전체 카테고리"}
+          </h2>
+          <div className="flex items-center justify-end mb-[50px]">
+            <select
+              name="sort"
+              className="w-[125px] h-[40px] border border-gray2 rounded-lg px-3 text-[14px] focus:outline-none"
+              id="sortOrder"
+            >
+              <option value="bookmarks">인기순</option>
+              <option value="createdAt">최신순</option>
+            </select>
+          </div>
+        </section>
+
+        <section>
+          {products.length === 0 ? (
+            <EmptyPage />
+          ) : (
+            <ul className="grid grid-cols-5 gap-x-[25px] gap-y-[40px]">
+              {products.map(product => (
+                <ProductCard key={product._id} item={product} />
+              ))}
+            </ul>
+          )}
+        </section>
+      </div>
+    </>
   );
 }

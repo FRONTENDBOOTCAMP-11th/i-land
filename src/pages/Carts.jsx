@@ -4,6 +4,7 @@ import CartsDelete from "@components/carts/CartsDelete";
 import CartsPayment from "@components/carts/CartsPayment";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 export default function Carts() {
   const axios = useAxiosInstance();
@@ -110,40 +111,51 @@ export default function Carts() {
     }
   };
   return (
-    <div className="container">
-      <CartsDelete
-        setCarts={setCarts}
-        setError={setError}
-        setLoading={setLoading}
-        checkedItems={checkedItems}
-        handleAllCheckboxChange={handleAllCheckboxChange}
-        allChecked={allChecked}
-      />
-      {carts.item?.length === 0 ? (
-        <CartEmpty />
-      ) : (
-        <>
-          <CartsBox
-            error={error}
-            loading={loading}
-            setError={setError}
-            setLoading={setLoading}
-            setCheckedItems={setCheckedItems}
-            fetchCarts={fetchCarts}
-            carts={carts}
-            handleCheckboxChange={handleCheckboxChange}
-            checkedItems={checkedItems}
-            patchQuantityPlusCart={patchQuantityPlusCart}
-            patchQuantityMinusCart={patchQuantityMinusCart}
-            DeleteCarts={DeleteCarts}
-          />
-          <CartsPayment
-            checkedItems={checkedItems}
-            setCarts={setCarts}
-            carts={carts}
-          />
-        </>
-      )}
-    </div>
+    <>
+      <Helmet>
+        <title>장바구니 - I-LAND</title>
+
+        <meta property="og:title" content="장바구니 - I-LAND" />
+        <meta
+          property="og:description"
+          content="I-LAND에서 내 취향을 모아보세요."
+        />
+      </Helmet>
+      <div className="container">
+        <CartsDelete
+          setCarts={setCarts}
+          setError={setError}
+          setLoading={setLoading}
+          checkedItems={checkedItems}
+          handleAllCheckboxChange={handleAllCheckboxChange}
+          allChecked={allChecked}
+        />
+        {carts.item?.length === 0 ? (
+          <CartEmpty />
+        ) : (
+          <>
+            <CartsBox
+              error={error}
+              loading={loading}
+              setError={setError}
+              setLoading={setLoading}
+              setCheckedItems={setCheckedItems}
+              fetchCarts={fetchCarts}
+              carts={carts}
+              handleCheckboxChange={handleCheckboxChange}
+              checkedItems={checkedItems}
+              patchQuantityPlusCart={patchQuantityPlusCart}
+              patchQuantityMinusCart={patchQuantityMinusCart}
+              DeleteCarts={DeleteCarts}
+            />
+            <CartsPayment
+              checkedItems={checkedItems}
+              setCarts={setCarts}
+              carts={carts}
+            />
+          </>
+        )}
+      </div>
+    </>
   );
 }
