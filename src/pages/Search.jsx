@@ -18,6 +18,16 @@ export default function Search() {
     navigate(`/search-results?query=${encodeURIComponent(term)}`);
   };
 
+  // 모달 닫기 버튼 기능 추가
+  const nav = useNavigate();
+  <button onClick={() => nav(-1)}>
+    <img
+      className="w-5 h-5"
+      src="/assets/icons/close.svg"
+      alt="Close Search Modal"
+    />
+  </button>;
+
   return (
     <div className="fixed inset-0 px-[100px] mt-[30px] mb-[10px] flex flex-col bg-white">
       <div className="flex items-center justify-end">
