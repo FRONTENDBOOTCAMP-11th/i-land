@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-import SearchNoResult from "@components/SearchNoResult";
+import SearchNoResult from "@components/search/SearchNoResult";
 
 SearchResults.propTypes = {
   results: PropTypes.array.isRequired,
