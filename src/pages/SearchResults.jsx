@@ -1,20 +1,23 @@
 import PropTypes from "prop-types";
-// import { useEffect, useState } from "react";
-// import { useNavigate, useLocation } from "react-router-dom";
-import SearchNoResult from "@components/search/SearchNoResult";
 import { Helmet } from "react-helmet-async";
 
+import SearchNoResult from "@components/search/SearchNoResult";
+import { useSearchParams } from "react-router-dom";
+
 SearchResults.propTypes = {
-  results: PropTypes.array.isRequired,
+  keyword: PropTypes.array.isRequired,
 };
 
-export default function SearchResults({ results = [1] }) {
+export default function SearchResults() {
+  const [searchParams] = useSearchParams();
+  const keyword = searchParams.get("keyword") || ""; // URL에서 keyword 가져오기
+
   return (
     <>
       <Helmet>
-        <title>{results} 검색 결과 - ILAND</title>
+        <title>{keyword} 검색 결과 - ILAND</title>
 
-        <meta property="og:title" content={`${results} 검색 결과 - ILAND`} />
+        <meta property="og:title" content={`${keyword} 검색 결과 - ILAND`} />
         <meta
           property="og:description"
           content="ILAND에서 내 취향을 모아보세요."
@@ -26,7 +29,7 @@ export default function SearchResults({ results = [1] }) {
         </header>
 
         <div className="flex items-center justify-between mb-[50px]">
-          <span>총 {results.length}개의 결과가 있습니다.</span>
+          <span>총 1개의 결과가 있습니다.</span>
 
           <select
             name="sort"
@@ -38,7 +41,7 @@ export default function SearchResults({ results = [1] }) {
           </select>
         </div>
 
-        {results.length === 0 ? (
+        {keyword.length === 0 ? (
           <SearchNoResult />
         ) : (
           <ul className="grid grid-cols-5 gap-x-[25px]">

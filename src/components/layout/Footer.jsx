@@ -31,28 +31,28 @@ export default function Footer() {
         <div className="flex justify-center mt-6 space-x-6">
           <a href="https://www.instagram.com">
             <img
-              src="/assets/icons/Instagram.svg"
+              src="/assets/icons/instagram.svg"
               alt="Instagram"
               className="w-6 h-6"
             />
           </a>
           <a href="https://www.facebook.com">
             <img
-              src="/assets/icons/Facebook.svg"
+              src="/assets/icons/facebook.svg"
               alt="Facebook"
               className="w-6 h-6"
             />
           </a>
           <a href="https://www.twitter.com">
             <img
-              src="/assets/icons/Twitter.svg"
+              src="/assets/icons/twitter.svg"
               alt="Twitter"
               className="w-6 h-6"
             />
           </a>
           <a href="https://www.kakaocorp.com">
             <img
-              src="/assets/icons/KakaoTalk.svg"
+              src="/assets/icons/kakaotalk.svg"
               alt="KakaoTalk"
               className="w-6 h-6"
             />

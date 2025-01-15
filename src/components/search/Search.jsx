@@ -1,8 +1,12 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import useSearchStore from "@zustand/useSearchStore";
 
 export default function Search() {
+  const [keyword, setKeyword] = useState("");
+  const navigate = useNavigate();
+
   const { isSearchOpen, closeSearch } = useSearchStore();
 
   useEffect(() => {
@@ -19,6 +23,17 @@ export default function Search() {
       document.body.style.overflow = "auto";
     };
   }, [isSearchOpen]);
+
+  const handleInputChange = e => {
+    setKeyword(e.target.value);
+  };
+
+  const handleKeyDown = e => {
+    if (e.key === "Enter" && keyword.trim() !== "") {
+      closeSearch();
+      navigate(`/search?keyword=${encodeURIComponent(keyword.trim())}`); // "/search"로 라우팅해서 <SearchResults /> 컴포넌트로 이동시키기
+    }
+  };
 
   if (!isSearchOpen) return null;
 
@@ -40,9 +55,15 @@ export default function Search() {
             <input
               type="text"
               className="w-full py-[18px] text-2xl leading-none border-b-4 border-solid border-gray3 focus-within:border-point-blue focus:outline-none"
+              value={keyword}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
               placeholder="검색어를 입력해주세요."
             />
-            <button className="flex items-center justify-center -ml-5">
+            <button
+              className="flex items-center justify-center -ml-5"
+              onClick={() => setKeyword("")}
+            >
               <img
                 className="w-5 h-5"
                 src="/assets/icons/close.svg"
