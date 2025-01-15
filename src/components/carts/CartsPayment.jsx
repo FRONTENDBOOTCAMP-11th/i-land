@@ -11,15 +11,36 @@ export default function CartsPayment({ checkedItems, carts }) {
     }, 0);
   };
   const totalPrice = calculateTotalPrice(); // 총합 계산
+  // console.log("checkedItems", checkedItems);
+  // console.log("carts", carts);
 
   return (
     <section name="cartFooter">
       <hr className="text-gray1 border border-solid my-[100px]" />
       <div className="flex flex-col items-center">
-        <div className="p-[60px] h-[338px] w-full border border-gray2 border-solid rounded-[8px] flex flex-col gap-y-[40px]">
+        <div className="p-[60px]  w-full border border-gray2 border-solid rounded-[8px] flex flex-col gap-y-[40px]">
           <div className="flex justify-between text-[28px] font-bold">
-            <p>상품 금액</p>
-            <p>{totalPrice.toLocaleString()} 원</p>
+            <ul className="w-full">
+              {checkedItems.map(id => {
+                const cartItem = carts.item.find(cart => cart._id === id);
+                return (
+                  cartItem && (
+                    <li key={id} className="flex justify-between">
+                      <p className="max-w-[300px] overflow-hidden line-clamp-1">{cartItem.product.name}</p>
+                      <div className="flex">
+                        <p>{cartItem.quantity}개</p>
+                        <p>
+                          {(
+                            cartItem?.product?.price * cartItem?.quantity
+                          ).toLocaleString()}
+                          원
+                        </p>
+                      </div>
+                    </li>
+                  )
+                );
+              })}
+            </ul>
           </div>
           <p className="border border-solid text-gray1"></p>
           <div className="flex justify-between text-[32px] font-bold">
