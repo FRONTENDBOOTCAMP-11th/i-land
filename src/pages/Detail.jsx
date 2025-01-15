@@ -7,6 +7,7 @@ import ProductsDetailInfomation from "@components/detail/ProductsDetailInfomatio
 import ProductsExplanation from "@components/detail/ProductsExplanation";
 import AddReview from "@components/detail/AddReview";
 import ReviewList from "@components/detail/ReviewList";
+import { Helmet } from "react-helmet-async";
 
 export default function Detail() {
   const axios = useAxiosInstance();
@@ -90,30 +91,41 @@ export default function Detail() {
   if (error) return <div>Error: {error.message}</div>;
   if (!products) return <div>상품 정보를 불러오는 중입니다...</div>;
   return (
-    <main className="container px-24 py-5 bg-white">
-      <ProductsDetailInfomation
-        products_id={products_id}
-        products={products}
-        like={like}
-        setLike={setLike}
-      />
-      <hr className="text-gray1 border border-solid my-10"></hr>
-      <ProductsExplanation products={products} />
-      <hr className="text-gray1 border border-solid my-10"></hr>
-      <p className="mb-[40px] section-title">상품 후기</p>
-      <p className="mb-[30px] text-[16px] font-normal">
-        후기 {ProductsReviewLength} 개
-      </p>
-      <ReviewList
-        user={user}
-        ProductsReview={ProductsReview}
-        fetchProduct={fetchProduct}
-      />
-      <AddReview
-        reviewContent={reviewContent}
-        addReview={addReview}
-        setReviewContent={setReviewContent}
-      />
-    </main>
+    <>
+      <Helmet>
+        <title>{products.item.name} - ILAND</title>
+
+        <meta property="og:title" content={`${products.item.name} - ILAND`} />
+        <meta
+          property="og:description"
+          content="ILAND에서 내 취향을 모아보세요."
+        />
+      </Helmet>
+      <main className="container px-24 py-5 bg-white">
+        <ProductsDetailInfomation
+          products_id={products_id}
+          products={products}
+          like={like}
+          setLike={setLike}
+        />
+        <hr className="text-gray1 border border-solid my-10"></hr>
+        <ProductsExplanation products={products} />
+        <hr className="text-gray1 border border-solid my-10"></hr>
+        <p className="mb-[40px] section-title">상품 후기</p>
+        <p className="mb-[30px] text-[16px] font-normal">
+          후기 {ProductsReviewLength} 개
+        </p>
+        <ReviewList
+          user={user}
+          ProductsReview={ProductsReview}
+          fetchProduct={fetchProduct}
+        />
+        <AddReview
+          reviewContent={reviewContent}
+          addReview={addReview}
+          setReviewContent={setReviewContent}
+        />
+      </main>
+    </>
   );
 }
