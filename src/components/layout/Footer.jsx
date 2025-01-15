@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <footer className="bg-point-blue text-white py-[60px]">
-      <div className="container text-center space-y-4">
+      <div className="container space-y-4 text-center">
         {/* 링크 섹션 */}
         <div className="text-sm text-white">
           <Link to="/terms" className="hover:underline">
@@ -28,7 +28,7 @@ export default function Footer() {
         </div>
 
         {/* 소셜 아이콘 섹션 */}
-        <div className="flex justify-center space-x-6 mt-6">
+        <div className="flex justify-center mt-6 space-x-6">
           <a href="https://www.instagram.com">
             <img
               src="/assets/icons/Instagram.svg"

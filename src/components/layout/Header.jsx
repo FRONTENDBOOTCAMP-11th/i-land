@@ -1,13 +1,14 @@
-import ProfileDropdown from "@components/common/ProfileDropdown";
-import useUserStore from "@zustand/userStore";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import useUserStore from "@zustand/userStore";
+import useSearchStore from "@zustand/useSearchStore";
+
+import ProfileDropdown from "@components/common/ProfileDropdown";
+
 export default function Header() {
-  // 로그인 상태와 프로필 이미지 관리
-  // TODO: Zustand를 통한 로그인 상태 관리
-  // 초기값 : null 로그아웃 상태
   const { user } = useUserStore();
+  const { openSearch, isSearchOpen } = useSearchStore();
 
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
@@ -26,9 +27,9 @@ export default function Header() {
       </Link>
 
       <div className="flex items-center justify-center gap-x-4">
-        <Link to="/search">
+        <button onClick={openSearch}>
           <img src="/assets/icons/search.svg" alt="Search Icon" />
-        </Link>
+        </button>
         <Link to="/bookmarks">
           <img src="/assets/icons/heart-fill.svg" alt="Bookmark Icon" />
         </Link>

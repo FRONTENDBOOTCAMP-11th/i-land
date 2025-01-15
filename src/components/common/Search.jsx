@@ -1,15 +1,31 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
+import useSearchStore from "@zustand/useSearchStore";
 
 export default function Search() {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const { isSearchOpen, closeSearch } = useSearchStore();
 
-  // 모달 닫기 버튼 클릭 핸드러
+  useEffect(() => {
+    if (isSearchOpen) {
+      // 모달이 열릴 때 body 스크롤 비활성화
+      document.body.style.overflow = "hidden";
+    } else {
+      // 모달이 닫힐 때 body 스크롤 활성화
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      // 컴포넌트 언마운트 시 초기화
+      document.body.style.overflow = "auto";
+    };
+  }, [isSearchOpen]);
+
+  if (!isSearchOpen) return null;
 
   return (
-    <div className="fixed inset-0 px-[100px] flex flex-col bg-white">
+    <div className="fixed inset-0 px-[100px] flex flex-col bg-white z-50">
       <div className="flex items-center justify-end mt-[30px] mb-[10px]">
-        <button>
+        <button onClick={closeSearch}>
           <img
             className="w-5 h-5"
             src="/assets/icons/close.svg"
