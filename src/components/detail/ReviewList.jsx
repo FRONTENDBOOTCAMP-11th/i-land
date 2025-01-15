@@ -99,13 +99,13 @@ export default function ReviewList({ user, ProductsReview, fetchProduct }) {
                   {user?.accessToken && user._id === review.user?._id && (
                     <div className="flex gap-[20px]">
                       <button
-                        className="w-[105px] h-[50px] py-[14px] px-9 text-[18px] font-bold border border-solid border-gray2 rounded-lg"
+                        className="w-[110px] h-[50px] py-[14px] px-9 text-[18px] font-bold border border-solid border-gray2 rounded-lg"
                         onClick={() => handleEditClick(review)} // 수정 버튼 클릭
                       >
                         수정
                       </button>
                       <button
-                        className="w-[105px] h-[50px] py-[14px] px-9 text-[18px] font-bold text-white bg-point-red rounded-lg"
+                        className="w-[110px] h-[50px] py-[14px] px-9 text-[18px] font-bold text-white bg-point-red rounded-lg"
                         onClick={() => deleteProductReview(review._id)}
                       >
                         삭제
