@@ -55,7 +55,7 @@ export default function ReviewList({ user, ProductsReview, fetchProduct }) {
         {ProductsReview?.map(review => (
           <div
             key={review._id}
-            className="flex flex-col p-10 border border-solid rounded-lg border-gray1"
+            className={`flex flex-col p-10 border-solid rounded-lg ${editingReviewId === review._id ? "border-2" : "border border-gray1"}`}
           >
             <div className="flex justify-between mb-5">
               <div className="flex items-center gap-x-4">
@@ -72,13 +72,13 @@ export default function ReviewList({ user, ProductsReview, fetchProduct }) {
               {editingReviewId === review._id ? (
                 <>
                   <textarea
-                    className="w-full h-full placeholder-black text-[16px] resize-none outline-none"
+                    className="w-full h-full placeholder-black text-[16px] resize-none"
                     value={editedContent}
                     onChange={e => setEditedContent(e.target.value)}
                   />
                   <div className="flex gap-[20px]">
                     <button
-                      className="w-[110px] h-[50px] py-[14px] px-9 text-[18px] font-bold border border-solid border-gray2 rounded-lg"
+                      className="w-[110px] h-[50px] py-[14px] px-9 text-[18px] font-bold border rounded-lg text-white bg-point-blue"
                       onClick={() => handleSave(review._id)} // 저장 버튼
                     >
                       저장
