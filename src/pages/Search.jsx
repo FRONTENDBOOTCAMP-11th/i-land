@@ -1,7 +1,14 @@
+import { useLocation, useNavigate } from "react-router-dom";
+
 export default function Search() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // 모달 닫기 버튼 클릭 핸드러
+
   return (
-    <div className="fixed inset-0 px-[100px] mt-[30px] mb-[10px] flex flex-col bg-white">
-      <div className="flex items-center justify-end">
+    <div className="fixed inset-0 px-[100px] flex flex-col bg-white">
+      <div className="flex items-center justify-end mt-[30px] mb-[10px]">
         <button>
           <img
             className="w-5 h-5"
@@ -11,7 +18,7 @@ export default function Search() {
         </button>
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center flex-1">
         <div className="max-w-[800px] w-full">
           <div className="mb-[50px] flex items-center justify-between relative">
             <input
