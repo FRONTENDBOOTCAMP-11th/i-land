@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import useSearchStore from "@zustand/useSearchStore";
+
 import SearchRecents from "@components/search/SearchRecents";
 import SearchPopulars from "@components/search/SearchPopulars";
 
