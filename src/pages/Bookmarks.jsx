@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useAxiosInstance from "@hooks/useAxiosInstance";
-import BookmarksEmpty from "@components/bookmarks/bookmarksEmpty";
+import BookmarksEmpty from "@components/bookmarks/BookmarksEmpty";
 
 export default function Bookmarks() {
   const axios = useAxiosInstance();

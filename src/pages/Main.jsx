@@ -99,7 +99,7 @@ export default function Main() {
       <CategorySection />
 
       {/* 찜한 목록 - 로그인 이후 표시 */}
-      {user && <MainProductList label="찜한 목록" data={bookmarkList} />}
+      {user && <MainProductList label="찜한 상품" data={bookmarkList} />}
 
       {/* 인기 상품 */}
       <MainProductList label="인기 상품" data={topProducts} />
