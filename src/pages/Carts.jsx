@@ -60,7 +60,6 @@ export default function Carts() {
       }));
     }
   };
-
   // 체크 상태 변경
   const handleCheckboxChange = id => {
     const newCheckedItems = checkedItems.includes(id)
@@ -72,7 +71,6 @@ export default function Carts() {
     // 전체 선택 상태 업데이트
     setAllChecked(newCheckedItems.length === carts.length);
   };
-
   // 전체 선택 체크박스 변경
   const handleAllCheckboxChange = () => {
     if (allChecked) {
@@ -84,6 +82,10 @@ export default function Carts() {
   };
   // 장바구니 상품 한건 삭제 (/carts/{_id})
   const DeleteCarts = async _id => {
+    const deleteCartsConfirm = window.confirm(
+      "해당 상품을 장바구니에서 제거 하시겠습니까?",
+    );
+    if (!deleteCartsConfirm) return;
     setLoading(true); // 삭제 요청 시작 시 로딩 상태 설정
     try {
       await axios.delete(`/carts/${_id}`);

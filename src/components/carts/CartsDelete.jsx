@@ -17,6 +17,10 @@ export default function CartsDelete({
       console.log("삭제할 항목이 없습니다.");
       return;
     }
+    const deleteCartsConfirm = window.confirm(
+      "해당 상품을 장바구니에서 제거 하시겠습니까?",
+    );
+    if (!deleteCartsConfirm) return;
     setLoading(true); // 삭제 요청 시작 시 로딩 상태 설정
     try {
       await Promise.all(checkedItems.map(id => axios.delete(`/carts/${id}`))); // 여러 개 DELETE 요청
