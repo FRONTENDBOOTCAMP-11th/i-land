@@ -69,12 +69,6 @@ export default function ProductsDetailInfomation({
         alert("찜한 목록에 추가되었습니다.");
       } catch (err) {
         console.error(err);
-        if (err.response) {
-          // 서버에서 반환한 에러 메시지 확인
-          alert(`찜 추가에 실패했습니다: ${err.response.data.message}`);
-        } else {
-          alert("찜 추가에 실패했습니다. 나중에 다시 시도해 주세요.");
-        }
       }
     } else {
       // 찜 삭제
