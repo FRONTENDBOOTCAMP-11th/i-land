@@ -45,6 +45,9 @@ export default function ReviewList({ user, ProductsReview, fetchProduct }) {
   };
 
   const handleSave = reviewId => {
+    const confirmSaveChanges =
+      window.confirm("변경된 내용을 저장하시겠습니까?");
+    if (!confirmSaveChanges) return;
     patchReview(reviewId, editedContent); // 수정된 내용으로 패치
     setEditingReviewId(null); // 수정 완료 후 수정 상태 초기화
   };
