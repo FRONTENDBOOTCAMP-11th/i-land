@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 
 export default function CartsBox({
   carts,
-  error,
-  loading,
   handleCheckboxChange,
   checkedItems,
   patchQuantityPlusCart,
@@ -12,14 +10,6 @@ export default function CartsBox({
   DeleteCarts,
   product,
 }) {
-
-
-
-
-  // 로딩 중일 때
-  if (loading) return <div>Loading...</div>;
-  // 에러 발생 시
-  if (error) return <div>Error: {error.message}</div>;
   return (
     <section name="cartMain">
       <div className="flex flex-col gap-y-[50px]">
@@ -106,8 +96,6 @@ export default function CartsBox({
 
 CartsBox.propTypes = {
   carts: PropTypes.array.isRequired,
-  error: PropTypes.object,
-  loading: PropTypes.bool.isRequired,
   handleCheckboxChange: PropTypes.func.isRequired,
   checkedItems: PropTypes.array.isRequired,
   patchQuantityMinusCart: PropTypes.func.isRequired,

@@ -131,7 +131,7 @@ export default function Carts() {
       if (carts?.item) {
         setCheckedItems(carts.item.map(cartlist => cartlist._id)); // 모든 체크박스를 선택됨으로 설정
       }
-    }, [carts]);
+    }, [product]);
   
   return (
     <>
