@@ -13,7 +13,7 @@ const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const passwordRegex = /^.{8,}$/;
 
 // 로그인 정보 암호화 및 복호화 passkey
-const passKey = import.meta.env.passKey;
+const passKey = import.meta.env.VITE_passKey;
 
 // 카카오 로그인 관련 변수
 const JS_KEY = import.meta.env.VITE_JS_KEY;
