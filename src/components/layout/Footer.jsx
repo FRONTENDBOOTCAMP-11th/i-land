@@ -32,29 +32,29 @@ export default function Footer() {
           <a href="https://www.instagram.com">
             <img
               src="/assets/icons/instagram.svg"
-              alt="Instagram"
               className="w-6 h-6"
+              alt="Instagram"
             />
           </a>
           <a href="https://www.facebook.com">
             <img
               src="/assets/icons/facebook.svg"
-              alt="Facebook"
               className="w-6 h-6"
+              alt="Facebook"
             />
           </a>
           <a href="https://www.twitter.com">
             <img
               src="/assets/icons/twitter.svg"
-              alt="Twitter"
               className="w-6 h-6"
+              alt="Twitter"
             />
           </a>
           <a href="https://www.kakaocorp.com">
             <img
               src="/assets/icons/kakaotalk.svg"
-              alt="KakaoTalk"
               className="w-6 h-6"
+              alt="KakaoTalk"
             />
           </a>
         </div>
