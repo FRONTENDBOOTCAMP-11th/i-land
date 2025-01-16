@@ -49,11 +49,13 @@ export default function Header() {
             <img
               className="box-content w-10 h-10 border-2 rounded-full border-gray1"
               src={
-                imgRegex.test(user.profileImage)
-                  ? `https://11.fesp.shop${user.profileImage}`
-                  : user.profileImage
+                user.profileImage
+                  ? imgRegex.test(user.profileImage)
+                    ? `https://11.fesp.shop${user.profileImage}`
+                    : user.profileImage
+                  : "https://11.fesp.shop/files/final06/default-profile.png"
               } // 프로필 이미지가 없으면 기본 이미지 노출
-              alt="User Profile"
+              alt={`${user.name}의 프로필 사진`}
             />
             {dropdownVisible && <ProfileDropdown />}
           </button>
