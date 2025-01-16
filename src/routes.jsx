@@ -1,16 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import Layout from "@components/layout";
-import Main from "@pages/Main";
 import Login from "@pages/users/Login";
 import Signup from "@pages/users/Signup";
-import Search from "@pages/Search";
+import Main from "@pages/Main";
 import SearchResults from "@pages/SearchResults";
 import Bookmarks from "@pages/Bookmarks";
 import Create from "@pages/Create";
 import Carts from "@pages/Carts";
 import Products from "@pages/Products";
 import Detail from "@pages/Detail";
+
+import Layout from "@components/layout";
 import PrivateRoute from "@components/common/PrivateRoute";
 import LoginKakao from "@pages/users/LoginKakao";
 
@@ -32,8 +32,7 @@ const router = createBrowserRouter(
           ],
         },
         { path: "users/signup", element: <Signup /> },
-        { path: "search", element: <Search /> },
-        { path: "search/results", element: <SearchResults /> },
+        { path: "search", element: <SearchResults /> },
         {
           path: "/",
           element: <PrivateRoute />,
