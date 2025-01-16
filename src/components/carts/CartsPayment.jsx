@@ -33,6 +33,7 @@ export default function CartsPayment({ checkedItems, carts }) {
                         <input
                           className="text-center border border-solid rounded w-[28px] h-[28px] border-gray2"
                           type="text"
+                          readOnly
                           value={cartItem.quantity}
                         />
                         <img src="/assets/icons/close.svg" alt="" />

@@ -9,7 +9,7 @@ export default function Carts() {
   const axios = useAxiosInstance();
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [error, setError] = useState(null); // 에러 상태
-  const [carts, setCarts] = useState([]); // 장바구니 정보
+  const [carts, setCarts] = useState({ item:[] }); // 장바구니 정보
   const [checkedItems, setCheckedItems] = useState([]); // 선택된 항목의 배열
   const [allChecked, setAllChecked] = useState(true); // 전체 선택 상태
   const [product, setProduct] = useState(null); // 상품 초기값 null

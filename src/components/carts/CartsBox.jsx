@@ -82,6 +82,7 @@ export default function CartsBox({
                 <input
                   className="text-center border border-solid rounded w-[28px] h-[28px] border-gray2"
                   type="text"
+                  readOnly
                   value={cartlist.quantity}
                   name="countUp"
                 />
