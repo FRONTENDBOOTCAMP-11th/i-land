@@ -78,10 +78,10 @@ export default function ReviewList({ user, ProductsReview, fetchProduct }) {
                 <img
                   className="w-[50px] h-[50px] border-2 border-gray1 rounded-full"
                   src={
-                    review.user.profileImage
-                      ? imgRegex.test(review.user.profileImage)
-                        ? `https://11.fesp.shop${review.user.profileImage}`
-                        : review.user.profileImage
+                    review.user.image
+                      ? imgRegex.test(review.user.image)
+                        ? `https://11.fesp.shop${review.user.image}`
+                        : review.user.image
                       : "https://11.fesp.shop/files/final06/default-profile.png"
                   } // 프로필 이미지가 없으면 기본 이미지 노출
                   alt={`${review.user.name}의 프로필 사진`}
