@@ -69,7 +69,7 @@ export default function CartsBox({
                   </Link>
                   <p className="font-bold text-[24px]">
                     {(
-                      cartlist.product.price * cartlist.quantity
+                      cartlist.product.price
                     )?.toLocaleString()}
                     원
                   </p>
