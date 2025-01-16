@@ -20,6 +20,10 @@ export default function Search() {
     if (isSearchOpen) {
       // 모달이 열릴 때 body 스크롤 비활성화
       document.body.style.overflow = "hidden";
+
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
     } else {
       // 모달이 닫힐 때 body 스크롤 활성화
       document.body.style.overflow = "auto";
