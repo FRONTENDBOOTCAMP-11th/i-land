@@ -62,12 +62,10 @@ export default function Signup() {
       console.log("회원가입 버튼 클릭");
       try {
         const res = await axios.post("/users/", newFormData);
-        console.log(res);
         // 얼럿 출력 후 로그인 페이지로 이동
         alert("회원가입이 완료됐습니다.");
         navigate("/users/login");
       } catch (err) {
-        console.error(err.response.status);
         if (err.response.status === 500) {
           alert("잠시 후 다시 시도해주세요.");
         }
@@ -86,7 +84,6 @@ export default function Signup() {
       try {
         // 서버에 nickname 중복확인 요청
         const res = await axios.get(`/users/name?name=${nicknameInput}`);
-        console.log(res);
         // nickname 인증 상태 false => true 로 변경
         setValidNickname(true);
       } catch (err) {
@@ -118,7 +115,6 @@ export default function Signup() {
       try {
         // 서버에 email 중복확인 요청
         const res = await axios.get(`/users/email?email=${emailInput}`);
-        console.log(res);
         // email 인증 상태 false => true 로 변경
         setValidEmail(true);
       } catch (err) {

@@ -78,7 +78,6 @@ export default function Login() {
       const res = await axios.post("/users/login", formData);
       const user = res.data.item;
       console.log("로그인 성공");
-      console.log(user);
 
       // 쿠키에 사용자 정보 저장(_id, accessToken, refreshToken)
       setUser({
@@ -94,14 +93,13 @@ export default function Login() {
       // 이전 작업페이지 또는 메인 홈으로 이동
       navigate(location.state?.from || "/");
     } catch (err) {
-      console.error(err);
       // 요청 에러 400
       if (err.response.status >= 400) {
         setError("password", {
           type: "manual",
           message: "이메일과 비밀번호를 확인해주세요.",
         });
-      } else if (err.response.status >= 500) {
+      } else if (err.response.status === 500) {
         // 서버 에러 500
         alert("잠시 후 다시 시도해주세요.");
         navigate("/users/login");
@@ -111,7 +109,6 @@ export default function Login() {
 
   const kakaoLoginRequest = async code => {
     if (code) {
-      console.log(code);
       try {
         const res = await axios.post("/users/login/kakao", {
           code: code,
@@ -119,7 +116,6 @@ export default function Login() {
           user: {},
         });
         const user = res.data.item;
-        console.log(user);
 
         // 쿠키에 사용자 정보 저장(_id, accessToken, refreshToken)
         setUser({
@@ -135,7 +131,11 @@ export default function Login() {
         // 이전 작업페이지 또는 메인 홈으로 이동
         navigate(location.state?.from || "/");
       } catch (err) {
-        console.error(err);
+        if (err.response.status === 500) {
+          // 서버 에러 500
+          alert("잠시 후 다시 시도해주세요.");
+          navigate("/users/login");
+        }
       }
     }
   };
