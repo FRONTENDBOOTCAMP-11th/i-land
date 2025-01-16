@@ -7,7 +7,7 @@ const imgRegex = /^\/.*/;
 SellerCard.propTypes = {
   item: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    image: PropTypes.string,
     totalSales: PropTypes.number.isRequired,
   }),
 };
@@ -27,7 +27,7 @@ export default function SellerCard({ item }) {
                   : item.image
                 : "https://11.fesp.shop/files/final06/default-profile.png"
             }
-            alt=""
+            alt={`${item.name}의 프로필 이미지`}
           />
         </div>
         <h3 className="text-[18px] font-bold mb-3 leading-normal line-clamp-2">
