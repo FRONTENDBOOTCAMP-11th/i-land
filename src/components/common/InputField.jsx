@@ -10,6 +10,8 @@ InputField.propTypes = {
   error: PropTypes.object,
   children: PropTypes.node,
   className: PropTypes.string,
+  readOnly: PropTypes.bool,
+  defaultValue: PropTypes.string,
 };
 export default function InputField({
   label,
@@ -20,6 +22,8 @@ export default function InputField({
   error,
   children,
   className = "",
+  readOnly = false,
+  defaultValue = "",
 }) {
   return (
     <div className="w-full mb-5">
@@ -33,6 +37,8 @@ export default function InputField({
           type={type}
           placeholder={placeholder}
           {...register}
+          readOnly={readOnly}
+          defaultValue={defaultValue}
         />
         {children}
       </div>
