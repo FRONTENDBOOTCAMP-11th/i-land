@@ -6,14 +6,18 @@ import CryptoJS from "crypto-js";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 // 이메일, 비밀번호 정규 표현식
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const passwordRegex = /^.{8,}$/;
 
 // 로그인 정보 암호화 및 복호화 passkey
-const passKey = "11111111";
+const passKey = import.meta.env.VITE_passKey;
+
+// 카카오 로그인 관련 변수
+const JS_KEY = import.meta.env.VITE_JS_KEY;
+const REDIRECT_URI = `${window.location.origin}/users/login/kakao`;
 
 export default function Login() {
   // 로그인 상태 저장(전역 상태 관리)
@@ -23,6 +27,7 @@ export default function Login() {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const {
     register,
@@ -73,7 +78,6 @@ export default function Login() {
       const res = await axios.post("/users/login", formData);
       const user = res.data.item;
       console.log("로그인 성공");
-      console.log(user);
 
       // 쿠키에 사용자 정보 저장(_id, accessToken, refreshToken)
       setUser({
@@ -89,20 +93,69 @@ export default function Login() {
       // 이전 작업페이지 또는 메인 홈으로 이동
       navigate(location.state?.from || "/");
     } catch (err) {
-      console.error(err);
       // 요청 에러 400
       if (err.response.status >= 400) {
         setError("password", {
           type: "manual",
           message: "이메일과 비밀번호를 확인해주세요.",
         });
-      } else if (err.response.status >= 500) {
+      } else if (err.response.status === 500) {
         // 서버 에러 500
         alert("잠시 후 다시 시도해주세요.");
-        navigate("/user/login");
+        navigate("/users/login");
       }
     }
   };
+
+  const kakaoLoginRequest = async code => {
+    if (code) {
+      try {
+        const res = await axios.post("/users/login/kakao", {
+          code: code,
+          redirect_uri: REDIRECT_URI,
+          user: {},
+        });
+        const user = res.data.item;
+
+        // 쿠키에 사용자 정보 저장(_id, accessToken, refreshToken)
+        setUser({
+          _id: user._id,
+          profileImage: user.image || "/files/final06/default-profile.png",
+          accessToken: user.token.accessToken,
+          refreshToken: user.token.refreshToken,
+        });
+
+        // 로그인 성공 시 얼럿 창 출력
+        alert(res.data.item.name + "님 안녕하세요.");
+
+        // 이전 작업페이지 또는 메인 홈으로 이동
+        navigate(location.state?.from || "/");
+      } catch (err) {
+        console.error(err);
+        if (err.response.status === 500) {
+          // 서버 에러 500
+          alert("잠시 후 다시 시도해주세요.");
+          navigate("/users/login");
+        }
+      }
+    }
+  };
+
+  // 카카오 로그인
+  const useKakaoLogin = () => {
+    Kakao.init(JS_KEY);
+    Kakao.Auth.authorize({
+      redirectUri: REDIRECT_URI,
+    });
+  };
+
+  // 리디렉션 페이지가 최초 렌더링된 이후 실행
+  useEffect(() => {
+    // 카카오 redirectURI 에서 인가 코드 추출
+    const code = searchParams.get("code");
+    // 카카오 로그인 실행
+    kakaoLoginRequest(code);
+  }, []);
 
   // 화면 렌더링
   return (
@@ -188,6 +241,7 @@ export default function Login() {
             <button
               type="button"
               className="size-full focus:outline-none cursor-pointer bg-[url('/assets/icons/kakao-login.svg')] bg-cover"
+              onClick={useKakaoLogin}
             />
           </div>
 
@@ -195,7 +249,7 @@ export default function Login() {
             <button
               type="button"
               className="cursor-pointer size-full focus:outline-none"
-              onClick={() => navigate("/user/signup")}
+              onClick={() => navigate("/users/signup")}
             >
               회원가입
             </button>
