@@ -3,6 +3,8 @@ import { useState, useRef, useEffect } from "react";
 
 import useAxiosInstance from "@hooks/useAxiosInstance";
 
+// 이미지 경로 정규 표현식
+const imgRegex = /^\/.*/;
 export default function ReviewList({ user, ProductsReview, fetchProduct }) {
   const axios = useAxiosInstance();
   const formatDate = dateString => {
@@ -75,8 +77,14 @@ export default function ReviewList({ user, ProductsReview, fetchProduct }) {
               <div className="flex items-center gap-x-4">
                 <img
                   className="w-[50px] h-[50px] border-2 border-gray1 rounded-full"
-                  src={"https://11.fesp.shop/" + review.user?.image}
-                  alt="유저 프로필 사진"
+                  src={
+                    review.user.image
+                      ? imgRegex.test(review.user.image)
+                        ? `https://11.fesp.shop${review.user.image}`
+                        : review.user.image
+                      : "https://11.fesp.shop/files/final06/default-profile.png"
+                  } // 프로필 이미지가 없으면 기본 이미지 노출
+                  alt={`${review.user.name}의 프로필 사진`}
                 />
                 <p className="text-[20px] font-bold">{review.user?.name}</p>
               </div>
