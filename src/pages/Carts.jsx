@@ -3,7 +3,12 @@ import CartsBox from "@components/carts/CartsBox";
 import CartsDelete from "@components/carts/CartsDelete";
 import CartsPayment from "@components/carts/CartsPayment";
 import useAxiosInstance from "@hooks/useAxiosInstance";
+<<<<<<< HEAD
 import { useState, useEffect } from "react";
+=======
+import { useState } from "react";
+import { Helmet } from "react-helmet-async";
+>>>>>>> fc08ae1555798ff8f91633150c34032e9f329ebb
 
 export default function Carts() {
   const axios = useAxiosInstance();
@@ -133,6 +138,7 @@ export default function Carts() {
     }, [carts]);
   
   return (
+<<<<<<< HEAD
     <div className="container">
       <CartsDelete
         setCarts={setCarts}
@@ -165,5 +171,53 @@ export default function Carts() {
         </>
       )}
     </div>
+=======
+    <>
+      <Helmet>
+        <title>장바구니 - ILAND</title>
+
+        <meta property="og:title" content="장바구니 - ILAND" />
+        <meta
+          property="og:description"
+          content="ILAND에서 내 취향을 모아보세요."
+        />
+      </Helmet>
+      <div className="container">
+        <CartsDelete
+          setCarts={setCarts}
+          setError={setError}
+          setLoading={setLoading}
+          checkedItems={checkedItems}
+          handleAllCheckboxChange={handleAllCheckboxChange}
+          allChecked={allChecked}
+        />
+        {carts.item?.length === 0 ? (
+          <CartEmpty />
+        ) : (
+          <>
+            <CartsBox
+              error={error}
+              loading={loading}
+              setError={setError}
+              setLoading={setLoading}
+              setCheckedItems={setCheckedItems}
+              fetchCarts={fetchCarts}
+              carts={carts}
+              handleCheckboxChange={handleCheckboxChange}
+              checkedItems={checkedItems}
+              patchQuantityPlusCart={patchQuantityPlusCart}
+              patchQuantityMinusCart={patchQuantityMinusCart}
+              DeleteCarts={DeleteCarts}
+            />
+            <CartsPayment
+              checkedItems={checkedItems}
+              setCarts={setCarts}
+              carts={carts}
+            />
+          </>
+        )}
+      </div>
+    </>
+>>>>>>> fc08ae1555798ff8f91633150c34032e9f329ebb
   );
 }
