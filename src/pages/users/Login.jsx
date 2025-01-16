@@ -131,6 +131,7 @@ export default function Login() {
         // 이전 작업페이지 또는 메인 홈으로 이동
         navigate(location.state?.from || "/");
       } catch (err) {
+        console.error(err);
         if (err.response.status === 500) {
           // 서버 에러 500
           alert("잠시 후 다시 시도해주세요.");

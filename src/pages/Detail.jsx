@@ -75,7 +75,9 @@ export default function Detail() {
         setLike(null);
       }
     } catch (err) {
-      console.error("찜 상태 확인 중 오류 발생:", err);
+      if (err.response.status !== 404) {
+        console.error(err.response.data.message);
+      }
     }
   };
   // _id값 변경시 실행
