@@ -71,6 +71,8 @@ export default function Detail() {
       const response = await axios.get(`/bookmarks/product/${products_id}`);
       if (response.data && response.data.item) {
         setLike(response.data.item._id); // 찜한 상품 ID 저장
+      } else {
+        setLike(null);
       }
     } catch (err) {
       console.error("찜 상태 확인 중 오류 발생:", err);
