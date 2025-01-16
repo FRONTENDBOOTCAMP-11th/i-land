@@ -21,9 +21,11 @@ export default function SellerCard({ item }) {
           <img
             className="size-full"
             src={
-              imgRegex.test(item.image)
-                ? `https://11.fesp.shop${item.image}`
-                : item.image
+              item.image
+                ? imgRegex.test(item.image)
+                  ? `https://11.fesp.shop${item.image}`
+                  : item.image
+                : "https://11.fesp.shop/files/final06/default-profile.png"
             }
             alt=""
           />

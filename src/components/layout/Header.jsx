@@ -3,6 +3,9 @@ import useUserStore from "@zustand/userStore";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+// 이미지 경로 정규 표현식
+const imgRegex = /^\/.*/;
+
 export default function Header() {
   // 로그인 상태와 프로필 이미지 관리
   // TODO: Zustand를 통한 로그인 상태 관리
@@ -45,7 +48,11 @@ export default function Header() {
           >
             <img
               className="box-content w-10 h-10 border-2 rounded-full border-gray1"
-              src={`https://11.fesp.shop/${user?.profileImage}`} // 프로필 이미지가 없으면 기본 이미지 노출
+              src={
+                imgRegex.test(user.profileImage)
+                  ? `https://11.fesp.shop${user.profileImage}`
+                  : user.profileImage
+              } // 프로필 이미지가 없으면 기본 이미지 노출
               alt="User Profile"
             />
             {dropdownVisible && <ProfileDropdown />}
