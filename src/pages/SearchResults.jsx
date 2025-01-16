@@ -51,7 +51,7 @@ export default function SearchResults() {
 
       <div className="container">
         <header>
-          <h2 className="page-title">검색 결과</h2>
+          <h2 className="page-title">검색 결과 - {keyword}</h2>
         </header>
         <div className="flex items-center justify-between mb-[50px]">
           <span>총 {results?.length || 0}개의 결과가 있습니다.</span>
