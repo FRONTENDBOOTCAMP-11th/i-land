@@ -8,21 +8,10 @@ export default function Bookmarks() {
   const axios = useAxiosInstance();
   const [bookmarks, setBookmarks] = useState([]); // 상품 초기값 null
   const [product, setProduct] = useState([]); // 상품 초기값 null
-  const [carts, setCarts] = useState([]); // 장바구니 상태
   const [loading, setLoading] = useState(true); // 로딩
   const [error, setError] = useState(null); // 에러
 
-  // 장바구니 목록 조회 - 로그인 (/carts/)
-  const fetchCarts = async () => {
-    try {
-      const response = await axios.get(`/carts/`);
-      setCarts(response?.data);
-    } catch (err) {
-      setError(err);
-    } finally {
-      setLoading(false); // 로딩 종료
-    }
-  };
+
   // 북마크 목록 조회 (/bookmarks/{type})
   const fetchBookmarks = async () => {
     try {
@@ -42,7 +31,7 @@ export default function Bookmarks() {
     }
   };
   // 북마크 삭제 (/bookmarks/{_id})
-  const DeleteBookmarks = async _id => {
+  const deleteBookmarks = async _id => {
     const confirmNavigate = window.confirm("상품을 삭제하시겠습니까?");
     if (!confirmNavigate) {
       return;
@@ -78,11 +67,38 @@ export default function Bookmarks() {
       setError(err);
     }
   };
+
+  // 모든 북마크 삭제
+  const deleteAllBookmarks = async () => {
+    const confirmNavigate = window.confirm("모든 북마크를 삭제하시겠습니까?");
+    if (!confirmNavigate) {
+      return;
+    }
+
+    setLoading(true); // 로딩 상태 설정
+
+    try {
+      // 모든 북마크의 ID를 가져옵니다
+      const allBookmarkIds = bookmarks.item.map(bookmark => bookmark._id);
+
+      // 모든 북마크 삭제 요청
+      await Promise.all(
+        allBookmarkIds.map(async (id) => {
+          await axios.delete(`/bookmarks/${id}`);
+        })
+      );
+
+      // 로컬 상태에서 모든 아이템 제거
+      setBookmarks({ item: [] }); // 북마크를 비운다
+    } catch (err) {
+      setError(err); // 에러 처리
+    } finally {
+      setLoading(false); // 로딩 종료
+    }
+  };
   useEffect(() => {
-    fetchCarts();
     fetchBookmarks();
     fetchProduct();
-    setLoading(false); // 로딩 종료
   }, []);
   loading && <p>Loading...</p>;
   error && <p>Error: {error.message}</p>;
@@ -100,7 +116,15 @@ export default function Bookmarks() {
       <div className="container">
         <section className="mb-[50px]">
           <h1 className="page-title">찜한 상품</h1>
-          <p>총 {bookmarks?.item?.length} 개의 찜한 상품이 있습니다</p>
+          <div className="flex justify-between">
+            <p>총 {bookmarks?.item?.length} 개의 찜한 상품이 있습니다</p>
+            <button
+            className="w-[96px] h-[24px] border border-solid border-gray2 rounded-[8px]"
+            onClick={deleteAllBookmarks}
+            >
+              모두 삭제
+            </button>
+          </div>
         </section>
 
         <ul className="grid grid-flow-row gap-y-[50px] pb-[60px]">
@@ -162,7 +186,7 @@ export default function Bookmarks() {
                         type="button"
                         className="w-[120px] h-[50px] py-[14px] px-9 rounded-lg text-[18px] font-bold text-white bg-point-red box-border"
                         aria-label="찜하기 목록에서 삭제 버튼"
-                        onClick={() => DeleteBookmarks(bookmarkslist._id)}
+                        onClick={() => deleteBookmarks(bookmarkslist._id)}
                       >
                         삭제
                       </button>
