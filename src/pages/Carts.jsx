@@ -83,7 +83,7 @@ export default function Carts() {
     setAllChecked(!allChecked); // 전체 선택 상태 반전
   };
   // 장바구니 상품 한건 삭제 (/carts/{_id})
-  const DeleteCarts = async _id => {
+  const deleteCarts = async _id => {
     const deleteCartsConfirm = window.confirm(
       "해당 상품을 장바구니에서 제거 하시겠습니까?",
     );
@@ -166,7 +166,7 @@ export default function Carts() {
             handleCheckboxChange={handleCheckboxChange}
             patchQuantityPlusCart={patchQuantityPlusCart}
             patchQuantityMinusCart={patchQuantityMinusCart}
-            DeleteCarts={DeleteCarts}
+            deleteCarts={deleteCarts}
           />
           <CartsPayment
             checkedItems={checkedItems}

@@ -7,7 +7,7 @@ export default function CartsBox({
   checkedItems,
   patchQuantityPlusCart,
   patchQuantityMinusCart,
-  DeleteCarts,
+  deleteCarts,
   product,
 }) {
   return (
@@ -81,7 +81,7 @@ export default function CartsBox({
                 </button>
               </div>
               <button
-                onClick={() => DeleteCarts(cartlist._id)}
+                onClick={() => deleteCarts(cartlist._id)}
                 className="absolute right-[40px] top-[40px]"
               >
                 <img src="/assets/icons/close.svg" alt="" />
@@ -100,6 +100,6 @@ CartsBox.propTypes = {
   checkedItems: PropTypes.array.isRequired,
   patchQuantityMinusCart: PropTypes.func.isRequired,
   patchQuantityPlusCart: PropTypes.func.isRequired,
-  DeleteCarts: PropTypes.func.isRequired,
+  deleteCarts: PropTypes.func.isRequired,
   product: PropTypes.object,
 };
