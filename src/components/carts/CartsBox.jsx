@@ -1,45 +1,20 @@
 import PropTypes from "prop-types";
-import useAxiosInstance from "@hooks/useAxiosInstance";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 
 export default function CartsBox({
-  _id,
   carts,
   error,
   loading,
-  fetchCarts,
   handleCheckboxChange,
   checkedItems,
   patchQuantityPlusCart,
   patchQuantityMinusCart,
   DeleteCarts,
-  setError,
-  setCheckedItems,
+  product,
 }) {
-  const axios = useAxiosInstance();
-  const [product, setProduct] = useState(null); // 상품 초기값 null
 
-  // 상품 상세 조회 (/products/{_id})
-  const fetchProduct = async () => {
-    try {
-      const response = await axios.get(`/products/`);
-      setProduct(response?.data);
-    } catch (err) {
-      setError(err);
-    }
-  };
 
-  useEffect(() => {
-    fetchProduct();
-    fetchCarts(); // 장바구니 정보 가져오기
-  }, [_id]);
 
-  useEffect(() => {
-    if (carts?.item) {
-      setCheckedItems(carts.item.map(cartlist => cartlist._id)); // 모든 체크박스를 선택됨으로 설정
-    }
-  }, [carts]);
 
   // 로딩 중일 때
   if (loading) return <div>Loading...</div>;
@@ -48,7 +23,7 @@ export default function CartsBox({
   return (
     <section name="cartMain">
       <div className="flex flex-col gap-y-[50px]">
-        {carts?.item?.map(cartlist => {
+        {carts?.map(cartlist => {
           // 각 cartlist에 대한 productItem 찾기
           const productItem = product?.item?.find(
             prod => prod._id === cartlist.product_id,
@@ -129,16 +104,13 @@ export default function CartsBox({
 }
 
 CartsBox.propTypes = {
-  _id: PropTypes.string.isRequired,
   carts: PropTypes.array.isRequired,
   error: PropTypes.object,
   loading: PropTypes.bool.isRequired,
-  fetchCarts: PropTypes.func.isRequired,
   handleCheckboxChange: PropTypes.func.isRequired,
   checkedItems: PropTypes.array.isRequired,
   patchQuantityMinusCart: PropTypes.func.isRequired,
   patchQuantityPlusCart: PropTypes.func.isRequired,
   DeleteCarts: PropTypes.func.isRequired,
-  setError: PropTypes.func.isRequired,
-  setCheckedItems: PropTypes.func.isRequired,
+  product: PropTypes.object,
 };

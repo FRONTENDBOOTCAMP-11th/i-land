@@ -3,7 +3,7 @@ import CartsBox from "@components/carts/CartsBox";
 import CartsDelete from "@components/carts/CartsDelete";
 import CartsPayment from "@components/carts/CartsPayment";
 import useAxiosInstance from "@hooks/useAxiosInstance";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Carts() {
   const axios = useAxiosInstance();
@@ -12,6 +12,7 @@ export default function Carts() {
   const [carts, setCarts] = useState([]); // 장바구니 정보
   const [checkedItems, setCheckedItems] = useState([]); // 선택된 항목의 배열
   const [allChecked, setAllChecked] = useState(true); // 전체 선택 상태
+  const [product, setProduct] = useState(null); // 상품 초기값 null
 
   // 장바구니 상품 수량 수정 (/carts/{_id})
   const patchQuantityPlusCart = async _id => {
@@ -111,6 +112,26 @@ export default function Carts() {
       setLoading(false); // 로딩 종료
     }
   };
+  
+  // 상품 상세 조회 (/products/{_id})
+  const fetchProduct = async () => {
+    try {
+      const response = await axios.get(`/products/`);
+      setProduct(response?.data);
+    } catch (err) {
+      setError(err);
+    }
+  };
+    useEffect(() => {
+      fetchProduct();
+      fetchCarts(); // 장바구니 정보 가져오기
+    }, []);
+    useEffect(() => {
+      if (carts?.item) {
+        setCheckedItems(carts.item.map(cartlist => cartlist._id)); // 모든 체크박스를 선택됨으로 설정
+      }
+    }, [carts]);
+  
   return (
     <div className="container">
       <CartsDelete
@@ -128,13 +149,10 @@ export default function Carts() {
           <CartsBox
             error={error}
             loading={loading}
-            setError={setError}
-            setLoading={setLoading}
-            setCheckedItems={setCheckedItems}
-            fetchCarts={fetchCarts}
-            carts={carts}
-            handleCheckboxChange={handleCheckboxChange}
+            carts={carts?.item}
+            product={product}
             checkedItems={checkedItems}
+            handleCheckboxChange={handleCheckboxChange}
             patchQuantityPlusCart={patchQuantityPlusCart}
             patchQuantityMinusCart={patchQuantityMinusCart}
             DeleteCarts={DeleteCarts}
@@ -142,7 +160,7 @@ export default function Carts() {
           <CartsPayment
             checkedItems={checkedItems}
             setCarts={setCarts}
-            carts={carts}
+            carts={carts.item}
           />
         </>
       )}

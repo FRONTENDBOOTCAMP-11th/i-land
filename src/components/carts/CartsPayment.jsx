@@ -4,7 +4,7 @@ export default function CartsPayment({ checkedItems, carts }) {
   // 선택된 상품의 총합 계산
   const calculateTotalPrice = () => {
     return checkedItems.reduce((total, id) => {
-      const cartItem = carts.item.find(cart => cart._id === id);
+      const cartItem = carts.find(cart => cart._id === id);
       return cartItem
         ? total + cartItem.product.price * cartItem.quantity
         : total;
@@ -22,7 +22,7 @@ export default function CartsPayment({ checkedItems, carts }) {
           <div className="flex justify-between text-[28px] font-bold">
             <ul className="w-full flex flex-col gap-[20px]">
               {checkedItems.map(id => {
-                const cartItem = carts.item.find(cart => cart._id === id);
+                const cartItem = carts.find(cart => cart._id === id);
                 return (
                   cartItem && (
                     <li key={id} className="flex gap-x-[30px] justify-between">
@@ -65,7 +65,6 @@ export default function CartsPayment({ checkedItems, carts }) {
 }
 
 CartsPayment.propTypes = {
-  carts: PropTypes.object.isRequired,
-  setCarts: PropTypes.func.isRequired,
+  carts: PropTypes.array.isRequired,
   checkedItems: PropTypes.array.isRequired,
 };
