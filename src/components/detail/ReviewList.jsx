@@ -138,7 +138,7 @@ export default function ReviewList({ user, ProductsReview, fetchProduct }) {
 }
 
 ReviewList.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   ProductsReview: PropTypes.array.isRequired,
   fetchProduct: PropTypes.func.isRequired,
 };
