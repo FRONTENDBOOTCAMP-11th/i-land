@@ -20,16 +20,23 @@ export default function CartsPayment({ checkedItems, carts }) {
       <div className="flex flex-col items-center">
         <div className="p-[60px]  w-full border border-gray2 border-solid rounded-[8px] flex flex-col gap-y-[40px]">
           <div className="flex justify-between text-[28px] font-bold">
-            <ul className="w-full">
+            <ul className="w-full flex flex-col gap-[20px]">
               {checkedItems.map(id => {
                 const cartItem = carts.item.find(cart => cart._id === id);
                 return (
                   cartItem && (
-                    <li key={id} className="flex justify-between">
-                      <p className="max-w-[300px] overflow-hidden line-clamp-1">{cartItem.product.name}</p>
-                      <div className="flex">
-                        <p>{cartItem.quantity}개</p>
-                        <p>
+                    <li key={id} className="flex gap-x-[30px] justify-between">
+                      <p className="max-w-[300px] overflow-hidden line-clamp-1 basis-full">
+                        {cartItem.product.name}
+                      </p>
+                      <div className="flex gap-x-[30px] basis-[300px]">
+                        <input
+                          className="text-center border border-solid rounded w-[28px] h-[28px] border-gray2"
+                          type="text"
+                          value={cartItem.quantity}
+                        />
+                        <img src="/assets/icons/close.svg" alt="" />
+                        <p className="text-right basis-[170px]">
                           {(
                             cartItem?.product?.price * cartItem?.quantity
                           ).toLocaleString()}
