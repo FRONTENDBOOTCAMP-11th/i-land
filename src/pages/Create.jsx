@@ -1,19 +1,16 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet-async";
+
 import useAxiosInstance from "@hooks/useAxiosInstance";
-import useUserStore from "@zustand/userStore";
 
 import InputField from "@components/common/InputField";
 import ProductCategory from "@components/create/ProductCategory";
 import ProductImageUploader from "@components/create/ProductImageUploader";
 import ProductContent from "@components/create/ProductContent";
-import { Helmet } from "react-helmet-async";
 
 export default function Create() {
   const axios = useAxiosInstance();
-  const { user } = useUserStore();
-  const accessToken = user?.accessToken;
-  console.log(accessToken);
 
   const {
     register,
@@ -38,10 +35,7 @@ export default function Create() {
         mainImages, // TODO: 이미지 미리보기 기능 개발하기
       };
 
-      const response = await axios.post("/seller/products", productData);
-
-      // 등록 상품 정보 브라우저 콘솔 확인
-      console.log("등록 상품 정보: ", response.data);
+      await axios.post("/seller/products", productData);
 
       alert("상품 등록이 완료되었습니다.");
       reset();
