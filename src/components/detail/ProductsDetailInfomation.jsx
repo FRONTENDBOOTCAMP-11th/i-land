@@ -95,7 +95,10 @@ export default function ProductsDetailInfomation({
       const confirmPayment = window.confirm(
         `정말 ${products?.item?.name}를 ${quantitycount}개 구매 하시겠습니까?`          
       );
-      if (confirmPayment) {
+      if (!user?.accessToken) {
+        navigate("/carts");
+        return;
+      } else if (confirmPayment) {
         navigate("/payment", {
           state: {
             productId: products.item._id,

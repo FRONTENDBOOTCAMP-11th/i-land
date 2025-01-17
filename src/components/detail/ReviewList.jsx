@@ -46,7 +46,7 @@ export default function ReviewList({ user, ProductsReview, fetchProduct }) {
     setEditingReviewId(review._id); // 수정할 리뷰 ID 설정
     setEditedContent(review.content); // 해당 리뷰 내용 설정
   };
-  // 수정 저장장
+  // 수정 저장
   const handleSave = reviewId => {
     const confirmSaveChanges =
       window.confirm("변경된 내용을 저장하시겠습니까?");
