@@ -5,6 +5,7 @@ import CartsPayment from "@components/carts/CartsPayment";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
+import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll';
 
 export default function Carts() {
   const axios = useAxiosInstance();
@@ -145,34 +146,45 @@ export default function Carts() {
     />
   </Helmet>
     <div className="container">
-      <CartsDelete
-        setCarts={setCarts}
-        setError={setError}
-        setLoading={setLoading}
-        checkedItems={checkedItems}
-        handleAllCheckboxChange={handleAllCheckboxChange}
-        allChecked={allChecked}
-      />
+      <nav>
+          <Link to="section1" smooth={true} duration={500}>Section 1</Link>
+          <Link to="section2" smooth={true} duration={500}>Section 2</Link>
+          <Link to="section3" smooth={true} duration={500}>Section 3</Link>
+      </nav>
+      <div name="section1">
+        <CartsDelete
+          setCarts={setCarts}
+          setError={setError}
+          setLoading={setLoading}
+          checkedItems={checkedItems}
+          handleAllCheckboxChange={handleAllCheckboxChange}
+          allChecked={allChecked}
+        />
+      </div>
       {carts.item?.length === 0 ? (
         <CartEmpty />
       ) : (
         <>
-          <CartsBox
-            error={error}
-            loading={loading}
-            carts={carts?.item}
-            product={product}
-            checkedItems={checkedItems}
-            handleCheckboxChange={handleCheckboxChange}
-            patchQuantityPlusCart={patchQuantityPlusCart}
-            patchQuantityMinusCart={patchQuantityMinusCart}
-            deleteCarts={deleteCarts}
-          />
-          <CartsPayment
-            checkedItems={checkedItems}
-            setCarts={setCarts}
-            carts={carts.item}
-          />
+        <div name="section2">
+            <CartsBox
+              error={error}
+              loading={loading}
+              carts={carts?.item}
+              product={product}
+              checkedItems={checkedItems}
+              handleCheckboxChange={handleCheckboxChange}
+              patchQuantityPlusCart={patchQuantityPlusCart}
+              patchQuantityMinusCart={patchQuantityMinusCart}
+              deleteCarts={deleteCarts}
+            />
+          </div>
+          <div name="section3">
+            <CartsPayment
+              checkedItems={checkedItems}
+              setCarts={setCarts}
+              carts={carts.item}
+            />
+          </div>
         </>
       )}
     </div>
