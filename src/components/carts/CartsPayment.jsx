@@ -20,7 +20,7 @@ export default function CartsPayment({ checkedItems, carts }) {
             alert("선택된 상품이 없습니다.");
             return;
         }
-        const confirmPayment = window.confirm("선택한 상품들을 구매 하시겠습니까?");
+        const confirmPayment = window.confirm(`총 ${checkedItems.length} 종류의 상품이 선택되었습니다.\n 선택된 상품을 구매하시겠습니까?`);
         if (confirmPayment) {
             const itemsToPurchase = checkedItems.map(id => {
                 const cartItem = carts.find(cart => cart._id === id);
@@ -38,7 +38,7 @@ export default function CartsPayment({ checkedItems, carts }) {
         console.log(err);
     }
 };
-
+console.log(checkedItems);
   return (
     <section name="cartFooter">
       <hr className="text-gray1 border border-solid my-[100px]" />
