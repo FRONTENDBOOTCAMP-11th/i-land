@@ -26,7 +26,7 @@ export default function MyPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, dirtyFields },
     setError,
     clearErrors,
     getValues,
@@ -117,6 +117,14 @@ export default function MyPage() {
     }
   };
 
+  // 회원정보 수정 API
+  const patchMyInfo = formData => {
+    const newFormData = new FormData();
+    console.log(formData);
+    console.log(dirtyFields);
+    console.log(newFormData);
+  };
+
   // 비밀번호 일치 여부 판단
   useEffect(() => {
     if (watch("password") !== watch("passwordCheck")) {
@@ -144,7 +152,10 @@ export default function MyPage() {
       <div className="container">
         <h1 className="page-title">내 정보</h1>
       </div>
-      <form className="w-[400px] mx-auto pb-[60px]">
+      <form
+        className="w-[400px] mx-auto pb-[60px]"
+        onSubmit={handleSubmit(patchMyInfo)}
+      >
         <fieldset className="mb-[10px]" id="userInfo">
           <legend className="sr-only">사용자 정보 입력</legend>
 
@@ -180,7 +191,7 @@ export default function MyPage() {
             id="userName"
             label="이름"
             placeholder="예) 김아랜"
-            defaultValue={myInfo?.extra.username || myInfo?.name}
+            defaultValue={myInfo?.extra?.username || myInfo?.name}
             readOnly={true}
             register={register("username")}
           />
