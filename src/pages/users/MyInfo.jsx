@@ -1,11 +1,27 @@
 import InputField from "@components/common/InputField";
 import PasswordInput from "@components/user/PasswordInput";
-import { useState } from "react";
+import useAxiosInstance from "@hooks/useAxiosInstance";
+import useUserStore from "@zustand/userStore";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 
+// 이메일, 비밀번호 정규 표현식
+const nicknameRegex = /^[가-힣a-zA-Z0-9]{2,16}$/;
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const passwordRegex = /^.{8,}$/;
+
+// 이미지 경로 정규 표현식
+const imgRegex = /^\/.*/;
+
 export default function MyPage() {
   const [editInfo, setEditInfo] = useState(false);
+
+  const [myInfo, setMyInfo] = useState();
+
+  const axios = useAxiosInstance();
+
+  const { user } = useUserStore();
 
   const {
     register,
@@ -13,12 +29,35 @@ export default function MyPage() {
     formState: { errors },
     setError,
     clearErrors,
+    getValues,
     reset,
+    watch,
   } = useForm();
 
   const editToggle = () => {
     setEditInfo(!editInfo);
   };
+
+  // 회원정보 출력
+  const fetchUserInfo = async user_id => {
+    try {
+      const res = await axios.get(`/users/${user_id}`);
+      console.log(res.data.item);
+      setMyInfo(res.data.item);
+    } catch (err) {
+      console.error(err.response.data.message);
+    }
+  };
+
+  // 회원정보 불러오기
+  useEffect(() => {
+    fetchUserInfo(user._id);
+    reset({
+      username: myInfo?.extra.username || myInfo?.name,
+      name: myInfo?.name,
+      email: myInfo?.email,
+    });
+  }, [reset]);
 
   // 닉네임 중복확인
   const checkNickname = async () => {
@@ -83,6 +122,18 @@ export default function MyPage() {
     }
   };
 
+  // 비밀번호 일치 여부 판단
+  useEffect(() => {
+    if (watch("password") !== watch("passwordCheck")) {
+      setError("passwordCheck", {
+        type: "password-mismatch",
+        message: "비밀번호가 일치하지 않습니다.",
+      });
+    } else {
+      clearErrors("passwordCheck");
+    }
+  }, [watch("password"), watch("passwordCheck")]);
+
   return (
     <>
       <Helmet>
@@ -105,7 +156,13 @@ export default function MyPage() {
           <figure className="aspect-square size-[150px] mx-auto mb-[30px] relative">
             <img
               className="size-full rounded-full border-2 border-gray1 box-border"
-              src="/assets/images/product-image-1.png"
+              src={
+                myInfo?.image
+                  ? imgRegex.test(myInfo.image)
+                    ? `https://11.fesp.shop${myInfo.image}`
+                    : myInfo.image
+                  : "https://11.fesp.shop/files/final06/default-profile.png"
+              }
             />
             {editInfo && (
               <>
@@ -128,16 +185,18 @@ export default function MyPage() {
             id="userName"
             label="이름"
             placeholder="예) 김아랜"
-            defaultValue="아이유"
+            defaultValue={myInfo?.extra.username || myInfo?.name}
             readOnly={true}
+            register={register("username")}
           />
 
           <InputField
             id="userNickname"
             label="닉네임"
             placeholder="예) 아이랜드덕후"
-            defaultValue="내가찐이유"
+            defaultValue={myInfo?.name}
             readOnly={!editInfo && true}
+            register={register("name")}
           >
             {editInfo && (
               <div className="ml-auto px-[14px] py-[6px] border-solid border-2 border-gray2 rounded-lg text-gray3 box-content focus-within:border-point-blue">
@@ -157,8 +216,9 @@ export default function MyPage() {
             id="email"
             label="이메일"
             placeholder="예) iland@iland.com"
-            defaultValue="imiu@iland.com"
+            defaultValue={myInfo?.email}
             readOnly={!editInfo && true}
+            register={register("email")}
           >
             {editInfo && (
               <div className="ml-auto px-[14px] py-[6px] border-solid border-2 border-gray2 rounded-lg text-gray3 box-content focus-within:border-point-blue">
@@ -182,12 +242,14 @@ export default function MyPage() {
               id="password"
               label="비밀번호"
               placeholder="비밀번호"
+              register={register("password")}
             />
 
             <PasswordInput
               id="passwordCheck"
               label="비밀번호 확인"
               placeholder="비밀번호 확인"
+              register={register("passwordCheck")}
             />
           </fieldset>
         )}

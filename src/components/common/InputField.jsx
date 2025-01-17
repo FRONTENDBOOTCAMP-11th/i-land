@@ -30,7 +30,9 @@ export default function InputField({
       <label className={className} htmlFor={id}>
         {label}
       </label>
-      <div className="py-[10px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue items-center">
+      <div
+        className={`py-[10px] flex border-solid border-b-4 border-gray3 ${readOnly ? "" : "focus-within:border-point-blue"} items-center`}
+      >
         <input
           className="text-[20px] focus:outline-none flex-grow"
           id={id}
