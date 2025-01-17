@@ -88,6 +88,33 @@ export default function ProductsDetailInfomation({
       }
     }
   };
+  // 상품 구매 (/orders/)
+  const purchaseProducts = async quantitycount => {
+    try {
+      await axios.post(`/orders/`, {
+        products: [
+          {
+            "_id": 1,
+            "quantity": 1
+          },
+          {
+            "_id": 2,
+            "quantity": 2
+          }
+        ]
+      });
+      const confirmNavigate = window.confirm(
+        `${products?.item?.name} ${quantitycount}개가 장바구니에 추가 되었습니다.\n` +
+          "장바구니로 이동하시겠습니까?",
+      );
+      if (confirmNavigate) {
+        navigate("/carts");
+        return;
+      } else return;
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   // 상품의 현재 수량
   const productNowQuantity =
