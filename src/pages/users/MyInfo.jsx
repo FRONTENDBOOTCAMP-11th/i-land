@@ -52,12 +52,7 @@ export default function MyPage() {
   // 회원정보 불러오기
   useEffect(() => {
     fetchUserInfo(user._id);
-    reset({
-      username: myInfo?.extra.username || myInfo?.name,
-      name: myInfo?.name,
-      email: myInfo?.email,
-    });
-  }, [reset]);
+  }, []);
 
   // 닉네임 중복확인
   const checkNickname = async () => {
