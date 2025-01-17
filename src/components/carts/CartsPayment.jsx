@@ -13,6 +13,31 @@ export default function CartsPayment({ checkedItems, carts }) {
   const totalPrice = calculateTotalPrice(); // 총합 계산
   // console.log("checkedItems", checkedItems);
   // console.log("carts", carts);
+  // 상품 결제 페이지 이동 + 구매할 상품 정보 전달
+  const purchaseProducts = async () => {
+    try {
+        if (checkedItems.length === 0) {
+            alert("선택된 상품이 없습니다.");
+            return;
+        }
+        const confirmPayment = window.confirm("선택한 상품들을 구매 하시겠습니까?");
+        if (confirmPayment) {
+            const itemsToPurchase = checkedItems.map(id => {
+                const cartItem = carts.find(cart => cart._id === id);
+                return {
+                    productId: cartItem._id,
+                    quantity: cartItem.quantity,
+                };
+            });
+            navigate("/payment", {
+                state: itemsToPurchase,
+            });
+            return;
+        }
+    } catch (err) {
+        console.log(err);
+    }
+};
 
   return (
     <section name="cartFooter">
@@ -59,7 +84,10 @@ export default function CartsPayment({ checkedItems, carts }) {
           </div>
         </div>
 
-        <button className="w-[400px] h-[60px] mb-[60px] mt-[60px] px-[89px] py-[16px] bg-point-blue text-white rounded-[8px] text-[24px] font-bold">
+        <button 
+          className="w-[400px] h-[60px] mb-[60px] mt-[60px] px-[89px] py-[16px] bg-point-blue text-white rounded-[8px] text-[24px] font-bold"
+          onClick={purchaseProducts}
+        >
           선택 상품 결제
         </button>
       </div>
