@@ -17,7 +17,7 @@ export default function Layout() {
       <div name="footer">
         <Footer />
       </div>
-      <div className="fixed top-[50%] right-0">
+      <div className="fixed top-[50%] right-[10px]">
         <MoveScroll />
       </div>
     </div>
