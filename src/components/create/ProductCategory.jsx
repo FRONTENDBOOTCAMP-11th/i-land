@@ -1,44 +1,47 @@
 import PropTypes from "prop-types";
 import { useQuery } from "@tanstack/react-query";
 import Select from "react-select";
-import chroma from "chroma-js";
 
 import useAxiosInstance from "@hooks/useAxiosInstance";
 
 const colorStyles = {
-  control: styles => ({ ...styles, backgroundColor: "white" }),
-  option: (styles, { data, isFocused, isSelected }) => {
-    const color = chroma(data.color);
+  control: (styles, state) => ({
+    ...styles,
+    backgroundColor: "white",
+    width: "100%",
+    minWidth: "460px",
+    padding: "10px 0",
+    borderWidth: "2px",
+    borderColor: state.isFocused ? "#0093FF" : "#CCCCCC",
+  }),
+  option: (styles, { isFocused, isSelected }) => {
     return {
       ...styles,
       backgroundColor: isSelected
-        ? data.color
+        ? "#0093FF"
         : isFocused
-          ? color.alpha(0.1).css()
+          ? "#f0f8ff"
           : undefined,
-      color: isSelected
-        ? chroma.contrast(color, "white") > 2
-          ? "white"
-          : "black"
-        : data.color,
+      color: "black",
     };
   },
-  multiValue: (styles, { data }) => {
-    const color = chroma(data.color);
-    return {
-      ...styles,
-      backgroundColor: color.alpha(0.1).css(),
-    };
-  },
-  multiValueLabel: (styles, { data }) => ({
+  multiValue: (styles, { data }) => ({
     ...styles,
-    color: data.color,
+    color: "white",
+    backgroundColor: "#0093FF",
+    borderRadius: "9999px",
+    padding: "5px 10px",
+    fontSize: "18px",
   }),
-  multiValueRemove: (styles, { data }) => ({
+  multiValueLabel: styles => ({
     ...styles,
-    color: data.color,
+    color: "white",
+  }),
+  multiValueRemove: styles => ({
+    ...styles,
+    color: "white",
     ":hover": {
-      backgroundColor: data.color,
+      backgroundColor: "#0093FF",
       color: "white",
     },
   }),
@@ -47,7 +50,6 @@ const colorStyles = {
 export default function ProductCategory({ value, onChange }) {
   const axios = useAxiosInstance();
 
-  // Fetch 카테고리 데이터
   const {
     data: categoryOptions = [],
     isLoading,
@@ -57,23 +59,22 @@ export default function ProductCategory({ value, onChange }) {
     queryFn: async () => {
       const response = await axios.get("/codes/productCategory");
       const categories = response.data.item.productCategory.codes;
-      console.log("categories", categories);
 
       return categories.map(category => ({
-        value: category.code, // 고유 코드
-        label: category.value, // 카테고리 이름
-        color: "#0052CC", // 기본 색상
+        value: category.code,
+        label: category.value,
+        color: "#0093FF",
       }));
     },
   });
 
   const handleSelectChange = selectedOptions => {
-    // 선택된 옵션 배열에서 값만 추출하여 부모로 전달
     const selectedValues = selectedOptions.map(option => option.value);
     onChange(selectedValues);
   };
 
   if (isLoading) return <p>Loading categories...</p>;
+
   if (isError) return <p>Error loading categories!</p>;
 
   return (
