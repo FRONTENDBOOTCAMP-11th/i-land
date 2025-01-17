@@ -6,7 +6,7 @@ InputField.propTypes = {
   id: PropTypes.string.isRequired,
   type: PropTypes.string,
   placeholder: PropTypes.string,
-  register: PropTypes.object.isRequired,
+  register: PropTypes.object,
   error: PropTypes.object,
   children: PropTypes.node,
   className: PropTypes.string,

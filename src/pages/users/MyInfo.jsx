@@ -32,7 +32,7 @@ export default function MyPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors, dirtyFields },
+    formState: { errors, isDirty, dirtyFields },
     setError,
     clearErrors,
     getValues,
@@ -55,18 +55,15 @@ export default function MyPage() {
     }
   };
 
-  // 회원정보 불러오기
-  useEffect(() => {
-    fetchUserInfo(user._id);
-  }, []);
-
   // 닉네임 중복확인
   const checkNickname = async () => {
-    // nicknameInput 이 수정되었을 때만 실행
-    if (dirtyFields.name) {
-      // nicknameInput 값 획득
-      const nicknameInput = getValues("name");
+    // nicknameInput 값 획득
+    const nicknameInput = getValues("name");
 
+    // nicknameInput 이 수정되었을 때만 실행
+    if (!dirtyFields.name || myInfo.name === nicknameInput) {
+      setValidNickname(true);
+    } else {
       // nickname 유효성 검사
       if (nicknameInput.length !== 0 && nicknameRegex.test(nicknameInput)) {
         // 기존의 에러 초기화
@@ -93,17 +90,18 @@ export default function MyPage() {
           message: "올바른 형식의 닉네임을 입력해주세요.",
         });
       }
-    } else {
-      setValidNickname(true);
     }
   };
 
   // 이메일 중복확인
   const checkEmail = async () => {
+    // emailInput 값 획득
+    const emailInput = getValues("email");
+
     // emailInput 이 수정되었을 때만 실행
-    if (dirtyFields.email) {
-      // emailInput 값 획득
-      const emailInput = getValues("email");
+    if (!dirtyFields.email) {
+      setValidEmail(true);
+    } else {
       // email 유효성 검사
       if (emailInput.length !== 0 && emailRegex.test(emailInput)) {
         clearErrors("email");
@@ -129,18 +127,27 @@ export default function MyPage() {
           message: "올바른 형식의 이메일을 입력해주세요.",
         });
       }
-    } else {
-      setValidEmail(true);
     }
   };
 
   // 회원정보 수정 API
   const patchMyInfo = formData => {
-    const newFormData = new FormData();
+    console.log(isDirty);
     console.log(formData);
-    console.log(dirtyFields);
-    console.log(newFormData);
   };
+
+  // 사용지 닉네임, 이메일 자동 입력
+  useEffect(() => {
+    reset({
+      email: myInfo?.email,
+      name: myInfo?.name,
+    });
+  }, []);
+
+  // 회원정보 불러오기
+  useEffect(() => {
+    fetchUserInfo(user._id);
+  }, []);
 
   // 비밀번호 일치 여부 판단
   useEffect(() => {
@@ -210,7 +217,6 @@ export default function MyPage() {
             placeholder="예) 김아랜"
             defaultValue={myInfo?.extra?.username || myInfo?.name}
             readOnly={true}
-            register={register("username")}
           />
 
           <InputField
