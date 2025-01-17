@@ -15,13 +15,19 @@ const passwordRegex = /^.{8,}$/;
 const imgRegex = /^\/.*/;
 
 export default function MyPage() {
-  const [editInfo, setEditInfo] = useState(false);
-
-  const [myInfo, setMyInfo] = useState();
-
   const axios = useAxiosInstance();
 
   const { user } = useUserStore();
+
+  // 사용자 정보 수정 중 상태
+  const [isEditing, setIsEditing] = useState(false);
+
+  // 사용자 정보 상태
+  const [myInfo, setMyInfo] = useState();
+
+  // 닉네임, 이메일 중복확인 여부
+  const [validNickname, setValidNickname] = useState(false);
+  const [validEmail, setValidEmail] = useState(false);
 
   const {
     register,
@@ -35,7 +41,7 @@ export default function MyPage() {
   } = useForm();
 
   const editToggle = () => {
-    setEditInfo(!editInfo);
+    setIsEditing(!isEditing);
   };
 
   // 회원정보 출력
@@ -56,64 +62,75 @@ export default function MyPage() {
 
   // 닉네임 중복확인
   const checkNickname = async () => {
-    // nicknameInput 값 획득
-    const nicknameInput = getValues("name");
-    // nickname 유효성 검사
-    if (nicknameInput.length !== 0 && nicknameRegex.test(nicknameInput)) {
-      // 기존의 에러 초기화
-      clearErrors("name");
-      try {
-        // 서버에 nickname 중복확인 요청
-        const res = await axios.get(`/users/name?name=${nicknameInput}`);
-        // nickname 인증 상태 false => true 로 변경
-        setValidNickname(true);
-      } catch (err) {
-        // 중복된 nickname 이 있는 경우
+    // nicknameInput 이 수정되었을 때만 실행
+    if (dirtyFields.name) {
+      // nicknameInput 값 획득
+      const nicknameInput = getValues("name");
+
+      // nickname 유효성 검사
+      if (nicknameInput.length !== 0 && nicknameRegex.test(nicknameInput)) {
+        // 기존의 에러 초기화
         clearErrors("name");
+        try {
+          // 서버에 nickname 중복확인 요청
+          const res = await axios.get(`/users/name?name=${nicknameInput}`);
+          // nickname 인증 상태 false => true 로 변경
+          setValidNickname(true);
+        } catch (err) {
+          // 중복된 nickname 이 있는 경우
+          clearErrors("name");
+          setValidNickname(false);
+          setError("name", {
+            type: "used-nickname",
+            message: "이미 등록된 닉네임입니다.",
+          });
+        }
+      } else {
+        // 유효하지 않은 nickname 형식
         setValidNickname(false);
         setError("name", {
-          type: "used-nickname",
-          message: "이미 등록된 닉네임입니다.",
+          type: "invalid-nickname-form",
+          message: "올바른 형식의 닉네임을 입력해주세요.",
         });
       }
     } else {
-      // 유효하지 않은 nickname 형식
-      setValidNickname(false);
-      setError("name", {
-        type: "invalid-nickname-form",
-        message: "올바른 형식의 닉네임을 입력해주세요.",
-      });
+      setValidNickname(true);
     }
   };
 
   // 이메일 중복확인
   const checkEmail = async () => {
-    // emailInput 값 획득
-    const emailInput = getValues("email");
-    // email 유효성 검사
-    if (emailInput.length !== 0 && emailRegex.test(emailInput)) {
-      clearErrors("email");
-      try {
-        // 서버에 email 중복확인 요청
-        const res = await axios.get(`/users/email?email=${emailInput}`);
-        // email 인증 상태 false => true 로 변경
-        setValidEmail(true);
-      } catch (err) {
-        // 중복된 email 이 있는 경우
+    // emailInput 이 수정되었을 때만 실행
+    if (dirtyFields.email) {
+      // emailInput 값 획득
+      const emailInput = getValues("email");
+      // email 유효성 검사
+      if (emailInput.length !== 0 && emailRegex.test(emailInput)) {
         clearErrors("email");
+        try {
+          // 서버에 email 중복확인 요청
+          const res = await axios.get(`/users/email?email=${emailInput}`);
+          // email 인증 상태 false => true 로 변경
+          setValidEmail(true);
+        } catch (err) {
+          // 중복된 email 이 있는 경우
+          clearErrors("email");
+          setValidEmail(false);
+          setError("email", {
+            type: "used-email",
+            message: "이미 등록된 이메일입니다.",
+          });
+        }
+      } else {
+        // 유효하지 않은 email 형식
         setValidEmail(false);
         setError("email", {
-          type: "used-email",
-          message: "이미 등록된 이메일입니다.",
+          type: "invalid-email-form",
+          message: "올바른 형식의 이메일을 입력해주세요.",
         });
       }
     } else {
-      // 유효하지 않은 email 형식
-      setValidEmail(false);
-      setError("email", {
-        type: "invalid-email-form",
-        message: "올바른 형식의 이메일을 입력해주세요.",
-      });
+      setValidEmail(true);
     }
   };
 
@@ -170,7 +187,7 @@ export default function MyPage() {
                   : "https://11.fesp.shop/files/final06/default-profile.png"
               }
             />
-            {editInfo && (
+            {isEditing && (
               <>
                 <input
                   type="file"
@@ -201,10 +218,11 @@ export default function MyPage() {
             label="닉네임"
             placeholder="예) 아이랜드덕후"
             defaultValue={myInfo?.name}
-            readOnly={!editInfo && true}
+            readOnly={!isEditing && true}
             register={register("name")}
+            error={errors.name}
           >
-            {editInfo && (
+            {isEditing && (
               <div className="ml-auto px-[14px] py-[6px] border-solid border-2 border-gray2 rounded-lg text-gray3 box-content focus-within:border-point-blue">
                 <button
                   type="button"
@@ -217,16 +235,22 @@ export default function MyPage() {
               </div>
             )}
           </InputField>
+          {validNickname && (
+            <p className="text-point-blue -mt-[18px] mb-5">
+              수정한 내용이 없습니다.
+            </p>
+          )}
 
           <InputField
             id="email"
             label="이메일"
             placeholder="예) iland@iland.com"
             defaultValue={myInfo?.email}
-            readOnly={!editInfo && true}
+            readOnly={!isEditing && true}
             register={register("email")}
+            error={errors.email}
           >
-            {editInfo && (
+            {isEditing && (
               <div className="ml-auto px-[14px] py-[6px] border-solid border-2 border-gray2 rounded-lg text-gray3 box-content focus-within:border-point-blue">
                 <button
                   type="button"
@@ -239,9 +263,14 @@ export default function MyPage() {
               </div>
             )}
           </InputField>
+          {validEmail && (
+            <p className="text-point-blue -mt-[18px] mb-5">
+              수정한 내용이 없습니다.
+            </p>
+          )}
         </fieldset>
 
-        {editInfo && (
+        {isEditing && (
           <fieldset id="userPw">
             <legend className="sr-only">비밀번호 입력 및 확인란</legend>
             <PasswordInput
@@ -260,7 +289,7 @@ export default function MyPage() {
           </fieldset>
         )}
 
-        {editInfo ? (
+        {isEditing ? (
           <div className="flex gap-[30px] justify-center mt-[10px]">
             <button
               type="button"
