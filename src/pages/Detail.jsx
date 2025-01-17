@@ -112,9 +112,9 @@ export default function Detail() {
           like={like}
           setLike={setLike}
         />
-        <hr className="text-gray1 border border-solid my-10"></hr>
+        <hr className="my-10 border border-solid text-gray1"></hr>
         <ProductsExplanation products={products} />
-        <hr className="text-gray1 border border-solid my-10"></hr>
+        <hr className="my-10 border border-solid text-gray1"></hr>
         <p className="mb-[40px] section-title">상품 후기</p>
         <p className="mb-[30px] text-[16px] font-normal">
           후기 {ProductsReviewLength} 개
