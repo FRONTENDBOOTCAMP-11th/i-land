@@ -29,6 +29,9 @@ export default function MyPage() {
   const [validNickname, setValidNickname] = useState();
   const [validEmail, setValidEmail] = useState();
 
+  // 사용자 프로필 사진 이미지 화면 렌더링
+  const [newProfile, setNewProfile] = useState();
+
   const {
     register,
     handleSubmit,
@@ -36,6 +39,7 @@ export default function MyPage() {
     setError,
     clearErrors,
     getValues,
+    setValue,
     reset,
     watch,
   } = useForm();
@@ -54,6 +58,8 @@ export default function MyPage() {
       reset({
         name: myInfo?.name,
         email: myInfo?.email,
+        password: "",
+        passwordCheck: "",
       });
     } catch (err) {
       console.error(err.response.data.message);
@@ -152,6 +158,28 @@ export default function MyPage() {
       updatedFields[field] = formData[field];
     });
 
+    // attach input 의 파일 업로드
+    const newAttach = watch("attach")?.[0];
+
+    if (newAttach) {
+      try {
+        const imageFormData = new FormData();
+        imageFormData.append("attach", newAttach);
+
+        const res = await axios.post("/files", imageFormData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        // setNewProfile(res.data.item[0]);
+        delete updatedFields.attach;
+        updatedFields.image = res.data.item[0].path;
+      } catch (err) {
+        console.error(
+          "이미지 등록 실패:",
+          err.response?.data?.message || err.message,
+        );
+      }
+    }
+
     try {
       // API 요청 보내기
       const res = await axios.patch(`/users/${user._id}`, updatedFields);
@@ -164,6 +192,11 @@ export default function MyPage() {
       setValidNickname(null); // 유효한 닉네임 초기화
       setValidEmail(null); // 유효한 이메일 초기화
       reset(updatedFields); // 폼 초기화
+      // 비밀번호, 비밀번호 확인 초기화
+      reset({
+        password: "",
+        passwordCheck: "",
+      });
     } catch (err) {
       console.error("수정 실패:", err.response?.data?.message || err.message);
       alert("수정 중 오류가 발생했습니다. 다시 시도해주세요.");
@@ -186,6 +219,11 @@ export default function MyPage() {
       clearErrors("passwordCheck");
     }
   }, [watch("password"), watch("passwordCheck")]);
+
+  // 새로운 이미지 업데이트
+  // useEffect(() => {
+  //   showAttachFile();
+  // }, [watch("attach")]);
 
   return (
     <>
@@ -228,6 +266,7 @@ export default function MyPage() {
                   aria-label="사진 변경 버튼"
                   className="sr-only"
                   id="attach"
+                  {...register("attach")}
                 />
                 <label
                   className="absolute right-0 bottom-0 w-10 h-10 rounded-full bg-[url('/assets/icons/addimage.svg')] bg-cover cursor-pointer"
@@ -306,6 +345,7 @@ export default function MyPage() {
               label="비밀번호"
               placeholder="비밀번호"
               register={register("password")}
+              error={errors.password}
             />
 
             <PasswordInput
@@ -313,6 +353,7 @@ export default function MyPage() {
               label="비밀번호 확인"
               placeholder="비밀번호 확인"
               register={register("passwordCheck")}
+              error={errors.passwordCheck}
             />
           </fieldset>
         )}
