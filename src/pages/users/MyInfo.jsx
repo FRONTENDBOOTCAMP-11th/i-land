@@ -26,8 +26,8 @@ export default function MyPage() {
   const [myInfo, setMyInfo] = useState();
 
   // 닉네임, 이메일 중복확인 여부
-  const [validNickname, setValidNickname] = useState(false);
-  const [validEmail, setValidEmail] = useState(false);
+  const [validNickname, setValidNickname] = useState();
+  const [validEmail, setValidEmail] = useState();
 
   const {
     register,
@@ -62,34 +62,36 @@ export default function MyPage() {
 
     // nicknameInput 이 수정되었을 때만 실행
     if (!dirtyFields.name || myInfo.name === nicknameInput) {
-      setValidNickname(true);
-    } else {
-      // nickname 유효성 검사
-      if (nicknameInput.length !== 0 && nicknameRegex.test(nicknameInput)) {
-        // 기존의 에러 초기화
+      setValidNickname("수정된 내용이 없습니다.");
+      return;
+    }
+
+    // nickname 유효성 검사
+    if (nicknameInput.length !== 0 && nicknameRegex.test(nicknameInput)) {
+      setValidNickname(null);
+      // 기존의 에러 초기화
+      clearErrors("name");
+      try {
+        // 서버에 nickname 중복확인 요청
+        const res = await axios.get(`/users/name?name=${nicknameInput}`);
+        // nickname 인증 상태 false => true 로 변경
+        setValidNickname("사용 가능한 닉네임입니다.");
+      } catch (err) {
+        // 중복된 nickname 이 있는 경우
         clearErrors("name");
-        try {
-          // 서버에 nickname 중복확인 요청
-          const res = await axios.get(`/users/name?name=${nicknameInput}`);
-          // nickname 인증 상태 false => true 로 변경
-          setValidNickname(true);
-        } catch (err) {
-          // 중복된 nickname 이 있는 경우
-          clearErrors("name");
-          setValidNickname(false);
-          setError("name", {
-            type: "used-nickname",
-            message: "이미 등록된 닉네임입니다.",
-          });
-        }
-      } else {
-        // 유효하지 않은 nickname 형식
         setValidNickname(false);
         setError("name", {
-          type: "invalid-nickname-form",
-          message: "올바른 형식의 닉네임을 입력해주세요.",
+          type: "used-nickname",
+          message: "이미 등록된 닉네임입니다.",
         });
       }
+    } else {
+      // 유효하지 않은 nickname 형식
+      setValidNickname(false);
+      setError("name", {
+        type: "invalid-nickname-form",
+        message: "올바른 형식의 닉네임을 입력해주세요.",
+      });
     }
   };
 
@@ -100,40 +102,69 @@ export default function MyPage() {
 
     // emailInput 이 수정되었을 때만 실행
     if (!dirtyFields.email) {
-      setValidEmail(true);
-    } else {
-      // email 유효성 검사
-      if (emailInput.length !== 0 && emailRegex.test(emailInput)) {
+      setValidEmail("수정된 내용이 없습니다.");
+      return;
+    }
+
+    console.log(dirtyFields.email);
+
+    // email 유효성 검사
+    if (emailInput.length !== 0 && emailRegex.test(emailInput)) {
+      clearErrors("email");
+      try {
+        // 서버에 email 중복확인 요청
+        const res = await axios.get(`/users/email?email=${emailInput}`);
+        // email 인증 상태 false => true 로 변경
+        setValidEmail("사용 가능한 이메일입니다.");
+      } catch (err) {
+        // 중복된 email 이 있는 경우
         clearErrors("email");
-        try {
-          // 서버에 email 중복확인 요청
-          const res = await axios.get(`/users/email?email=${emailInput}`);
-          // email 인증 상태 false => true 로 변경
-          setValidEmail(true);
-        } catch (err) {
-          // 중복된 email 이 있는 경우
-          clearErrors("email");
-          setValidEmail(false);
-          setError("email", {
-            type: "used-email",
-            message: "이미 등록된 이메일입니다.",
-          });
-        }
-      } else {
-        // 유효하지 않은 email 형식
         setValidEmail(false);
         setError("email", {
-          type: "invalid-email-form",
-          message: "올바른 형식의 이메일을 입력해주세요.",
+          type: "used-email",
+          message: "이미 등록된 이메일입니다.",
         });
       }
+    } else {
+      // 유효하지 않은 email 형식
+      setValidEmail(false);
+      setError("email", {
+        type: "invalid-email-form",
+        message: "올바른 형식의 이메일을 입력해주세요.",
+      });
     }
   };
 
   // 회원정보 수정 API
-  const patchMyInfo = formData => {
-    console.log(isDirty);
-    console.log(formData);
+  const patchMyInfo = async formData => {
+    if (!isDirty) {
+      // 수정된 내용이 없으면 요청하지 않음
+      alert("수정된 내용이 없습니다.");
+      return;
+    }
+
+    // 수정된 필드만 추출
+    const updatedFields = {};
+    Object.keys(dirtyFields).forEach(field => {
+      updatedFields[field] = formData[field];
+    });
+
+    console.log(updatedFields);
+
+    // try {
+    //   // API 요청 보내기
+    //   const res = await axios.patch(`/users/${user._id}`, updatedFields);
+    //   console.log("수정 성공:", res.data);
+    //   alert("회원 정보가 성공적으로 수정되었습니다.");
+
+    //   // 사용자 정보를 최신 상태로 업데이트
+    //   setMyInfo(prev => ({ ...prev, ...updatedFields }));
+    //   setIsEditing(false); // 수정 모드 종료
+    //   reset(updatedFields); // 폼 초기화
+    // } catch (err) {
+    //   console.error("수정 실패:", err.response?.data?.message || err.message);
+    //   alert("수정 중 오류가 발생했습니다. 다시 시도해주세요.");
+    // }
   };
 
   // 사용지 닉네임, 이메일 자동 입력
@@ -242,9 +273,7 @@ export default function MyPage() {
             )}
           </InputField>
           {validNickname && (
-            <p className="text-point-blue -mt-[18px] mb-5">
-              수정한 내용이 없습니다.
-            </p>
+            <p className="text-point-blue -mt-[18px] mb-5">{validNickname}</p>
           )}
 
           <InputField
@@ -270,9 +299,7 @@ export default function MyPage() {
             )}
           </InputField>
           {validEmail && (
-            <p className="text-point-blue -mt-[18px] mb-5">
-              수정한 내용이 없습니다.
-            </p>
+            <p className="text-point-blue -mt-[18px] mb-5">{validEmail}</p>
           )}
         </fieldset>
 
