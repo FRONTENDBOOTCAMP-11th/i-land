@@ -1,3 +1,5 @@
+import { PacmanLoader } from "react-spinners";
+
 import useLoadingStore from "@zustand/useLoadingStore";
 
 export default function Spinner() {
