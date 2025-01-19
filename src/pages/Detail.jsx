@@ -3,26 +3,23 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 import useAxiosInstance from "@hooks/useAxiosInstance";
+import useLoading from "@hooks/useLoading";
 import useUserStore from "@zustand/userStore";
 
 import ProductsDetailInfomation from "@components/detail/ProductsDetailInfomation";
 import ProductsExplanation from "@components/detail/ProductsExplanation";
 import AddReview from "@components/detail/AddReview";
 import ReviewList from "@components/detail/ReviewList";
-import useLoadingStore from "@zustand/useLoadingStore";
 
 export default function Detail() {
   const axios = useAxiosInstance();
   const navigate = useNavigate();
   const { user } = useUserStore();
+  const { startLoading, stopLoading } = useLoading();
   const { _id } = useParams(); // URL에서 id 추출
   const products_id = Number(_id);
 
-  const startLoading = useLoadingStore(state => state.startLoading);
-  const stopLoading = useLoadingStore(state => state.stopLoading);
-
   const [error, setError] = useState(null); // 에러
-
   const [products, setProduct] = useState(null); // 상품 초기값 null
   const [like, setLike] = useState(null); // 찜 상태
   const [reviewContent, setReviewContent] = useState(""); // textarea 상태

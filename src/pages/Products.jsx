@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 
 import useAxiosInstance from "@hooks/useAxiosInstance";
-import useLoadingStore from "@zustand/useLoadingStore";
+import useLoading from "@hooks/useLoading";
 
 import CategorySection from "@components/common/CategorySection";
 import ProductCard from "@components/common/ProductCard";
@@ -13,10 +13,9 @@ import EmptyPage from "@components/common/EmptyPage";
 export default function Products() {
   const location = useLocation();
   const navigate = useNavigate();
-  const axios = useAxiosInstance();
   const queryClient = useQueryClient();
-  const startLoading = useLoadingStore(state => state.startLoading);
-  const stopLoading = useLoadingStore(state => state.stopLoading);
+  const axios = useAxiosInstance();
+  const { startLoading, stopLoading } = useLoading();
 
   const queryParams = new URLSearchParams(location.search);
   const custom = queryParams.get("custom");

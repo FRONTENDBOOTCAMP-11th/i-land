@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 
 import useAxiosInstance from "@hooks/useAxiosInstance";
+import useLoading from "@hooks/useLoading";
 import useUserStore from "@zustand/userStore";
-import useLoadingStore from "@zustand/useLoadingStore";
 
 import MainBanner from "@components/main/MainBanner";
 import MainProductList from "@components/main/MainProductList";
@@ -13,8 +13,7 @@ import CategorySection from "@components/common/CategorySection";
 export default function Main() {
   const axios = useAxiosInstance();
   const { user } = useUserStore();
-  const startLoading = useLoadingStore(state => state.startLoading);
-  const stopLoading = useLoadingStore(state => state.stopLoading);
+  const { startLoading, stopLoading } = useLoading();
 
   const [bookmarkList, setBookmarkList] = useState(); // 찜한 상품 state
   const [topProducts, setTopProducts] = useState(); // 인기 상품 state
