@@ -107,10 +107,12 @@ export default function Detail() {
       </Helmet>
       <main className="container px-24 py-5 bg-white">
         <ProductsDetailInfomation
+          user={user}
           products_id={products_id}
           products={products}
           like={like}
           setLike={setLike}
+          fetchProduct={fetchProduct}
         />
         <hr className="my-10 border border-solid text-gray1"></hr>
         <ProductsExplanation products={products} />

@@ -9,6 +9,8 @@ export default function ProductsDetailInfomation({
   products_id,
   like,
   setLike,
+  user,
+  fetchProduct,
 }) {
   const axios = useAxiosInstance();
   const navigate = useNavigate(); // 추가: useNavigate 훅
@@ -89,22 +91,29 @@ export default function ProductsDetailInfomation({
     }
   };
 
-  // 상품 결제 페이지 이동 + 구매할 상품 정보 전달
+  // 상품 구매 (/orders/)
   const purchaseProducts = async () => {
     try {
-      const confirmPayment = window.confirm(
-        `정말 ${products?.item?.name}를 ${quantitycount}개 구매 하시겠습니까?`,
-      );
       if (!user?.accessToken) {
         navigate("/carts");
         return;
-      } else if (confirmPayment) {
-        navigate("/payment", {
-          state: {
-            productId: products.item._id,
-            quantity: quantitycount,
-          },
+      }
+      const confirmPayment = window.confirm(
+        `정말 ${products?.item?.name}를 ${quantitycount}개 구매 하시겠습니까?`,
+      );
+      if (confirmPayment) {
+        await axios.post(`/orders/`, {
+          products: [
+            {
+              _id: products.item._id,
+              quantity: quantitycount,
+            },
+          ],
         });
+        fetchProduct();
+        alert(
+          `${products?.item?.name}가 ${quantitycount}개 구매 완료 되었습니다.`,
+        );
         return;
       } else return;
     } catch (err) {
@@ -251,4 +260,6 @@ ProductsDetailInfomation.propTypes = {
   products: PropTypes.object.isRequired,
   setLike: PropTypes.func.isRequired,
   like: PropTypes.number,
+  user: PropTypes.object,
+  fetchProduct: PropTypes.func.isRequired,
 };
