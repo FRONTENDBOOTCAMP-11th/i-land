@@ -67,6 +67,7 @@ export default function Detail() {
   };
   // 찜 상태 확인
   const checkIfLiked = async () => {
+    if (!user.accessToken) return;
     try {
       const response = await axios.get(`/bookmarks/product/${products_id}`);
       if (response.data && response.data.item) {
@@ -83,9 +84,7 @@ export default function Detail() {
   // _id값 변경시 실행
   useEffect(() => {
     // 로그인 상태가 아니라면 찜하기 상태 불러오지 않음
-    if (user?.accessToken) {
-      checkIfLiked();
-    }
+    checkIfLiked();
     fetchProduct(); // 상품 정보 가져오기
     setLoading(false); // 로딩 종료
   }, [_id]);
