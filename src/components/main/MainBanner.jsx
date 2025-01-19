@@ -1,25 +1,86 @@
+import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import Slider from "react-slick";
+
+import useAxiosInstance from "@hooks/useAxiosInstance";
+
+const bannerImages = [
+  "banner_1.jpeg",
+  "banner_2.jpeg",
+  "banner_3.jpeg",
+  "banner_4.jpeg",
+  "banner_5.jpeg",
+];
+
 export default function MainBanner() {
+  const settings = useMemo(
+    () => ({
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 3000,
+      arrows: false,
+      lazyLoad: "ondemand",
+    }),
+    [],
+  );
+
+  const axios = useAxiosInstance();
+
+  const fetchBannerImages = async () => {
+    const baseURL = "https://11.fesp.shop";
+    const clientId = "final06";
+
+    const responses = await Promise.all(
+      bannerImages.map(filename => axios.get(`/files/${clientId}/${filename}`)),
+    );
+
+    return responses.map((response, index) => ({
+      url: `${baseURL}/files/${clientId}/${bannerImages[index]}`,
+      alt: `배너 ${index + 1} 이미지`,
+    }));
+  };
+
+  const {
+    data: images,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["bannersImages"],
+    queryFn: fetchBannerImages,
+  });
+
+  // 로딩 중 상태 처리
+  if (isLoading) {
+    return <p>로딩 중...</p>;
+  }
+
+  // 에러 상태 처리
+  if (error) {
+    return <p>배너 이미지를 불러오는 중 오류가 발생했습니다.</p>;
+  }
+
+  // 데이터가 비어 있는 경우 처리
+  if (!images || images.length === 0) {
+    return <p>표시할 배너 이미지가 없습니다.</p>;
+  }
+
   return (
-    <section className="aspect-[50/21] border border-gray2 rounded-lg mb-[60px] relative flex place-items-center justify-center">
-      <div className="absolute top-0 left-0 flex items-center size-full px-9">
-        <button className="mr-auto">
-          <img src="/assets/icons/chevron-left.svg" />
-        </button>
-        <div className="px-3 py-1 mt-auto mb-5 border rounded-full border-gray3 text-gray3">
-          <span>1</span> / <span>1</span>
-        </div>
-        <button className="ml-auto">
-          <img src="/assets/icons/chevron-right.svg" />
-        </button>
-      </div>
-      <h1 className="text-[32px] font-bold w-[288px] mr-[60px] text-point-blue">
-        나의 취향을 한 곳에서 모아보세요
-      </h1>
-      <img
-        src="/assets/logos/logo-favicon.svg"
-        className="w-[112px] h-[123px]"
-        alt="메인 로고 캐릭터"
-      />
-    </section>
+    <div className="main-banner mb-[60px]">
+      <Slider {...settings}>
+        {images.map((image, index) => (
+          <div key={index}>
+            <img
+              src={image.url}
+              alt={image.alt}
+              className="w-full h-[400px] object-cover"
+            />
+          </div>
+        ))}
+      </Slider>
+    </div>
   );
 }
