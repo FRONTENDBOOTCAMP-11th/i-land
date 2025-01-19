@@ -95,13 +95,13 @@ export default function ReviewList({ user, ProductsReview, fetchProduct }) {
                 <>
                   <textarea
                     ref={textareaRef} // ref를 textarea에 연결
-                    className="w-full h-full placeholder-black text-[16px] resize-none outline-point-blue"
+                    className="w-full h-[100px]  placeholder-black text-[16px] resize-none outline-point-blue pt-[10px]"
                     value={editedContent}
                     onChange={e => setEditedContent(e.target.value)}
                   />
                   <div className="flex gap-[20px]">
                     <button
-                      className="w-[110px] h-[50px] py-[14px] px-9 text-[18px] font-bold text-white bg-point-red rounded-lg"
+                      className="w-[110px] h-[50px] py-[14px] px-9 text-[18px] font-bold border border-solid border-gray2 rounded-lg"
                       onClick={handleCancel} // 취소 버튼
                     >
                       취소
