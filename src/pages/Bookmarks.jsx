@@ -1,39 +1,50 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import useAxiosInstance from "@hooks/useAxiosInstance";
-import BookmarksEmpty from "@components/bookmarks/BookmarksEmpty";
 import { Helmet } from "react-helmet-async";
+
+import useAxiosInstance from "@hooks/useAxiosInstance";
+import useLoading from "@hooks/useLoading";
+
+import BookmarksEmpty from "@components/bookmarks/BookmarksEmpty";
 
 export default function Bookmarks() {
   const axios = useAxiosInstance();
+  const { startLoading, stopLoading } = useLoading();
+
   const [bookmarks, setBookmarks] = useState([]); // 상품 초기값 null
   const [product, setProduct] = useState([]); // 상품 초기값 null
   const [carts, setCarts] = useState([]); // 장바구니 상태
-  const [loading, setLoading] = useState(true); // 로딩
   const [error, setError] = useState(null); // 에러
 
   // 장바구니 목록 조회 - 로그인 (/carts/)
   const fetchCarts = async () => {
+    startLoading();
     try {
       const response = await axios.get(`/carts/`);
       setCarts(response?.data);
-    } catch (err) {
-      setError(err);
+    } catch (error) {
+      setError(error);
     } finally {
-      setLoading(false); // 로딩 종료
+      stopLoading();
     }
   };
+
   // 북마크 목록 조회 (/bookmarks/{type})
   const fetchBookmarks = async () => {
+    startLoading();
     try {
       const response = await axios.get(`/bookmarks/product`);
       setBookmarks(response?.data);
-    } catch (err) {
-      setError(err);
+    } catch (error) {
+      setError(error);
+    } finally {
+      stopLoading();
     }
   };
+
   // 상품 상세 조회 (/products/{_id})
   const fetchProduct = async () => {
+    startLoading();
     try {
       const response = await axios.get(`/products/`);
       setProduct(response?.data);
@@ -41,13 +52,13 @@ export default function Bookmarks() {
       setError(err);
     }
   };
+
   // 북마크 삭제 (/bookmarks/{_id})
   const DeleteBookmarks = async _id => {
     const confirmNavigate = window.confirm("상품을 삭제하시겠습니까?");
-    if (!confirmNavigate) {
-      return;
-    }
-    setLoading(true); // 삭제 요청 시작 시 로딩 상태 설정
+    if (!confirmNavigate) return;
+
+    startLoading();
     try {
       await axios.delete(`/bookmarks/${_id}`);
       // 로컬 상태에서 해당 아이템 제거
@@ -55,15 +66,17 @@ export default function Bookmarks() {
         ...prevBookmarks,
         item: prevBookmarks.item.filter(Bookmark => Bookmark._id !== _id), // 삭제된 아이템 제외
       }));
-    } catch (err) {
-      setError(err);
+    } catch (error) {
+      setError(error);
     } finally {
-      setLoading(false); // 로딩 종료
+      stopLoading();
     }
   };
+
   // 장바구니에 상품 1개 추가
   const addCart = async productId => {
     alert("장바구니에 상품이 추가 되었습니다.");
+    startLoading();
     try {
       const response = await axios.post(`/carts/`, {
         product_id: productId,
@@ -74,17 +87,19 @@ export default function Bookmarks() {
           ? [...prevCart, response.data]
           : [response.data],
       );
-    } catch (err) {
-      setError(err);
+    } catch (error) {
+      setError(error);
+    } finally {
+      stopLoading();
     }
   };
+
   useEffect(() => {
     fetchCarts();
     fetchBookmarks();
     fetchProduct();
-    setLoading(false); // 로딩 종료
   }, []);
-  loading && <p>Loading...</p>;
+
   error && <p>Error: {error.message}</p>;
   return (
     <>
