@@ -3,36 +3,34 @@ import { Helmet } from "react-helmet-async";
 import { useQuery } from "@tanstack/react-query";
 
 import useAxiosInstance from "@hooks/useAxiosInstance";
+import useLoading from "@hooks/useLoading";
 
 import ProductCard from "@components/common/ProductCard";
 import SearchNoResult from "@components/search/SearchNoResult";
 
 export default function SearchResults() {
+  const axios = useAxiosInstance();
+  const { startLoading, stopLoading } = useLoading();
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || ""; // URL에서 keyword 가져오기
-  const axios = useAxiosInstance();
 
-  const {
-    data: results,
-    isLoading,
-    isError,
-  } = useQuery({
+  const { data: results = [], isError } = useQuery({
     queryKey: ["searchResults", keyword],
     queryFn: async () => {
       if (!keyword) return [];
-      const response = await axios.get(`/products?keyword=${keyword}`);
-      console.log(response.data);
-      if (!response.data || !response.data.item) {
-        throw new Error("Invalid response format");
+      startLoading();
+      try {
+        const response = await axios.get(`/products?keyword=${keyword}`);
+        if (!response.data || !response.data.item) {
+          throw new Error("Invalid response format");
+        }
+        return response.data.item;
+      } finally {
+        stopLoading();
       }
-      return response.data.item;
     },
     enabled: !!keyword,
   });
-
-  if (isLoading) {
-    return <div>로딩 중...</div>;
-  }
 
   if (isError) {
     return <div>오류가 발생했습니다. 잠시 후 다시 시도해주세요.</div>;

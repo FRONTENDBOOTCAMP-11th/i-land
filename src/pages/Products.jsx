@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 
 import useAxiosInstance from "@hooks/useAxiosInstance";
+import useLoading from "@hooks/useLoading";
 
 import CategorySection from "@components/common/CategorySection";
 import ProductCard from "@components/common/ProductCard";
 import EmptyPage from "@components/common/EmptyPage";
-import { Helmet } from "react-helmet-async";
 
 export default function Products() {
   const location = useLocation();
   const navigate = useNavigate();
-  const axios = useAxiosInstance();
   const queryClient = useQueryClient();
+  const axios = useAxiosInstance();
+  const { startLoading, stopLoading } = useLoading();
+
   const queryParams = new URLSearchParams(location.search);
   const custom = queryParams.get("custom");
 
@@ -36,7 +39,7 @@ export default function Products() {
   }, [custom, queryClient]);
 
   // 카테고리 데이터 서버에서 불러오기
-  const { data: categories } = useQuery({
+  const { data: categories, isLoading: isCategoriesLoading } = useQuery({
     queryKey: ["productCategory"],
     queryFn: async () => {
       const response = await axios.get("/codes/productCategory");
@@ -53,7 +56,7 @@ export default function Products() {
     "";
 
   // 선택된 카테고리 상품 데이터 불러오기
-  const { data: products = [] } = useQuery({
+  const { data: products = [], isLoading: isProductsLoading } = useQuery({
     queryKey: ["products", selectedCategory],
     queryFn: async () => {
       if (!selectedCategory) return [];
@@ -65,6 +68,15 @@ export default function Products() {
     },
     enabled: !!selectedCategory, // 선택된 카테고리가 있을 때만 실행
   });
+
+  useEffect(() => {
+    // 로딩 상태 관리
+    if (isCategoriesLoading || isProductsLoading) {
+      startLoading();
+    } else {
+      stopLoading();
+    }
+  }, [isCategoriesLoading, isProductsLoading, startLoading, stopLoading]);
 
   const handleCategoryClick = categoryCode => {
     setSelectedCategory(categoryCode);
