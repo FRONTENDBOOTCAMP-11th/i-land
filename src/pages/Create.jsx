@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 
 import useAxiosInstance from "@hooks/useAxiosInstance";
+import useLoading from "@hooks/useLoading";
 
 import InputField from "@components/common/InputField";
 import ProductCategory from "@components/create/ProductCategory";
@@ -12,6 +13,7 @@ import ProductCreateSuccess from "@components/create/ProductCreateSuccess";
 
 export default function Create() {
   const axios = useAxiosInstance();
+  const { startLoading, stopLoading } = useLoading();
 
   const {
     register,
@@ -25,6 +27,7 @@ export default function Create() {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const onSubmit = async data => {
+    startLoading();
     try {
       const productData = {
         name: data.name,
@@ -34,14 +37,16 @@ export default function Create() {
         extra: {
           category: categories,
         },
-        mainImages, // TODO: 이미지 미리보기 기능 개발하기
+        mainImages,
       };
 
       await axios.post("/seller/products", productData);
-      setIsSuccess(true); // 성공 상태로 변경
+      setIsSuccess(true);
     } catch (error) {
       console.error("상품 등록 실패:", error.respose || error);
       alert("상품 등록에 실패했습니다. 다시 시도해주세요.");
+    } finally {
+      stopLoading();
     }
   };
 
