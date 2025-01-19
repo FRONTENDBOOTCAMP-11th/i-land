@@ -9,6 +9,8 @@ export default function ProductsDetailInfomation({
   products_id,
   like,
   setLike,
+  user,
+  fetchProduct,
 }) {
   const axios = useAxiosInstance();
   const navigate = useNavigate(); // 추가: useNavigate 훅
@@ -86,6 +88,36 @@ export default function ProductsDetailInfomation({
           alert("찜 삭제에 실패했습니다. 나중에 다시 시도해 주세요.");
         }
       }
+    }
+  };
+
+  // 상품 구매 (/orders/)
+  const purchaseProducts = async () => {
+    try {
+      if (!user?.accessToken) {
+        navigate("/carts");
+        return;
+      }
+      const confirmPayment = window.confirm(
+        `정말 ${products?.item?.name}를 ${quantitycount}개 구매 하시겠습니까?`,
+      );
+      if (confirmPayment) {
+        await axios.post(`/orders/`, {
+          products: [
+            {
+              _id: products.item._id,
+              quantity: quantitycount,
+            },
+          ],
+        });
+        fetchProduct();
+        alert(
+          `${products?.item?.name}가 ${quantitycount}개 구매 완료 되었습니다.`,
+        );
+        return;
+      } else return;
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -208,7 +240,10 @@ export default function ProductsDetailInfomation({
                 </button>
               </Link>
               <Link>
-                <button className="h-[50px] py-[14px] px-9 rounded-lg bg-point-blue box-border">
+                <button
+                  className="h-[50px] py-[14px] px-9 rounded-lg bg-point-blue box-border"
+                  onClick={purchaseProducts}
+                >
                   <p className="text-[18px] text-white font-bold">바로구매</p>
                 </button>
               </Link>
@@ -225,4 +260,6 @@ ProductsDetailInfomation.propTypes = {
   products: PropTypes.object.isRequired,
   setLike: PropTypes.func.isRequired,
   like: PropTypes.number,
+  user: PropTypes.object,
+  fetchProduct: PropTypes.func.isRequired,
 };
