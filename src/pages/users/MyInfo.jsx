@@ -5,6 +5,7 @@ import useUserStore from "@zustand/userStore";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 // 이메일, 비밀번호 정규 표현식
 const nicknameRegex = /^[가-힣a-zA-Z0-9]{2,16}$/;
@@ -17,7 +18,9 @@ const imgRegex = /^\/.*/;
 export default function MyPage() {
   const axios = useAxiosInstance();
 
-  const { user } = useUserStore();
+  const { user, resetUser } = useUserStore();
+
+  const navigate = useNavigate();
 
   // 사용자 정보 수정 중 상태
   const [isEditing, setIsEditing] = useState(false);
@@ -25,9 +28,8 @@ export default function MyPage() {
   // 사용자 정보 상태
   const [myInfo, setMyInfo] = useState();
 
-  // 닉네임, 이메일 중복확인 여부
+  // 닉네임, 중복확인 여부
   const [validNickname, setValidNickname] = useState();
-  const [validEmail, setValidEmail] = useState();
 
   // 사용자 프로필 사진 이미지 화면 렌더링
   const [newProfile, setNewProfile] = useState();
@@ -39,13 +41,37 @@ export default function MyPage() {
     setError,
     clearErrors,
     getValues,
-    setValue,
     reset,
     watch,
   } = useForm();
 
-  const editToggle = () => {
-    setIsEditing(!isEditing);
+  // 수정 중 상태
+  const toggleIsEditing = () => {
+    // isEditing === false
+    if (!isEditing) {
+      // 수정 중 상태 true 로 변경
+      setIsEditing(true);
+    } else {
+      // 수정 취소 선택 시
+      const cancelEdit = confirm("내 정보 수정을 취소하시겠습니까?");
+      if (cancelEdit) {
+        // 수정 중 상태 false 로 변경
+        setIsEditing(false);
+        // 안내 메시지 초기화
+        setValidNickname(null);
+        // 전체 입력 필드 초기화
+        reset({
+          attach: "",
+          name: myInfo?.name,
+          email: myInfo?.email,
+          password: "",
+          passwordCheck: "",
+        });
+      } else {
+        // 수정 중 상태 유지
+        setIsEditing(true);
+      }
+    }
   };
 
   // 회원정보 출력
@@ -106,49 +132,20 @@ export default function MyPage() {
     }
   };
 
-  // 이메일 중복확인
-  const checkEmail = async () => {
-    // emailInput 값 획득
-    const emailInput = getValues("email");
-
-    // emailInput 이 수정되었을 때만 실행
-    if (!dirtyFields.email) {
-      setValidEmail("수정된 내용이 없습니다.");
+  // 회원정보 수정 API
+  const patchMyInfo = async formData => {
+    // 수정된 내용이 없는 경우 실행 중지
+    if (Object.keys(dirtyFields).length === 0 && !watch("attach")?.[0]) {
+      alert("수정된 내용이 없습니다.");
       return;
     }
 
-    // email 유효성 검사
-    if (emailInput.length !== 0 && emailRegex.test(emailInput)) {
-      clearErrors("email");
-      try {
-        // 서버에 email 중복확인 요청
-        const res = await axios.get(`/users/email?email=${emailInput}`);
-        // email 인증 상태 false => true 로 변경
-        setValidEmail("사용 가능한 이메일입니다.");
-      } catch (err) {
-        // 중복된 email 이 있는 경우
-        clearErrors("email");
-        setValidEmail(false);
-        setError("email", {
-          type: "used-email",
-          message: "이미 등록된 이메일입니다.",
-        });
-      }
-    } else {
-      // 유효하지 않은 email 형식
-      setValidEmail(false);
-      setError("email", {
-        type: "invalid-email-form",
-        message: "올바른 형식의 이메일을 입력해주세요.",
+    // nickname 중복확인 미진행 시 실행 중지
+    if (dirtyFields.name && !validNickname) {
+      setError("name", {
+        type: "nickname-not-checked",
+        message: "중복확인을 진행해주세요.",
       });
-    }
-  };
-
-  // 회원정보 수정 API
-  const patchMyInfo = async formData => {
-    if (!isDirty) {
-      // 수정된 내용이 없으면 요청하지 않음
-      alert("수정된 내용이 없습니다.");
       return;
     }
 
@@ -189,9 +186,7 @@ export default function MyPage() {
       // 사용자 정보를 최신 상태로 업데이트
       setMyInfo(prev => ({ ...prev, ...updatedFields }));
       setIsEditing(false); // 수정 모드 종료
-      setValidNickname(null); // 유효한 닉네임 초기화
-      setValidEmail(null); // 유효한 이메일 초기화
-      reset(updatedFields); // 폼 초기화
+      setValidNickname(null); // 유효한 닉네임 상태 초기화
       // 비밀번호, 비밀번호 확인 초기화
       reset({
         password: "",
@@ -220,10 +215,23 @@ export default function MyPage() {
     }
   }, [watch("password"), watch("passwordCheck")]);
 
-  // 새로운 이미지 업데이트
-  // useEffect(() => {
-  //   showAttachFile();
-  // }, [watch("attach")]);
+  const attachFile = watch("attach");
+
+  // 새로운 프로필 이미지 미리보기
+  useEffect(() => {
+    if (attachFile && attachFile.length !== 0) {
+      const file = attachFile[0];
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        setNewProfile(reader.result);
+      };
+
+      reader.readAsDataURL(file);
+    } else {
+      setNewProfile(null);
+    }
+  }, [attachFile]);
 
   return (
     <>
@@ -251,11 +259,13 @@ export default function MyPage() {
             <img
               className="size-full rounded-full border-2 border-gray1 box-border"
               src={
-                myInfo?.image
-                  ? imgRegex.test(myInfo.image)
-                    ? `https://11.fesp.shop${myInfo.image}`
-                    : myInfo.image
-                  : "https://11.fesp.shop/files/final06/default-profile.png"
+                newProfile
+                  ? newProfile
+                  : myInfo?.image
+                    ? imgRegex.test(myInfo.image)
+                      ? `https://11.fesp.shop${myInfo.image}`
+                      : myInfo.image
+                    : "https://11.fesp.shop/files/final06/default-profile.png"
               }
             />
             {isEditing && (
@@ -315,26 +325,8 @@ export default function MyPage() {
             label="이메일"
             placeholder="예) iland@iland.com"
             defaultValue={myInfo?.email}
-            readOnly={!isEditing && true}
-            register={register("email")}
-            error={errors.email}
-          >
-            {isEditing && (
-              <div className="ml-auto px-[14px] py-[6px] border-solid border-2 border-gray2 rounded-lg text-gray3 box-content focus-within:border-point-blue">
-                <button
-                  type="button"
-                  className="cursor-pointer focus:outline-none"
-                  aria-label="이메일 중복 확인 버튼"
-                  onClick={checkEmail}
-                >
-                  중복확인
-                </button>
-              </div>
-            )}
-          </InputField>
-          {validEmail && (
-            <p className="text-point-blue -mt-[18px] mb-5">{validEmail}</p>
-          )}
+            readOnly={true}
+          />
         </fieldset>
 
         {isEditing && (
@@ -363,11 +355,14 @@ export default function MyPage() {
             <button
               type="button"
               className="h-[50px] py-[14px] px-9 border-2 border-gray2 text-gray3 rounded-lg border-solid box-border"
-              onClick={editToggle}
+              onClick={toggleIsEditing}
             >
               <p className="text-[18px] font-bold">취소</p>
             </button>
-            <button className="h-[50px] py-[14px] px-9 rounded-lg bg-point-blue box-border">
+            <button
+              type="submit"
+              className="h-[50px] py-[14px] px-9 rounded-lg bg-point-blue box-border"
+            >
               <p className="text-[18px] text-white font-bold">저장</p>
             </button>
           </div>
@@ -376,7 +371,7 @@ export default function MyPage() {
             <button
               type="button"
               className="cursor-pointer size-full focus:outline-none"
-              onClick={editToggle}
+              onClick={toggleIsEditing}
             >
               내 정보 수정
             </button>
