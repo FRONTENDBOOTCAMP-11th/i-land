@@ -93,7 +93,7 @@ export default function ProductsDetailInfomation({
   const purchaseProducts = async () => {
     try {
       const confirmPayment = window.confirm(
-        `정말 ${products?.item?.name}를 ${quantitycount}개 구매 하시겠습니까?`          
+        `정말 ${products?.item?.name}를 ${quantitycount}개 구매 하시겠습니까?`,
       );
       if (!user?.accessToken) {
         navigate("/carts");
@@ -103,7 +103,7 @@ export default function ProductsDetailInfomation({
           state: {
             productId: products.item._id,
             quantity: quantitycount,
-          }
+          },
         });
         return;
       } else return;
@@ -232,8 +232,8 @@ export default function ProductsDetailInfomation({
               </Link>
               <Link>
                 <button
-                 className="h-[50px] py-[14px] px-9 rounded-lg bg-point-blue box-border"
-                 onClick={purchaseProducts}
+                  className="h-[50px] py-[14px] px-9 rounded-lg bg-point-blue box-border"
+                  onClick={purchaseProducts}
                 >
                   <p className="text-[18px] text-white font-bold">바로구매</p>
                 </button>
