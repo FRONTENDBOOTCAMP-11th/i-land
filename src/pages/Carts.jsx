@@ -172,6 +172,7 @@ export default function Carts() {
               checkedItems={checkedItems}
               setCarts={setCarts}
               carts={carts.item}
+              axios={axios}
             />
           </>
         )}

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export default function CartsPayment({ checkedItems, carts }) {
+export default function CartsPayment({ checkedItems, carts, axios }) {
   // 선택된 상품의 총합 계산
   const calculateTotalPrice = () => {
     return checkedItems.reduce((total, id) => {
@@ -10,10 +10,7 @@ export default function CartsPayment({ checkedItems, carts }) {
         : total;
     }, 0);
   };
-  const totalPrice = calculateTotalPrice(); // 총합 계산
-  // console.log("checkedItems", checkedItems);
-  // console.log("carts", carts);
-  // 상품 결제 페이지 이동 + 구매할 상품 정보 전달
+  // 상품 구매 (/orders/)
   const purchaseProducts = async () => {
     try {
       if (checkedItems.length === 0) {
@@ -26,21 +23,24 @@ export default function CartsPayment({ checkedItems, carts }) {
       if (confirmPayment) {
         const itemsToPurchase = checkedItems.map(id => {
           const cartItem = carts.find(cart => cart._id === id);
+          console.log("cartItem", cartItem);
           return {
-            productId: cartItem._id,
+            _id: cartItem.product._id,
             quantity: cartItem.quantity,
           };
         });
-        navigate("/payment", {
-          state: itemsToPurchase,
+        console.log(JSON.stringify({ products: itemsToPurchase }));
+        await axios.post(`/orders/`, {
+          products: itemsToPurchase,
         });
+        alert(`선택된 상품이 구매 완료 되었습니다!`);
         return;
-      }
+      } else return;
     } catch (err) {
       console.log(err);
     }
   };
-  console.log(checkedItems);
+
   return (
     <section name="cartFooter">
       <hr className="text-gray1 border border-solid my-[100px]" />
@@ -85,7 +85,7 @@ export default function CartsPayment({ checkedItems, carts }) {
           <p className="border border-solid text-gray1"></p>
           <div className="flex justify-between text-[32px] font-bold">
             <p>총 결제 금액</p>
-            <p>{totalPrice.toLocaleString()} 원</p>
+            <p>{calculateTotalPrice().toLocaleString()} 원</p>
           </div>
         </div>
 
@@ -103,4 +103,5 @@ export default function CartsPayment({ checkedItems, carts }) {
 CartsPayment.propTypes = {
   carts: PropTypes.array.isRequired,
   checkedItems: PropTypes.array.isRequired,
+  axios: PropTypes.func.isRequired,
 };
