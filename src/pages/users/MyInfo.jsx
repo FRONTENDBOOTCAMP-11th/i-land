@@ -50,6 +50,11 @@ export default function MyPage() {
       const res = await axios.get(`/users/${user_id}`);
       console.log(res.data.item);
       setMyInfo(res.data.item);
+      // 사용자 닉네임, 이메일 자동 표시
+      reset({
+        name: myInfo?.name,
+        email: myInfo?.email,
+      });
     } catch (err) {
       console.error(err.response.data.message);
     }
@@ -106,8 +111,6 @@ export default function MyPage() {
       return;
     }
 
-    console.log(dirtyFields.email);
-
     // email 유효성 검사
     if (emailInput.length !== 0 && emailRegex.test(emailInput)) {
       clearErrors("email");
@@ -149,31 +152,23 @@ export default function MyPage() {
       updatedFields[field] = formData[field];
     });
 
-    console.log(updatedFields);
+    try {
+      // API 요청 보내기
+      const res = await axios.patch(`/users/${user._id}`, updatedFields);
+      console.log("수정 성공:", res.data);
+      alert("회원 정보가 성공적으로 수정되었습니다.");
 
-    // try {
-    //   // API 요청 보내기
-    //   const res = await axios.patch(`/users/${user._id}`, updatedFields);
-    //   console.log("수정 성공:", res.data);
-    //   alert("회원 정보가 성공적으로 수정되었습니다.");
-
-    //   // 사용자 정보를 최신 상태로 업데이트
-    //   setMyInfo(prev => ({ ...prev, ...updatedFields }));
-    //   setIsEditing(false); // 수정 모드 종료
-    //   reset(updatedFields); // 폼 초기화
-    // } catch (err) {
-    //   console.error("수정 실패:", err.response?.data?.message || err.message);
-    //   alert("수정 중 오류가 발생했습니다. 다시 시도해주세요.");
-    // }
+      // 사용자 정보를 최신 상태로 업데이트
+      setMyInfo(prev => ({ ...prev, ...updatedFields }));
+      setIsEditing(false); // 수정 모드 종료
+      setValidNickname(null); // 유효한 닉네임 초기화
+      setValidEmail(null); // 유효한 이메일 초기화
+      reset(updatedFields); // 폼 초기화
+    } catch (err) {
+      console.error("수정 실패:", err.response?.data?.message || err.message);
+      alert("수정 중 오류가 발생했습니다. 다시 시도해주세요.");
+    }
   };
-
-  // 사용지 닉네임, 이메일 자동 입력
-  useEffect(() => {
-    reset({
-      email: myInfo?.email,
-      name: myInfo?.name,
-    });
-  }, []);
 
   // 회원정보 불러오기
   useEffect(() => {
@@ -229,14 +224,14 @@ export default function MyPage() {
               <>
                 <input
                   type="file"
-                  accept=".png, .jpeg, .jpg, .svg"
+                  accept="image/png, image/jpeg, image/jpg"
                   aria-label="사진 변경 버튼"
                   className="sr-only"
-                  id="file-upload"
+                  id="attach"
                 />
                 <label
                   className="absolute right-0 bottom-0 w-10 h-10 rounded-full bg-[url('/assets/icons/addimage.svg')] bg-cover cursor-pointer"
-                  htmlFor="file-upload"
+                  htmlFor="attach"
                 />
               </>
             )}
