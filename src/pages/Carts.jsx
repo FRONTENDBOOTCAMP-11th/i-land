@@ -123,6 +123,27 @@ export default function Carts() {
       setError(err);
     }
   };
+  // 선택된 상품 장바구니에서 제거
+  const DeleteSelectedCarts = async () => {
+    if (checkedItems.length === 0) {
+      console.log("삭제할 항목이 없습니다.");
+      return;
+    }
+    setLoading(true); // 삭제 요청 시작 시 로딩 상태 설정
+    try {
+      await Promise.all(checkedItems.map(id => axios.delete(`/carts/${id}`))); // 여러 개 DELETE 요청
+      // 로컬 상태에서 해당 아이템 제거
+      setCarts(prevCarts => ({
+        ...prevCarts,
+        item: prevCarts.item.filter(cart => !checkedItems.includes(cart._id)), // 삭제된 아이템 제외
+      }));
+    } catch (err) {
+      setError(err);
+      console.error("선택 삭제 중 오류 발생:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
     fetchProduct();
     fetchCarts(); // 장바구니 정보 가져오기
@@ -146,12 +167,9 @@ export default function Carts() {
       </Helmet>
       <div className="container">
         <CartsDelete
-          setCarts={setCarts}
-          setError={setError}
-          setLoading={setLoading}
-          checkedItems={checkedItems}
           handleAllCheckboxChange={handleAllCheckboxChange}
           allChecked={allChecked}
+          DeleteSelectedCarts={DeleteSelectedCarts}
         />
         {carts.item?.length === 0 ? (
           <CartEmpty />
@@ -173,6 +191,7 @@ export default function Carts() {
               setCarts={setCarts}
               carts={carts.item}
               axios={axios}
+              DeleteSelectedCarts={DeleteSelectedCarts}
             />
           </>
         )}

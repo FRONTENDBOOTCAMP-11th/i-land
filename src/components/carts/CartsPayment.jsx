@@ -1,6 +1,11 @@
 import PropTypes from "prop-types";
 
-export default function CartsPayment({ checkedItems, carts, axios }) {
+export default function CartsPayment({
+  checkedItems,
+  carts,
+  axios,
+  DeleteSelectedCarts,
+}) {
   // 선택된 상품의 총합 계산
   const calculateTotalPrice = () => {
     return checkedItems.reduce((total, id) => {
@@ -33,6 +38,7 @@ export default function CartsPayment({ checkedItems, carts, axios }) {
         await axios.post(`/orders/`, {
           products: itemsToPurchase,
         });
+        DeleteSelectedCarts();
         alert(`선택된 상품이 구매 완료 되었습니다!`);
         return;
       } else return;
@@ -104,4 +110,5 @@ CartsPayment.propTypes = {
   carts: PropTypes.array.isRequired,
   checkedItems: PropTypes.array.isRequired,
   axios: PropTypes.func.isRequired,
+  DeleteSelectedCarts: PropTypes.func.isRequired,
 };
