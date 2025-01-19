@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"; // 추가: React Router
 import useAxiosInstance from "@hooks/useAxiosInstance";
+import Payment from "@components/common/Payment";
 
 export default function ProductsDetailInfomation({
   products,
@@ -136,6 +137,8 @@ export default function ProductsDetailInfomation({
 
   // 해당 상품 판매자 이름
   const sellerName = products?.item?.seller?.name;
+  console.log(quantitycount * products?.item?.price);
+  const totalPrice = quantitycount * products.item.price;
   return (
     <main>
       <section name="detailHeader">
@@ -220,7 +223,7 @@ export default function ProductsDetailInfomation({
                 </button>
               </div>
               <p className="text-black text-[24px] font-bold">
-                총 {(quantitycount * products?.item?.price)?.toLocaleString()}원
+                총 {totalPrice?.toLocaleString()}원
               </p>
             </div>
             <div className="flex justify-between">
@@ -240,12 +243,13 @@ export default function ProductsDetailInfomation({
                 </button>
               </Link>
               <Link>
-                <button
+                {/* <button
                   className="h-[50px] py-[14px] px-9 rounded-lg bg-point-blue box-border"
                   onClick={purchaseProducts}
                 >
                   <p className="text-[18px] text-white font-bold">바로구매</p>
-                </button>
+                </button> */}
+                <Payment products={products} totalPrice={totalPrice} />
               </Link>
             </div>
           </div>
