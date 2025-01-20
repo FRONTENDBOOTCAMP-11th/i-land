@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom"; // 추가: React Router
 export default function CartsPayment({
   checkedItems,
   carts,
-  axios,
   DeleteSelectedCarts,
 }) {
   const navigate = useNavigate(); // 추가: useNavigate 훅
@@ -45,8 +44,8 @@ export default function CartsPayment({
         navigate(
           `/payment?products_id=${products_id}&quantitycount=${quantitycount}`,
         );
-        DeleteSelectedCarts();
-        alert(`선택된 상품이 구매 완료 되었습니다!`);
+        // DeleteSelectedCarts();
+        // alert(`선택된 상품이 구매 완료 되었습니다!`);
         return;
       } else return;
     } catch (err) {
@@ -116,6 +115,5 @@ export default function CartsPayment({
 CartsPayment.propTypes = {
   carts: PropTypes.array.isRequired,
   checkedItems: PropTypes.array.isRequired,
-  axios: PropTypes.func.isRequired,
   DeleteSelectedCarts: PropTypes.func.isRequired,
 };
