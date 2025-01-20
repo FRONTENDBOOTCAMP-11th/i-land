@@ -9,6 +9,7 @@ import Create from "@pages/Create";
 import Carts from "@pages/Carts";
 import Products from "@pages/Products";
 import Detail from "@pages/Detail";
+import Payment from "@pages/Payment";
 
 import Layout from "@components/layout";
 import PrivateRoute from "@components/common/PrivateRoute";
@@ -37,6 +38,7 @@ const router = createBrowserRouter(
             { path: "create", element: <Create /> },
             { path: "carts", element: <Carts /> },
             { path: "users/myInfo", element: <MyInfo /> },
+            { path: "payment", element: <Payment /> },
           ],
         },
         { path: "products", element: <Products /> },
