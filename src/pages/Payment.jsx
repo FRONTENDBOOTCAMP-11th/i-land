@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import useAxiosInstance from "@hooks/useAxiosInstance";
@@ -99,5 +100,35 @@ export default function Payment() {
     fetchUsers();
   }, []);
 
-  return <button onClick={requestPay}>결제하기</button>;
+  return (
+    <>
+      <Helmet>
+        <title>상품 결제 - ILAND</title>
+
+        <meta property="og:title" content="상품 결제 - ILAND" />
+        <meta
+          property="og:description"
+          content="ILAND에서 내 취향을 모아보세요."
+        />
+      </Helmet>
+      <div className="container">
+        <div className="flex">
+          <img src="" alt="결제할 상품 이미지" />
+          <div className="flex flex-col">
+            <p>{buyProduct?.name}</p>
+            <div className="flex justify-between">
+              <p>{quantitycount}</p> <p>{buyProduct?.price}</p>
+            </div>
+            <p>{totalPrice}</p>
+          </div>
+        </div>
+        <button
+          className="w-[400px] h-[60px] mb-[60px] mt-[60px] px-[89px] py-[16px] bg-point-blue text-white rounded-[8px] text-[24px] font-bold"
+          onClick={requestPay}
+        >
+          결제하기
+        </button>
+      </div>
+    </>
+  );
 }
