@@ -117,34 +117,40 @@ export default function Payment() {
         />
       </Helmet>
       <div className="container">
-        {products?.map((buyProduct, index) => (
-          <div
-            key={buyProduct._id}
-            className="flex border border-gray1-[2px] rounded-lg p-[20px] gap-[20px] items-center"
-          >
-            <img
-              className="w-[100px] h-[100px]"
-              src={
-                "https://11.fesp.shop" + buyProduct?.item?.mainImages[0]?.path
-              }
-              alt="결제할 상품 이미지"
-            />
-            <div className="flex flex-col gap-y-[10px]">
-              <p>{buyProduct?.item?.name}</p>
-              <p className="flex justify-end">{buyProduct?.item?.price} 원</p>
-              <div className="flex justify-between">
-                <p>{quantitycount[index]} 개</p>
-                <p>총 {buyProduct?.item?.price * quantitycount[index]} 원</p>
+        <div className="flex flex-col items-center gap-y-[20px]">
+          {products?.map((buyProduct, index) => (
+            <div
+              key={buyProduct._id}
+              className="w-full flex border border-gray1-[2px] rounded-lg p-[20px] gap-[20px] items-center"
+            >
+              <img
+                className="w-[100px] h-[100px]"
+                src={
+                  "https://11.fesp.shop" + buyProduct?.item?.mainImages[0]?.path
+                }
+                alt="결제할 상품 이미지"
+              />
+              <div className="w-full flex flex-col gap-y-[10px]">
+                <div className="flex justify-between">
+                  <p>{buyProduct?.item?.name}</p>
+                  <p className="flex justify-end">
+                    {buyProduct?.item?.price} 원
+                  </p>
+                </div>
+                <div className="flex justify-between">
+                  <p>{quantitycount[index]} 개</p>
+                  <p>총 {buyProduct?.item?.price * quantitycount[index]} 원</p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-        <button
-          className="w-[400px] h-[60px] mb-[60px] mt-[60px] px-[89px] py-[16px] bg-point-blue text-white rounded-[8px] text-[24px] font-bold"
-          onClick={requestPay}
-        >
-          결제하기
-        </button>
+          ))}
+          <button
+            className="w-[400px] h-[60px] mb-[60px] mt-[60px] px-[89px] py-[16px] bg-point-blue text-white rounded-[8px] text-[24px] font-bold"
+            onClick={requestPay}
+          >
+            결제하기
+          </button>
+        </div>
       </div>
     </>
   );
