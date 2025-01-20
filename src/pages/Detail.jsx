@@ -112,7 +112,6 @@ export default function Detail() {
           products={products}
           like={like}
           setLike={setLike}
-          fetchProduct={fetchProduct}
         />
         <hr className="my-10 border border-solid text-gray1"></hr>
         <ProductsExplanation products={products} />

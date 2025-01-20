@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom"; // 추가: React Router
 
 export default function CartsPayment({
   checkedItems,
@@ -6,6 +7,7 @@ export default function CartsPayment({
   axios,
   DeleteSelectedCarts,
 }) {
+  const navigate = useNavigate(); // 추가: useNavigate 훅
   // 선택된 상품의 총합 계산
   const calculateTotalPrice = () => {
     return checkedItems.reduce((total, id) => {
@@ -15,7 +17,7 @@ export default function CartsPayment({
         : total;
     }, 0);
   };
-  // 상품 구매 (/orders/)
+  // 상품 구매
   const purchaseProducts = async () => {
     try {
       if (checkedItems.length === 0) {
@@ -34,10 +36,15 @@ export default function CartsPayment({
             quantity: cartItem.quantity,
           };
         });
+        // 상품 ID와 수량을 각각 배열로 생성
+        const products_id = itemsToPurchase.map(item => item._id).join(","); // ID 배열을 문자열로 변환
+        const quantitycount = itemsToPurchase
+          .map(item => item.quantity)
+          .join(","); // 수량 배열을 문자열로 변환
         console.log(JSON.stringify({ products: itemsToPurchase }));
-        await axios.post(`/orders/`, {
-          products: itemsToPurchase,
-        });
+        navigate(
+          `/payment?products_id=${products_id}&quantitycount=${quantitycount}`,
+        );
         DeleteSelectedCarts();
         alert(`선택된 상품이 구매 완료 되었습니다!`);
         return;

@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"; // 추가: React Router
 import useAxiosInstance from "@hooks/useAxiosInstance";
-import Payment from "@components/common/Payment";
 
 export default function ProductsDetailInfomation({
   products,
@@ -11,7 +10,6 @@ export default function ProductsDetailInfomation({
   like,
   setLike,
   user,
-  fetchProduct,
 }) {
   const axios = useAxiosInstance();
   const navigate = useNavigate(); // 추가: useNavigate 훅
@@ -92,28 +90,19 @@ export default function ProductsDetailInfomation({
     }
   };
 
-  // 상품 구매 (/orders/)
+  // 상품 구매
   const purchaseProducts = async () => {
     try {
       if (!user?.accessToken) {
-        navigate("/carts");
+        navigate("/payment");
         return;
       }
       const confirmPayment = window.confirm(
         `정말 ${products?.item?.name}를 ${quantitycount}개 구매 하시겠습니까?`,
       );
       if (confirmPayment) {
-        await axios.post(`/orders/`, {
-          products: [
-            {
-              _id: products.item._id,
-              quantity: quantitycount,
-            },
-          ],
-        });
-        fetchProduct();
-        alert(
-          `${products?.item?.name}가 ${quantitycount}개 구매 완료 되었습니다.`,
+        navigate(
+          `/payment?products_id=${products_id}&quantitycount=${quantitycount}`,
         );
         return;
       } else return;
@@ -243,13 +232,12 @@ export default function ProductsDetailInfomation({
                 </button>
               </Link>
               <Link>
-                {/* <button
+                <button
                   className="h-[50px] py-[14px] px-9 rounded-lg bg-point-blue box-border"
                   onClick={purchaseProducts}
                 >
                   <p className="text-[18px] text-white font-bold">바로구매</p>
-                </button> */}
-                <Payment products={products} totalPrice={totalPrice} />
+                </button>
               </Link>
             </div>
           </div>
@@ -265,5 +253,4 @@ ProductsDetailInfomation.propTypes = {
   setLike: PropTypes.func.isRequired,
   like: PropTypes.number,
   user: PropTypes.object,
-  fetchProduct: PropTypes.func.isRequired,
 };
