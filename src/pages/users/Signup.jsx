@@ -59,7 +59,6 @@ export default function Signup() {
       // 불필요한 값 제거
       delete newFormData.passwordCheck;
       delete newFormData.username;
-      console.log("회원가입 버튼 클릭");
       try {
         const res = await axios.post("/users/", newFormData);
         // 얼럿 출력 후 로그인 페이지로 이동
@@ -160,10 +159,7 @@ export default function Signup() {
         />
       </Helmet>
       <div className="container">
-        <form
-          className="w-[400px] mx-auto pb-[60px]"
-          onSubmit={handleSubmit(signup)}
-        >
+        <form className="w-[400px] mx-auto" onSubmit={handleSubmit(signup)}>
           <h1 className="text-center font-bold text-[32px] pb-[42px]">
             회원가입
           </h1>
