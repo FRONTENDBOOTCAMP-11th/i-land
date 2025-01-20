@@ -22,6 +22,15 @@ export default function ProfileDropdown() {
         상품등록
       </li>
       <hr className="border border-gray2" />
+      <li
+        className="p-[14px]"
+        onClick={() => {
+          navigate("/users/myInfo");
+        }}
+      >
+        내 정보
+      </li>
+      <hr className="border border-gray2" />
       <li className="p-[14px]" onClick={logout}>
         로그아웃
       </li>
