@@ -6,10 +6,12 @@ InputField.propTypes = {
   id: PropTypes.string.isRequired,
   type: PropTypes.string,
   placeholder: PropTypes.string,
-  register: PropTypes.object.isRequired,
+  register: PropTypes.object,
   error: PropTypes.object,
   children: PropTypes.node,
   className: PropTypes.string,
+  readOnly: PropTypes.bool,
+  defaultValue: PropTypes.string,
 };
 export default function InputField({
   label,
@@ -20,19 +22,25 @@ export default function InputField({
   error,
   children,
   className = "",
+  readOnly = false,
+  defaultValue = "",
 }) {
   return (
     <div className="w-full mb-5">
       <label className={className} htmlFor={id}>
         {label}
       </label>
-      <div className="py-[10px] flex border-solid border-b-4 border-gray3 focus-within:border-point-blue items-center">
+      <div
+        className={`py-[10px] flex border-solid border-b-4 border-gray3 ${readOnly ? "" : "focus-within:border-point-blue"} items-center`}
+      >
         <input
           className="text-[20px] focus:outline-none flex-grow"
           id={id}
           type={type}
           placeholder={placeholder}
           {...register}
+          readOnly={readOnly}
+          defaultValue={defaultValue}
         />
         {children}
       </div>

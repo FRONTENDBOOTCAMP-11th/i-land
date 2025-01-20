@@ -36,7 +36,12 @@ export default function Login() {
     setError,
     clearErrors,
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      email: "admin@i-land.co.kr",
+      password: "qwe123!@#",
+    },
+  });
 
   // 로그인 정보 자동 입력
   useEffect(() => {
