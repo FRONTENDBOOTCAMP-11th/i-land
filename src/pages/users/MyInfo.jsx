@@ -179,7 +179,7 @@ export default function MyPage() {
     try {
       // API 요청 보내기
       const res = await axios.patch(`/users/${user._id}`, updatedFields);
-      alert("회원 정보가 수정되었습니다.");
+      alert("내 정보가 수정되었습니다.");
       const newInfo = res.data.item;
 
       // 사용자 정보를 최신 상태로 업데이트
