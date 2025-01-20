@@ -12,7 +12,7 @@ export default function Payment() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const products_id = queryParams.get("products_id");
-  const quantitycount = queryParams.get("quantitycount");
+  const quantitycount = Number(queryParams.get("quantitycount"));
 
   const fetchProducts = async () => {
     try {
@@ -54,8 +54,9 @@ export default function Payment() {
         pc: "IFRAME",
       },
     });
+    console.log("response", response);
     // 결제 성공 후 주문 생성
-    if (response.status === "success") {
+    if (response.code === undefined) {
       try {
         await axios.post(`/orders/`, {
           products: [
