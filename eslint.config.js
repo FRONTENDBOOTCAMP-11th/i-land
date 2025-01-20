@@ -8,6 +8,13 @@ import eslintPluginPrettier from "eslint-plugin-prettier/recommended";
 export default [
   { ignores: ["dist"] },
   {
+    // env 환경 변수 추가
+    env: {
+      browser: true,
+      node: true,
+      es6: true,
+    },
+
     files: ["**/*.{js,jsx}"],
     languageOptions: {
       ecmaVersion: 2020,

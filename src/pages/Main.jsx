@@ -1,44 +1,44 @@
+import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
+
+import useAxiosInstance from "@hooks/useAxiosInstance";
+import useLoading from "@hooks/useLoading";
+import useUserStore from "@zustand/userStore";
+
 import MainBanner from "@components/main/MainBanner";
 import MainProductList from "@components/main/MainProductList";
-import useAxiosInstance from "@hooks/useAxiosInstance";
-import useUserStore from "@zustand/userStore";
-import { useEffect, useState } from "react";
-import CategorySection from "@components/common/CategorySection";
 import TopSellerList from "@components/main/TopSellerList";
+import CategorySection from "@components/common/CategorySection";
 
 export default function Main() {
-  // TODO 1: 로그인 상태가 아닌 경우, 찜한 상품 영역 표시 X
-  const { user } = useUserStore();
-
-  // 찜한 상품 state
-  const [bookmarkList, setBookmarkList] = useState();
-
-  // 인기 상품 state
-  const [topProducts, setTopProducts] = useState();
-
-  // 신상품 state
-  const [newProducts, setNewProducts] = useState();
-
-  // 인기 판매자 state
-  const [topSellers, setTopSellers] = useState();
-
   const axios = useAxiosInstance();
+  const { user } = useUserStore();
+  const { startLoading, stopLoading } = useLoading();
+
+  const [bookmarkList, setBookmarkList] = useState(); // 찜한 상품 state
+  const [topProducts, setTopProducts] = useState(); // 인기 상품 state
+  const [newProducts, setNewProducts] = useState(); // 신상품 state
+  const [topSellers, setTopSellers] = useState(); // 인기 판매자 state
 
   // 사용자 찜한 상품 목록 조회 API(로그인 시에만)
   const getBookmarkedItem = async () => {
     if (user) {
+      startLoading();
       try {
         const res = await axios.get(`/bookmarks/product`);
         const bookmarkList = res.data.item.map(index => index.product);
         setBookmarkList(bookmarkList);
       } catch (err) {
         console.error(err.response.data.message);
+      } finally {
+        stopLoading();
       }
     }
   };
 
   // 인기 상품(판매 많은 순) 목록 조회 API
   const getTopProducts = async () => {
+    startLoading();
     try {
       const res = await axios.get("/products", {
         params: {
@@ -50,11 +50,14 @@ export default function Main() {
       setTopProducts(topProductList);
     } catch (err) {
       console.error(err.response.data.message);
+    } finally {
+      stopLoading();
     }
   };
 
   // 최신 상품(상품 등록 일자 최신순) 목록 조회 API
   const getNewProducts = async () => {
+    startLoading();
     try {
       const res = await axios.get("/products", {
         params: {
@@ -66,11 +69,14 @@ export default function Main() {
       setNewProducts(newProductList);
     } catch (err) {
       console.error(err.response.data.message);
+    } finally {
+      stopLoading();
     }
   };
 
   // 인기 판매자(등록한 상품 조회수 기준) 목록 조회 API
   const getTopSellers = async () => {
+    startLoading();
     try {
       const res = await axios.get("/users", {
         params: {
@@ -82,6 +88,8 @@ export default function Main() {
       setTopSellers(topSellerList);
     } catch (err) {
       console.error(err.response.data.message);
+    } finally {
+      stopLoading();
     }
   };
 
@@ -93,22 +101,33 @@ export default function Main() {
   }, []);
 
   return (
-    <div className="container">
-      <MainBanner />
+    <>
+      <Helmet>
+        <title>내 취향을 위한 공간 - ILAND</title>
 
-      <CategorySection />
+        <meta property="og:title" content="홈 - ILAND" />
+        <meta
+          property="og:description"
+          content="ILAND에서 내 취향을 모아보세요."
+        />
+      </Helmet>
+      <div className="container">
+        <MainBanner />
 
-      {/* 찜한 목록 - 로그인 이후 표시 */}
-      {user && <MainProductList label="찜한 상품" data={bookmarkList} />}
+        <CategorySection />
 
-      {/* 인기 상품 */}
-      <MainProductList label="인기 상품" data={topProducts} />
+        {/* 찜한 목록 - 로그인 이후 표시 */}
+        {user && <MainProductList label="찜한 상품" data={bookmarkList} />}
 
-      {/* 이번주 신상 */}
-      <MainProductList label="이번주 신상" data={newProducts} />
+        {/* 인기 상품 */}
+        <MainProductList label="인기 상품" data={topProducts} />
 
-      {/* 인기 판매자 */}
-      <TopSellerList label="인기 판매자" data={topSellers} />
-    </div>
+        {/* 이번주 신상 */}
+        <MainProductList label="이번주 신상" data={newProducts} />
+
+        {/* 인기 판매자 */}
+        <TopSellerList label="인기 판매자" data={topSellers} />
+      </div>
+    </>
   );
 }

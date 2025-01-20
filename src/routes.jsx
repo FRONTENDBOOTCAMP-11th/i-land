@@ -1,17 +1,19 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import Layout from "@components/layout";
+import Login from "@pages/users/Login";
+import Signup from "@pages/users/Signup";
 import Main from "@pages/Main";
-import Login from "@pages/user/Login";
-import Signup from "@pages/user/Signup";
-import Search from "@pages/Search";
 import SearchResults from "@pages/SearchResults";
 import Bookmarks from "@pages/Bookmarks";
 import Create from "@pages/Create";
 import Carts from "@pages/Carts";
 import Products from "@pages/Products";
 import Detail from "@pages/Detail";
+
+import Layout from "@components/layout";
 import PrivateRoute from "@components/common/PrivateRoute";
+import LoginKakao from "@pages/users/LoginKakao";
+import MyInfo from "@pages/users/MyInfo";
 
 const router = createBrowserRouter(
   [
@@ -20,10 +22,13 @@ const router = createBrowserRouter(
       element: <Layout />,
       children: [
         { index: true, element: <Main /> },
-        { path: "user/login", element: <Login /> },
-        { path: "user/signup", element: <Signup /> },
-        { path: "search", element: <Search /> },
-        { path: "search/results", element: <SearchResults /> },
+        {
+          path: "users/login",
+          element: <Login />,
+          children: [{ path: "kakao", element: <LoginKakao /> }],
+        },
+        { path: "users/signup", element: <Signup /> },
+        { path: "search", element: <SearchResults /> },
         {
           path: "/",
           element: <PrivateRoute />,
@@ -31,6 +36,7 @@ const router = createBrowserRouter(
             { path: "bookmarks", element: <Bookmarks /> },
             { path: "create", element: <Create /> },
             { path: "carts", element: <Carts /> },
+            { path: "users/myInfo", element: <MyInfo /> },
           ],
         },
         { path: "products", element: <Products /> },

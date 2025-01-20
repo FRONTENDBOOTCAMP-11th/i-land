@@ -1,13 +1,16 @@
-import ProfileDropdown from "@components/common/ProfileDropdown";
-import useUserStore from "@zustand/userStore";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import useUserStore from "@zustand/userStore";
+import useSearchStore from "@zustand/useSearchStore";
+
+import ProfileDropdown from "@components/common/ProfileDropdown";
+
+// 이미지 경로 정규 표현식
+const imgRegex = /^\/.*/;
 export default function Header() {
-  // 로그인 상태와 프로필 이미지 관리
-  // TODO: Zustand를 통한 로그인 상태 관리
-  // 초기값 : null 로그아웃 상태
   const { user } = useUserStore();
+  const { openSearch } = useSearchStore();
 
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
@@ -26,9 +29,9 @@ export default function Header() {
       </Link>
 
       <div className="flex items-center justify-center gap-x-4">
-        <Link to="/search">
+        <button onClick={openSearch}>
           <img src="/assets/icons/search.svg" alt="Search Icon" />
-        </Link>
+        </button>
         <Link to="/bookmarks">
           <img src="/assets/icons/heart-fill.svg" alt="Bookmark Icon" />
         </Link>
@@ -45,13 +48,19 @@ export default function Header() {
           >
             <img
               className="box-content w-10 h-10 border-2 rounded-full border-gray1"
-              src={`https://11.fesp.shop/${user?.profileImage}`} // 프로필 이미지가 없으면 기본 이미지 노출
-              alt="User Profile"
+              src={
+                user.profileImage
+                  ? imgRegex.test(user.profileImage)
+                    ? `https://11.fesp.shop${user.profileImage}`
+                    : user.profileImage
+                  : "https://11.fesp.shop/files/final06/default-profile.png"
+              } // 프로필 이미지가 없으면 기본 이미지 노출
+              alt={`${user.name}의 프로필 사진`}
             />
             {dropdownVisible && <ProfileDropdown />}
           </button>
         ) : (
-          <Link to="/user/login" className="font-bold">
+          <Link to="/users/login" className="font-bold">
             로그인/회원가입
           </Link>
         )}

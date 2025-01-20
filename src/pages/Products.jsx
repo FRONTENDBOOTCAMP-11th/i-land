@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 
 import useAxiosInstance from "@hooks/useAxiosInstance";
+import useLoading from "@hooks/useLoading";
 
 import CategorySection from "@components/common/CategorySection";
 import ProductCard from "@components/common/ProductCard";
@@ -11,8 +13,10 @@ import EmptyPage from "@components/common/EmptyPage";
 export default function Products() {
   const location = useLocation();
   const navigate = useNavigate();
-  const axios = useAxiosInstance();
   const queryClient = useQueryClient();
+  const axios = useAxiosInstance();
+  const { startLoading, stopLoading } = useLoading();
+
   const queryParams = new URLSearchParams(location.search);
   const custom = queryParams.get("custom");
 
@@ -35,7 +39,7 @@ export default function Products() {
   }, [custom, queryClient]);
 
   // 카테고리 데이터 서버에서 불러오기
-  const { data: categories } = useQuery({
+  const { data: categories, isLoading: isCategoriesLoading } = useQuery({
     queryKey: ["productCategory"],
     queryFn: async () => {
       const response = await axios.get("/codes/productCategory");
@@ -52,7 +56,7 @@ export default function Products() {
     "";
 
   // 선택된 카테고리 상품 데이터 불러오기
-  const { data: products = [] } = useQuery({
+  const { data: products = [], isLoading: isProductsLoading } = useQuery({
     queryKey: ["products", selectedCategory],
     queryFn: async () => {
       if (!selectedCategory) return [];
@@ -64,6 +68,15 @@ export default function Products() {
     },
     enabled: !!selectedCategory, // 선택된 카테고리가 있을 때만 실행
   });
+
+  useEffect(() => {
+    // 로딩 상태 관리
+    if (isCategoriesLoading || isProductsLoading) {
+      startLoading();
+    } else {
+      stopLoading();
+    }
+  }, [isCategoriesLoading, isProductsLoading, startLoading, stopLoading]);
 
   const handleCategoryClick = categoryCode => {
     setSelectedCategory(categoryCode);
@@ -77,43 +90,57 @@ export default function Products() {
   };
 
   return (
-    <div className="container">
-      <header>
-        <h1 className="page-title">카테고리별 상품 리스트</h1>
-      </header>
+    <>
+      <Helmet>
+        <title>{categoryValue} 상품 리스트 - ILAND</title>
 
-      <CategorySection
-        onCategorySelect={handleCategoryClick}
-        selectedCategory={selectedCategory}
-      />
+        <meta
+          property="og:title"
+          content={`${categoryValue} 상품 리스트 - ILAND`}
+        />
+        <meta
+          property="og:description"
+          content="ILAND에서 내 취향을 모아보세요."
+        />
+      </Helmet>
+      <div className="container">
+        <header>
+          <h1 className="page-title">카테고리별 상품 리스트</h1>
+        </header>
 
-      <section>
-        <h2 className="section-title">
-          {categoryValue ? `${categoryValue}` : "전체 카테고리"}
-        </h2>
-        <div className="flex items-center justify-end mb-[50px]">
-          <select
-            name="sort"
-            className="w-[125px] h-[40px] border border-gray2 rounded-lg px-3 text-[14px] focus:outline-none"
-            id="sortOrder"
-          >
-            <option value="bookmarks">인기순</option>
-            <option value="createdAt">최신순</option>
-          </select>
-        </div>
-      </section>
+        <CategorySection
+          onCategorySelect={handleCategoryClick}
+          selectedCategory={selectedCategory}
+        />
 
-      <section>
-        {products.length === 0 ? (
-          <EmptyPage />
-        ) : (
-          <ul className="grid grid-cols-5 gap-x-[25px] gap-y-[40px]">
-            {products.map(product => (
-              <ProductCard key={product._id} item={product} />
-            ))}
-          </ul>
-        )}
-      </section>
-    </div>
+        <section>
+          <h2 className="section-title">
+            {categoryValue ? `${categoryValue}` : "전체 카테고리"}
+          </h2>
+          <div className="flex items-center justify-end mb-[50px]">
+            <select
+              name="sort"
+              className="w-[125px] h-[40px] border border-gray2 rounded-lg px-3 text-[14px] focus:outline-none"
+              id="sortOrder"
+            >
+              <option value="bookmarks">인기순</option>
+              <option value="createdAt">최신순</option>
+            </select>
+          </div>
+        </section>
+
+        <section>
+          {products.length === 0 ? (
+            <EmptyPage />
+          ) : (
+            <ul className="grid grid-cols-5 gap-x-[25px] gap-y-[40px]">
+              {products.map(product => (
+                <ProductCard key={product._id} item={product} />
+              ))}
+            </ul>
+          )}
+        </section>
+      </div>
+    </>
   );
 }

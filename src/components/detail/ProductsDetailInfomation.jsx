@@ -224,5 +224,5 @@ ProductsDetailInfomation.propTypes = {
   products_id: PropTypes.number.isRequired,
   products: PropTypes.object.isRequired,
   setLike: PropTypes.func.isRequired,
-  like: PropTypes.number.isRequired,
+  like: PropTypes.number,
 };

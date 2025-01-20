@@ -16,7 +16,7 @@ export default function TopSellerList({ label, data }) {
   ));
 
   return (
-    <section className="mb-[70px]">
+    <section>
       <h2 className="section-title">{label}</h2>
       <div className="overflow-x-scroll scrollbar-hide">
         <ul
