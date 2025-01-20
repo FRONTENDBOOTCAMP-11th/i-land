@@ -193,10 +193,8 @@ export default function MyPage() {
         passwordCheck: "",
       });
 
-      // 프로필 이미지가 변경된 경우에만 세션 스토리지의 유저 정보 수정
-      if (newInfo.image !== user.profileImage) {
-        setUser({ ...user, profileImage: newInfo.image });
-      }
+      // 세션 스토리지의 유저 정보 갱신
+      setUser({ ...user, profileImage: newInfo?.image || user.profileImage });
     } catch (err) {
       console.error("수정 실패:", err.response?.data?.message || err.message);
       alert("수정 중 오류가 발생했습니다. 다시 시도해주세요.");
