@@ -40,7 +40,7 @@ export default function Payment() {
       window.PortOne.requestPayment(
         {
           storeId: "store-e4038486-8d83-41a5-acf1-844a009e0d94",
-          paymentId: "testm64bu0e8",
+          paymentId: "a" + new Date().getTime(),
           orderName: buyProduct?.name,
           totalAmount: totalPrice,
           currency: "KRW",
