@@ -8,23 +8,19 @@ import eslintPluginPrettier from "eslint-plugin-prettier/recommended";
 export default [
   { ignores: ["dist"] },
   {
-    // env 환경 변수 추가
-    env: {
-      browser: true,
-      node: true,
-      es6: true,
-    },
-
-    files: ["**/*.{js,jsx}"],
+    // 환경 변수 정의를 languageOptions.globals로 이동
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      globals: {
+        ...globals.browser, // 기존의 globals.browser를 사용
+      },
       parserOptions: {
         ecmaVersion: "latest",
         ecmaFeatures: { jsx: true },
         sourceType: "module",
       },
     },
+    files: ["**/*.{js,jsx}"],
     settings: { react: { version: "18.3" } },
     plugins: {
       react,
