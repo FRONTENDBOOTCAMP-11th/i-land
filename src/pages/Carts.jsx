@@ -145,59 +145,59 @@ export default function Carts() {
       stopLoading();
     }
   };
-    useEffect(() => {
-      fetchProduct();
-      fetchCarts(); // 장바구니 정보 가져오기
-    }, []);
-    useEffect(() => {
-      if (carts?.item) {
-        setCheckedItems(carts.item.map(cartlist => cartlist._id)); // 모든 체크박스를 선택됨으로 설정
-      }
-    }, [product]);
-  
+  useEffect(() => {
+    fetchProduct();
+    fetchCarts(); // 장바구니 정보 가져오기
+  }, []);
+  useEffect(() => {
+    if (carts?.item) {
+      setCheckedItems(carts.item.map(cartlist => cartlist._id)); // 모든 체크박스를 선택됨으로 설정
+    }
+  }, [product]);
+
   return (
     <>
       <Helmet>
         <title>장바구니 - ILAND</title>
 
-    <meta property="og:title" content="장바구니 - ILAND" />
-    <meta
-      property="og:description"
-      content="ILAND에서 내 취향을 모아보세요."
-    />
-  </Helmet>
-    <div className="container">
-      <CartsDelete
-        setCarts={setCarts}
-        setError={setError}
-        setLoading={setLoading}
-        checkedItems={checkedItems}
-        handleAllCheckboxChange={handleAllCheckboxChange}
-        allChecked={allChecked}
-      />
-      {carts.item?.length === 0 ? (
-        <CartEmpty />
-      ) : (
-        <>
-          <CartsBox
-            error={error}
-            loading={loading}
-            carts={carts?.item}
-            product={product}
-            checkedItems={checkedItems}
-            handleCheckboxChange={handleCheckboxChange}
-            patchQuantityPlusCart={patchQuantityPlusCart}
-            patchQuantityMinusCart={patchQuantityMinusCart}
-            deleteCarts={deleteCarts}
-          />
-          <CartsPayment
-            checkedItems={checkedItems}
-            setCarts={setCarts}
-            carts={carts.item}
-          />
-        </>
-      )}
-    </div>
+        <meta property="og:title" content="장바구니 - ILAND" />
+        <meta
+          property="og:description"
+          content="ILAND에서 내 취향을 모아보세요."
+        />
+      </Helmet>
+      <div className="container">
+        <CartsDelete
+          setCarts={setCarts}
+          setError={setError}
+          setLoading={setLoading}
+          checkedItems={checkedItems}
+          handleAllCheckboxChange={handleAllCheckboxChange}
+          allChecked={allChecked}
+        />
+        {carts.item?.length === 0 ? (
+          <CartEmpty />
+        ) : (
+          <>
+            <CartsBox
+              error={error}
+              loading={loading}
+              carts={carts?.item}
+              product={product}
+              checkedItems={checkedItems}
+              handleCheckboxChange={handleCheckboxChange}
+              patchQuantityPlusCart={patchQuantityPlusCart}
+              patchQuantityMinusCart={patchQuantityMinusCart}
+              deleteCarts={deleteCarts}
+            />
+            <CartsPayment
+              checkedItems={checkedItems}
+              setCarts={setCarts}
+              carts={carts.item}
+            />
+          </>
+        )}
+      </div>
     </>
   );
 }
