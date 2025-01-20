@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="bg-point-blue text-white py-[60px]">
+    <footer className="bg-point-blue text-white py-[60px] mt-[100px]">
       <div className="container space-y-4 text-center">
         {/* 링크 섹션 */}
         <div className="text-sm text-white">
