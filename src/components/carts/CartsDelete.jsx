@@ -3,14 +3,10 @@ import PropTypes from "prop-types";
 export default function CartsDelete({
   handleAllCheckboxChange,
   allChecked,
-  DeleteSelectedCarts,
+  deleteSelectedCarts,
 }) {
   const handleDelete = () => {
-    const deleteCartsConfirm = window.confirm(
-      "선택된 상품을 장바구니에서 제거 하시겠습니까?",
-    );
-    if (!deleteCartsConfirm) return;
-    DeleteSelectedCarts(); // 선택 삭제 함수 호출
+    deleteSelectedCarts(); // 선택 삭제 함수 호출
   };
 
   return (
@@ -40,5 +36,5 @@ export default function CartsDelete({
 CartsDelete.propTypes = {
   handleAllCheckboxChange: PropTypes.func.isRequired,
   allChecked: PropTypes.bool.isRequired,
-  DeleteSelectedCarts: PropTypes.func.isRequired,
+  deleteSelectedCarts: PropTypes.func.isRequired,
 };

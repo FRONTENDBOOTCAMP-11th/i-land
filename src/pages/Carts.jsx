@@ -121,6 +121,30 @@ export default function Carts() {
     }
   };
 
+  // 장바구니 상품 여러 건 삭제 (/carts/)
+  const deleteSelectedCarts = async () => {
+    const deleteCartsConfirm = window.confirm(
+      "선택한 상품을 장바구니에서 제거 하시겠습니까?",
+    );
+    if (!deleteCartsConfirm) return;
+    startLoading();
+
+    try {
+      // 체크된 아이템들의 ID 배열 생성
+      await axios.delete(`/carts/`, { data: { carts: checkedItems } }); // 'data'를 사용하여 요청 본문에 전달
+
+      // 로컬 상태에서 해당 아이템 제거
+      setCarts(prevCarts => ({
+        ...prevCarts,
+        item: prevCarts.item.filter(cart => !checkedItems.includes(cart._id)), // 삭제된 아이템 제외
+      }));
+    } catch (err) {
+      setError(err);
+    } finally {
+      stopLoading();
+    }
+  };
+
   // 장바구니 목록 조회 - 로그인 (/carts/)
   const fetchCarts = async () => {
     try {
@@ -168,10 +192,7 @@ export default function Carts() {
       </Helmet>
       <div className="container">
         <CartsDelete
-          setCarts={setCarts}
-          setError={setError}
-          setLoading={setLoading}
-          checkedItems={checkedItems}
+          deleteSelectedCarts={deleteSelectedCarts}
           handleAllCheckboxChange={handleAllCheckboxChange}
           allChecked={allChecked}
         />

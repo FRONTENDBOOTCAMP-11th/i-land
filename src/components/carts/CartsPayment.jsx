@@ -1,11 +1,7 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom"; // 추가: React Router
 
-export default function CartsPayment({
-  checkedItems,
-  carts,
-  DeleteSelectedCarts,
-}) {
+export default function CartsPayment({ checkedItems, carts }) {
   const navigate = useNavigate(); // 추가: useNavigate 훅
   // 선택된 상품의 총합 계산
   const calculateTotalPrice = () => {
@@ -44,8 +40,6 @@ export default function CartsPayment({
         navigate(
           `/payment?products_id=${products_id}&quantitycount=${quantitycount}`,
         );
-        // DeleteSelectedCarts();
-        // alert(`선택된 상품이 구매 완료 되었습니다!`);
         return;
       } else return;
     } catch (err) {
@@ -115,5 +109,4 @@ export default function CartsPayment({
 CartsPayment.propTypes = {
   carts: PropTypes.array.isRequired,
   checkedItems: PropTypes.array.isRequired,
-  DeleteSelectedCarts: PropTypes.func.isRequired,
 };
