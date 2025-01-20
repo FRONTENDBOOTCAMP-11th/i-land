@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
@@ -16,6 +16,7 @@ export default function Products() {
   const queryClient = useQueryClient();
   const axios = useAxiosInstance();
   const { startLoading, stopLoading } = useLoading();
+  const [sortOrder, setSortOrder] = useState("buyQuantity"); // 상품 정렬 상태
 
   const queryParams = new URLSearchParams(location.search);
   const custom = queryParams.get("custom");
@@ -89,6 +90,22 @@ export default function Products() {
     navigate(`/products?custom=${queryParam}`); // URL 변경
   };
 
+  // 정렬 상태값 변경
+  const handleSortChange = e => {
+    setSortOrder(e.target.value);
+  };
+
+  const sortedProducts = useMemo(() => {
+    if (sortOrder === "buyQuantity") {
+      return [...products].sort((a, b) => b.buyQuantity - a.buyQuantity);
+    } else if (sortOrder === "createdAt") {
+      return [...products].sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+      );
+    }
+    return products;
+  }, [products, sortOrder]); // products 와 정렬 상태 변경에 따라 리렌더링
+
   return (
     <>
       <Helmet>
@@ -122,8 +139,9 @@ export default function Products() {
               name="sort"
               className="w-[125px] h-[40px] border border-gray2 rounded-lg px-3 text-[14px] focus:outline-none"
               id="sortOrder"
+              onChange={handleSortChange}
             >
-              <option value="bookmarks">인기순</option>
+              <option value="buyQuantity">인기순</option>
               <option value="createdAt">최신순</option>
             </select>
           </div>
@@ -134,7 +152,7 @@ export default function Products() {
             <EmptyPage />
           ) : (
             <ul className="grid grid-cols-5 gap-x-[25px] gap-y-[40px]">
-              {products.map(product => (
+              {sortedProducts.map(product => (
                 <ProductCard key={product._id} item={product} />
               ))}
             </ul>
