@@ -19,7 +19,6 @@ export default function Detail() {
   const { _id } = useParams(); // URL에서 id 추출
   const products_id = Number(_id);
 
-  const [error, setError] = useState(null); // 에러
   const [products, setProduct] = useState(null); // 상품 초기값 null
   const [like, setLike] = useState(null); // 찜 상태
   const [reviewContent, setReviewContent] = useState(""); // textarea 상태
@@ -79,6 +78,7 @@ export default function Detail() {
   // 찜 상태 확인
   const checkIfLiked = async () => {
     startLoading();
+    if (!user.accessToken) return;
     try {
       const response = await axios.get(`/bookmarks/product/${products_id}`);
       if (response.data && response.data.item) {
@@ -98,14 +98,11 @@ export default function Detail() {
   // _id값 변경시 실행
   useEffect(() => {
     // 로그인 상태가 아니라면 찜하기 상태 불러오지 않음
-    if (user?.accessToken) {
-      checkIfLiked();
-    }
+    checkIfLiked();
     fetchProduct(); // 상품 정보 가져오기
   }, [_id]);
 
   // 정상 작동이 안 될 시에 로딩, 에러 표시
-  if (error) return <div>Error: {error.message}</div>;
   if (!products) return <div>상품 정보를 불러오는 중입니다...</div>;
 
   return (
@@ -121,6 +118,7 @@ export default function Detail() {
       </Helmet>
       <main className="container px-24 py-5 bg-white">
         <ProductsDetailInfomation
+          user={user}
           products_id={products_id}
           products={products}
           like={like}
