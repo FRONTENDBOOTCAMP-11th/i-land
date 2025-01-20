@@ -13,6 +13,7 @@ import Detail from "@pages/Detail";
 import Layout from "@components/layout";
 import PrivateRoute from "@components/common/PrivateRoute";
 import LoginKakao from "@pages/users/LoginKakao";
+import MyInfo from "@pages/users/MyInfo";
 
 const router = createBrowserRouter(
   [
@@ -24,12 +25,7 @@ const router = createBrowserRouter(
         {
           path: "users/login",
           element: <Login />,
-          children: [
-            {
-              path: "kakao",
-              element: <LoginKakao />,
-            },
-          ],
+          children: [{ path: "kakao", element: <LoginKakao /> }],
         },
         { path: "users/signup", element: <Signup /> },
         { path: "search", element: <SearchResults /> },
@@ -40,6 +36,7 @@ const router = createBrowserRouter(
             { path: "bookmarks", element: <Bookmarks /> },
             { path: "create", element: <Create /> },
             { path: "carts", element: <Carts /> },
+            { path: "users/myInfo", element: <MyInfo /> },
           ],
         },
         { path: "products", element: <Products /> },
