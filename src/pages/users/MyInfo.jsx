@@ -5,7 +5,6 @@ import useUserStore from "@zustand/userStore";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 
 // 이메일, 비밀번호 정규 표현식
 const nicknameRegex = /^[가-힣a-zA-Z0-9]{2,16}$/;
@@ -18,9 +17,7 @@ const imgRegex = /^\/.*/;
 export default function MyPage() {
   const axios = useAxiosInstance();
 
-  const { user, resetUser } = useUserStore();
-
-  const navigate = useNavigate();
+  const { user, setUser } = useUserStore();
 
   // 사용자 정보 수정 중 상태
   const [isEditing, setIsEditing] = useState(false);
@@ -78,7 +75,6 @@ export default function MyPage() {
   const fetchUserInfo = async user_id => {
     try {
       const res = await axios.get(`/users/${user_id}`);
-      console.log(res.data.item);
       setMyInfo(res.data.item);
       // 사용자 닉네임, 이메일 자동 표시
       reset({
@@ -88,7 +84,10 @@ export default function MyPage() {
         passwordCheck: "",
       });
     } catch (err) {
-      console.error(err.response.data.message);
+      console.error(
+        "내 정보 조회 실패:",
+        err.response?.data?.message || err.message,
+      );
     }
   };
 
@@ -180,18 +179,24 @@ export default function MyPage() {
     try {
       // API 요청 보내기
       const res = await axios.patch(`/users/${user._id}`, updatedFields);
-      console.log("수정 성공:", res.data);
-      alert("회원 정보가 성공적으로 수정되었습니다.");
+      alert("회원 정보가 수정되었습니다.");
+      const newInfo = res.data.item;
 
       // 사용자 정보를 최신 상태로 업데이트
       setMyInfo(prev => ({ ...prev, ...updatedFields }));
       setIsEditing(false); // 수정 모드 종료
       setValidNickname(null); // 유효한 닉네임 상태 초기화
+
       // 비밀번호, 비밀번호 확인 초기화
       reset({
         password: "",
         passwordCheck: "",
       });
+
+      // 프로필 이미지가 변경된 경우에만 세션 스토리지의 유저 정보 수정
+      if (newInfo.image !== user.profileImage) {
+        setUser({ ...user, profileImage: newInfo.image });
+      }
     } catch (err) {
       console.error("수정 실패:", err.response?.data?.message || err.message);
       alert("수정 중 오류가 발생했습니다. 다시 시도해주세요.");
