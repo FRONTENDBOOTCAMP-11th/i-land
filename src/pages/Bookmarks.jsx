@@ -118,7 +118,7 @@ export default function Bookmarks() {
           <p>총 {bookmarks?.item?.length} 개의 찜한 상품이 있습니다</p>
         </section>
 
-        <ul className="grid grid-flow-row gap-y-[50px] pb-[60px]">
+        <ul className="grid grid-flow-row gap-y-[50px] pb-[50px]">
           {bookmarks.item?.length === 0 ? (
             <BookmarksEmpty />
           ) : (
