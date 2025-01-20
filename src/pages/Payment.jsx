@@ -3,8 +3,10 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useUserStore from "@zustand/userStore";
+import { useNavigate } from "react-router-dom"; // 추가: React Router
 
 export default function Payment() {
+  const navigate = useNavigate(); // 추가: useNavigate 훅
   const { user } = useUserStore();
   const axios = useAxiosInstance();
   const [products, setProducts] = useState([]);
@@ -24,16 +26,15 @@ export default function Payment() {
       console.log(err);
     }
   };
+  // 총 결제 금액 계산
   const calculateTotalPrice = () => {
     return products.reduce((total, buyProduct, index) => {
       const quantity = quantitycount[index]; // 선택한 상품의 수량
       return total + buyProduct.item.price * quantity; // 총합 계산
     }, 0);
   };
-
   const selectTotalPrice = calculateTotalPrice();
-  // console.log(selectTotalPrice);
-
+  // 상품을 구매할 유저 정보
   const fetchUsers = async () => {
     try {
       const response = await axios.get(`/users/${user._id}`);
@@ -42,12 +43,10 @@ export default function Payment() {
       console.log(err);
     }
   };
-
   const customer = users?.item;
-  // console.log("products", products);
-
   const firstProduct = products[0]?.item; // 첫번째 상품
   const orderName = `${firstProduct?.name}\n 외 ${products?.length} 종`;
+
   // 결제 요청
   const requestPay = async () => {
     const response = await window.PortOne.requestPayment({
@@ -82,6 +81,7 @@ export default function Payment() {
           products: itemsToOrder, // 모든 상품 정보를 포함한 배열
         });
         alert("구매가 완료되었습니다.");
+        navigate("/"); //구매 완료 후 메인으로 이동
       } catch (error) {
         console.error("주문 생성 실패:", error);
       }

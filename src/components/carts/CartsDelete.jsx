@@ -6,6 +6,10 @@ export default function CartsDelete({
   deleteSelectedCarts,
 }) {
   const handleDelete = () => {
+    const deleteCartsConfirm = window.confirm(
+      "선택한 상품을 장바구니에서 제거 하시겠습니까?",
+    );
+    if (!deleteCartsConfirm) return;
     deleteSelectedCarts(); // 선택 삭제 함수 호출
   };
 

@@ -123,10 +123,6 @@ export default function Carts() {
 
   // 장바구니 상품 여러 건 삭제 (/carts/)
   const deleteSelectedCarts = async () => {
-    const deleteCartsConfirm = window.confirm(
-      "선택한 상품을 장바구니에서 제거 하시겠습니까?",
-    );
-    if (!deleteCartsConfirm) return;
     startLoading();
 
     try {
@@ -212,6 +208,7 @@ export default function Carts() {
               deleteCarts={deleteCarts}
             />
             <CartsPayment
+              deleteSelectedCarts={deleteSelectedCarts}
               checkedItems={checkedItems}
               setCarts={setCarts}
               carts={carts.item}

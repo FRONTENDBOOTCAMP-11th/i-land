@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom"; // 추가: React Router
 
-export default function CartsPayment({ checkedItems, carts }) {
+export default function CartsPayment({ checkedItems, carts, deleteSelectedCarts }) {
   const navigate = useNavigate(); // 추가: useNavigate 훅
   // 선택된 상품의 총합 계산
   const calculateTotalPrice = () => {
@@ -36,7 +36,7 @@ export default function CartsPayment({ checkedItems, carts }) {
         const quantitycount = itemsToPurchase
           .map(item => item.quantity)
           .join(","); // 수량 배열을 문자열로 변환
-        console.log(JSON.stringify({ products: itemsToPurchase }));
+        deleteSelectedCarts();
         navigate(
           `/payment?products_id=${products_id}&quantitycount=${quantitycount}`,
         );
