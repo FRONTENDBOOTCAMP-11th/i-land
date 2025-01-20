@@ -179,10 +179,7 @@ export default function Login() {
           </figure>
         </div>
 
-        <form
-          className="w-[400px] mx-auto pb-[60px]"
-          onSubmit={handleSubmit(login)}
-        >
+        <form className="w-[400px] mx-auto" onSubmit={handleSubmit(login)}>
           <fieldset className="mb-[30px]" id="userInfo">
             <legend className="sr-only">로그인 입력 폼</legend>
 
