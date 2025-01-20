@@ -126,8 +126,8 @@ export default function ProductsDetailInfomation({
 
   // 해당 상품 판매자 이름
   const sellerName = products?.item?.seller?.name;
-  console.log(quantitycount * products?.item?.price);
   const totalPrice = quantitycount * products.item.price;
+  const soldOut = productNowQuantity === 0;
   return (
     <main>
       <section name="detailHeader">
@@ -199,9 +199,9 @@ export default function ProductsDetailInfomation({
                   <img src="/assets/icons/minus.svg" alt="" />
                 </button>
                 <input
-                  className="text-right border border-solid rounded w-7 h-7 border-gray2"
+                  className="text-center border border-solid rounded w-7 h-7 border-gray2"
                   type="text"
-                  value={quantitycount}
+                  value={productNowQuantity === 0 ? 0 : quantitycount}
                   min="1"
                   max={productNowQuantity}
                   name="countUp"
@@ -227,6 +227,7 @@ export default function ProductsDetailInfomation({
                 <button
                   className="h-[50px] py-[14px] px-9 border-2 border-gray2 rounded-lg border-solid box-border"
                   onClick={() => addCart(quantitycount)}
+                  disabled={soldOut}
                 >
                   <p className="text-[18px] font-bold">장바구니</p>
                 </button>
@@ -235,6 +236,7 @@ export default function ProductsDetailInfomation({
                 <button
                   className="h-[50px] py-[14px] px-9 rounded-lg bg-point-blue box-border"
                   onClick={purchaseProducts}
+                  disabled={soldOut}
                 >
                   <p className="text-[18px] text-white font-bold">바로구매</p>
                 </button>

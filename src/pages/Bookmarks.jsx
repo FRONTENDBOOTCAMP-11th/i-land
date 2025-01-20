@@ -13,21 +13,7 @@ export default function Bookmarks() {
 
   const [bookmarks, setBookmarks] = useState([]); // 상품 초기값 null
   const [product, setProduct] = useState([]); // 상품 초기값 null
-  const [carts, setCarts] = useState([]); // 장바구니 상태
   const [error, setError] = useState(null); // 에러
-
-  // 장바구니 목록 조회 - 로그인 (/carts/)
-  const fetchCarts = async () => {
-    startLoading();
-    try {
-      const response = await axios.get(`/carts/`);
-      setCarts(response?.data);
-    } catch (error) {
-      setError(error);
-    } finally {
-      stopLoading();
-    }
-  };
 
   // 북마크 목록 조회 (/bookmarks/{type})
   const fetchBookmarks = async () => {
@@ -95,7 +81,6 @@ export default function Bookmarks() {
   };
 
   useEffect(() => {
-    fetchCarts();
     fetchBookmarks();
     fetchProduct();
   }, []);
