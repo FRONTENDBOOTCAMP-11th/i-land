@@ -19,7 +19,9 @@ export default function CartsDelete({
       <h1 className="page-title">장바구니</h1>
       <div className="flex justify-between text-[14px] mb-[60px]">
         {carts.item?.length === 0 ? (
-          <p className="text-[16px]">장바구니에 상품이 없습니다.</p>
+          <p className="text-[16px]">
+            총 {carts?.item?.length} 개의 상품이 있습니다.
+          </p>
         ) : (
           <>
             <label className="flex gap-[10px] items-center">
