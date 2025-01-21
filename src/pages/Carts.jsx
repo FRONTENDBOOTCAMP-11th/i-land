@@ -191,6 +191,7 @@ export default function Carts() {
           deleteSelectedCarts={deleteSelectedCarts}
           handleAllCheckboxChange={handleAllCheckboxChange}
           allChecked={allChecked}
+          carts={carts}
         />
         {carts.item?.length === 0 ? (
           <EmptyState message="장바구니에 상품이 없어요 😭" />

@@ -93,12 +93,15 @@ export default function Bookmarks() {
         />
       </Helmet>
       <div className="container">
-        <section className="mb-[50px]">
+        <section>
           <h1 className="page-title">찜한 상품</h1>
-          <p>총 {bookmarks?.item?.length} 개의 찜한 상품이 있습니다</p>
+          {bookmarks.item?.length === 0 ? (
+            <p>찜한 상품이 없습니다.</p>
+          ) : (
+            <p>총 {bookmarks?.item?.length} 개의 찜한 상품이 있습니다.</p>
+          )}
         </section>
-
-        <ul className="grid grid-flow-row gap-y-[50px] pb-[50px]">
+        <ul className="grid grid-flow-row gap-y-[50px]">
           {bookmarks.item?.length === 0 ? (
             <EmptyState message="찜한 상품이 없어요 😭" />
           ) : (
