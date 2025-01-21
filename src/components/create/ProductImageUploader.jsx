@@ -1,48 +1,36 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 
-import useAxiosInstance from "@hooks/useAxiosInstance";
-
 export default function ProductImageUploader({ value = [], onChange }) {
-  const axios = useAxiosInstance();
+  // const axios = useAxiosInstance();
+  const [previewImages, setPreviewImages] = useState([]);
 
   const handleFileChange = async event => {
     const files = Array.from(event.target.files);
 
     if (files.length === 0) return;
 
-    try {
-      const uploadImages = await Promise.all(
-        files.map(async file => {
-          const formData = new FormData();
-          formData.append("attach", file);
+    // 미리보기 URL 생성
+    const newPreviewImages = files.map(file => URL.createObjectURL(file));
+    setPreviewImages(prev => [...prev, ...newPreviewImages].slice(0, 5));
 
-          const response = await axios("/files", {
-            method: "post",
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-            data: formData,
-          });
+    // 파일 정보를 클라이언트에서 관리
+    const newImages = files.map(file => ({
+      path: `/files/final06/${file.name}`,
+      name: file.name,
+      originalname: file.name,
+      file, // 실제 파일 객체 저장 (서버 업로드 시 사용)
+    }));
 
-          if (!response.data.item || !Array.isArray(response.data.item)) {
-            throw new Error("Invalid response format: Missing 'item' array");
-          }
+    const updatedImages = [...value, ...newImages].slice(0, 5);
+    onChange(updatedImages);
+  };
 
-          return response.data.item.map(item => ({
-            path: item.path,
-            name: item.name,
-            originalname: file.name,
-          }));
-        }),
-      );
-
-      const flattenedImages = uploadImages.flat();
-
-      const updatedImages = [...value, ...flattenedImages].slice(0, 5);
-      onChange(updatedImages);
-    } catch (error) {
-      console.error("이미지 업로드 중 오류:", error);
-    }
+  const handleRemovePreview = index => {
+    const removedPreview = previewImages[index];
+    URL.revokeObjectURL(removedPreview); // URL 해제
+    setPreviewImages(prev => prev.filter((_, i) => i !== index));
+    onChange(value.filter((_, i) => i !== index));
   };
 
   return (
@@ -70,6 +58,32 @@ export default function ProductImageUploader({ value = [], onChange }) {
           onChange={handleFileChange}
         />
       </div>
+
+      <div className="flex flex-wrap gap-2 mt-5">
+        {previewImages.map((src, index) => (
+          <div
+            key={index}
+            className="relative w-24 h-24 border rounded-full border-gray2"
+          >
+            <img
+              src={src}
+              alt={`미리보기 ${index + 1}`}
+              className="object-cover w-full h-full rounded"
+            />
+            <button
+              type="button"
+              onClick={() => handleRemovePreview(index)}
+              className="absolute flex items-center justify-center w-4 h-4 rounded-full top-[2px] right-[2px]"
+            >
+              <img
+                className="w-3 h-3"
+                src="/assets/icons/close.svg"
+                alt="Close Image Preview"
+              />
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -80,6 +94,7 @@ ProductImageUploader.propTypes = {
       path: PropTypes.string,
       name: PropTypes.string.isRequired,
       originalname: PropTypes.string.isRequired,
+      file: PropTypes.instanceOf(File),
     }),
   ).isRequired,
   onChange: PropTypes.func.isRequired,
