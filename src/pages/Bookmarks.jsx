@@ -105,7 +105,7 @@ export default function Bookmarks() {
 
         <ul className="grid grid-flow-row gap-y-[50px] pb-[50px]">
           {bookmarks.item?.length === 0 ? (
-            <BookmarksEmpty />
+            <BookmarksEmpty message="찜한 상품이 없어요 😭" />
           ) : (
             <>
               {bookmarks?.item?.map(bookmarkslist => {

@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useQuery } from "@tanstack/react-query";
@@ -6,8 +7,7 @@ import useAxiosInstance from "@hooks/useAxiosInstance";
 import useLoading from "@hooks/useLoading";
 
 import ProductCard from "@components/common/ProductCard";
-import SearchNoResult from "@components/search/SearchNoResult";
-import { useMemo, useState } from "react";
+import EmptyState from "@components/common/EmptyState";
 
 export default function SearchResults() {
   const axios = useAxiosInstance();
@@ -83,7 +83,11 @@ export default function SearchResults() {
         </div>
 
         {sortedResults.length === 0 ? (
-          <SearchNoResult />
+          <EmptyState
+            message="검색 결과가 없어요 😭"
+            showButton={true}
+            buttonText="이전 페이지로 돌아가기"
+          />
         ) : (
           <ul className="grid grid-cols-5 gap-x-[25px] gap-y-[40px]">
             {sortedResults.map(result => (
