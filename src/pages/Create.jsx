@@ -26,18 +26,44 @@ export default function Create() {
   const [mainImages, setMainImages] = useState([]);
   const [isSuccess, setIsSuccess] = useState(false);
 
+  const uploadImagesToServer = async files => {
+    const formData = new FormData();
+    files.forEach(file => formData.append("attach", file));
+
+    const response = await axios.post("/files", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    if (!response.data.item || !Array.isArray(response.data.item)) {
+      throw new Error("Invalid response format: Missing 'item' array");
+    }
+
+    return response.data.item.map(item => ({
+      path: item.path,
+      name: item.name,
+      originalname: item.originalname,
+    }));
+  };
+
   const onSubmit = async data => {
     startLoading();
+    console.log(mainImages);
     try {
+      const uploadedImages = await uploadImagesToServer(
+        mainImages.map(img => img.file),
+      );
+
       const productData = {
         name: data.name,
         price: Number(data.price),
         quantity: Number(data.quantity),
         content: data.content,
+        mainImages: uploadedImages,
         extra: {
           category: categories,
         },
-        mainImages,
       };
 
       await axios.post("/seller/products", productData);
