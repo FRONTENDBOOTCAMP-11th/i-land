@@ -14,13 +14,17 @@ export default function MyPurchaseCard({ data }) {
 
   return (
     <li className="p-10 border border-gray2 rounded-lg box-border items-start flex flex-col gap-y-10">
+      {data?.products.length > 1 && (
+        <p>
+          <strong>{data?.products?.[0].name}</strong> 외{" "}
+          <strong>{data?.products.length - 1}</strong>건
+        </p>
+      )}
+
       {data?.products.length > 1 ? (
         multiPurchase
       ) : (
-        <PurchaseContent
-          key={data?.products?.[0]._id}
-          data={data?.products[0]}
-        />
+        <PurchaseContent key={data?.products[0]._id} data={data?.products[0]} />
       )}
     </li>
   );
