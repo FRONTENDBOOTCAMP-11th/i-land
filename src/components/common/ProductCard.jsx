@@ -30,7 +30,7 @@ export default function ProductCard({ item }) {
       <Link to={`/products/${item._id}`} aria-label="상품 페이지로 이동">
         <div className="aspect-[180/180] rounded-[8px] border border-gray3 overflow-hidden bg-white content-center">
           <img
-            className="w-full h-full object-cover hover:transition-transform hover:scale-110 transition-transform"
+            className="w-full h-full object-cover transition-transform hover:transition-transform hover:scale-110"
             src={
               baseURL +
               (item.mainImages[0]?.path || "/files/final06/default-profile.png")
