@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet-async";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useLoading from "@hooks/useLoading";
 
-import BookmarksEmpty from "@components/bookmarks/BookmarksEmpty";
+import EmptyState from "@components/common/EmptyState";
 
 export default function Bookmarks() {
   const axios = useAxiosInstance();
@@ -105,7 +105,7 @@ export default function Bookmarks() {
 
         <ul className="grid grid-flow-row gap-y-[50px] pb-[50px]">
           {bookmarks.item?.length === 0 ? (
-            <BookmarksEmpty />
+            <EmptyState message="찜한 상품이 없어요 😭" />
           ) : (
             <>
               {bookmarks?.item?.map(bookmarkslist => {
