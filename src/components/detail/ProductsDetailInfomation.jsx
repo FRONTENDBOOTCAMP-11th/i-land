@@ -135,7 +135,7 @@ export default function ProductsDetailInfomation({
           <div className="relative w-[480px] h-[480px]">
             <img
               className="w-full h-full"
-              src={"https://11.fesp.shop" + mainImages[imgcount]?.path}
+              src={`https://11.fesp.shop${mainImages[imgcount]?.path || "/files/final06/default-profile.png"}`}
               alt="상품 이미지"
             />
             <button onClick={minusImgCount}>
