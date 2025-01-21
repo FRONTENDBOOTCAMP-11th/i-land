@@ -96,9 +96,9 @@ export default function Bookmarks() {
         <section>
           <h1 className="page-title">찜한 상품</h1>
           {bookmarks.item?.length === 0 ? (
-            <p>찜한 상품이 없습니다.</p>
+            <p className="mb-[60px]">찜한 상품이 없습니다.</p>
           ) : (
-            <p>총 {bookmarks?.item?.length} 개의 찜한 상품이 있습니다.</p>
+            <p className="mb-[60px]">총 {bookmarks?.item?.length} 개의 찜한 상품이 있습니다.</p>
           )}
         </section>
         <ul className="grid grid-flow-row gap-y-[50px]">
