@@ -13,8 +13,15 @@ export default function Search() {
 
   const { isSearchOpen, closeSearch } = useSearchStore();
 
-  const recentKeywords = ["개발 예정입니다", "시간이 없어요"];
-  const popularKeywords = ["나좀 살려줘", "이거 다 개발하고 싶어"];
+  const recentKeywords = ["피규어", "후드", "티셔츠", "인형"];
+  const popularKeywords = [
+    "오징어 게임",
+    "포켓몬",
+    "방탄",
+    "빅뱅",
+    "아이돌",
+    "케로로중사",
+  ];
 
   useEffect(() => {
     if (isSearchOpen) {
