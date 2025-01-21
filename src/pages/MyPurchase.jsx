@@ -1,7 +1,29 @@
+import useAxiosInstance from "@hooks/useAxiosInstance";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
 export default function MyPurchase() {
+  const axios = useAxiosInstance();
+
+  // 구매 내역 상태
+  const [myPurchase, setMyPurchase] = useState();
+
+  // 구매 내역 조회
+  const fetchMyPurchase = async () => {
+    try {
+      const res = await axios.get("/orders");
+      console.log(res.data.item);
+      setMyPurchase(res.data.item);
+    } catch (err) {
+      console.error(err.response.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchMyPurchase();
+  }, []);
+
   return (
     <>
       <Helmet>
