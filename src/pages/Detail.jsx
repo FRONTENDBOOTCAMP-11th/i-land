@@ -78,7 +78,7 @@ export default function Detail() {
   // 찜 상태 확인
   const checkIfLiked = async () => {
     startLoading();
-    if (!user.accessToken) return;
+    if (!user) return;
     try {
       const response = await axios.get(`/bookmarks/product/${products_id}`);
       if (response.data && response.data.item) {
