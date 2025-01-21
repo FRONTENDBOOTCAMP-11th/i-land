@@ -13,7 +13,6 @@ export default function MyPurchase() {
   const fetchMyPurchase = async () => {
     try {
       const res = await axios.get("/orders");
-      console.log(res.data.item);
       setMyPurchase(res.data.item);
     } catch (err) {
       console.error(err.response.data);
@@ -42,7 +41,7 @@ export default function MyPurchase() {
       <div className="container">
         <section className="mb-[50px]">
           <h1 className="page-title">구매 내역</h1>
-          <p>총 {myPurchase?.length}개의 구매 내역이 있습니다</p>
+          <p>총 {myPurchase?.length}건의 구매 내역이 있습니다</p>
         </section>
 
         <ul className="grid grid-flow-row gap-y-[50px] pb-[50px]">
