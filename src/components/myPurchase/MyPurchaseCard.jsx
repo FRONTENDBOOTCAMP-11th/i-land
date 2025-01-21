@@ -22,8 +22,10 @@ export default function MyPurchaseCard({ data }) {
       )}
 
       {data?.products.length > 1 ? (
+        // 한 건의 결제 내역에 여러 상품이 포함된 경우(예: 장바구니의 상품 일괄 구매)
         multiPurchase
       ) : (
+        // 한 건의 결제 내역에 하나의 상품이 포함된 경우(예: 상품 상세 페이지에서 바로구매)
         <PurchaseContent key={data?.products[0]._id} data={data?.products[0]} />
       )}
     </li>

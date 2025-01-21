@@ -6,6 +6,9 @@ PurchaseContent.propTypes = {
     _id: PropTypes.number,
     name: PropTypes.string,
     price: PropTypes.number,
+    image: PropTypes.shape({
+      path: PropTypes.string,
+    }),
   }),
 };
 
@@ -19,7 +22,9 @@ export default function PurchaseContent({ data }) {
           alt="상품 대표 이미지"
         />
         <div className="grid grid-flow-row gap-y-[14px] items-center">
-          <h2 className="text-[32px] font-bold">{data?.name}</h2>
+          <h2 className="text-[32px] font-bold leading-normal break-words">
+            {data?.name}
+          </h2>
           <p className="text-[18px]">
             <span className="text-[24px] font-bold mr-2">
               {data?.price.toLocaleString()}

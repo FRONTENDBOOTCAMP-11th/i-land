@@ -1,3 +1,4 @@
+import EmptyState from "@components/common/EmptyState";
 import MyPurchaseCard from "@components/myPurchase/myPurchaseCard";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import { useEffect, useState } from "react";
@@ -43,10 +44,13 @@ export default function MyPurchase() {
           <h1 className="page-title">구매 내역</h1>
           <p>총 {myPurchase?.length}건의 구매 내역이 있습니다</p>
         </section>
-
-        <ul className="grid grid-flow-row gap-y-[50px] pb-[50px]">
-          {myPurchaseList}
-        </ul>
+        {myPurchase?.length === 0 ? (
+          <EmptyState message="구매 내역이 없어요 😭" />
+        ) : (
+          <ul className="grid grid-flow-row gap-y-[50px] pb-[50px]">
+            {myPurchaseList}
+          </ul>
+        )}
       </div>
     </>
   );
