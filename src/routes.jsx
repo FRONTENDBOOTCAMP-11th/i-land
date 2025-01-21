@@ -15,6 +15,7 @@ import Layout from "@components/layout";
 import PrivateRoute from "@components/common/PrivateRoute";
 import LoginKakao from "@pages/users/LoginKakao";
 import MyInfo from "@pages/users/MyInfo";
+import MyPurchase from "@pages/MyPurchase";
 
 const router = createBrowserRouter(
   [
@@ -39,6 +40,7 @@ const router = createBrowserRouter(
             { path: "carts", element: <Carts /> },
             { path: "users/myInfo", element: <MyInfo /> },
             { path: "payment", element: <Payment /> },
+            { path: "myPurchase", element: <MyPurchase /> },
           ],
         },
         { path: "products", element: <Products /> },
