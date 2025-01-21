@@ -64,15 +64,10 @@ export default function Bookmarks() {
     alert("장바구니에 상품이 추가 되었습니다.");
     startLoading();
     try {
-      const response = await axios.post(`/carts/`, {
+      await axios.post(`/carts/`, {
         product_id: productId,
         quantity: 1,
       });
-      setCarts(prevCart =>
-        Array.isArray(prevCart)
-          ? [...prevCart, response.data]
-          : [response.data],
-      );
     } catch (error) {
       setError(error);
     } finally {
