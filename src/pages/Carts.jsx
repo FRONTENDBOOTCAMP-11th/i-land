@@ -4,10 +4,10 @@ import { Helmet } from "react-helmet-async";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useLoading from "@hooks/useLoading";
 
-import CartEmpty from "@components/carts/CartsEmpty";
 import CartsBox from "@components/carts/CartsBox";
 import CartsDelete from "@components/carts/CartsDelete";
 import CartsPayment from "@components/carts/CartsPayment";
+import EmptyState from "@components/common/EmptyState";
 
 export default function Carts() {
   const axios = useAxiosInstance();
@@ -191,9 +191,10 @@ export default function Carts() {
           deleteSelectedCarts={deleteSelectedCarts}
           handleAllCheckboxChange={handleAllCheckboxChange}
           allChecked={allChecked}
+          carts={carts}
         />
         {carts.item?.length === 0 ? (
-          <CartEmpty />
+          <EmptyState message="장바구니에 상품이 없어요 😭" />
         ) : (
           <>
             <CartsBox

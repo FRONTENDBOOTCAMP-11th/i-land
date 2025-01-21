@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet-async";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useLoading from "@hooks/useLoading";
 
-import BookmarksEmpty from "@components/bookmarks/BookmarksEmpty";
+import EmptyState from "@components/common/EmptyState";
 
 export default function Bookmarks() {
   const axios = useAxiosInstance();
@@ -64,15 +64,10 @@ export default function Bookmarks() {
     alert("장바구니에 상품이 추가 되었습니다.");
     startLoading();
     try {
-      const response = await axios.post(`/carts/`, {
+      await axios.post(`/carts/`, {
         product_id: productId,
         quantity: 1,
       });
-      setCarts(prevCart =>
-        Array.isArray(prevCart)
-          ? [...prevCart, response.data]
-          : [response.data],
-      );
     } catch (error) {
       setError(error);
     } finally {
@@ -98,14 +93,15 @@ export default function Bookmarks() {
         />
       </Helmet>
       <div className="container">
-        <section className="mb-[50px]">
+        <section>
           <h1 className="page-title">찜한 상품</h1>
-          <p>총 {bookmarks?.item?.length} 개의 찜한 상품이 있습니다</p>
+          <p className="mb-[60px]">
+            총 {bookmarks?.item?.length} 개의 상품이 있습니다.
+          </p>
         </section>
-
-        <ul className="grid grid-flow-row gap-y-[50px] pb-[50px]">
+        <ul className="grid grid-flow-row gap-y-[50px]">
           {bookmarks.item?.length === 0 ? (
-            <BookmarksEmpty />
+            <EmptyState message="찜한 상품이 없어요 😭" />
           ) : (
             <>
               {bookmarks?.item?.map(bookmarkslist => {

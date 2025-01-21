@@ -8,7 +8,7 @@ import useLoading from "@hooks/useLoading";
 
 import CategorySection from "@components/common/CategorySection";
 import ProductCard from "@components/common/ProductCard";
-import EmptyPage from "@components/common/EmptyPage";
+import EmptyState from "@components/common/EmptyState";
 
 export default function Products() {
   const location = useLocation();
@@ -149,7 +149,7 @@ export default function Products() {
 
         <section>
           {products.length === 0 ? (
-            <EmptyPage />
+            <EmptyState message="카테고리에 일치하는 상품이 없어요 😭" />
           ) : (
             <ul className="grid grid-cols-5 gap-x-[25px] gap-y-[40px]">
               {sortedProducts.map(product => (
