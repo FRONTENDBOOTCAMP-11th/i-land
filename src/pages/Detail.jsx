@@ -20,6 +20,7 @@ export default function Detail() {
   const products_id = Number(_id);
 
   const [products, setProduct] = useState(null); // 상품 초기값 null
+  const [orders, setOrders] = useState(null); // 상품 초기값 null
   const [like, setLike] = useState(null); // 찜 상태
   const [reviewContent, setReviewContent] = useState(""); // textarea 상태
 
@@ -38,7 +39,23 @@ export default function Detail() {
       stopLoading();
     }
   };
+  // 구매 목록 조회 (/orders/)
+  const fetchOrders = async () => {
+    startLoading();
+    try {
+      const response = await axios.get(`orders/`);
+      setOrders(response?.data);
+    } catch (error) {
+      console.error(error.response?.data?.message);
+    } finally {
+      stopLoading();
+    }
+  };
 
+  // 유저의 구매했던 상품 아이디 값 배열
+  const productIds = orders?.item?.flatMap(item =>
+    item.products.map(product => product._id),
+  );
   // 구매 후기 등록
   const addReview = async content => {
     if (!user?.accessToken) {
@@ -51,6 +68,9 @@ export default function Detail() {
         navigate("/users/login");
         return;
       }
+    } else if (!productIds.includes(products.item._id)) {
+      alert("후기를 작성하시려면 해당 상품을 구매하셔야 합니다.");
+      return;
     } else if (content?.trim() === "") {
       alert("내용을 입력해주세요");
       return;
@@ -95,11 +115,10 @@ export default function Detail() {
     }
   };
 
-  // _id값 변경시 실행
   useEffect(() => {
-    // 로그인 상태가 아니라면 찜하기 상태 불러오지 않음
+    fetchOrders();
     checkIfLiked();
-    fetchProduct(); // 상품 정보 가져오기
+    fetchProduct();
   }, [_id]);
 
   // 정상 작동이 안 될 시에 로딩, 에러 표시
