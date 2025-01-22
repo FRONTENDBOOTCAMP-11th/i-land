@@ -41,6 +41,7 @@ export default function Detail() {
   };
   // 구매 목록 조회 (/orders/)
   const fetchOrders = async () => {
+    if (!user?.accessToken) return;
     startLoading();
     try {
       const response = await axios.get(`orders/`);
