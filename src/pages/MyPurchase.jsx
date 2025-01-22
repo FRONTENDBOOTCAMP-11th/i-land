@@ -1,5 +1,5 @@
 import EmptyState from "@components/common/EmptyState";
-import MyPurchaseCard from "@components/myPurchase/myPurchaseCard";
+import MyPurchaseCard from "@components/myPurchase/MyPurchaseCard";
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
