@@ -10,7 +10,7 @@ MyPurchaseCard.propTypes = {
 
 export default function MyPurchaseCard({ data }) {
   const purchaseDate = new Date(data.createdAt).toLocaleDateString();
-  console.log(purchaseDate);
+
   const multiPurchase = data?.products.map(item => (
     <PurchaseContent key={item._id} data={item} />
   ));
