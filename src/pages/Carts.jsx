@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
+import { toast } from "react-toastify";
 
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useLoading from "@hooks/useLoading";
@@ -102,23 +103,54 @@ export default function Carts() {
 
   // 장바구니 상품 한건 삭제 (/carts/{_id})
   const deleteCarts = async _id => {
-    const deleteCartsConfirm = window.confirm(
-      "해당 상품을 장바구니에서 제거 하시겠습니까?",
+    toast.error(
+      ({ closeToast }) => (
+        <div className="flex flex-col">
+          <div className="text-center">
+            <p>해당 상품을 장바구니에서 제거하시겠습니까?</p>
+          </div>
+          <div className="flex justify-center gap-4 mt-3">
+            {/* 예 버튼 */}
+            <button
+              onClick={async () => {
+                closeToast(); // 토스트 닫기
+                startLoading(); // 로딩 시작
+                try {
+                  await axios.delete(`/carts/${_id}`);
+                  // 로컬 상태에서 해당 아이템 제거
+                  setCarts(prevCarts => ({
+                    ...prevCarts,
+                    item: prevCarts.item.filter(cart => cart._id !== _id),
+                  }));
+                  toast.success("상품이 삭제되었습니다."); // 성공 알림
+                } catch (err) {
+                  toast.error("상품 삭제에 실패했습니다."); // 실패 알림
+                  setError(err);
+                } finally {
+                  stopLoading(); // 로딩 종료
+                }
+              }}
+              className="px-4 py-1 text-black bg-white border-2 border-white rounded hover:bg-blue-600"
+            >
+              예
+            </button>
+            {/* 아니오 버튼 */}
+            <button
+              onClick={() => {
+                closeToast(); // 토스트 닫기
+              }}
+              className="px-4 py-1 text-black bg-white border-2 border-white rounded hover:bg-gray-600"
+            >
+              아니오
+            </button>
+          </div>
+        </div>
+      ),
+      {
+        autoClose: false,
+        closeOnClick: false,
+      },
     );
-    if (!deleteCartsConfirm) return;
-    startLoading();
-    try {
-      await axios.delete(`/carts/${_id}`);
-      // 로컬 상태에서 해당 아이템 제거
-      setCarts(prevCarts => ({
-        ...prevCarts,
-        item: prevCarts.item.filter(cart => cart._id !== _id), // 삭제된 아이템 제외
-      }));
-    } catch (err) {
-      setError(err);
-    } finally {
-      stopLoading();
-    }
   };
 
   // 장바구니 상품 여러 건 삭제 (/carts/)

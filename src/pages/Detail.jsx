@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { toast } from "react-toastify";
 
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useLoading from "@hooks/useLoading";
@@ -42,22 +43,44 @@ export default function Detail() {
   // 구매 후기 등록
   const addReview = async content => {
     if (!user?.accessToken) {
-      const goLogin = window.confirm(
-        "로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?",
+      toast.warn(
+        ({ closeToast }) => (
+          <div className="flex flex-col items-center">
+            <p>로그인이 필요합니다. 로그인 페이지로 이동할까요?</p>
+            <div className="flex gap-4 mt-2">
+              <button
+                onClick={() => {
+                  navigate("/users/login");
+                  closeToast();
+                }}
+                className="px-4 py-1 text-black bg-white border-2 border-white rounded"
+              >
+                네
+              </button>
+              <button
+                onClick={closeToast}
+                className="px-4 py-1 text-black bg-white border-2 border-white rounded"
+              >
+                아니오
+              </button>
+            </div>
+          </div>
+        ),
+        { autoClose: false, closeOnClick: false },
       );
-      if (!goLogin) {
-        return;
-      } else {
-        navigate("/users/login");
-        return;
-      }
-    } else if (content?.trim() === "") {
-      alert("내용을 입력해주세요");
-      return;
-    } else if (content?.length <= 1) {
-      alert("최소 2글자 이상은 입력하셔야합니다.");
       return;
     }
+
+    if (content?.trim() === "") {
+      toast.warn("내용을 입력해주세요.");
+      return;
+    }
+
+    if (content?.length <= 1) {
+      toast.warn("최소 2글자 이상 입력해주세요.");
+      return;
+    }
+
     startLoading();
     try {
       await axios.post(`/replies`, {

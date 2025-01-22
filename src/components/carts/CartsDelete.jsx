@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 
 export default function CartsDelete({
   handleAllCheckboxChange,
@@ -7,11 +8,41 @@ export default function CartsDelete({
   carts,
 }) {
   const handleDelete = () => {
-    const deleteCartsConfirm = window.confirm(
-      "선택한 상품을 장바구니에서 제거 하시겠습니까?",
+    toast.error(
+      ({ closeToast }) => (
+        <div className="flex flex-col justify-center">
+          <p className="text-center">
+            선택한 상품을 장바구니에서 제거하시겠습니까?
+          </p>
+          <div className="flex justify-center gap-4 mt-3">
+            {/* "예" 버튼 */}
+            <button
+              onClick={() => {
+                closeToast(); // 토스트 닫기
+                deleteSelectedCarts(); // 선택 삭제 함수 호출
+                toast.success("상품이 삭제되었습니다."); // 성공 알림
+              }}
+              className="px-4 py-1 text-black bg-white border border-gray-300 rounded hover:bg-blue-500 hover:text-white"
+            >
+              예
+            </button>
+            {/* "아니오" 버튼 */}
+            <button
+              onClick={() => {
+                closeToast(); // 토스트 닫기
+              }}
+              className="px-4 py-1 text-black bg-white border border-gray-300 rounded hover:bg-gray-500 hover:text-white"
+            >
+              아니오
+            </button>
+          </div>
+        </div>
+      ),
+      {
+        autoClose: false,
+        closeOnClick: false,
+      },
     );
-    if (!deleteCartsConfirm) return;
-    deleteSelectedCarts(); // 선택 삭제 함수 호출
   };
 
   return (
@@ -50,5 +81,7 @@ CartsDelete.propTypes = {
   handleAllCheckboxChange: PropTypes.func.isRequired,
   allChecked: PropTypes.bool.isRequired,
   deleteSelectedCarts: PropTypes.func.isRequired,
-  carts: PropTypes.array.isRequired,
+  carts: PropTypes.shape({
+    item: PropTypes.array.isRequired,
+  }).isRequired,
 };

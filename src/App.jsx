@@ -4,6 +4,7 @@ import { HelmetProvider } from "react-helmet-async";
 
 import router from "@/routes";
 import Spinner from "@components/common/Spinner";
+import Toastify from "@components/common/Toastify";
 
 const queryClient = new QueryClient();
 
@@ -12,6 +13,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
         <Spinner />
+        <Toastify />
         <RouterProvider router={router} future={{ v7_startTransition: true }} />
       </HelmetProvider>
     </QueryClientProvider>

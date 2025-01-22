@@ -1,3 +1,5 @@
+@import "react-toastify/dist/ReactToastify.css";
+
 /* Slick 기본 스타일 */
 @import "slick-carousel/slick/slick.css";
 @import "slick-carousel/slick/slick-theme.css";
@@ -44,5 +46,12 @@
 
   .section-title {
     @apply block text-2xl leading-none font-bold text-black mb-[20px];
+  }
+
+  .custom-toast {
+    max-width: 400px !important;
+    width: 400px !important;
+    padding: 16px;
+    font-size: 16px;
   }
 }

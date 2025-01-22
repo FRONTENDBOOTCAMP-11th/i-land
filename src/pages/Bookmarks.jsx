@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { toast } from "react-toastify";
 
 import useAxiosInstance from "@hooks/useAxiosInstance";
 import useLoading from "@hooks/useLoading";
@@ -41,27 +42,62 @@ export default function Bookmarks() {
 
   // 북마크 삭제 (/bookmarks/{_id})
   const DeleteBookmarks = async _id => {
-    const confirmNavigate = window.confirm("상품을 삭제하시겠습니까?");
-    if (!confirmNavigate) return;
-
-    startLoading();
-    try {
-      await axios.delete(`/bookmarks/${_id}`);
-      // 로컬 상태에서 해당 아이템 제거
-      setBookmarks(prevBookmarks => ({
-        ...prevBookmarks,
-        item: prevBookmarks.item.filter(Bookmark => Bookmark._id !== _id), // 삭제된 아이템 제외
-      }));
-    } catch (error) {
-      setError(error);
-    } finally {
-      stopLoading();
-    }
+    toast.error(
+      ({ closeToast }) => (
+        <div className="flex flex-col justify-center">
+          {/* 아이콘과 텍스트를 같은 줄에 배치 */}
+          <div className="text-center">
+            <p>찜한 상품을 정말 삭제하시겠습니까?</p>
+          </div>
+          {/* 버튼은 다음 줄에 배치 */}
+          <div className="flex justify-center gap-4 mt-3">
+            <button
+              onClick={async () => {
+                closeToast(); // 토스트 닫기
+                startLoading();
+                try {
+                  await axios.delete(`/bookmarks/${_id}`);
+                  // 로컬 상태에서 해당 아이템 제거
+                  setBookmarks(prevBookmarks => ({
+                    ...prevBookmarks,
+                    item: prevBookmarks.item.filter(
+                      Bookmark => Bookmark._id !== _id,
+                    ),
+                  }));
+                  toast.success("삭제되었습니다.");
+                } catch (error) {
+                  toast.error("삭제에 실패했습니다.");
+                  setError(error);
+                } finally {
+                  stopLoading();
+                }
+              }}
+              className="px-4 py-1 text-black bg-white border-2 border-white rounded hover:bg-blue-600"
+            >
+              예
+            </button>
+            <button
+              onClick={() => {
+                closeToast(); // 토스트 닫기
+              }}
+              className="px-4 py-1 text-black bg-white border-2 border-white rounded hover:bg-gray-600"
+            >
+              아니오
+            </button>
+          </div>
+        </div>
+      ),
+      {
+        autoClose: false,
+        closeOnClick: false,
+      },
+    );
   };
 
   // 장바구니에 상품 1개 추가
   const addCart = async productId => {
-    alert("장바구니에 상품이 추가 되었습니다.");
+    toast.success("장바구니에 상품이 추가 되었습니다.");
+    // alert("장바구니에 상품이 추가 되었습니다.");
     startLoading();
     try {
       await axios.post(`/carts/`, {
