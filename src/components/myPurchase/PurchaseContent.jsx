@@ -15,7 +15,7 @@ PurchaseContent.propTypes = {
 export default function PurchaseContent({ data }) {
   return (
     <Link to={`/products/${data?._id}`}>
-      <div className="flex gap-x-[60px]">
+      <div className="flex gap-x-[60px] ">
         <img
           src={`https://11.fesp.shop${data?.image?.path || "files/final06/default-profile.png"}`}
           className="size-[150px]"
