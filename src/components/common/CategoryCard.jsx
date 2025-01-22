@@ -20,7 +20,7 @@ export default function CategoryCard({
       <img
         src={categoryIconSrc}
         alt={`${categoryText} 아이콘`}
-        className={`size-[140px] border-solid border-4 rounded-[40px] mb-4 ${isSelected ? "border-point-blue" : "border-gray1"}`}
+        className={`size-[140px] border-solid border-4 rounded-[40px] mb-4 ${isSelected ? "border-point-blue" : "border-gray1"} transition-transform hover:transition-transform hover:scale-110 cursor-pointer`}
       />
       <p className="text-[18px]">{categoryText}</p>
     </li>

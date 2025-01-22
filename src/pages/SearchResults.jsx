@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useQuery } from "@tanstack/react-query";
@@ -6,13 +7,14 @@ import useAxiosInstance from "@hooks/useAxiosInstance";
 import useLoading from "@hooks/useLoading";
 
 import ProductCard from "@components/common/ProductCard";
-import SearchNoResult from "@components/search/SearchNoResult";
+import EmptyState from "@components/common/EmptyState";
 
 export default function SearchResults() {
   const axios = useAxiosInstance();
   const { startLoading, stopLoading } = useLoading();
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || ""; // URL에서 keyword 가져오기
+  const [sortOrder, setSortOrder] = useState("buyQuantity"); // 상품 정렬 상태
 
   const { data: results = [], isError } = useQuery({
     queryKey: ["searchResults", keyword],
@@ -31,6 +33,22 @@ export default function SearchResults() {
     },
     enabled: !!keyword,
   });
+
+  // 정렬 상태값 변경
+  const handleSortChange = e => {
+    setSortOrder(e.target.value);
+  };
+
+  const sortedResults = useMemo(() => {
+    if (sortOrder === "buyQuantity") {
+      return [...results].sort((a, b) => b.buyQuantity - a.buyQuantity);
+    } else if (sortOrder === "createdAt") {
+      return [...results].sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+      );
+    }
+    return results;
+  }, [results, sortOrder]); // results 와 정렬 상태 변경에 따라 리렌더링
 
   if (isError) {
     return <div>오류가 발생했습니다. 잠시 후 다시 시도해주세요.</div>;
@@ -57,17 +75,22 @@ export default function SearchResults() {
             name="sort"
             className="w-[125px] h-[40px] border border-gray2 rounded-lg px-3 text-[14px] focus:outline-none"
             id="sortOrder"
+            onChange={handleSortChange}
           >
-            <option value="bookmarks">인기순</option>
+            <option value="buyQuantity">인기순</option>
             <option value="createdAt">최신순</option>
           </select>
         </div>
 
-        {results.length === 0 ? (
-          <SearchNoResult />
+        {sortedResults.length === 0 ? (
+          <EmptyState
+            message="검색 결과가 없어요 😭"
+            showButton={true}
+            buttonText="이전 페이지로 돌아가기"
+          />
         ) : (
           <ul className="grid grid-cols-5 gap-x-[25px] gap-y-[40px]">
-            {results.map(result => (
+            {sortedResults.map(result => (
               <ProductCard key={result._id} item={result} />
             ))}
           </ul>
