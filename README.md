@@ -3,6 +3,9 @@ I-Land는 고객들이 좋아하는 굿즈를 쉽고 편리하게 구매할 수 
 <hr />
 <h3>배포 로그</h3>
 
+( 2025/01/22 )
+<a href="https://deploy-preview-152--i-land.netlify.app">4차 배포</a>
+
 ( 2025/01/20 )
 <a href="https://deploy-preview-126--i-land.netlify.app">3차 배포</a>
 
